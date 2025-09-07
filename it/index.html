@@ -1,1 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riproduzione Audio</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        
+            font-size: 1.2em;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #007BFF;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="playButton">▶️ Ascolta il testo</button>
+
+    <script>
+        const audioUrl = "../assets/audio/it/Home_Bologna.mp3";
+        const playButton = document.getElementById('playButton');
+        const audio = new Audio(audioUrl);
+
+        playButton.addEventListener('click', () => {
+            audio.play();
+        });
+    </script>
+
+</body>
+</html>
+
+
 
