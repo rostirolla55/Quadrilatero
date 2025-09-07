@@ -2,52 +2,31 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riproduzione Audio</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            text-align: center;
-        }
-        
-            font-size: 1.2em;
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            background-color: #007BFF;
-            color: white;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-
+    <title>Quadrilatero a Bologna</title>
+    </head>
 <body>
-    <button id="playButton">▶️ Ascolta il testo</button>
+
+    <h1>Il Quadrilatero</h1>
+    <p>Testo descrittivo del sito...</p>
+
+    <button id="playAudio">Ascolta l'audio</button>
+
+    <audio id="audioPlayer" src="..\assets\audio\it\home_bologna.mp3"></audio>
 
     <script>
-        const audioUrl = "../assets/audio/it/Home_Bologna.mp3";
-        const playButton = document.getElementById('playButton');
-        const audio = new Audio(audioUrl);
+        const playButton = document.getElementById('playAudio');
+        const audioPlayer = document.getElementById('audioPlayer');
 
         playButton.addEventListener('click', () => {
-            audio.play();
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playButton.textContent = 'Metti in pausa';
+            } else {
+                audioPlayer.pause();
+                playButton.textContent = 'Ascolta l\'audio';
+            }
         });
     </script>
 
 </body>
 </html>
-
-
-
