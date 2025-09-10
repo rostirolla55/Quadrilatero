@@ -1,60 +1,23 @@
-// Funzione asincrona per caricare il file JSON di una lingua
-async function fetchTranslations(lang) {
-  try {
-    const response = await fetch(`../data/translations/${lang}/${lang}.json`);
-    if (!response.ok) {
-      throw new Error(`Impossibile caricare il file di traduzione per la lingua: ${lang}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+// Gestione del pulsante per l'audio
+const playButton = document.getElementById('playAudio');
+const audioPlayer = document.getElementById('audioPlayer');
+
+if (playButton && audioPlayer) {
+    playButton.addEventListener('click', () => {
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+            playButton.textContent = 'Metti in pausa';
+        } else {
+            audioPlayer.pause();
+            playButton.textContent = 'Ascolta l\'audio';
+        }
+    });
 }
 
-// Funzione principale per cambiare la lingua del sito
-async function setLanguage(lang) {
-  const translations = await fetchTranslations(lang);
-  if (!translations) {
-    console.error('Traduzioni non disponibili.');
-    return;
-  }
-
-  // Aggiorna il testo di ogni elemento con l'attributo data-lang
-  document.querySelectorAll('[data-lang]').forEach(element => {
-    const key = element.getAttribute('data-lang');
-    if (translations[key]) {
-      element.textContent = translations[key];
-    }
-  });
-
-  // Aggiorna l'attributo lang del tag html per l'accessibilità
-  document.documentElement.lang = lang;
-
-  // Gestisci il cambio di audio
-  const audioPlayer = document.getElementById('audioPlayer');
-  if (audioPlayer) {
-      // Sostituisci il percorso dell'audio con la nuova lingua
-      audioPlayer.src = `../assets/audio/${lang}/home_bologna.mp3`;
-      // L'audio si metterà automaticamente in pausa se era in riproduzione
-  }
+// Funzione per il cambio lingua (probabilmente già presente nel tuo file)
+function setLanguage(lang) {
+    // Logica per cambiare la lingua del sito
+    console.log('Cambio lingua in: ' + lang);
+    // Esempio: reindirizzare alla pagina corretta
+    window.location.href = `../${lang}/index.html`;
 }
-
-// Chiamata iniziale: imposta la lingua di default all'avvio
-document.addEventListener('DOMContentLoaded', () => {
-    setLanguage('it'); // Lingua di default
-});
-
-<div class="language-selector">
-  <button onclick="setLanguage('it')">
-    <img src="../../public/flags/italia.png" alt="Bandiera italiana" title="Italiano">
-  </button>
-  <button onclick="setLanguage('en')">
-    <img src="../../public/flags/inghilterra.png" alt="Bandiera inglese" title="English">
-  </button>
-  <button onclick="setLanguage('fr')">
-    <img src="../../public/flags/francia.png" alt="Bandiera francese" title="Français">
-  </button>
-  </div>
-   
-
