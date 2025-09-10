@@ -44,3 +44,17 @@ async function setLanguage(lang) {
 document.addEventListener('DOMContentLoaded', () => {
     setLanguage('it'); // Lingua di default
 });
+
+<div class="language-selector">
+  <button onclick="setLanguage('it')">
+    <img src="../../public/flags/italia.png" alt="Bandiera italiana" title="Italiano">
+  </button>
+  <button onclick="setLanguage('en')">
+    <img src="../../public/flags/inghilterra.png" alt="Bandiera inglese" title="English">
+  </button>
+  <button onclick="setLanguage('fr')">
+    <img src="../../public/flags/francia.png" alt="Bandiera francese" title="Français">
+  </button>
+  </div>
+   
+
