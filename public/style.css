@@ -1,4 +1,12 @@
+#home-header {
+  background-image: url('images/foto-home.jpg'); /* Percorso specifico per la home */
+  /* Altri stili comuni qui */
+}
 
+#pagina1-header {
+  background-image: url('images/foto-storia.jpg'); /* Percorso specifico per la pagina 1 */
+  /* Altri stili comuni qui */
+}
 
 .page-header {
   height: 300px; /* Imposta l'altezza desiderata */
@@ -65,4 +73,5 @@
 .audio-button:hover {
   transform: scale(1.1);
 }
+
 
