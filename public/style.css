@@ -1,4 +1,23 @@
 
+
+.page-header {
+  height: 300px; /* Imposta l'altezza desiderata */
+  background-image: url('percorso/alla/tua/foto.jpg'); /* Inserisci il percorso dell'immagine */
+  background-size: cover; /* Assicura che l'immagine copra tutto lo spazio */
+  background-position: center; /* Centra l'immagine */
+  display: flex; /* Usa Flexbox per centrare il titolo */
+  align-items: center; /* Allinea verticalmente il titolo */
+  justify-content: center; /* Allinea orizzontalmente il titolo */
+  color: white; /* Rendi il testo leggibile */
+  text-align: center;
+}
+
+.page-title {
+  /* Stili aggiuntivi per il titolo, come dimensione e ombra */
+  font-size: 2.5em;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+}
+
 .flag-button {
   position: fixed; /* Rende il bottone fisso rispetto alla finestra del browser */
   bottom: 20px;    /* Posizione dal basso */
@@ -46,3 +65,4 @@
 .audio-button:hover {
   transform: scale(1.1);
 }
+
