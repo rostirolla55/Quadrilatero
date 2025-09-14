@@ -1,5 +1,5 @@
 #home-header {
-  background-image: url('images/foto-home.jpg'); /* Percorso specifico per la home */
+  background-image: url('/images/Panorama_Bologna.jpg'); /* Percorso specifico per la home */
   /* Altri stili comuni qui */
 }
 
@@ -10,7 +10,7 @@
 
 .page-header {
   height: 300px; /* Imposta l'altezza desiderata */
-  background-image: url('percorso/alla/tua/foto.jpg'); /* Inserisci il percorso dell'immagine */
+  background-image: url('/images/Panorama_Bologna.jpg'); /* Inserisci il percorso dell'immagine */
   background-size: cover; /* Assicura che l'immagine copra tutto lo spazio */
   background-position: center; /* Centra l'immagine */
   display: flex; /* Usa Flexbox per centrare il titolo */
@@ -102,5 +102,6 @@ img {
 .audio-button:hover {
   transform: scale(1.1);
 }
+
 
 
