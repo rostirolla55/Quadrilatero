@@ -1,5 +1,5 @@
 #home-header {
-  background-image: url('images/Panorama_Bologna.jpg'); /* Percorso specifico per la home */
+  background-image: url('images/Index.jpg'); /* Percorso specifico per la home */
   /* Altri stili comuni qui */
 }
 
@@ -102,6 +102,7 @@ img {
 .audio-button:hover {
   transform: scale(1.1);
 }
+
 
 
 
