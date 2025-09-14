@@ -1,69 +1,70 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <header id="pagina1-header">
-      <h1 class="page-title">Benvenuti a Bologna</h1>
-    </header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-    <img src="../public/flag/it.png" alt="Bandiera Italiana">
-    
-    <p>Benvenuto  sul sito che parla di Bologna con un approccio curioso e non necessariamente didattico, Vi portiamo indietro nel tempo basandosi sul luogo dove vi fermate e trovate un qrcode che vi permette di accedere ad una pagina che potete leggere oppure ascoltare. In alto trovate una lista delle pagine, ma per agevolare il riconoscimento dell'argomento, riporto di seguito una breve sintesi.
+    <header id="pagina1-header">
+      <h1 class="page-title">Benvenuti a Bologna</h1>
+    </header>
+
+    <img src="../public/flag/it.png" alt="Bandiera Italiana">
+    
+    <p>Benvenuto sul sito che parla di Bologna con un approccio curioso e non necessariamente didattico, Vi portiamo indietro nel tempo basandosi sul luogo dove vi fermate e trovate un qrcode che vi permette di accedere ad una pagina che potete leggere oppure ascoltare. In alto trovate una lista delle pagine, ma per agevolare il riconoscimento dell'argomento, riporto di seguito una breve sintesi.
 Ci sono dei numeri in certe vie della citta incisi su delle lastre di areanaria, vedi perchè </p>
 
-    <button id="playAudio">Ascolta l'audio in italiano!</button>
+    <button id="playAudio">Ascolta l'audio in italiano!</button>
 
-    <audio id="audioPlayer" src="../assets/audio/it/Home_Bologna.mp3"></audio>
+    <audio id="audioPlayer" src="../assets/audio/it/Home_Bologna.mp3"></audio>
 
-    <script>
-        const playButton = document.getElementById('playAudio');
-        const audioPlayer = document.getElementById('audioPlayer');
+        <div class="language-selector">
+      <button onclick="changeLanguage('it')">🇮🇹</button>
+      <button onclick="changeLanguage('en')">🇬🇧</button>
+      <button onclick="changeLanguage('fr')">🇫🇷</button>
+      <button onclick="changeLanguage('es')">🇪🇸</button>
+    </div>
 
-        playButton.addEventListener('click', () => {
-            if (audioPlayer.paused) {
-                audioPlayer.play();
-                playButton.textContent = 'Metti in pausa';
-            } else {
-                audioPlayer.pause();
-                playButton.textContent = 'Ascolta l\'audio in italiano';
-            }
-        });
+        <style>
+      .language-selector button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 24px;
+        margin: 0 5px;
+        padding: 5px;
+      }
 
+      .language-selector button:hover {
+        transform: scale(1.1);
+        transition: transform 0.2s ease-in-out;
+      }
+    </style>
 
-<div class="language-selector">
-  <button onclick="changeLanguage('it')">🇮🇹</button>
-  <button onclick="changeLanguage('en')">🇬🇧</button>
-  <button onclick="changeLanguage('fr')">🇫🇷</button>
-  <button onclick="changeLanguage('es')">🇪🇸</button>
-</div>
+        <script>
+        const playButton = document.getElementById('playAudio');
+        const audioPlayer = document.getElementById('audioPlayer');
 
-function changeLanguage(lang) {
-    alert('Hai selezionato la lingua: ' + lang);
-    // Qui puoi inserire la logica per cambiare la lingua del sito.
-    // Ad esempio, reindirizzare a una nuova pagina o aggiornare i contenuti
-    // tramite JavaScript.
-  }
-</script>
-   
-    <style>
-  .language-selector button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 24px; /* Aumenta la dimensione dell'emoji/bandiera */
-    margin: 0 5px; /* Spazio tra i bottoni */
-    padding: 5px;
-  }
+        // Verifica che l'audio player sia pronto prima di aggiungere l'evento
+        audioPlayer.addEventListener('loadeddata', () => {
+          console.log("Audio caricato e pronto per la riproduzione.");
+        });
 
-  .language-selector button:hover {
-    transform: scale(1.1); /* Effetto al passaggio del mouse */
-    transition: transform 0.2s ease-in-out;
-  }
-</style>
+        playButton.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playButton.textContent = 'Metti in pausa';
+            } else {
+                audioPlayer.pause();
+                playButton.textContent = 'Ascolta l\'audio in italiano';
+            }
+        });
 
-    
+        function changeLanguage(lang) {
+            alert('Hai selezionato la lingua: ' + lang);
+        }
+    </script>
+
 </body>
 </html>
