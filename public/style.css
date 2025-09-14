@@ -20,6 +20,35 @@
   text-align: center;
 }
 
+/* Stili di base per tutti i dispositivi */
+.container {
+  display: flex;
+  flex-direction: row; /* Elementi su una riga */
+  align-items: center; /* Allineamento verticale */
+}
+
+.text-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.image-container {
+  flex-grow: 1;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Stili specifici per schermi piccoli (es. smartphone) */
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Gli elementi vanno in colonna */
+  }
+}
+
+
 .page-title {
   /* Stili aggiuntivi per il titolo, come dimensione e ombra */
   font-size: 2.5em;
@@ -73,4 +102,5 @@
 .audio-button:hover {
   transform: scale(1.1);
 }
+
 
