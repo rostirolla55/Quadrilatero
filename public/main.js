@@ -14,7 +14,7 @@ playButton.addEventListener('click', () => {
         playButton.textContent = 'Ascolta l\'audio in italiano';
     }
 });
-
+ 
 // La funzione per il cambio lingua, che verrà richiamata dai bottoni
 function changeLanguage(lang) {
     alert('Hai selezionato la lingua: ' + lang);
