@@ -1,25 +1,22 @@
-// Funzione principale per impostare la lingua
 const setLanguage = async (lang) => {
     try {
-        // Carica il file JSON corretto in base alla lingua
         const response = await fetch(`data/translations/${lang}/texts.json`);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
 
-        // Aggiorna gli elementi della pagina con i testi dal file JSON
-        document.getElementById('page-title').textContent = data.pageTitle;
-        document.getElementById('main-text').textContent = data.mainText;
+        // Aggiorna gli elementi della pagina con i contenuti del JSON
+        document.getElementById('pageTitle').textContent = data.pageTitle;
+        document.getElementById('mainText').textContent = data.mainText;
         document.getElementById('playAudio').textContent = data.playAudioButton;
         document.getElementById('audioPlayer').src = data.audioSource;
-
-        // Salva il testo originale del bottone per la funzione pausa/riproduci
-        document.getElementById('playAudio').dataset.originalText = data.playAudioButton;
-
-        console.log(`Lingua impostata su: ${lang}`);
         
-        // Aggiorna l'attributo lang del tag html per l'accessibilità
+        // SALVA QUI IL TESTO ORIGINALE DEL BOTTONE 
+        // DOPO CHE E' STATO CARICATO DAL JSON
+        document.getElementById('playAudio').dataset.originalText = data.playAudioButton;
+        
+        console.log(`Lingua impostata su: ${lang}`);
         document.documentElement.lang = lang;
 
     } catch (error) {
@@ -27,7 +24,7 @@ const setLanguage = async (lang) => {
     }
 };
 
-// Funzione per gestire la riproduzione e pausa dell'audio
+// Funzione per gestire la riproduzione e pausa dell'audio (NON CAMBIA)
 const toggleAudio = () => {
     const audioPlayer = document.getElementById('audioPlayer');
     const playButton = document.getElementById('playAudio');
@@ -41,17 +38,15 @@ const toggleAudio = () => {
     }
 };
 
-// Aggiungi un "ascoltatore di eventi" al bottone audio
+// Aggiungi un "ascoltatore di eventi" al bottone audio (NON CAMBIA)
 document.getElementById('playAudio').addEventListener('click', toggleAudio);
 
-// Aggiungi i listener ai bottoni delle bandiere per cambiare lingua
+// Aggiungi i listener ai bottoni delle bandiere per cambiare lingua (NON CAMBIA)
 document.querySelector('.language-selector').addEventListener('click', (event) => {
     const button = event.target.closest('button');
     if (button) {
-        // Interrompi l'audio corrente se ne stai riproducendo uno
         document.getElementById('audioPlayer').pause();
-        document.getElementById('audioPlayer').currentTime = 0; // Torna all'inizio
-
+        document.getElementById('audioPlayer').currentTime = 0;
         const lang = button.getAttribute('onclick').match(/'([^']+)'/)[1];
         setLanguage(lang);
     }
