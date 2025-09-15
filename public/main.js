@@ -3,6 +3,8 @@
     const audioPlayer = document.getElementById('audioPlayer');
 
     const itFlagButton = document.getElementById('it-flag-button'); // Seleziona il bottone con l'ID
+   
+    console.log(itFlagButton);
 
     audioPlayer.addEventListener('loadeddata', () => {
         console.log("Audio caricato e pronto per la riproduzione.");
