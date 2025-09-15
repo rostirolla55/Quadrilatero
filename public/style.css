@@ -113,6 +113,30 @@ img {
 .audio-button:hover {
   transform: scale(1.1);
 }
+ /*
+ * Questo è il codice nel tuo file style.css
+ */
+
+.language-selector button {
+  /* Stili per il bottone (rimuove bordi e sfondo) */
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0 5px;
+  padding: 0; /* Imposta il padding a 0 per non interferire con le dimensioni dell'immagine */
+}
+
+.language-selector button img {
+  /* Stili per l'immagine all'interno del bottone */
+  width: 40px; /* Imposta la larghezza desiderata per le bandiere */
+  height: auto; /* Mantiene le proporzioni */
+  display: block;
+}
+
+.language-selector button:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
+}
 
 
 
