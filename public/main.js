@@ -4,6 +4,7 @@
 
     const itFlagButton = document.getElementById('it-flag-button'); // Seleziona il bottone con l'ID
    
+    // Aggiungi questa riga per verificare cosa viene selezionato
     console.log(itFlagButton);
 
     audioPlayer.addEventListener('loadeddata', () => {
