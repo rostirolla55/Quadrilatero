@@ -1,26 +1,39 @@
-a<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="it">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Bologna Quadrilatero Titolo</title>
-    <script>
-        // Rileva la lingua del browser dell'utente
-        const userLang = navigator.language.slice(0, 2);
-
-        // Definisce le lingue supportate
-        const supportedLangs = ['it', 'en', 'fr']; // Aggiungi altre lingue se necessario
-
-        // Controlla se la lingua dell'utente è supportata
-        if (supportedLangs.includes(userLang)) {
-            // Reindirizza l'utente alla pagina nella sua lingua
-            window.location.href = `./${userLang}/index.html`;
-        } else {
-            // Se la lingua non è supportata, reindirizza a una lingua predefinita (ad esempio, l'italiano)
-            window.location.href = './it/index.html';
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="public/style.css">
 </head>
+
 <body>
-    <p>Caricamento delle pagine della lingua di default</p>
+  <header id="home-header">
+    <h1 class="page-title" id="page-title">Benvenuti a Bologna</h1>
+  </header>
+
+  <p id="main-text">Benvenuto sul sito che parla di Bologna...</p>
+
+  <button id="playAudio">Ascolta l'audio in italiano!</button>
+
+  <audio id="audioPlayer" src="assets/audio/it/Home_Bologna.mp3"></audio>
+
+  <div class="language-selector">
+    <button onclick="setLanguage('it')">
+      <img src="public/flag/it.png" alt="Italiano">
+    </button>
+    <button onclick="setLanguage('en')">
+      <img src="public/flag/en.png" alt="English">
+    </button>
+    <button onclick="setLanguage('fr')">
+      <img src="public/flag/fr.png" alt="Français">
+    </button>
+    <button onclick="setLanguage('es')">
+      <img src="public/flag/es.png" alt="Español">
+    </button>
+  </div>
+
+  <script src="main.js"></script>
 </body>
+
 </html>
