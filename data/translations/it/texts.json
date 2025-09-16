@@ -26,8 +26,7 @@
   
   "aneddoti": {
     "pageTitle": "Aneddoti Curiosita\'",
-    "mainText": "Bologna si presenta con i suoi monumenti carica di storia , dallo stato pontificio a Napoleone, dai Bentivoglio a Renzo. Il quadrilatero è una zona del centro storico delimitato a Nord da via del porto, a Sud da via di Riva Reno, a Ovest da via Polese ed a Est da via San Carlo. All'interno si percorrono portici che riportano  sulle pareti oggetti di altri tempi.
-",
+    "mainText": "Bologna si presenta con i suoi monumenti carica di storia , dallo stato pontificio a Napoleone, dai Bentivoglio a Renzo. Il quadrilatero è una zona del centro storico delimitato a Nord da via del porto, a Sud da via di Riva Reno, a Ovest da via Polese ed a Est da via San Carlo. All'interno si percorrono portici che riportano  sulle pareti oggetti di altri tempi.",
     "playAudioButton": "Ascolta la storia",
     "pauseAudioButton": "Metti in pausa",
     "audioSource": "assets/audio/it/Aneddoti.mp3"
