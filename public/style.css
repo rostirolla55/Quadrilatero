@@ -138,6 +138,28 @@ img {
   transition: transform 0.2s ease-in-out;
 }
 
+/* Stile base del bottone audio */
+#playAudio {
+    /* Rendi il bottone più grande */
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Aggiungi una transizione per un effetto fluido */
+}
+
+/* Stile quando il bottone è per "Ascolta l'audio" */
+.play-style {
+    background-color: #007bff; /* Blu */
+}
+
+/* Stile quando il bottone è per "Metti in pausa" */
+.pause-style {
+    background-color: #ffc107; /* Arancione */
+}
 
 
 
