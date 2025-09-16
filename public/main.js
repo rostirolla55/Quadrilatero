@@ -14,8 +14,13 @@ const setLanguage = async (lang) => {
         document.getElementById('audioPlayer').src = data.audioSource;
 
         // Salva i testi "play" e "pause" in attributi dati per un uso futuro
-        document.getElementById('playAudio').dataset.playText = data.playAudioButton;
-        document.getElementById('playAudio').dataset.pauseText = data.pauseAudioButton;
+        const playButton = document.getElementById('playAudio');
+        playButton.dataset.playText = data.playAudioButton;
+        playButton.dataset.pauseText = data.pauseAudioButton;
+        
+        // Imposta lo stile iniziale del bottone quando la pagina viene caricata o la lingua cambia
+        playButton.classList.remove('pause-style');
+        playButton.classList.add('play-style');
         
         console.log(`Lingua impostata su: ${lang}`);
         document.documentElement.lang = lang;
@@ -33,9 +38,13 @@ const toggleAudio = () => {
     if (audioPlayer.paused) {
         audioPlayer.play();
         playButton.textContent = playButton.dataset.pauseText;
+        playButton.classList.remove('play-style');
+        playButton.classList.add('pause-style');
     } else {
         audioPlayer.pause();
         playButton.textContent = playButton.dataset.playText;
+        playButton.classList.remove('pause-style');
+        playButton.classList.add('play-style');
     }
 };
 
