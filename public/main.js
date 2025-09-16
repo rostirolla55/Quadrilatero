@@ -1,34 +1,51 @@
+// Funzione per determinare l'ID della pagina corrente
+const getCurrentPageId = () => {
+    // Ottiene il nome del file (es. "aneddoti.html")
+    const path = window.location.pathname;
+    const fileName = path.substring(path.lastIndexOf('/') + 1); 
+    
+    // Rimuove l'estensione ".html" per ottenere l'ID (es. "aneddoti")
+    if (fileName === '' || fileName === 'index.html') {
+        return 'home'; // Se è vuoto o index.html, è la homepage
+    }
+    return fileName.replace('.html', '');
+};
+
+
 // Funzione principale per impostare la lingua
 const setLanguage = async (lang) => {
     try {
+        const pageId = getCurrentPageId(); // <--- CHIAMIAMO LA NUOVA FUNZIONE
+        
         const response = await fetch(`data/translations/${lang}/texts.json`);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        const data = await response.json();
+        const translations = await response.json();
+        
+        // Seleziona solo i contenuti relativi alla pagina corrente
+        const data = translations[pageId]; 
 
-        // Aggiorna gli elementi della pagina con i contenuti dal file JSON
+        // Se i dati per questa pagina non esistono, esci
+        if (!data) {
+             console.error(`Dati non trovati per la pagina: ${pageId} nella lingua: ${lang}`);
+             return;
+        }
+
+        // AGGIORNAMENTO DEL CONTENUTO (il resto rimane simile ma usa 'data')
         document.getElementById('pageTitle').textContent = data.pageTitle;
         document.getElementById('mainText').textContent = data.mainText;
         document.getElementById('playAudio').textContent = data.playAudioButton;
         document.getElementById('audioPlayer').src = data.audioSource;
 
-        // Salva i testi "play" e "pause" in attributi dati per un uso futuro
-        const playButton = document.getElementById('playAudio');
-        playButton.dataset.playText = data.playAudioButton;
-        playButton.dataset.pauseText = data.pauseAudioButton;
+        // ... [il resto della funzione setLanguage continua come prima]
         
-        // Imposta lo stile iniziale del bottone quando la pagina viene caricata o la lingua cambia
-        playButton.classList.remove('pause-style');
-        playButton.classList.add('play-style');
-        
-        console.log(`Lingua impostata su: ${lang}`);
-        document.documentElement.lang = lang;
-
     } catch (error) {
         console.error('Errore nel caricamento dei testi:', error);
     }
 };
+
+// ... [il resto del tuo file main.js]
 
 // Funzione per gestire la riproduzione e pausa dell'audio
 const toggleAudio = () => {
