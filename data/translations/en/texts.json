@@ -12,7 +12,7 @@
 "mainText": "There was a street in Bologna called Pugliole di San Bernardino. This street disappeared following of the urban planning interventions of the 1930s that led to the creation of Via Guglielmo Marconi (then Via Roma). The Pugliole di San Bernardino took their name from the Monastery or Convent of San Bernardino, which was located in the area of ​​the current Piazza dei Martiri from 1943 to 1945. The street branched off from Borgo Polese (now Via Polese) and wound its way to Via del Porto, partly following the current route of Via Marconi. The term Pugliola (or, in the plural, Pugliole) is an ancient term in Bolognese toponymy. It refers to an alley, a small street, or a small group of houses. Generally, it indicated a small street or a secondary residential area, often deriving from an ancient subdivision of the urban fabric. Many streets and alleys in Bologna, such as Pugliole di San Bernardino or Pugliole dello Spirito Santo, took their names from churches or monasteries that were located nearby, combining the name of the religious institution with the name of the church. Pugliola is a term used to indicate the adjacent alley. In short, Pugliola is a dialectal and historical term meaning alley or street.",
 "playAudioButton": "Listen to the story",
 "pauseAudioButton": "Pause",
-"audioSource": "assets/audio/it/Pugliole.mp3"
+"audioSource": "assets/audio/en/Pugliole.mp3"
 },
 
 "lastre": {
@@ -20,7 +20,7 @@
 "mainText": "In Bologna, you'll find sandstone slabs in various streets of the historic center. They aren't just decorative, but also have a very interesting historical significance. These are the oldest house numbers in the city. They were introduced at the end of the 18th century, when Bologna was under Napoleonic rule, to better organize the postal service and the city's management. Before then, houses didn't have numbers, and people sometimes oriented themselves by the description of the facade or the name of the family who lived there. The tiles or sandstones, which you can still find today, are a testament to this change. Many of those you see They are made of terracotta and were created over the centuries, sometimes replacing the original ones. While terracotta tiles were easier to mass-produce, the engraving on the stone was a handcrafted process, demonstrating the importance and durability of these urban signs. The presence of these sandstone numbers is a tangible testament to the evolution of the city and the traditional materials used over the centuries. At number 11 on Via Tanari Vecchia, we find a sandstone plaque bearing the number 1202 (even number), while the current number is 11 (odd number), being on the right in the direction of increasing numbers, as required by current toponymy regulations.",
 "playAudioButton": "Listen to the story",
 "pauseAudioButton": "Pause",
-"audioSource": "assets/audio/it/Lastre.mp3"
+"audioSource": "assets/audio/en/Lastre.mp3"
 },
 
 "aneddoti": {
@@ -28,6 +28,6 @@
 "mainText": "Bologna presents itself with its monuments steeped in history, from the Papal States to Napoleon, from the Bentivoglios to Renzo. The quadrilateral is an area of ​​the historic center bordered to the north by Via del Porto, to the south by Via di Riva Reno, to the west by Via Polese, and to the east by Via San Carlo. Inside, you walk along porticoes whose walls feature objects from times gone by.",
 "playAudioButton": "Listen to the story",
 "pauseAudioButton": "Pause",
-"audioSource": "assets/audio/it/Aneddoti.mp3"
+"audioSource": "assets/audio/en/Aneddoti.mp3"
 }
 }
