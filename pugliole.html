@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="public/style.css">
+</head>
+
+<body>
+  <header id="pugliole-header">
+    <h1 class="page-title" id="puglioleTitle">Le pugliole di San Bernardino</h1>
+  </header>
+
+  <p id="puglioleText">... parlando delle viuzze della chiesa di San Bernardino in prossimità di Piazza dei Martiri</p>
+
+  <button id="playAudio">Ascolta l'audio in italiano!</button>
+
+  <audio id="audioPlayer"></audio>
+ <p> 
+ 
+ </p>
+  <div class="language-selector">
+    <button onclick="setLanguage('it')">
+      <img src="public/flag/it.png" alt="Italiano">
+    </button>
+    <button onclick="setLanguage('en')">
+      <img src="public/flag/en.png" alt="English">
+    </button>
+    <button onclick="setLanguage('fr')">
+      <img src="public/flag/fr.png" alt="Français">
+    </button>
+    <button onclick="setLanguage('es')">
+      <img src="public/flag/es.png" alt="Español">
+    </button>
+  </div>
+
+  <script src="public/main.js"></script>
+</body>
+ 
+</html>
