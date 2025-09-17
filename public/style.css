@@ -162,6 +162,59 @@ img {
   transition: transform 0.2s ease-in-out;
 }
 
+/* Stile di base per il contenitore */
+.image-text-container {
+    display: flex; /* Attiva Flexbox */
+    gap: 20px;     /* Aggiunge spazio tra immagine e testo */
+    align-items: flex-start; /* Allinea gli elementi in alto */
+    margin-bottom: 30px;
+}
+
+/* Regola per l'immagine: Fissa la larghezza per il PC */
+.image-wrapper {
+    /* L'immagine occuperà circa un terzo del contenitore su schermi grandi */
+    flex: 0 0 300px; 
+    /* Assicurati che l'immagine non superi mai il contenitore */
+    max-width: 300px;
+}
+
+/* Regola per il testo: Occupare lo spazio rimanente */
+.text-content {
+    flex-grow: 1; /* Il testo occupa tutto lo spazio rimanente */
+}
+
+/* Regola fondamentale per l'immagine: Rispettare lo spazio del contenitore */
+.responsive-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ---------------------------------------------------------------------- */
+/* MEDIA QUERY: Cambia il Layout per gli Smartphone */
+/* Se lo schermo è più stretto di 768px (Smartphone/Tablet) */
+@media screen and (max-width: 768px) {
+    
+    .image-text-container {
+        /* Cambia la direzione del Flexbox: gli elementi vanno in colonna */
+        flex-direction: column; 
+        gap: 15px;
+    }
+    
+    /* L'immagine deve occupare tutta la larghezza dello schermo sul telefono */
+    .image-wrapper {
+        flex: 0 0 auto;
+        max-width: 100%; /* L'immagine torna a larghezza piena */
+        order: -1; /* Metti l'immagine SOPRA il testo (opzionale) */
+    }
+    
+    .text-content {
+        flex-grow: 1;
+        /* Metti il testo sotto l'immagine */
+    }
+}
+
+
 
 
 
