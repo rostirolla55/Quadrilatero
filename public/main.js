@@ -14,6 +14,8 @@ const getCurrentPageId = () => {
 
 // Funzione principale per impostare la lingua
 const setLanguage = async (lang) => {
+    document.getElementById('audioPlayer').pause();
+    document.getElementById('audioPlayer').currentTime = 0;
     try {
         const pageId = getCurrentPageId(); // <--- CHIAMIAMO LA NUOVA FUNZIONE
         
