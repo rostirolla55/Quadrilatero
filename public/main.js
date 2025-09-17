@@ -14,10 +14,12 @@ const getCurrentPageId = () => {
 
 // Funzione principale per impostare la lingua
 const setLanguage = async (lang) => {
+    // Pausa l'audio quando si cambia lingua (chiamato dall'HTML)
     document.getElementById('audioPlayer').pause();
     document.getElementById('audioPlayer').currentTime = 0;
+    
     try {
-        const pageId = getCurrentPageId(); // <--- CHIAMIAMO LA NUOVA FUNZIONE
+        const pageId = getCurrentPageId();
         
         const response = await fetch(`data/translations/${lang}/texts.json`);
         if (!response.ok) {
@@ -34,20 +36,31 @@ const setLanguage = async (lang) => {
              return;
         }
 
-        // AGGIORNAMENTO DEL CONTENUTO (il resto rimane simile ma usa 'data')
+        // AGGIORNAMENTO DEL CONTENUTO (Versione UNICA e CORRETTA)
         document.getElementById('pageTitle').textContent = data.pageTitle;
         document.getElementById('mainText').textContent = data.mainText;
         document.getElementById('playAudio').textContent = data.playAudioButton;
         document.getElementById('audioPlayer').src = data.audioSource;
 
-        // ... [il resto della funzione setLanguage continua come prima]
+        const playButton = document.getElementById('playAudio');
         
+        // 1. SALVA I TESTI PLAY/PAUSE PER IL toggleAudio
+        playButton.dataset.playText = data.playAudioButton;
+        playButton.dataset.pauseText = data.pauseAudioButton;
+        
+        // 2. APPLICA LO STILE INIZIALE CORRETTO (BLU)
+        playButton.classList.remove('pause-style');
+        playButton.classList.add('play-style');
+        
+        console.log(`Lingua impostata su: ${lang}`);
+        document.documentElement.lang = lang;
+
     } catch (error) {
+        // Blocco catch finale
         console.error('Errore nel caricamento dei testi:', error);
     }
 };
 
-// ... [il resto del tuo file main.js]
 
 // Funzione per gestire la riproduzione e pausa dell'audio
 const toggleAudio = () => {
