@@ -68,17 +68,6 @@ const toggleAudio = () => {
 // Aggiungi un "ascoltatore di eventi" al bottone audio
 document.getElementById('playAudio').addEventListener('click', toggleAudio);
 
-// Aggiungi i listener ai bottoni delle bandiere per cambiare lingua
-document.querySelector('.language-selector').addEventListener('click', (event) => {
-    const button = event.target.closest('button');
-    if (button) {
-        document.getElementById('audioPlayer').pause();
-        document.getElementById('audioPlayer').currentTime = 0;
-        const lang = button.getAttribute('onclick').match(/'([^']+)'/)[1];
-        setLanguage(lang);
-    }
-});
-
 // Imposta la lingua di default (italiano) al caricamento della pagina
 window.onload = () => {
     setLanguage('it');
