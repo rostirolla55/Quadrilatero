@@ -39,6 +39,11 @@ const setLanguage = async (lang) => {
         // AGGIORNAMENTO DEL CONTENUTO (Versione UNICA e CORRETTA)
         document.getElementById('pageTitle').textContent = data.pageTitle;
         document.getElementById('mainText').textContent = data.mainText;
+        document.getElementById('mainText1').textContent = data.mainText1;
+        document.getElementById('mainText2').textContent = data.mainText2;
+        document.getElementById('mainText3').textContent = data.mainText3;
+        document.getElementById('mainText4').textContent = data.mainText4;
+        document.getElementById('mainText5').textContent = data.mainText5;
         document.getElementById('playAudio').textContent = data.playAudioButton;
         document.getElementById('audioPlayer').src = data.audioSource;
 
