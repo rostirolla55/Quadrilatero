@@ -66,7 +66,19 @@
   flex-grow: 1;
   padding: 20px;
 }
+.text-content p {
+    /* Eredita la dimensione di base del body/p se non è specificata, 
+       o impostala esplicitamente se gli altri p hanno 16px */
+    font-size: 16px; 
+    line-height: 1.6;
+    margin: 0; /* Rimuovi i margini superiori se vuoi che si allinei perfettamente */
+}
 
+/* Forse dovrai anche aggiungere una regola generale per i tuoi p */
+p {
+    font-size: 16px; /* Assicura una base coerente */
+    margin-bottom: 1em;
+}
 .image-container {
   flex-grow: 1;
 }
@@ -78,11 +90,35 @@ img {
 
 /* Stili specifici per schermi piccoli (es. smartphone) */
 @media screen and (max-width: 768px) {
-  .container {
+  container {
     flex-direction: column; /* Gli elementi vanno in colonna */
   }
-}
+    .image-text-container {
+        /* Forza l'allineamento verticale per smartphone */
+        flex-direction: column; 
+    }
+    
+    /* Regola per il contenitore dell'immagine (.image-wrapper) */
+    .image-wrapper {
+        /* Molto importante: Rimuove i vincoli di larghezza del desktop 
+           e permette di occupare il 100% dello spazio disponibile. */
+        flex: 1 1 100%; 
+        max-width: 100%; 
+    }
+    
+    /* Regola per l'immagine vera e propria (.responsive-image) */
+    .responsive-image {
+        /* Assicura che l'immagine si adatti sempre al 100% del suo contenitore */
+        width: 100%;
+        height: auto;
+    }
 
+    /* Regola per il testo: assicurati che anche il contenitore testo sia al 100% */
+    .text-content {
+        flex: 1 1 100%;
+        padding: 0; /* Rimuovi il padding sui lati se vuoi che il testo si allinei ai margini */
+    }
+}
 
 .page-title {
   /* Stili aggiuntivi per il titolo, come dimensione e ombra */
@@ -278,6 +314,7 @@ img {
         border-bottom: none;
     }
 }
+
 
 
 
