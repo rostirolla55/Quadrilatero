@@ -2,11 +2,11 @@
   "home": {
     "pageTitle": "Benvenuti a Bologna",
     "mainText":  "Benvenuto sul sito che parla di Bologna con un approccio curioso e non necessariamente didattico, Vi portiamo indietro nel tempo basandosi sul luogo dove vi fermate e trovate un qrcode che vi permette di accedere ad una pagina che potete leggere oppure ascoltare. In alto trovate una lista delle pagine, ma per agevolare il riconoscimento dell'argomento, riporto di seguito una breve sintesi. Ci sono dei numeri in certe vie della citta incisi su delle lastre di areanaria, vedi perchè",
-    "mainText1": "", 
-    "mainText2": "",
-    "mainText3": "",
-    "mainText4": "",
-    "mainText5": "",
+    "mainText1": "a", 
+    "mainText2": "b",
+    "mainText3": "c",
+    "mainText4": "d",
+    "mainText5": "e",
     "playAudioButton": "Ascolta l'audio in italiano!",
     "pauseAudioButton": "Metti in pausa",
     "audioSource": "assets/audio/it/Home_Bologna.mp3"
@@ -18,8 +18,8 @@
     "mainText1": "Le \"Pugliole di San Bernardino\" prendevano il nome dal Monastero o Convento di San Bernardino che si trovava nell'area dell'attuale Piazza dei Martiri 1943-1945.La via si diramava da Borgo Polese (l'attuale via Polese) e si snodava fino a via del Porto, seguendo in parte l'attuale percorso di via Marconi.",
     "mainText2": "Il termine \"Pugliola\" (o, al plurale, \"Pugliole\") è un termine antico della toponomastica bolognese.Si riferisce a un vicolo, una stradina o un piccolo gruppo di case.In genere, indicava una via di ridotte dimensioni o un'area residenziale secondaria, spesso derivante da un'antica suddivisione del tessuto urbano.",
     "mainText3": "Molte strade e vicoli a Bologna, come \"Pugliole di San Bernardino\" o \"Pugliole dello Spirito Santo,\" prendevano il nome da chiese o monasteri che si trovavano in prossimità, unendo il nome dell'istituzione religiosa al termine \"pugliola\" per indicare il vicolo adiacente.",
-    "mainText4": " ",
-    "mainText5": " ",
+    "mainText4": "d",
+    "mainText5": "e",
     "playAudioButton": "Ascolta la storia",
     "pauseAudioButton": "Metti in pausa",
     "audioSource": "assets/audio/it/Pugliole.mp3"
