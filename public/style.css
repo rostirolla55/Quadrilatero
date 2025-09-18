@@ -214,6 +214,40 @@ img {
     }
 }
 
+/* Stile del Contenitore Principale */
+.main-header {
+    background-color: #333; /* Sfondo scuro per la barra */
+    padding: 10px 0;
+    margin-bottom: 20px; /* Spazio sotto il menu */
+}
+
+/* Stile della Lista (Flexbox per l'allineamento orizzontale) */
+.nav-list {
+    list-style: none; /* Rimuove i pallini */
+    padding: 0;
+    margin: 0;
+    
+    display: flex; /* La chiave per l'allineamento orizzontale */
+    justify-content: center; /* Centra i link nel menu */
+    gap: 20px; /* Spazio tra i link */
+}
+
+/* Stile dei Link */
+.nav-list li a {
+    color: white;
+    text-decoration: none; /* Rimuove la sottolineatura */
+    padding: 10px 15px;
+    display: block;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+/* Effetto Hover */
+.nav-list li a:hover {
+    background-color: #555;
+    border-radius: 4px;
+}
+
 
 
 
