@@ -36,18 +36,26 @@ const setLanguage = async (lang) => {
              return;
         }
 
-        // AGGIORNAMENTO DEL CONTENUTO (Versione UNICA e CORRETTA)
-        document.getElementById('pageTitle').textContent = data.pageTitle;
-        document.getElementById('mainText').textContent = data.mainText;
-        document.getElementById('mainText1').textContent = data.mainText1;
-        document.getElementById('mainText2').textContent = data.mainText2;
-        document.getElementById('mainText3').textContent = data.mainText3;
-        document.getElementById('mainText4').textContent = data.mainText4;
-        document.getElementById('mainText5').textContent = data.mainText5;
-        document.getElementById('playAudio').textContent = data.playAudioButton;
-        document.getElementById('audioPlayer').src = data.audioSource;
+       // AGGIORNAMENTO DEL CONTENUTO (Versione FLESSIBILE)
+const updateTextContent = (id, value) => {
+    const element = document.getElementById(id);
+    if (element) { // Controlla: l'elemento esiste?
+        element.textContent = value || ''; // Assegna il valore o una stringa vuota
+    }
+};
 
-        const playButton = document.getElementById('playAudio');
+updateTextContent('pageTitle', data.pageTitle);
+updateTextContent('mainText', data.mainText);
+updateTextContent('mainText1', data.mainText1);
+updateTextContent('mainText2', data.mainText2);
+updateTextContent('mainText3', data.mainText3);
+updateTextContent('mainText4', data.mainText4);
+updateTextContent('mainText5', data.mainText5); 
+
+updateTextContent('playAudio', data.playAudioButton); // Aggiorna il testo del bottone
+
+document.getElementById('audioPlayer').src = data.audioSource; 
+        const playButton = document.getElementById('playAudio'); 
         
         // 1. SALVA I TESTI PLAY/PAUSE PER IL toggleAudio
         playButton.dataset.playText = data.playAudioButton;
