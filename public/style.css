@@ -248,6 +248,37 @@ img {
     border-radius: 4px;
 }
 
+/* MEDIA QUERY per schermi più stretti (tipicamente smartphone) */
+@media screen and (max-width: 600px) {
+    
+    .nav-list {
+        /* Permette ai link di andare a capo se non c'è spazio */
+        flex-wrap: wrap; 
+        
+        /* Allinea i link a tutta larghezza e al centro */
+        justify-content: flex-start; 
+        padding: 0 10px; /* Aggiunge un po' di margine laterale */
+    }
+
+    .nav-list li {
+        /* Ogni elemento della lista occupa ora una riga intera */
+        flex: 1 1 100%; 
+        text-align: center;
+        margin: 5px 0;
+    }
+    
+    .nav-list li a {
+        /* I link occupano lo spazio assegnato dalla li */
+        padding: 10px 0; 
+        border-bottom: 1px solid #555; /* Separatore tra i link */
+    }
+    
+    /* Rimuove il separatore dall'ultimo link */
+    .nav-list li:last-child a {
+        border-bottom: none;
+    }
+}
+
 
 
 
