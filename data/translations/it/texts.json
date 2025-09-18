@@ -24,11 +24,6 @@
     "pauseAudioButton": "Metti in pausa",
     "audioSource": "assets/audio/it/Pugliole.mp3"
   },
-
-    "playAudioButton": "Ascolta la storia",
-    "pauseAudioButton": "Metti in pausa",
-    "audioSource": "assets/audio/it/Pugliole.mp3"
-  },
   
   "lastre": {
     "pageTitle": "Le Lastre e i Numeri",
