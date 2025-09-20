@@ -1,328 +1,201 @@
-/* Stile base del bottone audio */
-#playAudio {
-    /* Rendi il bottone più grande */
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Aggiungi una transizione per un effetto fluido */
-}
+/* ======================================= */
+/* 1. STILI BASE & TIPOGRAFIA */
+/* ======================================= */
 
-/* Stile quando il bottone è per "Ascolta l'audio" */
-.play-style {
-    background-color: #007bff; /* Blu */
-}
-
-/* Stile quando il bottone è per "Metti in pausa" */
-.pause-style {
-    background-color: #ffc107; /* Arancione */
-}
-
-
-#home-header {
-  background-image: url('images/Panorama_Bologna.jpg');
-  background-repeat: no-repeat; /* This is the new line */
-  background-size: cover;
-  background-position: center;
-  height: 300px;
-  color: white;
-  text-shadow: 2px 2px 4px #000000;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  /* Altri stili comuni qui */
-}
-
-#pagina1-header {
-  background-image: url('images/foto-storia.jpg'); /* Percorso specifico per la pagina 1 */
-  /* Altri stili comuni qui */
-}
-
-.page-header {
-  height: 300px; /* Imposta l'altezza desiderata */
-  background-image: url('images/Index.jpg'); /* Inserisci il percorso dell'immagine */
-  background-repeat: no-repeat; /* l'immagine non deve ripetersi orrizontamente */ 
-  background-size: cover; /* Assicura che l'immagine copra tutto lo spazio */
-  background-position: center; /* Centra l'immagine */
-  display: flex; /* Usa Flexbox per centrare il titolo */
-  align-items: center; /* Allinea verticalmente il titolo */
-  justify-content: center; /* Allinea orizzontalmente il titolo */
-  color: white; /* Rendi il testo leggibile */
-  text-align: center;
-}
-
-/* Stili di base per tutti i dispositivi */
-.container {
-  display: flex;
-  flex-direction: row; /* Elementi su una riga */
-  align-items: center; /* Allineamento verticale */
-}
-
-.text-content {
-  flex-grow: 1;
-  padding: 20px;
-}
-.text-content p {
-    /* Eredita la dimensione di base del body/p se non è specificata, 
-       o impostala esplicitamente se gli altri p hanno 16px */
-    font-size: 16px; 
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
     line-height: 1.6;
-    margin: 0; /* Rimuovi i margini superiori se vuoi che si allinei perfettamente */
+    background-color: #f4f4f4;
+    padding-bottom: 50px; /* Spazio per evitare che il footer si sovrapponga */
 }
 
-/* Forse dovrai anche aggiungere una regola generale per i tuoi p */
+main {
+    padding: 20px;
+    max-width: 900px; /* Limita la larghezza del contenuto principale */
+    margin: 0 auto; /* Centra il contenuto principale sulla pagina */
+}
+
+h1.page-title, #pageTitle {
+    color: #004d99; /* Blu scuro */
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
 p {
-    font-size: 16px; /* Assicura una base coerente */
+    font-size: 16px;
     margin-bottom: 1em;
 }
-.image-container {
-  flex-grow: 1;
-}
 
-img {
-  max-width: 100%;
-  height: auto;
-}
 
-/* Stili specifici per schermi piccoli (es. smartphone) */
-@media screen and (max-width: 768px) {
-  container {
-    flex-direction: column; /* Gli elementi vanno in colonna */
-  }
-    .image-text-container {
-        /* Forza l'allineamento verticale per smartphone */
-        flex-direction: column; 
-    }
-    
-    /* Regola per il contenitore dell'immagine (.image-wrapper) */
-    .image-wrapper {
-        /* Molto importante: Rimuove i vincoli di larghezza del desktop 
-           e permette di occupare il 100% dello spazio disponibile. */
-        flex: 1 1 100%; 
-        max-width: 100%; 
-    }
-    
-    /* Regola per l'immagine vera e propria (.responsive-image) */
-    .responsive-image {
-        /* Assicura che l'immagine si adatti sempre al 100% del suo contenitore */
-        width: 100%;
-        height: auto;
-    }
+/* ======================================= */
+/* 2. MENU DI NAVIGAZIONE */
+/* ======================================= */
 
-    /* Regola per il testo: assicurati che anche il contenitore testo sia al 100% */
-    .text-content {
-        flex: 1 1 100%;
-        padding: 0; /* Rimuovi il padding sui lati se vuoi che il testo si allinei ai margini */
-    }
-}
-
-.page-title {
-  /* Stili aggiuntivi per il titolo, come dimensione e ombra */
-  font-size: 2.5em;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-}
-
-.flag-button {
-  position: fixed; /* Rende il bottone fisso rispetto alla finestra del browser */
-  bottom: 20px;    /* Posizione dal basso */
-  right: 20px;     /* Posizione da destra */
-  z-index: 1000;   /* Garantisce che sia sempre sopra altri contenuti */
-  display: block;  /* Per controllare meglio le dimensioni */
-  width: 50px;     /* Larghezza del bottone */
-  height: 50px;    /* Altezza del bottone */
-  border-radius: 50%; /* Rende il bottone circolare */
-  overflow: hidden; /* Nasconde ciò che esce dai bordi */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aggiunge un'ombra per un effetto 3D */
-  transition: transform 0.3s ease-in-out; /* Animazione al passaggio del mouse */
-}
-
-.flag-button img {
-  width: 100%; /* L'immagine riempie il contenitore */
-  height: 100%;
-  object-fit: cover; /* Assicura che l'immagine copra lo spazio senza distorsioni */
-}
-
-.flag-button:hover {
-  transform: scale(1.1); /* Ingrandisce leggermente il bottone al passaggio del mouse */
-}
-
-.audio-button {
-  position: fixed;
-  bottom: 80px;  /* Cambia la posizione per evitare sovrapposizioni */
-  right: 20px;
-  z-index: 1000;
-  display: block;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease-in-out;
-}
-
-.audio-button img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.audio-button:hover {
-  transform: scale(1.1);
-}
- /*
- * Questo è il codice nel tuo file style.css
- */
-
-.language-selector button {
-  /* Stili per il bottone (rimuove bordi e sfondo) */
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin: 0 5px;
-  padding: 0; /* Imposta il padding a 0 per non interferire con le dimensioni dell'immagine */
-}
-
-.language-selector button img {
-  /* Stili per l'immagine all'interno del bottone */
-  width: 40px; /* Imposta la larghezza desiderata per le bandiere */
-  height: auto; /* Mantiene le proporzioni */
-  display: block;
-}
-
-.language-selector button:hover {
-  transform: scale(1.1);
-  transition: transform 0.2s ease-in-out;
-}
-
-/* Stile di base per il contenitore */
-.image-text-container {
-    display: flex; /* Attiva Flexbox */
-    gap: 20px;     /* Aggiunge spazio tra immagine e testo */
-    align-items: flex-start; /* Allinea gli elementi in alto */
-    margin-bottom: 30px;
-}
-
-/* Regola per l'immagine: Fissa la larghezza per il PC */
-.image-wrapper {
-    /* L'immagine occuperà circa un terzo del contenitore su schermi grandi */
-    flex: 0 0 300px; 
-    /* Assicurati che l'immagine non superi mai il contenitore */
-    max-width: 300px;
-}
-
-/* Regola per il testo: Occupare lo spazio rimanente */
-.text-content {
-    flex-grow: 1; /* Il testo occupa tutto lo spazio rimanente */
-}
-
-/* Regola fondamentale per l'immagine: Rispettare lo spazio del contenitore */
-.responsive-image {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* ---------------------------------------------------------------------- */
-/* MEDIA QUERY: Cambia il Layout per gli Smartphone */
-/* Se lo schermo è più stretto di 768px (Smartphone/Tablet) */
-@media screen and (max-width: 768px) {
-    
-    .image-text-container {
-        /* Cambia la direzione del Flexbox: gli elementi vanno in colonna */
-        flex-direction: column; 
-        gap: 15px;
-    }
-    
-    /* L'immagine deve occupare tutta la larghezza dello schermo sul telefono */
-    .image-wrapper {
-        flex: 0 0 auto;
-        max-width: 100%; /* L'immagine torna a larghezza piena */
-        order: -1; /* Metti l'immagine SOPRA il testo (opzionale) */
-    }
-    
-    .text-content {
-        flex-grow: 1;
-        /* Metti il testo sotto l'immagine */
-    }
-}
-
-/* Stile del Contenitore Principale */
 .main-header {
     background-color: #333; /* Sfondo scuro per la barra */
     padding: 10px 0;
-    margin-bottom: 20px; /* Spazio sotto il menu */
+    margin-bottom: 30px; /* Spazio sotto il menu */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Stile della Lista (Flexbox per l'allineamento orizzontale) */
 .nav-list {
-    list-style: none; /* Rimuove i pallini */
+    list-style: none;
     padding: 0;
     margin: 0;
     
     display: flex; /* La chiave per l'allineamento orizzontale */
-    justify-content: center; /* Centra i link nel menu */
-    gap: 20px; /* Spazio tra i link */
+    justify-content: center; /* Centra i link */
+    gap: 20px;
 }
 
-/* Stile dei Link */
 .nav-list li a {
     color: white;
-    text-decoration: none; /* Rimuove la sottolineatura */
+    text-decoration: none;
     padding: 10px 15px;
     display: block;
     font-size: 1.1em;
     transition: background-color 0.3s;
 }
 
-/* Effetto Hover */
 .nav-list li a:hover {
     background-color: #555;
     border-radius: 4px;
 }
 
-/* MEDIA QUERY per schermi più stretti (tipicamente smartphone) */
-@media screen and (max-width: 600px) {
-    
-    .nav-list {
-        /* Permette ai link di andare a capo se non c'è spazio */
-        flex-wrap: wrap; 
-        
-        /* Allinea i link a tutta larghezza e al centro */
-        justify-content: flex-start; 
-        padding: 0 10px; /* Aggiunge un po' di margine laterale */
-    }
 
-    .nav-list li {
-        /* Ogni elemento della lista occupa ora una riga intera */
-        flex: 1 1 100%; 
-        text-align: center;
-        margin: 5px 0;
-    }
-    
-    .nav-list li a {
-        /* I link occupano lo spazio assegnato dalla li */
-        padding: 10px 0; 
-        border-bottom: 1px solid #555; /* Separatore tra i link */
-    }
-    
-    /* Rimuove il separatore dall'ultimo link */
-    .nav-list li:last-child a {
-        border-bottom: none;
-    }
+/* ======================================= */
+/* 3. BOTTONE AUDIO (PLAY/PAUSE) */
+/* ======================================= */
+
+#playAudio {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 5px;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 15px;
+    display: block; /* NUOVA REGOLA: Rende il bottone un blocco per allineamento */
+}
+
+.play-style {
+    background-color: #007bff; /* Blu: pronto a suonare */
+    color: white;
+}
+
+.pause-style {
+    background-color: #dc3545; /* Rosso: sta suonando (metti in pausa) */
+    color: white;
+}
+
+#playAudio:active {
+    transform: scale(0.98);
 }
 
 
+/* ======================================= */
+/* 4. SELETTORE LINGUA */
+/* ======================================= */
+
+.language-selector {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+}
+
+.language-selector button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.language-selector img {
+    width: 30px;
+    height: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
 
 
+/* ======================================= */
+/* 5. LAYOUT IMMAGINI RESPONSIVE (CRITICO!) */
+/* ======================================= */
+
+/* --- A. REGOLA BASE (DESKTOP: Immagine affiancata) --- */
+
+.image-text-container {
+    /* NUOVA REGOLA: Abilita affiancamento per desktop */
+    display: flex; 
+    gap: 30px; 
+    align-items: flex-start; 
+    margin: 30px 0; /* Spazio sopra e sotto il blocco immagine */
+}
+
+.image-wrapper {
+    /* NUOVA REGOLA: Larghezza fissa per l'immagine su PC */
+    flex: 0 0 350px; 
+    max-width: 350px;
+}
+
+.responsive-image {
+    /* NUOVA REGOLA: Impedisce all'immagine di uscire dal contenitore */
+    max-width: 100%;
+    height: auto;
+    display: block; 
+}
+
+.text-content {
+    /* NUOVA REGOLA: Il testo occupa il resto dello spazio */
+    flex-grow: 1; 
+    padding: 0; /* Rimuove padding che può causare problemi di allineamento */
+}
+
+/* NUOVA REGOLA: Risoluzione Testo Piccolo (mainText4) */
+.text-content p {
+    font-size: 16px; 
+    line-height: 1.6;
+    margin-top: 0; /* Rimuove lo spazio extra superiore */
+}
 
 
+/* ======================================= */
+/* 6. MEDIA QUERIES (Smartphone) */
+/* ======================================= */
 
+@media screen and (max-width: 768px) {
+    
+    /* NUOVA REGOLA: Menu di navigazione a blocchi */
+    .nav-list {
+        flex-wrap: wrap; 
+        gap: 0;
+    }
+    .nav-list li {
+        flex: 1 1 100%; /* Ogni link su una riga intera */
+        text-align: center;
+    }
 
-
-
-
-
+    /* NUOVA REGOLA: Layout immagine diventa verticale */
+    .image-text-container {
+        flex-direction: column; 
+        gap: 15px;
+    }
+    
+    .image-wrapper {
+        /* CRUCIALE: Permette all'immagine di occupare il 100% sullo smartphone */
+        flex: 1 1 100%; 
+        max-width: 100%; 
+        order: -1; /* Mette l'immagine sopra il testo */
+    }
+    
+    .text-content {
+        flex: 1 1 100%; /* Il testo torna a larghezza intera */
+        padding: 0; 
+    }
+}
