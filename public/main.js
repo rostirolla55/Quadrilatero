@@ -8,8 +8,9 @@ const getCurrentPageId = () => {
     if (fileName === '' || fileName === 'index.html') {
         return 'home'; // Se è vuoto o index.html, è la homepage
     }
-    return fileName.replace('.html', '');
-};
+        // 🔥 CORREZIONE: Converte l'ID in minuscolo per la corrispondenza JSON
+    return fileName.replace('.html', '').toLowerCase(); 
+   };
 
 getCurrentPageId()
 
