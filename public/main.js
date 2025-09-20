@@ -11,6 +11,7 @@ const getCurrentPageId = () => {
     return fileName.replace('.html', '');
 };
 
+getCurrentPageId()
 
 // Funzione principale per impostare la lingua
 const setLanguage = async (lang) => {
