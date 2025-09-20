@@ -14,10 +14,15 @@ const getCurrentPageId = () => {
 
 // Funzione principale per impostare la lingua
 const setLanguage = async (lang) => {
-    // Pausa l'audio quando si cambia lingua (chiamato dall'HTML)
-    document.getElementById('audioPlayer').pause();
-    document.getElementById('audioPlayer').currentTime = 0;
-    
+
+    // ⬇️ CORREZIONE QUI: Controlla se l'audio player esiste prima di usarlo ⬇️
+    const audioPlayer = document.getElementById('audioPlayer');
+    if (audioPlayer) {
+        // Pausa l'audio SOLO se l'elemento audio è presente
+        audioPlayer.pause(); 
+        audioPlayer.currentTime = 0;
+    }
+        
     try {
         const pageId = getCurrentPageId();
         
@@ -94,9 +99,10 @@ const toggleAudio = () => {
 };
 
 // Aggiungi un "ascoltatore di eventi" al bottone audio
-document.getElementById('playAudio').addEventListener('click', toggleAudio);
+// cancellato document.getElementById('playAudio').addEventListener('click', toggleAudio);
 
 // Imposta la lingua di default (italiano) al caricamento della pagina
 window.onload = () => {
+    document.getElementById('playAudio').addEventListener('click', toggleAudio);
     setLanguage('it');
 };
