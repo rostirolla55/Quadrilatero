@@ -36,6 +36,12 @@ const setLanguage = async (lang) => {
         
         // Seleziona solo i contenuti relativi alla pagina corrente
         const data = translations[pageId]; 
+        
+        // 🔥 AGGIUNGI QUESTO: Controlla i dati che JavaScript ha letto
+        console.log('Dati JSON caricati per la pagina:', data); 
+        // 🔥 FINE AGGIUNTA
+
+
 
         // Se i dati per questa pagina non esistono, esci
         if (!data) {
