@@ -10,6 +10,9 @@ body {
     line-height: 1.6;
     background-color: #f4f4f4;
     padding-bottom: 50px; /* Spazio per evitare che il footer si sovrapponga */
+    /* Aggiungi un leggero padding laterale al body */
+    padding-left: 10px; 
+    padding-right: 10px;
 }
 
 main {
@@ -199,4 +202,5 @@ p {
         padding: 0; 
     }
 }
+
 
