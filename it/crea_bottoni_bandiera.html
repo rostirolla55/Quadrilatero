@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <header id="pagina1-header">
+      <h1 class="page-title">Benvenuti a Bologna</h1>
+    </header>
+</head>
+<body>
+
+  <style>
+  .language-selector button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px; /* Aumenta la dimensione dell'emoji/bandiera */
+    margin: 0 5px; /* Spazio tra i bottoni */
+    padding: 5px;
+  }
+
+  .language-selector button:hover {
+    transform: scale(1.1); /* Effetto al passaggio del mouse */
+    transition: transform 0.2s ease-in-out;
+  }
+</style>
+
+<div class="language-selector">
+  <button onclick="changeLanguage('it')">🇮🇹</button>
+  <button onclick="changeLanguage('en')">🇬🇧</button>
+  <button onclick="changeLanguage('fr')">🇫🇷</button>
+  <button onclick="changeLanguage('es')">🇪🇸</button>
+</div>
+
+<script>
+  function changeLanguage(lang) {
+    alert('Hai selezionato la lingua: ' + lang);
+    // Qui puoi inserire la logica per cambiare la lingua del sito.
+    // Ad esempio, reindirizzare a una nuova pagina o aggiornare i contenuti
+    // tramite JavaScript.
+  }
+</script>
+</body>
+</html>

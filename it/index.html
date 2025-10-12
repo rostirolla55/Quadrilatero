@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+     
+  <meta charset="UTF-8">
+     
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../public/style.css">
+</head>
+
+<body>
+
+   <header id="home-header">
+          <h1 class="page-title">Benvenuti a Bologna</h1>
+    <h2 Benvenuti nel centro di Bologna /h2>
+         
+  </header>
+
+   
+    <p>Benvenuto sul sito che parla di Bologna con un approccio curioso e non necessariamente didattico, Vi portiamo
+    indietro nel tempo basandosi sul luogo dove vi fermate e trovate un qrcode che vi permette di accedere ad una pagina
+    che potete leggere oppure ascoltare. In alto trovate una lista delle pagine, ma per agevolare il riconoscimento
+    dell'argomento, riporto di seguito una breve sintesi.
+    Ci sono dei numeri in certe vie della citta incisi su delle lastre di areanaria, vedi perchè </p>
+
+      <button id="playAudio">Ascolta l'audio in italiano!</button>
+
+      <audio id="audioPlayer" src="../assets/audio/it/Home_Bologna.mp3"></audio>
+
+<div class="language-selector">
+  <button onclick="changeLanguage('it')">
+    <img src="../public/flag/it.png" alt="Italiano">
+  </button>
+  <button onclick="changeLanguage('en')">
+    <img src="../public/flag/en.png" alt="English">
+  </button>
+  <button onclick="changeLanguage('fr')">
+    <img src="../public/flag/fr.png" alt="Français">
+  </button>
+  <button onclick="changeLanguage('es')">
+    <img src="../public/flag/es.png" alt="Español">
+  </button>
+</div>
+
+  <script>
+        const playButton = document.getElementById('playAudio');
+        const audioPlayer = document.getElementById('audioPlayer');
+
+        // Verifica che l'audio player sia pronto prima di aggiungere l'evento
+        audioPlayer.addEventListener('loadeddata', () => {
+        console.log("Audio caricato e pronto per la riproduzione.");
+        });
+
+        playButton.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playButton.textContent = 'Metti in pausa';
+            } else {
+                audioPlayer.pause();
+                playButton.textContent = 'Ascolta l\'audio in italiano';
+            }
+        });
+
+        function changeLanguage(lang) {
+            alert('Hai selezionato la lingua: ' + lang);
+        }
+    
+</script>
+
+</body>
+
+</html>
