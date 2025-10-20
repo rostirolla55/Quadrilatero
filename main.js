@@ -208,10 +208,10 @@ async function loadContent(lang) {
             
             // ... (lista navLinksData) ... (Tutto questo blocco è corretto e rimane)
             const navLinksData = [
-                { id: 'navahome', key: 'navHome', base: 'index' },
-                { id: 'navacarracci', key: 'navCarracci', base: 'carracci' },
-                { id: 'navalastre', key: 'navLastre', base: 'lastre' },
-                { id: 'navapugliole', key: 'navPugliole', base: 'pugliole' },
+                { id: 'navhome', key: 'navHome', base: 'index' },
+                { id: 'navcarracci', key: 'navCarracci', base: 'carracci' },
+                { id: 'navlastre', key: 'navLastre', base: 'lastre' },
+                { id: 'navpugliole', key: 'navPugliole', base: 'pugliole' },
             ];
             
             // Aggiorna HREF e Testo per tutti i link del menu principale
