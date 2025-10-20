@@ -1,16 +1,19 @@
-/* style.css - Versione Finale Completa con Doppio Menu Hamburger e FIX Caricamento */
+/* style.css - Versione Finale Completa con Doppio Menu Hamburger */
 
-/* -------------------- RESET & BASE (AGGIORNATO) -------------------- */
+/* -------------------- RESET & BASE -------------------- */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     /* Spazio per l'header fisso */
     padding-top: 60px;
     background-color: #f4f4f4;
-    /* RIMOSSO: opacity: 0; e transition: opacity... - Ora gestiti da #app-wrapper */
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
 }
 
-/* RIMOSSO: body.content-loaded { opacity: 1; } - Ora gestito da #app-wrapper */
+body.content-loaded {
+    opacity: 1;
+}
 
 .main-header {
     position: fixed;
@@ -35,13 +38,7 @@ body {
     margin: 0 auto;
     text-align: justify;
 }
-/* style.css - Aggiunta Cruciale per bloccare lo scroll */
 
-/* -------------------- GESTIONE BLOCCO SCROLL -------------------- */
-/* Questa classe impedisce lo scroll del contenuto principale quando il menu è aperto */
-body.menu-open {
-    overflow: hidden; /* Impedisce lo scorrimento verticale e orizzontale */
-}
 /* -------------------- MENU PRINCIPALE (A Sinistra) -------------------- */
 
 .menu-toggle {
@@ -79,7 +76,7 @@ body.menu-open {
 }
 
 /* Contenitore Menu Principale (Scivola da Sinistra) */
-#navBarMain {
+#navPlaceholder {
     position: fixed;
     /* FIX: Inizia esattamente sotto l'header */
     top: 60px;
@@ -98,7 +95,7 @@ body.menu-open {
     overflow-y: auto;
 }
 
-#navBarMain.active {
+#navPlaceholder.active {
     /* Mostrato */
     transform: translateX(0);
 }
@@ -119,32 +116,6 @@ body.menu-open {
     display: block;
     padding: 10px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Stili per il Menu Principale (navBarMain) */
-
-/* Assicura che la lista interna non abbia pallini */
-#navBarMain .nav-bar-content ul {
-    list-style: none;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Stili specifici per i link (testo bianco senza sottolineatura) */
-#navBarMain .nav-bar-content ul li a {
-    color: white; 			/* Testo in bianco */
-    text-decoration: none; 	/* Rimuove la sottolineatura */
-    font-size: 1.2em;
-    display: block;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Stile per l'hover (quando il mouse passa sopra) */
-#navBarMain .nav-bar-content ul li a:hover {
-    color: #cccccc; /* Un grigio chiaro per l'effetto hover */
 }
 
 /* -------------------- ELEMENTI DI DESTRA (Bandiere e POI) -------------------- */
@@ -283,7 +254,21 @@ body.menu-open {
     margin: 0;
     font-size: 1.5em;
     box-sizing: border-box;
-    text-align: center; /* 🔥 Mantieni solo la regola che vuoi applicare */
+    text-align: center;
+}
+
+/* Il header-title è già position: absolute, quindi funzionerà */
+.header-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 10px 15px;
+    margin: 0;
+    font-size: 1.5em;
+    box-sizing: border-box;
 }
 
 
@@ -331,51 +316,3 @@ body.menu-open {
     line-height: 1.4;
     text-align: center;
 }
-
-/* =========================================== */
-/* INIZIO BLOCCO: GESTIONE CARICAMENTO PAGINA (SOLUZIONE AL BLOCCO) */
-/* =========================================== */
-
-/* 1. Stile dell'overlay di caricamento (visibile di default) */
-/* Questo copre lo schermo con un background bianco e centra il messaggio */
-#loading-message {
-    position: fixed; /* Essenziale per coprire l'intera finestra */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #ffffff;
-    z-index: 10000; /* Assicurati che sia sopra ogni altro elemento */
-    display: flex; /* Centra il testo "Caricamento in corso..." */
-    align-items: center;
-    justify-content: center;
-}
-
-/* 2. Nascondi il messaggio di caricamento quando il JS è pronto (immediato) */
-/* body.content-loaded è la condizione che fa sparire l'overlay di caricamento */
-body.content-loaded #loading-message {
-    /* Uso 'display: none' per assicurare che sparisca e non blocchi interazioni */
-    display: none; 
-}
-
-
-/* 3. Nascondi il contenuto principale dell'app all'inizio e gestisci il fade-in */
-/* Questo contenitore (#app-wrapper) ha ora la responsabilità dell'effetto di dissolvenza. */
-#app-wrapper {
-    /* Nascosto e pronto per la transizione di fade-in */
-    opacity: 0;
-    transition: opacity 0.3s ease-in;
-    /* Mettiamo subito display: block per non interferire con l'opacità, 
-       dato che è il #loading-message a nascondere *tutto* all'inizio. */
-    display: block;
-}
-
-/* 4. Mostra il contenuto principale (fade-in) quando il JS è pronto */
-/* body.content-loaded è la condizione per mostrare l'app */
-body.content-loaded #app-wrapper {
-    opacity: 1; /* Il contenuto svanisce (fade-in) */
-}
-
-/* =========================================== */
-/* FINE BLOCCO: GESTIONE CARICAMENTO PAGINA */
-/* =========================================== */
