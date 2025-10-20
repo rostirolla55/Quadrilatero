@@ -12,30 +12,37 @@ let nearbyPoiButton, nearbyMenuPlaceholder;
 // Attenzione le coordinate sono della zona PORTORENO
 // in C:\Users\User\Documents\salvataggi_github\ARCO_LOCATIONS_PORTICISANLUCA_js.txt
 const ARCO_LOCATIONS = [
-    // Lapide_Grazia.jpg
-    { id: 'Lapide_Grazia.jpg', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 5 },
-    // Pugliole_1.jpg
-    { id: 'Pugliole_1.jpg', lat: 44.4990527777778, lon: 11.3394472222222, distanceThreshold: 5 },
-    // Pugliole_2.jpg
-    { id: 'Pugliole_2.jpg', lat: 44.4990527777778, lon: 11.3394472222222, distanceThreshold: 5 },// ViaPoleseVerticale_F.jpg
-    // Pugliole.jpg
-    { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 5 },
-    // viaPolese_f.jpg
-    { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 5 },
-    // ViaSanCarlo19_f.jpg
-    { id: 'carracci', lat: 44.5000722222222, lon: 11.3404333333333, distanceThreshold: 5 },
-    // ViaSanCarlo45_f.jpg
-    { id: 'carracci', lat: 44.5005194444444, lon: 11.3407111111111, distanceThreshold: 5 },
-    // ViaSanCarlo45_f.jpg
-    { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 10 },
-    // ViaSanCarlo42Dett_f.jpg
-    { id: 'lastre', lat: 44.5004194444444, lon: 11.3406333333333, distanceThreshold: 10 },
-    // ViaSanCarlo42_f.jpg
-    { id: 'lastre', lat: 44.5004361111111, lon: 11.3406416666667, distanceThreshold: 10 },
-    // Tanari_11.jpg
-    { id: 'lastre', lat: 44.4992472222222, lon: 11.3407194444444, distanceThreshold: 10 },
-    // Tanari_11.jpg
-    { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 10 }
+    // I tuoi dati GPS:
+    { id: 'Arco119', lat: 44.499175, lon: 11.3394638888889, distanceThreshold: 15 },
+    { id: 'Arco126b', lat: 44.4992083333333, lon: 11.3399972222222, distanceThreshold: 15 },
+    { id: 'Arco132a', lat: 44.499175, lon: 11.3394638888889, distanceThreshold: 15 },
+    { id: 'Arco133a', lat: 44.4989861111111, lon: 11.3395166666667, distanceThreshold: 15 },
+    { id: 'Arco136b', lat: 44.4992111111111, lon: 11.3400027777778, distanceThreshold: 15 },
+    { id: 'Arco142a', lat: 44.4990916666667, lon: 11.3399666666667, distanceThreshold: 15 },
+    { id: 'Arco143c', lat: 44.4991888888889, lon: 11.3399694444444, distanceThreshold: 15 },
+    { id: 'Arco148', lat: 44.4991555555556, lon: 11.3399916666667, distanceThreshold: 15 },
+    { id: 'Arco163', lat: 44.4993055555556, lon: 11.3400611111111, distanceThreshold: 15 },
+    { id: 'Arco171b', lat: 44.5000472222222, lon: 11.3376694444444, distanceThreshold: 15 },
+    { id: 'Arco180', lat: 44.5000472222222, lon: 11.3376694444444, distanceThreshold: 15 },
+    { id: 'Arco182', lat: 44.4992333333333, lon: 11.3400222222222, distanceThreshold: 15 },
+    { id: 'Arco183', lat: 44.499025, lon: 11.3399, distanceThreshold: 15 },
+    { id: 'Arco186b', lat: 44.4990777777778, lon: 11.3399388888889, distanceThreshold: 15 },
+    { id: 'Arco188b', lat: 44.4991416666667, lon: 11.3394777777778, distanceThreshold: 15 },
+    { id: 'Arco190', lat: 44.4990888888889, lon: 11.3394194444444, distanceThreshold: 15 },
+    { id: 'Arco192c', lat: 44.4992611111111, lon: 11.3400472222222, distanceThreshold: 15 },
+    { id: 'Arco201a', lat: 44.4992, lon: 11.3394972222222, distanceThreshold: 15 },
+    { id: 'Arco202a', lat: 44.4991416666667, lon: 11.3394777777778, distanceThreshold: 15 },
+    { id: 'Arco203b', lat: 44.4992361111111, lon: 11.340025, distanceThreshold: 15 },
+    { id: 'Arco208b', lat: 44.4992722222222, lon: 11.3400277777778, distanceThreshold: 15 },
+    { id: 'Arco211b', lat: 44.4992472222222, lon: 11.3395083333333, distanceThreshold: 15 },
+    { id: 'Arco218b', lat: 44.4990888888889, lon: 11.3394194444444, distanceThreshold: 15 },
+    { id: 'Arco252a', lat: 44.5001833333333, lon: 11.3399833333333, distanceThreshold: 15 },
+    { id: 'Arco256', lat: 44.4992472222222, lon: 11.3395083333333, distanceThreshold: 15 },
+    { id: 'Arco282a', lat: 44.4993027777778, lon: 11.339525, distanceThreshold: 15 },
+    { id: 'Arco283a', lat: 44.4992722222222, lon: 11.3396527777778, distanceThreshold: 15 },
+    { id: 'Arco306b', lat: 44.4993027777778, lon: 11.339525, distanceThreshold: 15 },
+    { id: 'Arco307a', lat: 44.4993916666667, lon: 11.3395222222222, distanceThreshold: 15 },
+    { id: 'Arco53c', lat: 44.4996055555556, lon: 11.3395166666667, distanceThreshold: 15 },
 ];
 
 
