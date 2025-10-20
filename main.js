@@ -11,9 +11,9 @@ let nearbyPoiButton, nearbyMenuPlaceholder;
 // ===========================================
 // Attenzione le coordinate sono della zona PORTORENO
 // in C:\Users\User\Documents\salvataggi_github\ARCO_LOCATIONS_PORTICISANLUCA_js.txt
-const ARCO_LOCATIONS = [
+const POIS_LOCATIONS = [
     // Lapide_Grazia.jpg
-    { id: 'Lapide_Grazia.jpg', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 5 },
+    { id: 'grazia', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 5 },
     // Pugliole_1.jpg
     { id: 'Pugliole_1.jpg', lat: 44.4990527777778, lon: 11.3394472222222, distanceThreshold: 5 },
     // Pugliole_2.jpg
@@ -212,6 +212,7 @@ async function loadContent(lang) {
                 { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
                 { id: 'navLastre', key: 'navLastre', base: 'lastre' },
                 { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
+                { id: 'navGrazia', key: 'navGrazia', base: 'grazia' },
             ];
 
             // Aggiorna HREF e Testo per tutti i link del menu principale
@@ -336,7 +337,7 @@ const checkProximity = (position) => {
     if (nearbyPoiButton) {
         nearbyPoiButton.style.display = 'block';
         if (typeof updatePoiMenu === 'function') {
-            updatePoiMenu(ARCO_LOCATIONS, userLat, userLon, userLang);
+            updatePoiMenu(POIS_LOCATIONS, userLat, userLon, userLang);
         }
     }
 };
