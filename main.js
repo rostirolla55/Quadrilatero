@@ -208,42 +208,10 @@ async function loadContent(lang) {
             
             // ... (lista navLinksData) ... (Tutto questo blocco è corretto e rimane)
             const navLinksData = [
-                { id: 'navarco119', key: 'navARCO119', base: 'arco119' },
-                { id: 'navarco126b', key: 'navARCO126B', base: 'arco126b' },
-                { id: 'navarco132a', key: 'navARCO132A', base: 'arco132a' },
-                { id: 'navarco133a', key: 'navARCO133A', base: 'arco133a' },
-                { id: 'navarco136b', key: 'navARCO136B', base: 'arco136b' },
-                { id: 'navarco142a', key: 'navARCO142A', base: 'arco142a' },
-                { id: 'navarco143c', key: 'navARCO143C', base: 'arco143c' },
-                { id: 'navarco148', key: 'navARCO148', base: 'arco148' },
-                { id: 'navarco163', key: 'navARCO163', base: 'arco163' },
-                { id: 'navarco171b', key: 'navARCO171B', base: 'arco171b' },
-                { id: 'navarco180', key: 'navARCO180', base: 'arco180' },
-                { id: 'navarco182', key: 'navARCO182', base: 'arco182' },
-                { id: 'navarco183', key: 'navARCO183', base: 'arco183' },
-                { id: 'navarco186b', key: 'navARCO186B', base: 'arco186b' },
-                { id: 'navarco188b', key: 'navARCO188B', base: 'arco188b' },
-                { id: 'navarco190', key: 'navARCO190', base: 'arco190' },
-                { id: 'navarco192c', key: 'navARCO192C', base: 'arco192c' },
-                { id: 'navarco201a', key: 'navARCO201A', base: 'arco201a' },
-                { id: 'navarco202a', key: 'navARCO202A', base: 'arco202a' },
-                { id: 'navarco203b', key: 'navARCO203B', base: 'arco203b' },
-                { id: 'navarco208b', key: 'navARCO208B', base: 'arco208b' },
-                { id: 'navarco211b', key: 'navARCO211B', base: 'arco211b' },
-                { id: 'navarco218b', key: 'navARCO218B', base: 'arco218b' },
-                { id: 'navarco249a', key: 'navARCO249A', base: 'arco249a' },
-                { id: 'navarco252a', key: 'navARCO252A', base: 'arco252a' },
-                { id: 'navarco256', key: 'navARCO256', base: 'arco256' },
-                { id: 'navarco282a', key: 'navARCO282A', base: 'arco282a' },
-                { id: 'navarco283a', key: 'navARCO283A', base: 'arco283a' },
-                { id: 'navarco306b', key: 'navARCO306B', base: 'arco306b' },
-                { id: 'navarco307a', key: 'navARCO307A', base: 'arco307a' },
-                { id: 'navarco53c', key: 'navARCO53C', base: 'arco53c' },
-                // Link pagine speciali
-                { id: 'navHome', key: 'navHome', base: 'index' },
-                { id: 'navlapide1', key: 'navLAPIDE1', base: 'lapide1' },
-                { id: 'navlapide2', key: 'navLAPIDE2', base: 'lapide2' },
-                { id: 'navpsontuoso', key: 'navPSONTUOSO', base: 'psontuoso' }
+                { id: 'navahome', key: 'navHome', base: 'index' },
+                { id: 'navacarracci', key: 'navCarracci', base: 'carracci' },
+                { id: 'navalastre', key: 'navLastre', base: 'lastre' },
+                { id: 'navapugliole', key: 'navPugliole', base: 'pugliole' },
             ];
             
             // Aggiorna HREF e Testo per tutti i link del menu principale
