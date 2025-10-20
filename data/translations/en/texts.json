@@ -23,7 +23,8 @@
         "navHome": "Welcome",
         "navCarracci": "Carracci",
         "navLastre": "House Numbers on Sandstone Slabs",
-        "navPugliole": "The Pugliole"
+        "navPugliole": "Las pugliole",
+        "navGrazia": "Lapide Grazia"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -44,6 +45,26 @@
         "creationDate": "2025-08-30",
         "lastUpdate": "2025-10-01",
         "audioSource": "Assets/Audio/en/Pugliole.mp3"
+    },
+    "grazia": {
+        "pageTitle": "The Memorial Stone of Grace",
+        "mainText": "The memorial stone has been preserved at number 45, Via San Carlo",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Listen to the story",
+        "pauseAudioButton": "Pause",
+        "imageSource1": "public/images/lapideGrazia.jpg",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "Archivio Storico del Comune di Bologna.",
+        "creationDate": "2025-08-30",
+        "lastUpdate": "2025-10-01",
+        "audioSource": "Assets/Audio/it/Pugliole.mp3"
     },
     "lastre": {
         "pageTitle": "The Slabs and the Numbers",

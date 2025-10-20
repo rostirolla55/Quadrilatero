@@ -23,7 +23,8 @@
         "navHome": "Bienvenue",
         "navCarracci": "Carracci",
         "navLastre": "Numéros de maison sur dalles de grès",
-        "navPugliole": "Les pugliole"
+        "navPugliole": "Las pugliole",
+        "navGrazia": "Lapide Grazia"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -35,7 +36,7 @@
         "mainText5": "",
         "playAudioButton": "Écouter l'histoire",
         "pauseAudioButton": "Pause",
-        "imageSource1": "",
+        "imageSource1": "public/images/viaPolese.jpg",
         "imageSource2": "",
         "imageSource3": "",
         "imageSource4": "",
@@ -44,6 +45,26 @@
         "creationDate": "30/08/2025",
         "lastUpdate": "01/10/2025",
         "audioSource": "Assets/Audio/fr/Pugliole.mp3"
+    },
+    "grazia": {
+        "pageTitle": "La Pierre Commémorative de la Grâce",
+        "mainText": "La pierre commémorative a été conservée au numéro 45, Via San Carlo",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Écouter l'histoire",
+        "pauseAudioButton": "Pause",
+        "imageSource1": "public/images/lapideGrazia.jpg",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "Archivio Storico del Comune di Bologna.",
+        "creationDate": "2025-08-30",
+        "lastUpdate": "2025-10-01",
+        "audioSource": "Assets/Audio/it/Pugliole.mp3"
     },
     "lastre": {
         "pageTitle": "Les dalles et les numéros",
