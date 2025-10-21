@@ -13,7 +13,7 @@ let nearbyPoiButton, nearbyMenuPlaceholder;
 // in C:\Users\User\Documents\salvataggi_github\ARCO_LOCATIONS_PORTICISANLUCA_js.txt
 const POIS_LOCATIONS = [
     // Lapide_Grazia.jpg
-    { id: 'grazia', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 5 },
+    { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 5 },
     // Pugliole_1.jpg
     { id: 'Pugliole_1.jpg', lat: 44.4990527777778, lon: 11.3394472222222, distanceThreshold: 5 },
     // Pugliole_2.jpg
@@ -212,7 +212,7 @@ async function loadContent(lang) {
                 { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
                 { id: 'navLastre', key: 'navLastre', base: 'lastre' },
                 { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
-                { id: 'navGrazia', key: 'navGrazia', base: 'grazia' },
+                { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
             ];
 
             // Aggiorna HREF e Testo per tutti i link del menu principale
