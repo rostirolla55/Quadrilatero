@@ -24,7 +24,7 @@
         "navCarracci": "Carracci",
         "navLastre": "Números de casas en losas de arenisca",
         "navPugliole": "Las pugliole",
-        "navGrazia": "Lapide Grazia"
+        "navGraziaxx": "Lapide Grazia"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -46,7 +46,7 @@
         "lastUpdate": "2025-10-01",
         "audioSource": "Assets/Audio/es/Pugliole.mp3"
     },
-    "grazia": {
+    "graziaxx": {
         "pageTitle": "La Lápida de la Gracia",
         "mainText": "La lápida se conserva en el número 45 de Via San Carlo",
         "mainText1": "",

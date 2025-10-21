@@ -24,7 +24,7 @@
         "navCarracci": "Carracci",
         "navLastre": "Numéros de maison sur dalles de grès",
         "navPugliole": "Las pugliole",
-        "navGrazia": "Lapide Grazia"
+        "navGraziaxx": "Lapide Grazia"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -46,7 +46,7 @@
         "lastUpdate": "01/10/2025",
         "audioSource": "Assets/Audio/fr/Pugliole.mp3"
     },
-    "grazia": {
+    "graziaxx": {
         "pageTitle": "La Pierre Commémorative de la Grâce",
         "mainText": "La pierre commémorative a été conservée au numéro 45, Via San Carlo",
         "mainText1": "",

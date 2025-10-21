@@ -24,7 +24,7 @@
         "navCarracci": "Carracci",
         "navLastre": "House Numbers on Sandstone Slabs",
         "navPugliole": "Las pugliole",
-        "navGrazia": "Lapide Grazia"
+        "navGraziaxx": "Lapide Grazia"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -46,7 +46,7 @@
         "lastUpdate": "2025-10-01",
         "audioSource": "Assets/Audio/en/Pugliole.mp3"
     },
-    "grazia": {
+    "graziaxx": {
         "pageTitle": "The Memorial Stone of Grace",
         "mainText": "The memorial stone has been preserved at number 45, Via San Carlo",
         "mainText1": "",
