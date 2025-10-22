@@ -21,10 +21,10 @@
     },
     "nav": {
         "navHome": "Bienvenue",
-        "navCarracci": "Carracci",
+        "navCarracci": "Maison Carracci",
         "navLastre": "Numéros de maison sur dalles de grès",
-        "navPugliole": "Las pugliole",
-        "navGraziaxx": "Lapide Grazia"
+        "navPugliole": "Les pugliole",
+        "navGraziaxx": "Plaque votive Grazia"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
