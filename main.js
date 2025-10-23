@@ -15,14 +15,10 @@ const POIS_LOCATIONS = [
     // Lapide_Grazia.jpg
     { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 5 },
     // Pugliole_1.jpg
-    { id: 'Pugliole_1.jpg', lat: 44.4990527777778, lon: 11.3394472222222, distanceThreshold: 5 },
-    // Pugliole_2.jpg
-    { id: 'Pugliole_2.jpg', lat: 44.4990527777778, lon: 11.3394472222222, distanceThreshold: 5 },// ViaPoleseVerticale_F.jpg
+    { id: 'Pugliole', lat: 44.4990527777778, lon: 11.3394472222222, distanceThreshold: 5 },
     // Pugliole.jpg
     { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 5 },
     // viaPolese_f.jpg
-    { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 5 },
-    // ViaSanCarlo19_f.jpg
     { id: 'carracci', lat: 44.5000722222222, lon: 11.3404333333333, distanceThreshold: 5 },
     // ViaSanCarlo45_f.jpg
     { id: 'carracci', lat: 44.5005194444444, lon: 11.3407111111111, distanceThreshold: 5 },
