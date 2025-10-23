@@ -379,3 +379,46 @@ body.content-loaded #app-wrapper {
 /* =========================================== */
 /* FINE BLOCCO: GESTIONE CARICAMENTO PAGINA */
 /* =========================================== */
+
+/* =========================================== */
+/* INIZIO BLOCCO: OTTIMIZZAZIONE DESKTOP (Tipografia) */
+/* =========================================== */
+
+@media (min-width: 992px) {
+    
+    /* Aumenta la dimensione base del testo in tutto il corpo */
+    body {
+        font-size: 1.1em; /* Aumenta leggermente il testo base (da 16px a circa 17.6px) */
+    }
+
+    /* Aumenta la dimensione del contenuto principale */
+    .content-body {
+        padding: 40px; /* Più spazio interno sui desktop */
+        font-size: 1.05em; /* Un ulteriore leggero aumento per il testo del corpo */
+    }
+
+    /* Aumenta il titolo della pagina nell'header */
+    .header-title {
+        font-size: 2em; /* Titolo più grande e impattante (era 1.5em) */
+        padding: 15px 25px;
+    }
+
+    /* Aumenta la dimensione dei link nel Menu Principale */
+    #navBarMain .nav-bar-content ul li a {
+        font-size: 1.4em; /* Leggermente più grande (era 1.2em) */
+    }
+
+    /* Aumenta il testo dei POI vicini */
+    .poi-links li a {
+        font-size: 1.1em; /* Leggermente più leggibile (era 1.0em) */
+    }
+
+    /* Aumenta il testo del footer (piccolo testo informativo) */
+    .info-footer {
+        font-size: 0.9em; /* Mantienilo piccolo, ma aumentalo leggermente per leggibilità */
+    }
+}
+
+/* =========================================== */
+/* FINE BLOCCO: OTTIMIZZAZIONE DESKTOP (Tipografia) */
+/* =========================================== */
