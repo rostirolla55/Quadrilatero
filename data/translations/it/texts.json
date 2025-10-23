@@ -28,7 +28,7 @@
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
-        "mainText": "Esisteva una via a Bologna che si chiamava \"Pugliole di San Bernardino\".Questa strada è scomparsa a seguito degli interventi urbanistici degli anni '30 del XX secolo che portarono alla creazione di via Guglielmo Marconi (allora via Roma).",
+        "mainText": "Esisteva una via a Bologna che si chiamava <b>Pugliole di San Bernardino</b>.Questa strada è scomparsa a seguito degli interventi urbanistici degli anni '30 del XX secolo che portarono alla creazione di via Guglielmo Marconi (allora via Roma).",
         "mainText1": "Le \"Pugliole di San Bernardino\" prendevano il nome dal Monastero o Convento di San Bernardino che si trovava nell'area dell'attuale Piazza dei Martiri 1943-1945.La via si diramava da Borgo Polese (l'attuale via Polese) e si snodava fino a via del Porto, seguendo in parte l'attuale percorso di via Marconi.",
         "mainText2": "Il termine \"Pugliola\" (o, al plurale, \"Pugliole\") è un termine antico della toponomastica bolognese.Si riferisce a un vicolo, una stradina o un piccolo gruppo di case.In genere, indicava una via di ridotte dimensioni o un'area residenziale secondaria, spesso derivante da un'antica suddivisione del tessuto urbano.",
         "mainText3": "Molte strade e vicoli a Bologna, come \"Pugliole di San Bernardino\" o \"Pugliole dello Spirito Santo,\" prendevano il nome da chiese o monasteri che si trovavano in prossimità, unendo il nome dell'istituzione religiosa al termine \"pugliola\" per indicare il vicolo adiacente.",
@@ -41,7 +41,7 @@
         "imageSource3": "",
         "imageSource4": "",
         "imageSource5": "",
-        "sourceText": "Archivio Storico del Comune di Bologna.",
+        "sourceText": "Settore Musei Civici Bologna | Area Storia e Memoria",
         "creationDate": "2025-08-30",
         "lastUpdate": "2025-10-01",
         "audioSource": "Assets/Audio/it/Pugliole.mp3"
@@ -61,9 +61,9 @@
         "imageSource3": "",
         "imageSource4": "",
         "imageSource5": "",
-        "sourceText": "Settore Musei Civici Bologna | Area Storia e Memoria",
-        "creationDate": "2025-08-30",
-        "lastUpdate": "2025-10-01",
+        "sourceText": "'Archivio di Stato di Bologna.",
+        "creationDate": "23-10-2025",
+        "lastUpdate": "23-10-2025",
         "audioSource": "Assets/Audio/it/lapideMariana.mp3"
     },
     "lastre": {
