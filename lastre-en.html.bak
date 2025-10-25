@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -51,13 +51,10 @@
         <nav class="nav-bar-main" id="navBarMain">
             <div class="nav-bar-content">
                 <ul>
-                    <li><a id="navHome" href="index-es.html">Home</a></li>
-                    <li><a id="navPugliole" href="pugliole-es.html">Pugliole</a></li>
-                    <li><a id="navLastre" href="lastre-es.html">Lastre</a></li>
-                    <li><a id="navCarracci" href="carracci-es.html">Carracci</a></li>
-                    <li><a id="navGraziaxx" href="graziaxx-es.html">Lapide Grazia</a></li>
-                    <li><a id="navChiesaSBene" href="chiesasbene-es.html">ChiesaSanBenedetto</a></li>
-                    <li><a id="navChiesaPioggia" href="chiesapioggia-es.html">ChiesaPioggia</a></li>
+                    <li><a id="navHome" href="index-en.html">Home</a></li>
+                    <li><a id="navPugliole" href="pugliole-en.html">Pugliole</a></li>
+                    <li><a id="navLastre" href="lastre-en.html">Lastre</a></li>
+                    <li><a id="navCarracci" href="carracci-en.html">Carracci</a></li>
                 </ul>
             </div>
         </nav>
@@ -72,9 +69,6 @@
             </div>
 
             <div class="main-content-area">
-
-                <audio id="audioPlayer"></audio>
-                <button id="playAudio" class="play-style">Ascolta</button>
 
                 <p id="mainText"></p>
 
@@ -91,6 +85,9 @@
                 <img id="pageImage5" src="" style="display: none;" alt="Immagine 5 corpo">
 
                 <p id="mainText5"></p>
+
+                <audio id="audioPlayer"></audio>
+                <button id="playAudio" class="play-style">Ascolta</button>
 
             </div>
 
