@@ -24,6 +24,8 @@
         "navCarracci": "Casa di Ludovico Carracci ",
         "navLastre": "Numeri civici su lastre in arenaria",
         "navPugliole": "Le pugliole",
+        "navChiesaSBene": "Chiesa San Benedetto",
+        "navChiesaPioggia": "Chiesa della Pioggia",
         "navGraziaxx": "Lapide votiva Grazia"
     },
     "pugliole": {
@@ -105,5 +107,45 @@
         "creationDate": "2025-08-30",
         "lastUpdate": "2025-10-01",
         "audioSource": "Assets/Audio/it/Carracci.mp3"
+    },
+    "chiesasbene": {
+        "pageTitle": "Chiesa di San Benedetto",
+        "mainText": "Chiesa di San Benedetto ... working in progress per documentazione!",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Ascolta la storia",
+        "pauseAudioButton": "Metti in pausa",
+        "imageSource1": "public/images/Chiesa_San_Benedetto.jpg",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "Archivio Storico del Comune di Bologna.",
+        "creationDate": "2025-08-30",
+        "lastUpdate": "2025-10-01",
+        "audioSource": "Assets/Audio/it/Chiesa_San_Benedetto.mp3"
+    },
+    "chiesapioggia": {
+        "pageTitle": "Chiesa della Pioggia",
+        "mainText": "Chiesa della Pioggia ... working in progress per documentazione!",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Ascolta la storia",
+        "pauseAudioButton": "Metti in pausa",
+        "imageSource1": "public/images/Chiesa_Pioggia.jpg",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "Archivio Storico del Comune di Bologna.",
+        "creationDate": "2025-08-30",
+        "lastUpdate": "2025-10-01",
+        "audioSource": "Assets/Audio/it/Chiesa_Pioggia.mp3"
     }
 }

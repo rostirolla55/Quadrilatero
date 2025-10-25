@@ -24,8 +24,10 @@ const POIS_LOCATIONS = [
     { id: 'carracci', lat: 44.5005194444444, lon: 11.3407111111111, distanceThreshold: 5 },
     // ViaSanCarlo45_f.jpg
     { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 10 },
-    // ViaSanCarlo42Dett_f.jpg
-    { id: 'lastre', lat: 44.5004194444444, lon: 11.3406333333333, distanceThreshold: 10 },
+    // ViaGalliera79.jpg 44.501514, 11.343557
+    { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 20 },
+    // Piazzetta_Pioggia.jpg 44.498910, 11.342241
+    { id: 'chiesapioggia', lat: 44.498910, lon: 11.342241, distanceThreshold: 20 },
     // ViaSanCarlo42_f.jpg
     { id: 'lastre', lat: 44.5004361111111, lon: 11.3406416666667, distanceThreshold: 10 },
     // Tanari_11.jpg
@@ -209,6 +211,8 @@ async function loadContent(lang) {
                 { id: 'navLastre', key: 'navLastre', base: 'lastre' },
                 { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
                 { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
+                { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene' },
+                { id: 'navChiesaPioggia', key: 'navVhiesaPioggia', base: 'chiesapioggia' },
             ];
 
             // Aggiorna HREF e Testo per tutti i link del menu principale
