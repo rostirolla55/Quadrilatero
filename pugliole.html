@@ -26,11 +26,10 @@
             <div class="right-header-group">
 
                 <div class="language-selector">
-                    <li><a id="navHome" href="index-it.html">Home</a></li>
-                    <li><a id="navPugliole" href="pugliole-it.html">Pugliole</a></li>
-                    <li><a id="navLastre" href="lastre-it.html">Lastre</a></li>
-                    <li><a id="navCarracci" href="carracci-it.html">Carracci</a></li>
-                    <li><a id="navGraziaxx" href="graziaxx-it.html">Grazia</a></li>
+                    <button data-lang="it"><img src="public/flag/it.png" alt="Italiano"></button>
+                    <button data-lang="en"><img src="public/flag/en.png" alt="English"></button>
+                    <button data-lang="es"><img src="public/flag/es.png" alt="Español"></button>
+                    <button data-lang="fr"><img src="public/flag/fr.png" alt="Français"></button>
                 </div>
 
                 <button id="nearbyPoiButton" style="display:none;" aria-label="Punti di interesse vicini"></button>
@@ -45,6 +44,9 @@
                     <li><a id="navPugliole" href="pugliole-it.html">Pugliole</a></li>
                     <li><a id="navLastre" href="lastre-it.html">Lastre</a></li>
                     <li><a id="navCarracci" href="carracci-it.html">Carracci</a></li>
+                    <li><a id="navGraziaxx" href="graziaxx-it.html">Grazia</a></li>
+                    <li><a id="navChiesaSBene" href="chiesasbene-it.html">ChiesaSanBenedetto</a></li>
+                    <li><a id="navChiesaPioggia" href="chiesapioggia-it.html">ChiesaPioggia</a></li>
                 </ul>
             </div>
         </nav>
@@ -59,6 +61,9 @@
             </div>
 
             <div class="main-content-area">
+
+                <audio id="audioPlayer"></audio>
+                <button id="playAudio" class="play-style">Ascolta</button>
 
                 <p id="mainText"></p>
 
@@ -75,9 +80,6 @@
                 <img id="pageImage5" src="" style="display: none;" alt="Immagine 5 corpo">
 
                 <p id="mainText5"></p>
-
-                <audio id="audioPlayer"></audio>
-                <button id="playAudio" class="play-style">Ascolta</button>
 
             </div>
 

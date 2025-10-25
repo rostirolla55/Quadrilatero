@@ -212,7 +212,7 @@ async function loadContent(lang) {
                 { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
                 { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
                 { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene' },
-                { id: 'navChiesaPioggia', key: 'navVhiesaPioggia', base: 'chiesapioggia' },
+                { id: 'navChiesaPioggia', key: 'navChiesaPioggia', base: 'chiesapioggia' },
             ];
 
             // Aggiorna HREF e Testo per tutti i link del menu principale
