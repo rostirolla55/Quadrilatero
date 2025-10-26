@@ -51,15 +51,42 @@
         <nav class="nav-bar-main" id="navBarMain">
             <div class="nav-bar-content">
                 <ul>
-                    <li><a id="navHome" href="index-fr.html">Bienvenue</a></li>
-                    <li><a id="navPugliole" href="pugliole-fr.html">Les Pugliole</a></li>
-                    <li><a id="navLastre" href="lastre-fr.html">Lastre</a></li>
-                    <li><a id="navCarracci" href="carracci-fr.html">Maison des Carrache</a></li>
-                    <li><a id="navGraziaxx" href="graziaxx-fr.html">Pierre tombale de Grazia</a></li>
-                    <li><a id="navChiesaSBene" href="chiesasbene-fr.html">ChiesaSanBenedetto</a></li>
-                    <li><a id="navChiesaPioggia" href="chiesapioggia-fr.html">ChiesaPioggia</a></li>
+                    <li><a id="navHome" href="index-it.html"></a></li>
+                    <li><a id="navarco119" href="#"></a></li>
+                    <li><a id="navarco126b" href="#"></a></li>
+                    <li><a id="navarco132a" href="#"></a></li>
+                    <li><a id="navarco133a" href="#"></a></li>
+                    <li><a id="navarco136b" href="#"></a></li>
+                    <li><a id="navarco142a" href="#"></a></li>
+                    <li><a id="navarco143c" href="#"></a></li>
+                    <li><a id="navarco148" href="#"></a></li>
+                    <li><a id="navarco163" href="#"></a></li>
+                    <li><a id="navarco171b" href="#"></a></li>
+                    <li><a id="navarco180" href="#"></a></li>
+                    <li><a id="navarco182" href="#"></a></li>
+                    <li><a id="navarco183" href="#"></a></li>
+                    <li><a id="navarco186b" href="#"></a></li>
+                    <li><a id="navarco188b" href="#"></a></li>
+                    <li><a id="navarco190" href="#"></a></li>
+                    <li><a id="navarco192c" href="#"></a></li>
+                    <li><a id="navarco201a" href="#"></a></li>
+                    <li><a id="navarco202a" href="#"></a></li>
+                    <li><a id="navarco203b" href="#"></a></li>
+                    <li><a id="navarco208b" href="#"></a></li>
+                    <li><a id="navarco211b" href="#"></a></li>
+                    <li><a id="navarco218b" href="#"></a></li>
+                    <li><a id="navarco249a" href="#"></a></li>
+                    <li><a id="navarco252a" href="#"></a></li>
+                    <li><a id="navarco256" href="#"></a></li>
+                    <li><a id="navarco282a" href="#"></a></li>
+                    <li><a id="navarco283a" href="#"></a></li>
+                    <li><a id="navarco306b" href="#"></a></li>
+                    <li><a id="navarco307a" href="#"></a></li>
+                    <li><a id="navarco53c" href="#"></a></li>
+                    <li><a id="navlapide1" href="#"></a></li>
+                    <li><a id="navlapide2" href="#"></a></li>
+                    <li><a id="navpsontuoso" href="#"></a></li>
                 </ul>
-
             </div>
         </nav>
         <div id="nearbyMenuPlaceholder" class="nav-bar-nearby"></div>
@@ -73,9 +100,6 @@
             </div>
 
             <div class="main-content-area">
-
-                <audio id="audioPlayer"></audio>
-                <button id="playAudio" class="play-style">Ascolta</button>
 
                 <p id="mainText"></p>
 
@@ -92,6 +116,9 @@
                 <img id="pageImage5" src="" style="display: none;" alt="Immagine 5 corpo">
 
                 <p id="mainText5"></p>
+
+                <audio id="audioPlayer"></audio>
+                <button id="playAudio" class="play-style">Ascolta</button>
 
             </div>
 
