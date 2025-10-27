@@ -21,9 +21,11 @@
     },
     "nav": {
         "navHome": "Welcome",
-        "navCarracci": "Carracci house",
-        "navLastre": "House Numbers on Sandstone Slabs",
+        "navCarracci": "House of Ludovico Carracci",
+        "navLastre": "House numbers on sandstone slabs",
         "navPugliole": "The pugliole",
+        "navChiesaSBene": "Church of San Benedetto",
+        "navChiesaPioggia": "Church of the Rain",
         "navGraziaxx": "Grazia votive plaque"
     },
     "pugliole": {

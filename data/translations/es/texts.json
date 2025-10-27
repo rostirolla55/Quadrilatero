@@ -21,10 +21,12 @@
     },
     "nav": {
         "navHome": "Bienvenidos",
-        "navCarracci": "Casa Carracci",
-        "navLastre": "Números de casas en losas de arenisca",
-        "navPugliole": "El pugliole",
-        "navGraziaxx": "Placa votiva Grazia"
+        "navCarracci": "Casa de Ludovico Carracci",
+        "navLastre": "Números de casa en losas de arenisca",
+        "navPugliole": "Las pugliole",
+        "navChiesaSBene": "Iglesia de San Benedetto",
+        "navChiesaPioggia": "Iglesia de la Lluvia",
+        "navGraziaxx": "Placa votiva de Grazia"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",

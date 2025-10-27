@@ -21,9 +21,11 @@
     },
     "nav": {
         "navHome": "Bienvenue",
-        "navCarracci": "Maison Carracci",
+        "navCarracci": "Maison de Ludovico Carracci",
         "navLastre": "Numéros de maison sur dalles de grès",
         "navPugliole": "Les pugliole",
+        "navChiesaSBene": "Église San Benedetto",
+        "navChiesaPioggia": "Église de la Pluie",
         "navGraziaxx": "Plaque votive Grazia"
     },
     "pugliole": {
