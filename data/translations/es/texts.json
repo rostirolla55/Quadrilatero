@@ -1,7 +1,7 @@
 {
     "home": {
         "pageTitle": "Bienvenido al barrio de Porto",
-        "mainText": "Bienvenido. Esta página te permitirá acceder a información sobre los lugares interesantes que encontrarás mientras paseas por las calles del barrio de Porto. Aquí te explicamos cómo usar las páginas de esta app. En la esquina superior izquierda, verás tres líneas horizontales que representan el botón de menú para todas las páginas que puedes explorar. A la izquierda, unos segundos después de abrir la página, aparece un botón rectangular verde que presenta un menú de páginas sobre lugares cerca de ti. A la izquierda del botón verde hay banderas que te permiten elegir tu idioma. Debajo del título de la página, encontrarás un botón azul que te permite escuchar una breve descripción del contenido. Al pulsarlo, el botón se vuelve naranja; al pulsarlo, el audio se pausa, volviéndose azul. Al pulsar el botón azul de nuevo, se reanuda donde se dejó. Si mantienes abierto el menú verde, la lista de páginas cambiará dinámicamente a medida que caminas. La página tiene más detalles que el audio. ¡Buena suerte! ¡Mantén la app abierta cuando estés en el barrio!",
+        "mainText": "<p>Bienvenido al sitio web sobre Bolonia. <br />Te acompañaré con audio y, para más detalles, puedes leer el texto y las imágenes de la página.<br /> Te transportaré al pasado según el lugar donde te detengas. <br />Si encuentras un código QR en la ubicación, puedes acceder directamente a una página. <br />Si no tienes un código QR, al activar el GPS de tu smartphone, encontrarás un botón rectangular verde en la esquina superior derecha que te mostrará una lista de lugares de interés cercanos. <br />Al seleccionar un elemento de la lista, se abrirá la página correspondiente. <br /> En la esquina superior izquierda, hay tres líneas horizontales que muestran la lista completa de lugares documentados en el sitio.</p>",
         "mainText1": "",
         "mainText2": "",
         "mainText3": "",
@@ -88,7 +88,7 @@
     },
     "carracci": {
         "pageTitle": "Carracci",
-        "mainText": "Ludivico Carracci (1555-1619) vivió en esta casa, en Via San Carlo 19. Algunos techos, ahora cubiertos para evitar el deterioro ambiental, fueron pintados al fresco por Ludovico a temprana edad.",
+        "mainText": "Los resultados de la búsqueda indican que la dirección <strong>Via San Carlo, 19 en Bolonia</strong> está asociada con una propiedad llamada <strong>\"Casa Carracci\"</strong> o \"Casa de Vacaciones San Carlo\", que actualmente se alquila como apartamento vacacional. Algunas fuentes mencionan que se cree que el edificio, un antiguo palacio del siglo XVIII o XIX llamado \"Casa Carracci\" y protegido por la Superintendencia de Patrimonio Cultural, es el lugar donde vivió <strong>Ludovico Carracci</strong> entre 1555 y 1609 y donde se ubicaba uno de los talleres de los primos Carracci, fundadores de la <strong>Accademia degli Incamminati</strong>. Es importante señalar que, históricamente, la casa Carracci (que también hace referencia a Agostino y Annibale) se asocia a menudo con <strong>Via Rolandino, 1</strong> (la llamada \"Casa Beroe\"). Gradi\" o \"Casa Beroe detta dei Carracci\"), restaurada en el siglo XIX. En resumen, la propiedad en <strong>Via San Carlo, 19</strong> se promociona como un apartamento vacacional ubicado en lo que se identifica como el edificio donde vivió y trabajó el pintor Ludovico Carracci.",
         "mainText1": "",
         "mainText2": "",
         "mainText3": "",

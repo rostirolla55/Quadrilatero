@@ -1,7 +1,7 @@
 {
     "home": {
         "pageTitle": "Welcome to the Porto neighborhood",
-        "mainText": "Welcome. This page will allow you to access information about the interesting places you encounter while walking through the streets of the Porto neighborhood.Here's how to use the pages in this app.At the top left, you'll see three horizontal lines representing the menu button for all the pages you can browse.On the left, a few seconds after opening the page, a green rectangular button appears, presenting a menu of pages about places near you.To the left of the green button are flags that allow you to choose your language.Below the page title, you'll find a blue button that lets you listen to a brief description of the page's content.When pressed, the button turns orange, and pressing it pauses the audio, turning it blue.When you press the blue button again, it resumes where it left off. If you keep the green menu open, the menu will change the list of pages dynamically as you walk.The page has more details than the audio.Good luck! Keep the app open when you're in the neighborhood!",
+        "mainText": "<p>Welcome to the site about Bologna. <br /> I'll accompany you with audio, and for more details, you can read the text and images on the page. <br /> I'll take you back in time based on the place you stop. <br /> If you find a QR code on the spot, you can access a page directly. <br /> If you don't have a QR code, by activating your smartphone's GPS, you'll find a green rectangular button in the top right that will show you a list of nearby places of interest. <br /> Selecting an item from the list will open the page corresponding to that place. In the top left, there are three horizontal lines that give you the complete list of places documented on the site.</p>",
         "mainText1": " ",
         "mainText2": " ",
         "mainText3": " ",
@@ -88,7 +88,7 @@
     },
     "carracci": {
         "pageTitle": "Carracci",
-        "mainText": "Ludivico Carracci (1555 - 1619) lived in this house, at Via San Carlo 19. Some ceilings, now covered to prevent environmental deterioration, were frescoed by Ludovico at a young age.",
+        "mainText": "<p>The search results indicate that the address <strong>Via San Carlo, 19 in Bologna</strong> is associated with a property called <strong>"Casa Carracci"</strong> or "San Carlo Holiday House" which is currently rented as a holiday apartment.</p> <p>Some sources mention that the building, an ancient 18th or 19th century palace called "Casa Carracci" and protected by the Superintendence of Cultural Heritage, is believed to be the place where <strong>Ludovico Carracci</strong> lived from 1555 to 1609 and where one of the workshops of the Carracci cousins, founders of the <strong>Accademia degli Incamminati</strong>, was located.</p> <p>It is important to note that, historically, the Carracci house (also referring to Agostino and Annibale) is It is often also associated with <strong>Via Rolandino, 1</strong> (the so-called "Casa Beroe Gradi" or "Casa Beroe detta dei Carracci"), which underwent restoration in the 19th century.</p> <p>In short, the property at <strong>Via San Carlo, 19</strong> is promoted as a holiday apartment located in what is identified as the building where the painter Ludovico Carracci lived and worked.</p>",
         "mainText1": " ",
         "mainText2": " ",
         "mainText3": " ",
