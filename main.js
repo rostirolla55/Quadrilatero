@@ -115,7 +115,7 @@ const formatDistance = (distance) => {
 // main.js - Modifica la funzione updatePoiMenu (riga 108)
 // Nota: La funzione riceve allPageData da checkProximity
 
-function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) { 
+function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     const nearbyLocations = [];
 
     // 1. Calcola la distanza e filtra
@@ -123,7 +123,7 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
         const distance = calculateDistance(userLat, userLon, location.lat, location.lon);
 
         // 🔥 CORREZIONE 1: Usa la soglia dinamica del POI
-        if (distance <= location.distanceThreshold) { 
+        if (distance <= location.distanceThreshold) {
             nearbyLocations.push({
                 ...location,
                 distance: distance
@@ -140,18 +140,18 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
 
     if (uniquePois.length > 0) {
         let listItems = '';
-        
+
         // 🔥 CORREZIONE 2: Usa allPageData per ottenere il titolo
         uniquePois.forEach(poi => {
-            const poiContent = allPageData ? allPageData[poi.id] : null; 
-            
+            const poiContent = allPageData ? allPageData[poi.id] : null;
+
             const displayTitle = (poiContent && poiContent.pageTitle)
                 ? poiContent.pageTitle
-                : `[Titolo mancante: ${poi.id}]`; 
-                
+                : `[Titolo mancante: ${poi.id}]`;
+
             const langSuffix = userLang === 'it' ? '-it' : `-${userLang}`;
             const href = `${poi.id}${langSuffix}.html`;
-            
+
             listItems += `
                 <li>
                     <a href="${href}">
@@ -166,14 +166,14 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     } else {
         // Nessun POI trovato: mostra un messaggio informativo
         let maxThreshold = locations.reduce((max, loc) => Math.max(max, loc.distanceThreshold || 50), 0);
-        
+
         let noPoiMessage;
         switch (userLang) {
             case 'en': noPoiMessage = `No Points of Interest found within ${maxThreshold}m.`; break;
             case 'it':
             default: noPoiMessage = `Nessun Punto di Interesse trovato entro ${maxThreshold}m.`; break;
         }
-        
+
         // Uso colore giallo per i test
         menuHtml = `<div style="color:yellow; padding: 20px; text-align: center; font-size: 0.9em;">${noPoiMessage}</div>`;
     }
@@ -358,37 +358,48 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 };
 
 // main.js - Modifica la funzione checkProximity
-const checkProximity = (position, allPageData) => { // <-- Deve ricevere allPageData
+const checkProximity = (position, allPageData) => {
+    // 🔥 STEP 1: LOG DI DEBUG CRITICO 🔥
+    if (!position || !position.coords) {
+        console.error("DEBUG CRITICO: Oggetto posizione non valido (checkProximity).");
+        return;
+    }
+
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
     const userLang = currentLang;
+
+    // 🚨 STAMPA LA POSIZIONE RICEVUTA (Valore chiave per il debug) 🚨
+    console.warn(`[POI DEBUG] POSIZIONE RICEVUTA DAL BROWSER: Lat=${userLat}, Lon=${userLon}`);
+
 
     if (nearbyPoiButton) {
         nearbyPoiButton.style.display = 'block';
         if (typeof updatePoiMenu === 'function') {
             // PASSAGGIO CHIAVE: Passa allPageData a updatePoiMenu
-            updatePoiMenu(POIS_LOCATIONS, userLat, userLon, userLang, allPageData); 
+            updatePoiMenu(POIS_LOCATIONS, userLat, userLon, userLang, allPageData);
         }
     }
 };
 
 const handleGeolocationError = (error) => {
     console.warn(`ERRORE GPS: ${error.code}: ${error.message}`);
+    // Nascondi il pulsante in caso di errore non gestito
     if (nearbyPoiButton) { nearbyPoiButton.style.display = 'none'; }
 };
 
 // main.js - Modifica la funzione startGeolocation
-// main.js - Modifica la funzione startGeolocation (BLOCCO QUATTRO)
 const startGeolocation = (allPageData) => {
     // 1. Definisci la posizione di debug (Chiesa della Pioggia)
     const debugPosition = {
         coords: {
-            latitude: 44.498910, 
+            latitude: 44.498910,
             longitude: 11.342241
         }
     };
 
     if (navigator.geolocation) {
+        console.info("Tentativo di avviare il monitoraggio GPS in background.");
         // Tenta di ottenere la posizione reale
         navigator.geolocation.watchPosition(
             (position) => {
@@ -397,10 +408,10 @@ const startGeolocation = (allPageData) => {
             },
             (error) => { // Gestore d'errore: se il GPS reale fallisce
                 console.warn(`ERRORE GPS REALE (${error.code}): ${error.message}. Eseguo la simulazione desktop.`);
-                
+
                 // 🛑 FORZATURA SIMULAZIONE QUI IN CASO DI ERRORE
                 if (nearbyPoiButton) { nearbyPoiButton.style.display = 'block'; }
-                checkProximity(debugPosition, allPageData); 
+                checkProximity(debugPosition, allPageData);
             },
             {
                 enableHighAccuracy: true,
@@ -413,14 +424,13 @@ const startGeolocation = (allPageData) => {
         // Se il browser non supporta proprio il GPS, esegui la simulazione
         console.error("Il tuo browser non supporta la geolocalizzazione. Eseguo la simulazione.");
         if (nearbyPoiButton) { nearbyPoiButton.style.display = 'block'; }
-        checkProximity(debugPosition, allPageData); 
+        checkProximity(debugPosition, allPageData);
     }
 
-    if (nearbyPoiButton) { nearbyPoiButton.style.display = 'none'; } // Nascondi il pulsante all'inizio
+    // RIMOZIONE: rimosso il 'display: none' qui, lo gestisce handleGeolocationError in caso di fallimento
 };
 
-// BLOCCO QUATTRO - FINE 
-// BLOCCO CINQUE - INIZIO 
+// BLOCCO QUATTRO - FINE// BLOCCO CINQUE - INIZIO 
 
 // ===========================================
 // FUNZIONI LINGUA E BANDIERE
