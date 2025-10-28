@@ -2,7 +2,7 @@
 // ====================================================================
 // DICHIARAZIONE VARIABILI GLOBALI (NECESSARIE)
 // ====================================================================
-const APP_VERSION = '1.2.7 - Fix POI Multipli';
+const APP_VERSION = '1.2.9 - Fix POI Multipli';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'porticiSanLuca_lastLang'; // Chiave per salvare l'ultima lingua in localStorage (Coerente con index.html)
@@ -385,7 +385,7 @@ const checkProximity = (position, allPageData) => {
 const handleGeolocationError = (error) => {
     console.warn(`ERRORE GPS: ${error.code}: ${error.message}`);
     // Nascondi il pulsante in caso di errore non gestito
-    if (nearbyPoiButton) { nearbyPoiButton.style.display = 'none'; }
+    //    if (nearbyPoiButton) { nearbyPoiButton.style.display = 'none'; }
 };
 
 // main.js - Modifica la funzione startGeolocation
@@ -404,7 +404,14 @@ const startGeolocation = (allPageData) => {
         navigator.geolocation.watchPosition(
             (position) => {
                 console.log("GPS REALE: Posizione ottenuta.");
-                checkProximity(position, allPageData);
+                const FORCE_DEBUG = true; // <--- IMPOSTA QUI A TRUE PER TEST STABILI
+                if (FORCE_DEBUG) {
+                    // ... usa debugPosition
+                    checkProximity(debugPosition, allPageData);
+                } else {
+                    // ... usa position
+                    checkProximity(position, allPageData);
+                }
             },
             (error) => { // Gestore d'errore: se il GPS reale fallisce
                 console.warn(`ERRORE GPS REALE (${error.code}): ${error.message}. Eseguo la simulazione desktop.`);
