@@ -136,12 +136,17 @@ function updatePoiMenu(locations, userLat, userLon, userLang) {
             const distanceText = formatDistance(poi.distance);
             const fileBaseName = poi.id.toLowerCase();
 
+            // 🔥 CORREZIONE: OTTIENI IL TITOLO TRADOTTO DAL JSON
+            // Usa allPageData[fileBaseName] per prendere l'oggetto contenuto
+            const poiContent = allPageData ? allPageData[fileBaseName] : null;
+            const displayTitle = (poiContent && poiContent.pageTitle)
+                ? poiContent.pageTitle
+                : poi.id.replace(/_/g, ' ').replace(/([a-z])(\d)/i, '$1 $2');
+
             // La pagina IT non ha suffisso nel nome del file, ma la base del link DEVE essere coerente
-            const poiLink = `${fileBaseName}${(userLang === 'it' ? '-it' : langSuffix)}.html`; // Correzione per URL coerenti
+            const poiLink = `${fileBaseName}${(userLang === 'it' ? '-it' : langSuffix)}.html`;
 
-            const displayTitle = poi.id.replace(/_/g, ' ').replace(/([a-z])(\d)/i, '$1 $2');
-
-            menuHtml += `<li><a href="${poiLink}">${displayTitle} (${distanceText})</a></li>`;
+            menuHtml += `<li><a href="${poiLink}">${displayTitle} (${distanceText})</a></li>`; // <-- USA displayTitle
         });
         menuHtml += '</ul>';
 
@@ -301,6 +306,11 @@ async function loadContent(lang) {
 
         console.log(`✅ Contenuto caricato con successo per la lingua: ${lang} e pagina: ${pageId}`);
 
+        // 🔥 NUOVA CHIAMATA: Avvia il monitoraggio GPS DOPO aver caricato il contenuto
+        // NOTA: Dobbiamo salvare la funzione startGeolocation per poter passare i dati
+        startGeolocation(data); // <-- AGGIUNTA CHIAMATA
+
+
         // 🔥 CORREZIONE 2: SPOSTA LA RIGA PER MOSTRARE LA PAGINA ALLA FINE
         document.body.classList.add('content-loaded');
 
@@ -329,7 +339,8 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
     return R * c; // Distanza in metri
 };
 
-const checkProximity = (position) => {
+// main.js - Modifica la funzione checkProximity
+const checkProximity = (position, allPageData) => { // <-- AGGIUNTO allPageData
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
     const userLang = currentLang;
@@ -337,7 +348,8 @@ const checkProximity = (position) => {
     if (nearbyPoiButton) {
         nearbyPoiButton.style.display = 'block';
         if (typeof updatePoiMenu === 'function') {
-            updatePoiMenu(POIS_LOCATIONS, userLat, userLon, userLang);
+            // Passo i dati del JSON alla funzione updatePoiMenu
+            updatePoiMenu(POIS_LOCATIONS, userLat, userLon, userLang, allPageData); // <-- PASSAGGIO CHIAVE
         }
     }
 };
@@ -347,19 +359,27 @@ const handleGeolocationError = (error) => {
     if (nearbyPoiButton) { nearbyPoiButton.style.display = 'none'; }
 };
 
-const startGeolocation = () => {
+// main.js - Modifica la funzione startGeolocation
+const startGeolocation = (allPageData) => { // <-- AGGIUNTO allPageData
     if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(checkProximity, handleGeolocationError, {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        });
+        // La funzione checkProximity deve essere chiamata con i dati come secondo argomento
+        navigator.geolocation.watchPosition(
+            (position) => checkProximity(position, allPageData), // <-- PASSAGGIO QUI
+            handleGeolocationError, 
+            {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            }
+        );
         console.log("Monitoraggio GPS avviato.");
     } else {
         console.error("Il tuo browser non supporta la geolocalizzazione.");
         if (nearbyPoiButton) { nearbyPoiButton.style.display = 'none'; }
     }
 };
+
+// ... e Rimuovi startGeolocation(); alla fine di DOMContentLoaded.
 
 // ===========================================
 // FUNZIONI LINGUA E BANDIERE
@@ -516,8 +536,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. CARICAMENTO CONTENUTO (maintext)
     loadContent(currentLang);
 
-    // 6. AVVIA IL MONITORAGGIO GPS
-    startGeolocation();
 
     // Invio dati a Google Analytics
     if (typeof gtag === 'function') {
