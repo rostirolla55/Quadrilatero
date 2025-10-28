@@ -160,7 +160,8 @@ function updatePoiMenu(locations, userLat, userLon, userLang) {
             case 'it':
             default: noPoiMessage = `Nessun Punto di Interesse trovato entro ${minProximity}m.`; break;
         }
-        menuHtml = `<div style="color:white; padding: 20px; text-align: center; font-size: 0.9em;">${noPoiMessage}</div>`;
+        // menuHtml = `<div style="color:white; padding: 20px; text-align: center; font-size: 0.9em;">${noPoiMessage}</div>`;
+        menuHtml = `<div style="color:yellow; padding: 20px; text-align: center; font-size: 0.9em;">${noPoiMessage}</div>`; // <-- TEST
     }
 
     // 4. Inietta l'HTML nel placeholder

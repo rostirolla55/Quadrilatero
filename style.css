@@ -212,7 +212,17 @@ body.menu-open {
     padding: 10px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+/* Assicuriamo che i link visitati abbiano lo stesso colore chiaro */
+.poi-links li a:visited {
+    color: #f4f4f4; 
+}
 
+/* Applichiamo lo stesso colore chiaro anche allo stato hover/focus */
+.poi-links li a:hover,
+.poi-links li a:focus {
+    color: #00ff00; /* Il tuo colore hover originale (verde brillante) */
+    background-color: #444; /* Leggero sfondo per evidenziare */
+}
 
 /* -------------------- SELETTORE LINGUA -------------------- */
 
