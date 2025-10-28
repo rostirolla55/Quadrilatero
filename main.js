@@ -365,7 +365,7 @@ const startGeolocation = (allPageData) => { // <-- AGGIUNTO allPageData
         // La funzione checkProximity deve essere chiamata con i dati come secondo argomento
         navigator.geolocation.watchPosition(
             (position) => checkProximity(position, allPageData), // <-- PASSAGGIO QUI
-            handleGeolocationError, 
+            handleGeolocationError,
             {
                 enableHighAccuracy: true,
                 timeout: 5000,
@@ -375,13 +375,14 @@ const startGeolocation = (allPageData) => { // <-- AGGIUNTO allPageData
         console.log("Monitoraggio GPS avviato.");
     } else {
         console.error("Il tuo browser non supporta la geolocalizzazione.");
-// 🔥 DEBUG SUL DESKTOP: SIMULA LA POSIZIONE DELLA CHIESA DELLA PIOGGIA
-        const debugPosition = { 
-            coords: { 
+        // 🔥 DEBUG SUL DESKTOP: SIMULA LA POSIZIONE DELLA CHIESA DELLA PIOGGIA
+        const debugPosition = {
+            coords: {
                 latitude: 44.498910, // Coordinate della Chiesa della Pioggia
-                longitude: 11.342241 
+                longitude: 11.342241
             }
         };
+        checkProximity(debugPosition, allPageData); // <-- AGGIUNTO IL PASSAGGIO DEL DATO
 
         if (nearbyPoiButton) { nearbyPoiButton.style.display = 'none'; }
     }
