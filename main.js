@@ -2,6 +2,8 @@
 // ====================================================================
 // DICHIARAZIONE VARIABILI GLOBALI (NECESSARIE)
 // ====================================================================
+const APP_VERSION = '1.2.5 - Fix POI Multipli';
+
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'porticiSanLuca_lastLang'; // Chiave per salvare l'ultima lingua in localStorage (Coerente con index.html)
 let currentLang = 'it';
@@ -531,6 +533,10 @@ function initEventListeners(currentLang) {
 // ===========================================
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    console.info(`🌍 Versione in esecuzione: ${APP_VERSION}`);
+    console.info(`Lingua predefinita rilevata: ${currentLang}`);
+    
     // 1. ASSEGNAZIONE DELLE VARIABILI GLOBALI
     nearbyPoiButton = document.getElementById('nearbyPoiButton');
     nearbyMenuPlaceholder = document.getElementById('nearbyMenuPlaceholder');
