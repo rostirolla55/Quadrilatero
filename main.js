@@ -25,9 +25,9 @@ const POIS_LOCATIONS = [
     // ViaSanCarlo45_f.jpg
     { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 10 },
     // ViaGalliera79.jpg 44.501514, 11.343557
-    { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 20 },
+    { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120 },
     // Piazzetta_Pioggia.jpg 44.498910, 11.342241
-    { id: 'chiesapioggia', lat: 44.498910, lon: 11.342241, distanceThreshold: 20 },
+    { id: 'chiesapioggia', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
     // ViaSanCarlo42_f.jpg
     { id: 'lastre', lat: 44.5004361111111, lon: 11.3406416666667, distanceThreshold: 10 },
     // Tanari_11.jpg
