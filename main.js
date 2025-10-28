@@ -2,7 +2,7 @@
 // ====================================================================
 // DICHIARAZIONE VARIABILI GLOBALI (NECESSARIE)
 // ====================================================================
-const APP_VERSION = '1.2.9 - Fix POI Multipli';
+const APP_VERSION = '1.2.10 - Fix POI Multipli';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'porticiSanLuca_lastLang'; // Chiave per salvare l'ultima lingua in localStorage (Coerente con index.html)
@@ -404,7 +404,7 @@ const startGeolocation = (allPageData) => {
         navigator.geolocation.watchPosition(
             (position) => {
                 console.log("GPS REALE: Posizione ottenuta.");
-                const FORCE_DEBUG = true; // <--- IMPOSTA QUI A TRUE PER TEST STABILI
+                const FORCE_DEBUG = false; // <--- IMPOSTA QUI A TRUE PER TEST STABILI
                 if (FORCE_DEBUG) {
                     // ... usa debugPosition
                     checkProximity(debugPosition, allPageData);
