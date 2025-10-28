@@ -1,3 +1,4 @@
+// BLOCCO UNO - INIZIO 
 // ====================================================================
 // DICHIARAZIONE VARIABILI GLOBALI (NECESSARIE)
 // ====================================================================
@@ -93,6 +94,8 @@ const handleAudioEnded = function (audioPlayer, playButton) {
     playButton.classList.replace('pause-style', 'play-style');
 };
 
+// BLOCCO UNO - FINE 
+// BLOCCO DUE - INIZIO 
 
 // ===========================================
 // FUNZIONI POI (PULSANTE VERDE)
@@ -177,6 +180,8 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     }
 }
 
+// BLOCCO DUE - FINE 
+// BLOCCO TRE - INIZIO 
 
 // ===========================================
 // FUNZIONI DI CARICAMENTO CONTENUTI (loadContent)
@@ -327,7 +332,8 @@ async function loadContent(lang) {
         document.body.classList.add('content-loaded'); // Apri la pagina anche in caso di errore
     }
 }
-
+// BLOCCO TRE - FINE 
+// BLOCCO QUATTRO - INIZIO 
 // ===========================================
 // FUNZIONI UTILITY PER GPS E POI
 // ===========================================
@@ -396,7 +402,8 @@ const startGeolocation = (allPageData) => { // <-- AGGIUNTO allPageData
     }
 };
 
-// ... e Rimuovi startGeolocation(); alla fine di DOMContentLoaded.
+// BLOCCO QUATTRO - FINE 
+// BLOCCO CINQUE - INIZIO 
 
 // ===========================================
 // FUNZIONI LINGUA E BANDIERE
@@ -513,6 +520,8 @@ function initEventListeners(currentLang) {
         button.addEventListener('click', handleLanguageChange);
     });
 }
+// BLOCCO CINQUE - FINE 
+// BLOCCO SEI - INIZIO 
 
 // ===========================================
 // PUNTO DI INGRESSO (DOM LOADED)
@@ -564,3 +573,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+// BLOCCO SEI - FINE 
