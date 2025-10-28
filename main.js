@@ -2,7 +2,7 @@
 // ====================================================================
 // DICHIARAZIONE VARIABILI GLOBALI (NECESSARIE)
 // ====================================================================
-const APP_VERSION = '1.2.5 - Fix POI Multipli';
+const APP_VERSION = '1.2.6 - Fix POI Multipli';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'porticiSanLuca_lastLang'; // Chiave per salvare l'ultima lingua in localStorage (Coerente con index.html)
@@ -378,12 +378,30 @@ const handleGeolocationError = (error) => {
 };
 
 // main.js - Modifica la funzione startGeolocation
-const startGeolocation = (allPageData) => { // <-- AGGIUNTO allPageData
+// main.js - Modifica la funzione startGeolocation (BLOCCO QUATTRO)
+const startGeolocation = (allPageData) => {
+    // 1. Definisci la posizione di debug (Chiesa della Pioggia)
+    const debugPosition = {
+        coords: {
+            latitude: 44.498910, 
+            longitude: 11.342241
+        }
+    };
+
     if (navigator.geolocation) {
-        // La funzione checkProximity deve essere chiamata con i dati come secondo argomento
+        // Tenta di ottenere la posizione reale
         navigator.geolocation.watchPosition(
-            (position) => checkProximity(position, allPageData), // <-- PASSAGGIO QUI
-            handleGeolocationError,
+            (position) => {
+                console.log("GPS REALE: Posizione ottenuta.");
+                checkProximity(position, allPageData);
+            },
+            (error) => { // Gestore d'errore: se il GPS reale fallisce
+                console.warn(`ERRORE GPS REALE (${error.code}): ${error.message}. Eseguo la simulazione desktop.`);
+                
+                // 🛑 FORZATURA SIMULAZIONE QUI IN CASO DI ERRORE
+                if (nearbyPoiButton) { nearbyPoiButton.style.display = 'block'; }
+                checkProximity(debugPosition, allPageData); 
+            },
             {
                 enableHighAccuracy: true,
                 timeout: 5000,
@@ -392,19 +410,13 @@ const startGeolocation = (allPageData) => { // <-- AGGIUNTO allPageData
         );
         console.log("Monitoraggio GPS avviato.");
     } else {
-        console.error("Il tuo browser non supporta la geolocalizzazione.");
-        console.log("DEBUG: Avvio simulazione desktop.");
-        // 🔥 DEBUG SUL DESKTOP: SIMULA LA POSIZIONE DELLA CHIESA DELLA PIOGGIA
-        const debugPosition = {
-            coords: {
-                latitude: 44.498910, // Coordinate della Chiesa della Pioggia
-                longitude: 11.342241
-            }
-        };
-        checkProximity(debugPosition, allPageData); // <-- AGGIUNTO IL PASSAGGIO DEL DATO
-
-        if (nearbyPoiButton) { nearbyPoiButton.style.display = 'none'; }
+        // Se il browser non supporta proprio il GPS, esegui la simulazione
+        console.error("Il tuo browser non supporta la geolocalizzazione. Eseguo la simulazione.");
+        if (nearbyPoiButton) { nearbyPoiButton.style.display = 'block'; }
+        checkProximity(debugPosition, allPageData); 
     }
+
+    if (nearbyPoiButton) { nearbyPoiButton.style.display = 'none'; } // Nascondi il pulsante all'inizio
 };
 
 // BLOCCO QUATTRO - FINE 
@@ -536,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.info(`🌍 Versione in esecuzione: ${APP_VERSION}`);
     console.info(`Lingua predefinita rilevata: ${currentLang}`);
-    
+
     // 1. ASSEGNAZIONE DELLE VARIABILI GLOBALI
     nearbyPoiButton = document.getElementById('nearbyPoiButton');
     nearbyMenuPlaceholder = document.getElementById('nearbyMenuPlaceholder');
