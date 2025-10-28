@@ -204,17 +204,14 @@ body.menu-open {
     flex-direction: column;
 }
 
-.poi-links li a {
-    color: #f4f4f4;
+/* Trova la regola esistente per .poi-links li a */
+.poi-links li a,
+.poi-links li a:visited { /* <-- ASSOLUTAMENTE CRITICO: AGGIUNGI :visited */
+    color: #f4f4f4; /* Colore chiaro per NON visitati E visitati */
     text-decoration: none;
-    font-size: 1em;
     display: block;
     padding: 10px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-/* Assicuriamo che i link visitati abbiano lo stesso colore chiaro */
-.poi-links li a:visited {
-    color: #f4f4f4; 
 }
 
 /* Applichiamo lo stesso colore chiaro anche allo stato hover/focus */
