@@ -2,7 +2,7 @@
 // ====================================================================
 // DICHIARAZIONE VARIABILI GLOBALI (NECESSARIE)
 // ====================================================================
-const APP_VERSION = '1.2.6 - Fix POI Multipli';
+const APP_VERSION = '1.2.7 - Fix POI Multipli';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'porticiSanLuca_lastLang'; // Chiave per salvare l'ultima lingua in localStorage (Coerente con index.html)
