@@ -105,15 +105,18 @@ const formatDistance = (distance) => {
     return `${(distance / 1000).toFixed(1)}km`;
 };
 
-function updatePoiMenu(locations, userLat, userLon, userLang) {
+// main.js - Modifica la funzione updatePoiMenu (riga 108)
+// Nota: La funzione riceve allPageData da checkProximity
+
+function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) { 
     const nearbyLocations = [];
-    const minProximity = 50; // 50 metri
 
     // 1. Calcola la distanza e filtra
     locations.forEach(location => {
         const distance = calculateDistance(userLat, userLon, location.lat, location.lon);
 
-        if (distance <= minProximity) {
+        // 🔥 CORREZIONE 1: Usa la soglia dinamica del POI
+        if (distance <= location.distanceThreshold) { 
             nearbyLocations.push({
                 ...location,
                 distance: distance
@@ -121,7 +124,7 @@ function updatePoiMenu(locations, userLat, userLon, userLang) {
         }
     });
 
-    // 2. Ordina e Rimuovi duplicati (basati sull'ID)
+    // 2. Ordina per distanza e Rimuovi duplicati
     nearbyLocations.sort((a, b) => a.distance - b.distance);
     const uniquePois = [...new Map(nearbyLocations.map(item => [item['id'], item])).values()];
 
@@ -129,39 +132,43 @@ function updatePoiMenu(locations, userLat, userLon, userLang) {
     let menuHtml = '';
 
     if (uniquePois.length > 0) {
-        const langSuffix = userLang === 'it' ? '' : `-${userLang}`;
-
-        menuHtml += '<ul class="poi-links">';
+        let listItems = '';
+        
+        // 🔥 CORREZIONE 2: Usa allPageData per ottenere il titolo
         uniquePois.forEach(poi => {
-            const distanceText = formatDistance(poi.distance);
-            const fileBaseName = poi.id.toLowerCase();
-
-            // 🔥 CORREZIONE: OTTIENI IL TITOLO TRADOTTO DAL JSON
-            // Usa allPageData[fileBaseName] per prendere l'oggetto contenuto
-            const poiContent = allPageData ? allPageData[fileBaseName] : null;
+            const poiContent = allPageData ? allPageData[poi.id] : null; 
+            
             const displayTitle = (poiContent && poiContent.pageTitle)
                 ? poiContent.pageTitle
-                : poi.id.replace(/_/g, ' ').replace(/([a-z])(\d)/i, '$1 $2');
-
-            // La pagina IT non ha suffisso nel nome del file, ma la base del link DEVE essere coerente
-            const poiLink = `${fileBaseName}${(userLang === 'it' ? '-it' : langSuffix)}.html`;
-
-            menuHtml += `<li><a href="${poiLink}">${displayTitle} (${distanceText})</a></li>`; // <-- USA displayTitle
+                : `[Titolo mancante: ${poi.id}]`; 
+                
+            const langSuffix = userLang === 'it' ? '-it' : `-${userLang}`;
+            const href = `${poi.id}${langSuffix}.html`;
+            
+            listItems += `
+                <li>
+                    <a href="${href}">
+                        ${displayTitle} 
+                        <span class="poi-distance">(${poi.distance.toFixed(0)}m)</span>
+                    </a>
+                </li>`;
         });
-        menuHtml += '</ul>';
+
+        menuHtml = `<ul class="poi-links">${listItems}</ul>`;
 
     } else {
         // Nessun POI trovato: mostra un messaggio informativo
+        let maxThreshold = locations.reduce((max, loc) => Math.max(max, loc.distanceThreshold || 50), 0);
+        
         let noPoiMessage;
         switch (userLang) {
-            case 'en': noPoiMessage = `No Points of Interest found within ${minProximity}m.`; break;
-            case 'es': noPoiMessage = `No se encontraron Puntos de Interés a menos de ${minProximity}m.`; break;
-            case 'fr': noPoiMessage = `Aucun Point d'Intérêt trouvé à moins de ${minProximity}m.`; break;
+            case 'en': noPoiMessage = `No Points of Interest found within ${maxThreshold}m.`; break;
             case 'it':
-            default: noPoiMessage = `Nessun Punto di Interesse trovato entro ${minProximity}m.`; break;
+            default: noPoiMessage = `Nessun Punto di Interesse trovato entro ${maxThreshold}m.`; break;
         }
-        // menuHtml = `<div style="color:white; padding: 20px; text-align: center; font-size: 0.9em;">${noPoiMessage}</div>`;
-        menuHtml = `<div style="color:yellow; padding: 20px; text-align: center; font-size: 0.9em;">${noPoiMessage}</div>`; // <-- TEST
+        
+        // Uso colore giallo per i test
+        menuHtml = `<div style="color:yellow; padding: 20px; text-align: center; font-size: 0.9em;">${noPoiMessage}</div>`;
     }
 
     // 4. Inietta l'HTML nel placeholder
@@ -341,7 +348,7 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 };
 
 // main.js - Modifica la funzione checkProximity
-const checkProximity = (position, allPageData) => { // <-- AGGIUNTO allPageData
+const checkProximity = (position, allPageData) => { // <-- Deve ricevere allPageData
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
     const userLang = currentLang;
@@ -349,8 +356,8 @@ const checkProximity = (position, allPageData) => { // <-- AGGIUNTO allPageData
     if (nearbyPoiButton) {
         nearbyPoiButton.style.display = 'block';
         if (typeof updatePoiMenu === 'function') {
-            // Passo i dati del JSON alla funzione updatePoiMenu
-            updatePoiMenu(POIS_LOCATIONS, userLat, userLon, userLang, allPageData); // <-- PASSAGGIO CHIAVE
+            // PASSAGGIO CHIAVE: Passa allPageData a updatePoiMenu
+            updatePoiMenu(POIS_LOCATIONS, userLat, userLon, userLang, allPageData); 
         }
     }
 };
