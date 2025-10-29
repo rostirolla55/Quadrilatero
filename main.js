@@ -22,7 +22,7 @@ const POIS_LOCATIONS = [
     // Pugliole.jpg
     { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 50 },
     // Casa_Carracci_Portone.jpg
-    { id: 'Carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50 },    
+    { id: 'carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50 },    
     // ViaSanCarlo45_f.jpg
     { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50 },
     // ViaGalliera79.jpg 44.501514, 11.343557
