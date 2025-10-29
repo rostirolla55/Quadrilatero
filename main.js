@@ -2,7 +2,7 @@
 // ====================================================================
 // DICHIARAZIONE VARIABILI GLOBALI (NECESSARIE)
 // ====================================================================
-const APP_VERSION = '1.2.12 - Fix POI Multipli';
+const APP_VERSION = '1.2.13 - Fix POI Multipli';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'porticiSanLuca_lastLang'; // Chiave per salvare l'ultima lingua in localStorage (Coerente con index.html)
@@ -22,7 +22,7 @@ const POIS_LOCATIONS = [
     // Pugliole.jpg
     { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 50 },
     // Casa_Carracci_Portone.jpg
-    { id: 'carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50 },    
+    { id: 'carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50 },
     // ViaSanCarlo45_f.jpg
     { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50 },
     // ViaGalliera79.jpg 44.501514, 11.343557
