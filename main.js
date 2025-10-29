@@ -16,17 +16,15 @@ let nearbyPoiButton, nearbyMenuPlaceholder;
 // in C:\Users\User\Documents\salvataggi_github\ARCO_LOCATIONS_PORTICISANLUCA_js.txt
 const POIS_LOCATIONS = [
     // Lapide_Grazia.jpg
-    { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 15 },
+    { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50 },
     // Pugliole_1.jpg
-    { id: 'Pugliole', lat: 44.4990527777778, lon: 11.3394472222222, distanceThreshold: 15 },
+    { id: 'Pugliole', lat: 44.4990527777778, lon: 11.3394472222222, distanceThreshold: 50 },
     // Pugliole.jpg
-    { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 15 },
-    // viaPolese_f.jpg
-    { id: 'carracci', lat: 44.5000722222222, lon: 11.3404333333333, distanceThreshold: 15 },
+    { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 50 },
+    // Casa_Carracci_Portone.jpg
+    { id: 'Carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50 },    
     // ViaSanCarlo45_f.jpg
-    { id: 'carracci', lat: 44.5005194444444, lon: 11.3407111111111, distanceThreshold: 15 },
-    // ViaSanCarlo45_f.jpg
-    { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 15 },
+    { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50 },
     // ViaGalliera79.jpg 44.501514, 11.343557
     { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120 },
     // Piazzetta Pioggia da Galliera 44.498910, 11.342241
@@ -38,7 +36,7 @@ const POIS_LOCATIONS = [
     // Opera di Agostino Carracci - 44.498910, 11.342241
     { id: 'pioggia3', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
     // Tanari_11.jpg
-    { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 10 }
+    { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50 }
 ];
 
 
