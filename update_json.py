@@ -7,13 +7,11 @@ def update_json_file():
     Legge i parametri dalla riga di comando per aggiornare un file JSON.
     Uso: python update_json.py <json_path> <target_key> <text_source_path>
     """
-    # 1. Verifica che i parametri siano stati forniti
     if len(sys.argv) != 4:
         print("Errore: Uso non corretto.")
         print("Sintassi: python update_json.py <percorso_json> <chiave_target> <percorso_testo>")
         sys.exit(1)
 
-    # 2. Assegna i parametri
     json_path = sys.argv[1]
     target_key = sys.argv[2]
     text_source_path = sys.argv[3]
@@ -31,19 +29,16 @@ def update_json_file():
         with open(text_source_path, 'r', encoding='utf-8') as f:
             testo_sorgente = f.read()
 
-        # 4. Applica l'Escape CRITICO per le virgolette doppie (")
-        # Sostituisce " con \"
-        testo_escaped = testo_sorgente.replace('"', '\\"')
+        # 4. PREPARAZIONE DEL TESTO: 
+        # Rimuove newline/ritorno a capo e spazi extra, ma NON aggiunge backslash.
+        # Lasciamo che sia json.dump a fare l'escape corretto.
+        testo_pulito = testo_sorgente.replace('\n', ' ').replace('\r', ' ').strip()
         
-        # Rimuove newline in eccesso o caratteri di ritorno a capo comuni da file HTML puliti
-        testo_escaped = testo_escaped.replace('\n', ' ').replace('\r', '').strip()
-
-        # 5. Carica e aggiorna il file JSON
+        # 5. Carica il file JSON
         with open(json_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
-        # 6. Aggiorna la chiave target (la chiave viene creata se non esiste)
-        # La chiave potrebbe essere nested (es. 'pioggia3.mainText1')
+        # 6. Aggiorna la chiave target (gestisce anche chiavi nested, come pioggia3.mainText1)
         keys = target_key.split('.')
         current = data
         for key in keys[:-1]:
@@ -51,12 +46,13 @@ def update_json_file():
                 current[key] = {}
             current = current[key]
         
-        current[keys[-1]] = testo_escaped
+        # Inserisce il testo pulito, SENZA escape manuale
+        current[keys[-1]] = testo_pulito
         print(f"✅ SUCCESS: Chiave '{target_key}' aggiornata in {json_path}")
 
         # 7. Scrive il JSON aggiornato
+        # La funzione json.dump() gestirà automaticamente l'escape dei caratteri come " -> \"
         with open(json_path, 'w', encoding='utf-8') as f:
-            # Usa indent=4 per leggibilità, ensure_ascii=False per caratteri accentati
             json.dump(data, f, indent=4, ensure_ascii=False)
 
     except json.JSONDecodeError:
