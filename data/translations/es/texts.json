@@ -20,12 +20,15 @@
         "audioSource": "Assets/Audio/es/Home_Bologna.mp3"
     },
     "nav": {
-        "navHome": "Bienvenidos",
+        "navHome": "Bienvenido",
         "navCarracci": "Casa de Ludovico Carracci",
-        "navLastre": "Números de casa en losas de arenisca",
-        "navPugliole": "Las pugliole",
+        "navLastre": "Números de casas en losas de arenisca",
+        "navPugliole": "Las Pugliole",
         "navChiesaSBene": "Iglesia de San Benedetto",
         "navChiesaPioggia": "Iglesia de la Lluvia",
+        "navPioggia1": "Paisaje con San Bartolomé Alfonso Lombardi",
+        "navPioggia2": "Escultura de San Bartolomé",
+        "navPioggia3": "Obra de Agostino Carracci",
         "navGraziaxx": "Placa votiva de Grazia"
     },
     "pugliole": {
