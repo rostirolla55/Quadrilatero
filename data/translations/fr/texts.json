@@ -210,5 +210,25 @@
         "creationDate": "2025-10-26",
         "lastUpdate": "2025-10-26",
         "audioSource": "Assets/Audio/fr/Chiesa_Pioggia.mp3"
+    },
+    "manifattura": {
+        "pageTitle": "Ex Manifattura Tabacchi",
+        "mainText": "",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Ecouter avec des ecouteurs",
+        "pauseAudioButton": "Pause",
+        "imageSource1": "",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "Archives historiques de la municipalité de Bologne.",
+        "creationDate": "2025-10-26",
+        "lastUpdate": "2025-10-26",
+        "audioSource": "Assets/Audio/fr/Chiesa_Pioggia.mp3"
     }
 }
