@@ -172,7 +172,7 @@
         "audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
     },
     "pioggia2": {
-        "Titre de la page ": " Sculpture de Saint Barthélemy ",
+        "pageTitle": " Sculpture de Saint Barthélemy ",
         "mainText ": "par le sculpteur Alfonso Lombardi",
         "mainText1": "",
         "mainText2": "",
