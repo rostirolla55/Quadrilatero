@@ -169,7 +169,7 @@
         "sourceText": "Historical Archives of the Municipality of Bologna.",
         "creationDate": "2025-10-26",
         "lastUpdate": "2025-10-26",
-        "audioSource": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
+        "audioSource": "Assets/Audio/en/Chiesa_Pioggia.mp3"
     },
     "pioggia2": {
         "pageTitle": "Saint Bartholomew Sculpture",
@@ -189,7 +189,7 @@
         "sourceText": "Historical Archives of the Municipality of Bologna.",
         "creationDate": "2025-10-26",
         "lastUpdate": "2025-10-26",
-        "audioSource": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
+        "audioSource": "Assets/Audio/en/Chiesa_Pioggia.mp3"
     },
     "pioggia3": {
         "pageTitle": "Adoration of the Shepherds",
@@ -209,6 +209,6 @@
         "sourceText": "Historical Archives of the Municipality of Bologna.",
         "creationDate": "2025-10-26",
         "lastUpdate": "2025-10-26",
-        "audioSource": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
+        "audioSource": "Assets/Audio/en/Chiesa_Pioggia.mp3"
     }
 }
