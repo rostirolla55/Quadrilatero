@@ -149,5 +149,14 @@
         "lastUpdate": "2025-10-01",
         "pauseAudioButton": "Pausa",
         "audioSource": "Assets/Audio/es/Carracci.mp3"
+    },
+    "pioggia3": {
+        "playAudioButton": "Escuchar"
+    },
+    "pioggia2": {
+        "playAudioButton": "Escuchar"
+    },
+    "pioggia1": {
+        "playAudioButton": "Escuchar"
     }
 }

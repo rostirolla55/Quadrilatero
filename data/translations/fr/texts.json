@@ -150,5 +150,14 @@
         "creationDate": "30/08/2025",
         "lastUpdate": "01/10/2025",
         "audioSource": "Assets/Audio/fr/Carracci.mp3"
+    },
+    "pioggia1": {
+        "playAudioButton": "Ecouter"
+    },
+    "pioggia2": {
+        "playAudioButton": "Ecouter"
+    },
+    "pioggia3": {
+        "playAudioButton": "Ecouter"
     }
 }
