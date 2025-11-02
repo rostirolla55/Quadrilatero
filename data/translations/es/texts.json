@@ -168,7 +168,8 @@
         " sourceText ": "Archivos históricos del municipio de Bolonia.",
         " Fecha de creación ": "2025-10-26",
         " Última actualización ": "26-10-2025",
-        " audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
+        " audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3",
+        "playAudioButton": "Escuchar con auriculares"
     },
     "pioggia2": {
         " pageTitle ": "Escultura de San Bartolomé",
@@ -188,7 +189,8 @@
         " sourceText ": "Archivos históricos del municipio de Bolonia.",
         " Fecha de creación ": "2025-10-26",
         " Última actualización ": "26-10-2025",
-        " audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
+        " audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3",
+        "playAudioButton": "Escuchar con auriculares"
     },
     "pioggia3": {
         " título de la página ": "Adoración de los pastores",
@@ -208,6 +210,7 @@
         " sourceText ": "Archivos históricos del municipio de Bolonia.",
         " Fecha de creación ": "2025-10-26",
         " Última actualización ": "26-10-2025",
-        " audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
+        " audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3",
+        "playAudioButton": "Escuchar con auriculares"
     }
 }
