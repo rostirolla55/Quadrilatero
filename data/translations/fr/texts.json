@@ -166,14 +166,14 @@
         "imageSource3": "",
         "imageSource4": "",
         "imageSource5": "",
-        "sourceText ": "Archives historiques de la municipalité de Bologne.",
+        "sourceText": "Archives historiques de la municipalité de Bologne.",
         "creationDate": "2025-10-26",
         "lastUpdate": "2025-10-26",
         "audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
     },
     "pioggia2": {
-        " Titre de la page ": " Sculpture de Saint Barthélemy ",
-        " mainText ": "par le sculpteur Alfonso Lombardi",
+        "Titre de la page ": " Sculpture de Saint Barthélemy ",
+        "mainText ": "par le sculpteur Alfonso Lombardi",
         "mainText1": "",
         "mainText2": "",
         "mainText3": "",
@@ -186,14 +186,14 @@
         "imageSource3": "",
         "imageSource4": "",
         "imageSource5": "",
-        " sourceText ": "Archives historiques de la municipalité de Bologne.",
-        " date de création ": "2025-10-26",
-        " dernière mise à jour ": "2025-10-26",
-        " audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
+        "sourceText": "Archives historiques de la municipalité de Bologne.",
+        "date de création ": "2025-10-26",
+        "dernière mise à jour ": "2025-10-26",
+        "audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
     },
     "pioggia3": {
-        " pageTitle ": "Adoration des bergers",
-        " mainText ": " L'auteur est Agostino Carracci",
+        "pageTitle ": "Adoration des bergers",
+        "mainText ": " L'auteur est Agostino Carracci",
         "mainText1": "",
         "mainText2": "",
         "mainText3": "",
@@ -206,9 +206,9 @@
         "imageSource3": "",
         "imageSource4": "",
         "imageSource5": "",
-        " sourceText ": "Archives historiques de la municipalité de Bologne.",
-        " date de création ": "2025-10-26",
-        " dernière mise à jour ": "2025-10-26",
-        " audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
+        "sourceText": "Archives historiques de la municipalité de Bologne.",
+        "date de création ": "2025-10-26",
+        "dernière mise à jour ": "2025-10-26",
+        "audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
     }
 }
