@@ -150,13 +150,64 @@
         "pauseAudioButton": "Pausa",
         "audioSource": "Assets/Audio/es/Carracci.mp3"
     },
-    "pioggia3": {
-        "playAudioButton": "Escuchar"
+    "pioggia1": {
+        " título de la página ": "Paisaje con San Bartolomé",
+        " mainText": "",
+        "mainText1 ": "<p> El <strong>Santuario de la Madonna della Pioggia y San Bartolomeo di Reno</strong> (Via Riva di Reno, 124, esquina con Via Galliera) en Bolonia, alberga el \"Paisaje con Bartolomeo\", obra del pintor boloñés <strong>Ludovico Mattioli</strong>.</p> <p><strong> 🖼️ El \"Paisaje con San Bartolomeo\" de Ludovico Mattioli</strong></p> <p>La obra mencionada se encuentra junto a la escalera que conduce a las salas superiores de la iglesia y no es una pintura de Annibale, como erróneamente se le atribuye, sino de uno de sus sucesores de la escuela boloñesa.</p> < ul > <li><strong>Artista:</strong><strong>Ludovico Mattioli (1662-1747) <li><strong>Título (probable): Paisaje con San Bartolomé</strong></li> <li><strong>Ubicación: Escalera del Santuario de la Madonna della Pioggia y San Bartolomeo di Reno, Bolonia.</li> <li><strong>Datación: Siglo XVIII .</li> </ul> <p> <strong>Contexto histórico y artístico:</strong></p> <ul> <li> <strong> El paisaje en el siglo XVIII: Aunque Annibale Carracci fue el pionero del «paisaje ideal» en el siglo XVII, Ludovico Mattioli trabajó en un período posterior, el siglo XVIII, donde el género paisajístico ya estaba plenamente desarrollado. y autónomo. Mattioli, artista boloñés activo entre finales del siglo XVII y principios del XVIII, fue conocido no solo por sus lienzos, sino también como grabador y paisajista . < /li> <li><strong>Estilo:</strong> Sus paisajes son típicos del gusto barroco tardío y rococó . A diferencia del carácter solemne y «heroico» de Annibale, las obras de Mattioli presentan un estilo más pictórico, etéreo y menos estructurado , con predilección por la atmósfera y los efectos de luz . < /li> <li><strong>La Iglesia:</strong> El Santuario de la Madonna della Pioggia (o San Bartolomeo di Reno) ha sufrido numerosas renovaciones a lo largo de los siglos. La iglesia actual data principalmente del siglo XVIII (reconstruida según un diseño atribuido a Alfonso Torreggiani), y obras como la de Mattioli se integran en este contexto decorativo del siglo XVIII. <li><strong>Iconografía:</strong> La inclusión de San Bartolomé , el apóstol mártir, sirve como referencia a la antigua dedicación de la iglesia y del hospicio contiguo. </li> </ul>",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        " botón de reproducción de audio ": "Escucha la historia",
+        " botón de audio de pausa ": "Pausa",
+        "imageSource1": "public/images/ChiesaPioggia.jpg",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        " sourceText ": "Archivos históricos del municipio de Bolonia.",
+        " Fecha de creación ": "2025-10-26",
+        " Última actualización ": "26-10-2025",
+        " audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
     },
     "pioggia2": {
-        "playAudioButton": "Escuchar"
+        " pageTitle ": "Escultura de San Bartolomé",
+        " Texto principal ": "del escultor Alfonso Lombardi",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        " botón de reproducción de audio ": "Escucha la historia",
+        " botón de audio de pausa ": "Pausa",
+        "imageSource1": "public/images/ChiesaPioggia.jpg",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        " sourceText ": "Archivos históricos del municipio de Bolonia.",
+        " Fecha de creación ": "2025-10-26",
+        " Última actualización ": "26-10-2025",
+        " audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
     },
-    "pioggia1": {
-        "playAudioButton": "Escuchar"
+    "pioggia3": {
+        " título de la página ": "Adoración de los pastores",
+        " Texto principal ": " El autor es Agostino Carracci",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        " botón de reproducción de audio ": "Escucha la historia",
+        " botón de audio de pausa ": "Pausa",
+        "imageSource1": "public/images/ChiesaPioggia.jpg",
+        "imageSource2": "public/images/Pioggia3.jpg",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        " sourceText ": "Archivos históricos del municipio de Bolonia.",
+        " Fecha de creación ": "2025-10-26",
+        " Última actualización ": "26-10-2025",
+        " audioSource ": "Assets/Audio/ it /Chiesa_Pioggia.mp3"
     }
 }
