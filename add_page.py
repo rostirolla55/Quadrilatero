@@ -26,11 +26,15 @@ def get_translations_for_nav(page_title_it):
         'fr': 'Ancienne Manufacture de Tabac'
     }
 
+# File: add_page.py
+
 def update_main_js(repo_root, page_id, nav_key_id, lat, lon, distance):
     """Aggiorna POIS_LOCATIONS e navLinksData in main.js."""
     js_path = os.path.join(repo_root, 'main.js')
     
-    # Righe da iniettare (formattate correttamente)
+    # Linee da iniettare
+    # NOTA: Le linee da iniettare devono includere il marcatore per il prossimo inserimento
+
     new_poi = f"    {{ id: '{page_id}', lat: {lat}, lon: {lon}, distanceThreshold: {distance} }},\n"
     new_nav = f"    {{ id: '{nav_key_id}', key: '{nav_key_id}', base: '{page_id}' }},\n"
     
@@ -38,15 +42,17 @@ def update_main_js(repo_root, page_id, nav_key_id, lat, lon, distance):
         with open(js_path, 'r', encoding='utf-8') as f:
             content = f.read()
 
-        # Inserimento POI
+        # Inserimento POI (Corretto: inietta il nuovo POI dopo il marcatore)
         if POI_MARKER in content:
+            # Inseriamo la nuova riga e rigeneriamo il marcatore subito sotto per il prossimo utilizzo
             content = content.replace(POI_MARKER, POI_MARKER + '\n' + new_poi)
             print(f"✅ Inserito POI in main.js")
         else:
             print(f"⚠️ ATTENZIONE: Marcatore POI non trovato: '{POI_MARKER}'")
 
-        # Inserimento NAV LINK DATA
+        # Inserimento NAV LINK DATA (Corretto: inietta il nuovo link dopo il marcatore)
         if NAV_MARKER in content:
+            # Inseriamo la nuova riga e rigeneriamo il marcatore subito sotto per il prossimo utilizzo
             content = content.replace(NAV_MARKER, NAV_MARKER + '\n' + new_nav)
             print(f"✅ Inserito navLinksData in main.js")
         else:
@@ -57,7 +63,6 @@ def update_main_js(repo_root, page_id, nav_key_id, lat, lon, distance):
             
     except Exception as e:
         print(f"ERRORE aggiornando main.js: {e}")
-
 def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
     """Aggiorna il blocco nav in tutti i file texts.json."""
     for lang in LANGUAGES:
