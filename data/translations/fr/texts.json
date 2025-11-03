@@ -29,7 +29,8 @@
         "navPioggia1": "Paysage avec saint Barthélemy Alfonso Lombardi",
         "navPioggia2": "Sculpture de saint Barthélemy",
         "navPioggia3": "Œuvre d'Agostino Carracci",
-        "navGraziaxx": "Plaque votive Grazia"
+        "navGraziaxx": "Plaque votive Grazia",
+        "navManifattura": "Ancienne Manufacture de Tabac"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -227,8 +228,8 @@
         "imageSource4": "",
         "imageSource5": "",
         "sourceText": "Archives historiques de la municipalité de Bologne.",
-        "creationDate": "2025-10-26",
-        "lastUpdate": "2025-10-26",
+        "creationDate": "2025-11-03",
+        "lastUpdate": "2025-11-03",
         "audioSource": "Assets/Audio/fr/Chiesa_Pioggia.mp3"
     }
 }
