@@ -1,105 +1,71 @@
-import json
 import sys
 import os
-import shutil
-import re
+import json
+import datetime
 
-# add_page.py
 # --- CONFIGURAZIONI GLOBALI ---
-LANGUAGES = ['it', 'en', 'es', 'fr'] # <--- DEVE ESSERE QUI
-NAV_INSERT_MARKER = '// ** MARKER: START NEW NAV LINKS **'
-POI_MARKER = '// ** MARKER: START NEW POIS **'
-HTML_TEMPLATE_NAME = 'template-it.html' 
+LANGUAGES = ['it', 'en', 'es', 'fr']
 # ------------------------------
-def update_html_files(repo_root, page_id, nav_key_id, translations):
+
+def update_json_file(repo_root, page_id, key_id, language, text_file_path):
     """
-    Crea i nuovi file HTML dalla template, aggiorna il menu e il Cache Busting
-    in TUTTI i file HTML esistenti.
+    Aggiorna il valore di una singola chiave (key_id) per una specifica pagina (page_id)
+    in un determinato file texts.json (specificato da language), leggendo il nuovo testo 
+    da un file esterno.
     """
     
-    NAV_INSERT_MARKER = '// MARCATORE$$XX per NAVBARMAIN'
+    # Costruisci il percorso del file JSON specifico (es. .../data/translations/it/texts.json)
+    json_path = os.path.join(repo_root, 'data', 'translations', language, 'texts.json')
     
-    # 1. Trova TUTTI i file HTML nella root
-    all_html_files = [
-        os.path.join(repo_root, f) 
-        for f in os.listdir(repo_root) 
-        if f.endswith('.html')
-    ]
+    try:
+        # 1. Leggi il nuovo contenuto dal file di testo
+        with open(text_file_path, 'r', encoding='utf-8') as f:
+            new_text_content = f.read().strip()
+            
+        print(f"Letto nuovo testo per la chiave '{key_id}' nella lingua '{language}'.")
 
-    print(f"Trovati {len(all_html_files)} file HTML da elaborare.")
-
-    # 2. Loop per creare le nuove pagine e aggiornare i menu
-    for lang in LANGUAGES:
-        template_path = os.path.join(repo_root, HTML_TEMPLATE_NAME)
-        new_page_filename = f'{page_id}-{lang}.html'
-        new_page_path = os.path.join(repo_root, new_page_path)
+        # 2. Carica il file JSON
+        with open(json_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
         
-        # Righe da iniettare
-        new_nav_link_html = f'                <li><a id="{nav_key_id}" href="{page_id}-{lang}.html">{translations[lang]}</a></li>'
+        # 3. Verifica e Aggiorna il testo e la data
+        if page_id not in data:
+            print(f"ERRORE: La pagina '{page_id}' non esiste in {language}/texts.json.")
+            return
+
+        if key_id not in data[page_id]:
+            print(f"ERRORE: La chiave '{key_id}' non esiste nella pagina '{page_id}' in {language}/texts.json.")
+            return
+            
+        # Aggiorna il testo
+        data[page_id][key_id] = new_text_content
         
-        # --- CREAZIONE NUOVO FILE HTML (COPIA E MODIFICA IL TEMPLATE) ---
-        if os.path.exists(template_path):
-            try:
-                # Copia il template per la nuova pagina
-                shutil.copyfile(template_path, new_page_path)
+        # Aggiorna la data di modifica (opzionale, ma consigliato)
+        data[page_id]['lastUpdate'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-                # Aggiorna il contenuto interno al nuovo file (nav bar)
-                with open(new_page_path, 'r', encoding='utf-8') as f:
-                    content = f.read()
-
-                # Inietta il nuovo link nel menu del file appena creato
-                if NAV_INSERT_MARKER in content:
-                    content = content.replace(NAV_INSERT_MARKER, new_nav_link_html + '\n' + NAV_INSERT_MARKER)
-
-                # Aggiorna il tag <body> id e il titolo
-                content = content.replace('id="template"', f'id="{page_id}-{lang}"')
-                
-                with open(new_page_path, 'w', encoding='utf-8') as f:
-                    f.write(content)
-                
-                print(f"✅ Creato nuovo file: {new_page_filename}")
-            except Exception as e:
-                print(f"ERRORE nella creazione/modifica del file {new_page_filename}: {e}")
-        else:
-            print(f"ERRORE: Template HTML non trovato: {HTML_TEMPLATE_NAME}")
-
-
-    # 3. AGGIORNAMENTO NAVIGAZIONE E CACHE IN TUTTI I FILE ESISTENTI
-    for existing_path in all_html_files:
-        try:
-            with open(existing_path, 'r', encoding='utf-8') as f:
-                content = f.read()
+        # 4. Scrivi il JSON modificato
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
             
-            # 3.1: Iniezione del link nel menu
-            new_nav_link_html_for_file = f'                <li><a id="{nav_key_id}" href="{page_id}-{os.path.basename(existing_path).split("-")[-1].replace(".html", "")}.html">{translations[lang]}</a></li>'
+        print(f"✅ Aggiornamento completato: Chiave '{key_id}' in {language}/texts.json.")
             
-            if NAV_INSERT_MARKER in content:
-                 # Inietta il link prima del marcatore
-                 content = content.replace(NAV_INSERT_MARKER, new_nav_link_html_for_file + '\n' + NAV_INSERT_MARKER)
+    except FileNotFoundError:
+        print(f"ERRORE: File JSON non trovato per la lingua {language}, o file di testo non trovato: {text_file_path}")
+    except Exception as e:
+        print(f"ERRORE durante l'aggiornamento del JSON: {e}")
 
-            # 3.2: Aggiornamento Cache Busting (su main.js)
-            # Sostituisce la versione precedente con la data/ora di oggi
-            today_version = datetime.now().strftime("%Y%m%d_%H%M")
-            
-            # Assicurati di trovare e sostituire SOLO la parte della versione
-            # Trova la stringa src="main.js?v=..." e sostituisci il valore dopo v=
-            # Questa regex è più sicura, ma se il formato è fisso, usiamo una stringa.
-            search_string = 'main.js?v=' 
-            if search_string in content:
-                # Trova la posizione e taglia la parte dopo
-                import re
-                content = re.sub(r'main\.js\?v=([0-9A-Z_]*)', f'main.js?v={today_version}', content)
-            
-            with open(existing_path, 'w', encoding='utf-8') as f:
-                f.write(content)
-                
-            print(f"✅ Aggiornato menu e cache in {os.path.basename(existing_path)}")
+# ----------------------------------------------------------------------------------
 
-        except Exception as e:
-            print(f"ERRORE aggiornando HTML: {os.path.basename(existing_path)}: {e}")
-
-# Assicurati di aggiungere l'import di 'shutil' e 're' all'inizio del file
-import shutil 
-import re
 if __name__ == "__main__":
-    update_json_file()
+    if len(sys.argv) != 6:
+        print("Uso: python update_json.py <repo_root> <page_id> <key_id> <language> <text_file_path>")
+        print("Esempio: python update_json.py . manifattura mainText it ./texts/manifattura-it-mainText.txt")
+        sys.exit(1)
+
+    repo_root = sys.argv[1]
+    page_id = sys.argv[2]
+    key_id = sys.argv[3]
+    language = sys.argv[4]
+    text_file_path = sys.argv[5]
+    
+    update_json_file(repo_root, page_id, key_id, language, text_file_path)
