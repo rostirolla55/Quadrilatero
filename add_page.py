@@ -1,7 +1,9 @@
 import sys
 import os
 import json
-from datetime import datetime
+import datetime
+import shutil 
+import re
 
 # --- CONFIGURAZIONI GLOBALI ---
 LANGUAGES = ['it', 'en', 'es', 'fr']
@@ -72,8 +74,8 @@ def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
 
             # 2. Aggiorna la creationDate e lastUpdate nel blocco pagina esistente (se esiste)
             if page_id in data:
-                data[page_id]['creationDate'] = datetime.now().strftime("%Y-%m-%d")
-                data[page_id]['lastUpdate'] = datetime.now().strftime("%Y-%m-%d")
+                data[page_id]['creationDate'] = datetime.datetime.now().strftime("%Y-%m-%d")
+                data[page_id]['lastUpdate'] = datetime.datetime.now().strftime("%Y-%m-%d")
                 
             with open(json_path, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=4, ensure_ascii=False)
@@ -85,99 +87,103 @@ def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
         except Exception as e:
             print(f"ERRORE aggiornando JSON per {lang}: {e}")
 
+# File: add_page.py
+
 def update_html_files(repo_root, page_id, nav_key_id, translations):
     """
-    Crea i nuovi file HTML dalla template e aggiorna il menu in TUTTI i file HTML esistenti.
+    Crea i nuovi file HTML dalla template, aggiorna il menu e il Cache Busting
+    in TUTTI i file HTML esistenti.
     """
-    nav_li_marker = '' # Definisci un marcatore per il menu in HTML se possibile, altrimenti cerca l'ultimo </a></li>
     
-    # 1. Trova TUTTI i file HTML da modificare
-    html_files_to_modify = [
+    NAV_INSERT_MARKER = '// ** MARKER: START NEW NAV LINKS **'
+    HTML_TEMPLATE_NAME = 'template-it.html' 
+    
+    # 1. Trova TUTTI i file HTML nella root (CORREZIONE QUI)
+    all_html_files = [
         os.path.join(repo_root, f) 
         for f in os.listdir(repo_root) 
-        if f.endswith('.html') and f != HTML_TEMPLATE_NAME
+        if f.endswith('.html')
     ]
-    
-    # 2. Crea i nuovi file HTML e aggiorna il menu
+
+    print(f"Trovati {len(all_html_files)} file HTML da elaborare.")
+
+    today_version = datetime.datetime.now().strftime("%Y%m%d_%H%M") # Calcola la versione una sola volta
+
+    # Loop su tutte le lingue per creare le nuove pagine e aggiornare i menu
     for lang in LANGUAGES:
         template_path = os.path.join(repo_root, HTML_TEMPLATE_NAME)
         new_page_filename = f'{page_id}-{lang}.html'
         new_page_path = os.path.join(repo_root, new_page_filename)
         
-        # Righe da iniettare
-        new_nav_link_html = f'<li><a id="{nav_key_id}" href="{page_id}-{lang}.html">{translations[lang]}</a></li>'
+        # Righe da iniettare: il link della nuova pagina
+        new_nav_link_html = (
+            f'                <li><a id="{nav_key_id}" href="{page_id}-{lang}.html">'
+            f'{translations.get(lang, page_id)}</a></li>'
+        )
         
-        # --- CREAZIONE NUOVO FILE HTML ---
+        # --- CREAZIONE NUOVO FILE HTML (COPIA E MODIFICA IL TEMPLATE) ---
         if os.path.exists(template_path):
-            with open(template_path, 'r', encoding='utf-8') as f:
-                template_content = f.read()
-                
-            # Aggiorna il titolo nel nuovo file
-            template_content = template_content.replace('template.html', new_page_filename)
-            template_content = template_content.replace('id="template"', f'id="{page_id}"')
-
-            # Inserisce il link di navigazione (in modo che la pagina appena creata abbia il menu completo)
-            # Qui si cerca un punto di inserimento specifico (es. <nav id="navBarMain">)
-            # ASSUMIAMO che la barra di navigazione sia già presente e ben formattata
-            
-            with open(new_page_path, 'w', encoding='utf-8') as f:
-                f.write(template_content)
-            
-            print(f"✅ Creato nuovo file: {new_page_filename}")
-
-        # --- AGGIORNAMENTO NAVIGAZIONE IN TUTTI I FILE ESISTENTI ---
-        for existing_path in html_files_to_modify:
             try:
-                with open(existing_path, 'r', encoding='utf-8') as f:
+                # Copia il template
+                with open(template_path, 'r', encoding='utf-8') as f:
                     content = f.read()
 
-                # Cerca l'ultimo elemento del menu (ad esempio, l'ultimo </a></li>)
-                # Questo è un approccio fragile, il marcatore è preferibile. 
-                # Se non hai un marcatore, potresti cercare l'ultimo </a></li> prima di </nav>
-                
-                # Cerco l'ultimo link della nav bar (es. navGraziaxx)
-                search_term = 'navGraziaxx' 
-                
-                if search_term in content:
-                    # Inserisce la nuova riga subito dopo l'ultimo link conosciuto
-                    # Nota: Devi adattare 'navGraziaxx' all'ultimo link PRIMA della nuova pagina
-                    content = content.replace(f'id="{search_term}"', f'id="{search_term}"')
-                    
-                    # Approccio più sicuro: se hai un marcatore (es. )
-                    # if nav_li_marker in content: content = content.replace(nav_li_marker, new_nav_link_html + '\n' + nav_li_marker)
-                    
-                    # Approssimazione: cerco l'ultima chiusura </a></li> e aggiungo la nuova riga DOPO
-                    # In questo caso, devi trovare la riga esatta e iniettare la nuova li
-                    # Data la complessità e la fragilità, ci concentriamo sull'iniezione tramite marcatore o sull'ultimo elemento noto.
-                    
-                    # Se il tuo file HTML è standard, la riga da modificare è fissa.
-                    # Per semplicità, ipotizziamo di trovare la chiusura della nav bar e aggiungere la nuova LI
-                    
-                    # --- APPROCCIO FINALE: Inserimento dopo l'ultimo link noto (navGraziaxx) ---
-                    # Trova la posizione dell'ultimo link e inserisce il nuovo link subito dopo
-                    
-                    search_string = 'navGraziaxx' # Assumiamo questo sia l'ultimo link
-                    new_link_string = f'</li>\n                {new_nav_link_html}'
-                    
-                    if search_string in content:
-                        # Cerco l'ultimo link e lo chiudo con </li>, poi aggiungo il nuovo link
-                        # Questo è FRAGILE e dipende dalla formattazione. 
-                        # Per ora, lo lasciamo come un avviso e implementiamo il resto.
-                        pass 
+                # Aggiorna il tag <body> id e il titolo della nuova pagina
+                content = content.replace('id="template"', f'id="{page_id}-{lang}"')
 
-                # 3. Aggiornamento Cache Busting (solo se la navigazione è stata aggiornata)
-                # Sostituisce la vecchia versione con la data di oggi
-                today_version = datetime.now().strftime("%Y%m%d_%H%M")
-                content = content.replace('main.js?v=', f'main.js?v={today_version}')
+                # Inietta il NUOVO link nel menu del file appena creato
+                if NAV_INSERT_MARKER in content:
+                    content = content.replace(NAV_INSERT_MARKER, new_nav_link_html + '\n' + NAV_INSERT_MARKER)
                 
-                with open(existing_path, 'w', encoding='utf-8') as f:
+                # Applica il Cache Busting ANCHE al nuovo file creato
+                content = re.sub(r'main\.js\?v=([0-9A-Z_]*)', f'main.js?v={today_version}', content)
+
+                with open(new_page_path, 'w', encoding='utf-8') as f:
                     f.write(content)
-                    
-                print(f"✅ Aggiornato menu e cache in {existing_path}")
-
+                
+                print(f"✅ Creato nuovo file: {new_page_filename}")
+                
             except Exception as e:
-                print(f"ERRORE aggiornando HTML: {existing_path}: {e}")
+                print(f"ERRORE nella creazione/modifica del file {new_page_filename}: {e}")
+        else:
+            print(f"ERRORE: Template HTML non trovato: {HTML_TEMPLATE_NAME}")
 
+
+    # 2. AGGIORNAMENTO NAVIGAZIONE E CACHE IN TUTTI I FILE ESISTENTI
+    for existing_path in all_html_files:
+        try:
+            # Salta i file che sono template o le nuove pagine che abbiamo appena creato
+            if existing_path.endswith(HTML_TEMPLATE_NAME) or existing_path.endswith(f'{page_id}-{lang}.html'):
+                 continue
+            
+            # Estrai la lingua del file esistente
+            lang_code = os.path.basename(existing_path).split('-')[-1].replace(".html", "")
+            
+            with open(existing_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # Righe da iniettare
+            nav_link_to_insert = (
+                f'                <li><a id="{nav_key_id}" href="{page_id}-{lang_code}.html">'
+                f'{translations.get(lang_code, page_title_it)}</a></li>'
+            )
+            
+            # 2.1: Iniezione del link nel menu (Solo se il link non è già presente per evitare duplicati)
+            if NAV_INSERT_MARKER in content and nav_link_to_insert not in content:
+                 content = content.replace(NAV_INSERT_MARKER, nav_link_to_insert + '\n' + NAV_INSERT_MARKER)
+                 print(f"✅ Aggiunto link a {os.path.basename(existing_path)}")
+
+            # 2.2: Aggiornamento Cache Busting (su main.js)
+            # Sostituisce la versione precedente con quella calcolata
+            content = re.sub(r'main\.js\?v=([0-9A-Z_]*)', f'main.js?v={today_version}', content)
+            
+            with open(existing_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+                
+            print(f"✅ Aggiornato cache in {os.path.basename(existing_path)}")
+
+        except Exception as e:
+            print(f"ERRORE aggiornando HTML: {os.path.basename(existing_path)}: {e}")
 def main():
     if len(sys.argv) != 8:
         print("Uso: python add_page.py <page_id> <nav_key_id> <page_title_it> <lat> <lon> <distance> <repo_root>")
