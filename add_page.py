@@ -9,7 +9,7 @@ import re
 LANGUAGES = ['it', 'en', 'es', 'fr']
 NAV_MARKER = '// ** MARKER: START NEW NAV LINKS **' # Marcatore per main.js
 POI_MARKER = '// ** MARKER: START NEW POIS **'       # Marcatore per main.js
-HTML_NAV_MARKER = ''        # Marcatore per i file HTML
+HTML_NAV_MARKER = '// ** MARKER: START NEW HTML LINKS **' # Marcatore per i file HTML
 HTML_TEMPLATE_NAME = 'template-it.html' # Nome del file HTML da usare come template per le nuove pagine
 
 # ----------------------------------------------------------------------------------
