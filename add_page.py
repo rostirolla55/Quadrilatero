@@ -9,7 +9,7 @@ import re
 LANGUAGES = ['it', 'en', 'es', 'fr']
 NAV_MARKER = '// ** MARKER: START NEW NAV LINKS **' # Marcatore per main.js
 POI_MARKER = '// ** MARKER: START NEW POIS **'       # Marcatore per main.js
-HTML_NAV_MARKER = '// ** MARKER: START NEW HTML LINKS **' # Marcatore per i file HTML
+HTML_NAV_MARKER = '** MARKER: START NEW HTML LINKS **' # Marcatore per i file HTML
 HTML_TEMPLATE_NAME = 'template-it.html' # Nome del file HTML da usare come template per le nuove pagine
 
 # ----------------------------------------------------------------------------------
@@ -108,6 +108,9 @@ def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_i
     in TUTTI i file HTML esistenti.
     """
     
+    # Il marcatore completo che DEVE esistere nei file HTML e DEVE essere ricreato
+    HTML_FULL_MARKER = f'' 
+    
     # 1. Trova TUTTI i file HTML nella root
     all_html_files = [
         os.path.join(repo_root, f) 
@@ -128,8 +131,8 @@ def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_i
         
         # Righe da iniettare: il link della nuova pagina. Usa la traduzione per la lingua corrente.
         new_nav_link_html = (
-            f'                <li><a id="{nav_key_id}" href="{page_id}-{lang}.html">'
-            f'{translations.get(lang, page_id)}</a></li>' # Usiamo .get() per sicurezza
+            f'        <li><a id="{nav_key_id}" href="{page_id}-{lang}.html">'
+            f'{translations.get(lang, page_id)}</a></li>'
         )
         
         # --- CREAZIONE NUOVO FILE HTML (COPIA E MODIFICA IL TEMPLATE) ---
@@ -143,9 +146,9 @@ def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_i
                 content = content.replace('id="template"', f'id="{page_id}-{lang}"')
 
                 # Inietta il NUOVO link nel menu del file appena creato
-                if HTML_NAV_MARKER in content:
-                    # NOTA: Qui rimpiazziamo HTML_NAV_MARKER, non NAV_MARKER di main.js
-                    content = content.replace(HTML_NAV_MARKER, new_nav_link_html + '\n' + HTML_NAV_MARKER)
+                if HTML_FULL_MARKER in content:
+                    # Inseriamo il link e ricreiamo il marcatore completo per il prossimo utilizzo
+                    content = content.replace(HTML_FULL_MARKER, new_nav_link_html + '\n' + HTML_FULL_MARKER)
                 
                 # Applica il Cache Busting
                 content = re.sub(r'main\.js\?v=([0-9A-Z_]*)', f'main.js?v={today_version}', content)
@@ -176,27 +179,25 @@ def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_i
             
             # Righe da iniettare: il link alla pagina "manifattura" nella lingua corretta
             nav_link_to_insert = (
-                f'                <li><a id="{nav_key_id}" href="{page_id}-{lang_code}.html">'
+                f'        <li><a id="{nav_key_id}" href="{page_id}-{lang_code}.html">'
                 f'{translations.get(lang_code, page_title_it)}</a></li>'
             )
             
-            # 2.1: Iniezione del link nel menu (Solo se il link non è già presente E il marcatore è presente)
-            if HTML_NAV_MARKER in content and nav_link_to_insert not in content:
-                 content = content.replace(HTML_NAV_MARKER, nav_link_to_insert + '\n' + HTML_NAV_MARKER)
-                 print(f"✅ Aggiunto link a {os.path.basename(existing_path)}")
+            # 2.1: Iniezione del link nel menu (Solo se il link non è già presente)
+            if HTML_FULL_MARKER in content and nav_link_to_insert not in content:
+                content = content.replace(HTML_FULL_MARKER, nav_link_to_insert + '\n' + HTML_FULL_MARKER)
+                print(f"✅ Aggiunto link a {os.path.basename(existing_path)}")
 
             # 2.2: Aggiornamento Cache Busting (su main.js)
             content = re.sub(r'main\.js\?v=([0-9A-Z_]*)', f'main.js?v={today_version}', content)
             
             with open(existing_path, 'w', encoding='utf-8') as f:
                 f.write(content)
-                
+            
             print(f"✅ Aggiornato cache in {os.path.basename(existing_path)}")
 
         except Exception as e:
-            print(f"ERRORE aggiornando HTML: {os.path.basename(existing_path)}: {e}")
-
-# ----------------------------------------------------------------------------------
+            print(f"ERRORE aggiornando HTML: {os.path.basename(existing_path)}: {e}")# ----------------------------------------------------------------------------------
 
 def main():
     if len(sys.argv) != 8:
