@@ -64,7 +64,9 @@ def update_main_js(repo_root, page_id, nav_key_id, lat, lon, distance):
     except Exception as e:
         print(f"ERRORE aggiornando main.js: {e}")
 def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
-    """Aggiorna il blocco nav in tutti i file texts.json."""
+    """Aggiorna il blocco nav e inizializza il blocco della pagina in tutti i file texts.json."""
+    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    
     for lang in LANGUAGES:
         json_path = os.path.join(repo_root, 'data', 'translations', lang, 'texts.json')
         
@@ -75,23 +77,31 @@ def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
             # 1. Aggiorna il blocco 'nav' con la traduzione
             data['nav'][nav_key_id] = translations[lang]
 
-            # 2. Aggiorna la creationDate e lastUpdate
-            # Usa datetime.datetime.now() perché abbiamo importato 'import datetime'
-            if page_id in data:
-                data[page_id]['creationDate'] = datetime.datetime.now().strftime("%Y-%m-%d")
-                data[page_id]['lastUpdate'] = datetime.datetime.now().strftime("%Y-%m-%d")
-                
+            # 2. Inizializza il blocco della pagina se non esiste, altrimenti aggiorna le date
+            if page_id not in data:
+                # Creazione del blocco per la nuova pagina (es. 'manifattura')
+                data[page_id] = {
+                    "title": translations[lang],
+                    "creationDate": current_date,
+                    "lastUpdate": current_date,
+                    # INIZIALIZZAZIONE NUOVO CAMPO (basato sul tuo feedback)
+                    "audioSource": f"Assets/Audio/{lang}/{page_id}.mp3"
+                }
+                print(f"✅ Inizializzato nuovo blocco '{page_id}' in {lang}/texts.json")
+            else:
+                # Se la pagina esiste già (per future esecuzioni), aggiorna solo le date
+                data[page_id]['lastUpdate'] = current_date
+            
             with open(json_path, 'w', encoding='utf-8') as f:
                 # Usa indent=4 per formattare bene il JSON
                 json.dump(data, f, indent=4, ensure_ascii=False)
             
-            print(f"✅ Aggiornato nav e date in {lang}/texts.json")
+            print(f"✅ Aggiornato nav in {lang}/texts.json")
             
         except FileNotFoundError:
             print(f"ERRORE: File JSON non trovato per la lingua {lang}.")
         except Exception as e:
             print(f"ERRORE aggiornando JSON per {lang}: {e}")
-
 def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_it):
     """
     Crea i nuovi file HTML dalla template, aggiorna il menu e il Cache Busting
