@@ -67,6 +67,29 @@ def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
     """Aggiorna il blocco nav e inizializza il blocco della pagina in tutti i file texts.json."""
     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
     
+    # Definizione dello SCHEMA COMPLETO per le nuove pagine
+    # Questo risolve i campi mancanti
+    NEW_PAGE_SCHEMA = {
+        "pageTitle": "", # Sarà valorizzato con translations[lang] sotto
+        "mainText": "Testo iniziale.",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Ascolta con le cuffie", # Valore placeholder IT/EN
+        "pauseAudioButton": "Pausa",               # Valore placeholder IT/EN
+        "imageSource1": "",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "Fonte dati.",
+        "creationDate": current_date,
+        "lastUpdate": current_date,
+        "audioSource": "" # Sarà valorizzato sotto
+    }
+    
     for lang in LANGUAGES:
         json_path = os.path.join(repo_root, 'data', 'translations', lang, 'texts.json')
         
@@ -74,26 +97,34 @@ def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
             with open(json_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             
-            # 1. Aggiorna il blocco 'nav' con la traduzione
+            # 1. Aggiorna il blocco 'nav'
             data['nav'][nav_key_id] = translations[lang]
 
-            # 2. Inizializza il blocco della pagina se non esiste, altrimenti aggiorna le date
+            # 2. Inizializza/Aggiorna il blocco della pagina
             if page_id not in data:
-                # Creazione del blocco per la nuova pagina (es. 'manifattura')
-                data[page_id] = {
-                    "title": translations[lang],
-                    "creationDate": current_date,
-                    "lastUpdate": current_date,
-                    # INIZIALIZZAZIONE NUOVO CAMPO (basato sul tuo feedback)
-                    "audioSource": f"Assets/Audio/{lang}/{page_id}.mp3"
-                }
-                print(f"✅ Inizializzato nuovo blocco '{page_id}' in {lang}/texts.json")
+                # Creazione del blocco per la nuova pagina (Schema completo)
+                new_block = NEW_PAGE_SCHEMA.copy()
+                new_block['pageTitle'] = translations[lang]
+                new_block['audioSource'] = f"Assets/Audio/{lang}/{page_id}.mp3"
+                
+                # Traduci placeholder se necessario (es. in inglese)
+                if lang != 'it': 
+                    # Qui dovresti implementare una logica di traduzione se vuoi i placeholder tradotti.
+                    # Per ora li lasciamo in italiano/inglese per evitare complessità.
+                    pass
+                
+                data[page_id] = new_block
+                print(f"✅ Inizializzato NUOVO blocco '{page_id}' in {lang}/texts.json")
             else:
-                # Se la pagina esiste già (per future esecuzioni), aggiorna solo le date
+                # Se la pagina esiste già, aggiorna solo le date e il pageTitle
                 data[page_id]['lastUpdate'] = current_date
+                # Correggi il vecchio 'title' (se presente) e usa 'pageTitle'
+                if 'title' in data[page_id]:
+                    del data[page_id]['title'] 
+                data[page_id]['pageTitle'] = translations[lang]
+                
             
             with open(json_path, 'w', encoding='utf-8') as f:
-                # Usa indent=4 per formattare bene il JSON
                 json.dump(data, f, indent=4, ensure_ascii=False)
             
             print(f"✅ Aggiornato nav in {lang}/texts.json")
