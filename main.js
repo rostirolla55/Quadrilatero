@@ -15,7 +15,6 @@ let nearbyPoiButton, nearbyMenuPlaceholder;
 // Attenzione le coordinate sono della zona PORTORENO
 // in C:\Users\User\Documents\salvataggi_github\ARCO_LOCATIONS_PORTICISANLUCA_js.txt
 const POIS_LOCATIONS = [
-    { id: 'manifattura', lat: 44.50085, lon: 11.33610, distanceThreshold: 50 },
 // ** MARKER: START NEW POIS **
     // Lapide_Grazia.jpg
     { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50 },
@@ -228,8 +227,7 @@ async function loadContent(lang) {
 
             // ... (lista navLinksData) ... (Tutto questo blocco è corretto e rimane)
             const navLinksData = [
-                    { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
-// ** MARKER: START NEW NAV LINKS **
+                // ** MARKER: START NEW NAV LINKS **
                 { id: 'navHome', key: 'navHome', base: 'index' },
                 { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
                 { id: 'navLastre', key: 'navLastre', base: 'lastre' },
