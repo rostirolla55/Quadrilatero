@@ -15,12 +15,10 @@ let nearbyPoiButton, nearbyMenuPlaceholder;
 // Attenzione le coordinate sono della zona PORTORENO
 // in C:\Users\User\Documents\salvataggi_github\ARCO_LOCATIONS_PORTICISANLUCA_js.txt
 const POIS_LOCATIONS = [
-    { id: 'manifattura', lat: 44.50085, lon: 11.33610, distanceThreshold: 50 },
+        { id: 'manifattura', lat: 44.50085, lon: 11.33610, distanceThreshold: 50 },
 // ** MARKER: START NEW POIS **
     // Lapide_Grazia.jpg
     { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50 },
-    // Pugliole_1.jpg
-    { id: 'Pugliole', lat: 44.4990527777778, lon: 11.3394472222222, distanceThreshold: 50 },
     // Pugliole.jpg
     { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 50 },
     // Casa_Carracci_Portone.jpg
@@ -228,8 +226,6 @@ async function loadContent(lang) {
 
             // ... (lista navLinksData) ... (Tutto questo blocco è corretto e rimane)
             const navLinksData = [
-    { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
-// ** MARKER: START NEW NAV LINKS **
                 { id: 'navHome', key: 'navHome', base: 'index' },
                 { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
                 { id: 'navLastre', key: 'navLastre', base: 'lastre' },
@@ -239,6 +235,8 @@ async function loadContent(lang) {
                 { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
                 { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
                 { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
+                    { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
+// ** MARKER: START NEW NAV LINKS **
             ];
 
             // Aggiorna HREF e Testo per tutti i link del menu principale
