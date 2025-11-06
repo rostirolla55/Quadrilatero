@@ -211,11 +211,5 @@
         "creationDate": "2025-10-26",
         "lastUpdate": "2025-10-26",
         "audioSource": "Assets/Audio/en/Chiesa_Pioggia.mp3"
-    },
-    "manifattura": {
-        "title": "Ex Tobacco Factory",
-        "creationDate": "2025-11-06",
-        "lastUpdate": "2025-11-06",
-        "audioSource": "Assets/Audio/en/manifattura.mp3"
     }
 }
