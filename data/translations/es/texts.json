@@ -210,5 +210,25 @@
         "creationDate": "2025-10-26",
         "lastUpdate": "26-10-2025",
         "audioSource": "Assets/Audio/es/Chiesa_Pioggia.mp3"
+    },
+    "manifattura": {
+        "pageTitle": "Ex Fabrica de Tabaco",
+        "mainText": "",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Ascolta con le cuffie",
+        "pauseAudioButton": "Pausa",
+        "imageSource1": "",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "",
+        "creationDate": "2025-11-06",
+        "lastUpdate": "2025-11-06",
+        "audioSource": "Assets/Audio/es/manifattura.mp3"
     }
 }
