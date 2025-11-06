@@ -104,39 +104,22 @@ def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
             print(f"ERRORE aggiornando JSON per {lang}: {e}")
 def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_it):
     """
-    Crea i nuovi file HTML dalla template, aggiorna il menu e il Cache Busting
-    in TUTTI i file HTML esistenti, usando il tag <ul> come marcatore.
+    Aggiorna gli HTML usando il tag <ul> come marcatore.
     """
     
-    # Il marcatore che cercheremo. Deve esistere in tutti i file HTML
-    MARKER = HTML_NAV_MARKER 
+    MARKER = '<ul>' # Il tag <ul> è il marcatore
     
-    # 1. Trova TUTTI i file HTML nella root
+    # ... (il resto della logica per trovare i file e calcolare today_version) ...
     all_html_files = [
         os.path.join(repo_root, f) 
         for f in os.listdir(repo_root) 
         if f.endswith('.html')
     ]
-
-    print(f"Trovati {len(all_html_files)} file HTML da elaborare.")
-
     today_version = datetime.datetime.now().strftime("%Y%m%d_%H%M") 
 
-    for lang in LANGUAGES:
-        # ... (Logica per la creazione di nuove pagine omessa per brevità, ma usa MARKER) ...
-        # (Assicurati che qui venga gestita la sostituzione del marker anche nel template!)
-        
-        # Righe da iniettare: il link della nuova pagina. Usa la traduzione per la lingua corrente.
-        new_nav_link_html = (
-            f'\n        <li><a id="{nav_key_id}" href="{page_id}-{lang}.html">'
-            f'{translations.get(lang, page_id)}</a></li>'
-        )
-        
-        # LOGICA PER LA CREAZIONE/MODIFICA TEMPLATE: ORA DEVE AGGIUNGERE IL LINK
-        # DOPO IL MARKER E NON RIGENERARE IL COMMENTO
-        # Questo non ti creerà problemi se lasci MARKER come stringa
-        # ...
-    
+    # 1. Creazione e aggiornamento del template (omesso per brevità, si usa la stessa logica di sostituzione)
+    # ...
+
     # 2. AGGIORNAMENTO NAVIGAZIONE E CACHE IN TUTTI I FILE ESISTENTI
     for existing_path in all_html_files:
         try:
@@ -154,11 +137,11 @@ def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_i
             )
             
             # 2.1: Iniezione del link nel menu
-            # NOTA: Sostituiamo il marcatore HTML con il marcatore + il nuovo link
-            injection_string = MARKER + nav_link_to_insert
+            # Sostituiamo <ul> con <ul> + nuovo link
+            injection_string = MARKER + '\n' + nav_link_to_insert 
             
+            # Se la riga del link non è già presente E troviamo il marcatore <ul>
             if MARKER in content and nav_link_to_insert not in content:
-                # Sostituiamo <ul id="navBarMain"> con <ul id="navBarMain"> + nuovo link
                 content = content.replace(MARKER, injection_string)
                 print(f"✅ Aggiunto link a {os.path.basename(existing_path)}")
                 
