@@ -149,7 +149,7 @@ Do l = 1 To Langs~size
         rc = LineOut(FileName, '    "pauseAudioButton": "' || value('audioButton.' || lang || '.pause') || '",')
         
         /* Immagini e Metadati */
-        rc = LineOut(FileName, '    "imageSource1": "public/images/' || key || '.jpg",')
+        rc = LineOut(FileName, '    "imageSource1": "Assets/images/' || key || '.jpg",')
         rc = LineOut(FileName, '    "imageSource2": "",')
         rc = LineOut(FileName, '    "imageSource3": "",')
         rc = LineOut(FileName, '    "imageSource4": "",')
