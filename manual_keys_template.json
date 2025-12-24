@@ -91,7 +91,7 @@
             "pauseAudioButton": "Ferma la riproduzione",
             "mainText": "<p><font color=\"#ff0000\"><b>Se entri in chiesa, usa gli auricolari per ascoltare l'audio </b></font> </p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
+            "lastUpdate": "2025-12-124",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "it/bsmariamaggiore.mp3"
         },
@@ -101,7 +101,7 @@
             "pauseAudioButton": "Detener la reproducción",
             "mainText": "<p><font color=\"#ff0000\"><b>Si entra en la iglesia, use auriculares para escuchar el audio.</b></font> </p><p><font color=\"#3465a4\">Para conocer el horario de apertura, visite la página https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
+            "lastUpdate": "2025-12-24",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "es/bsmariamaggiore.mp3"
         },
@@ -111,7 +111,7 @@
             "pauseAudioButton": "Arrêter la lecture",
             "mainText": "<p><font color=\"#ff0000\"><b>Si vous entrez dans l'église, utilisez des écouteurs pour écouter l'audio.</b></font> </p><p><font color=\"#3465a4\">Pour connaître les horaires d'ouverture, veuillez consulter la page https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
+            "lastUpdate": "2025-12-24",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "fr/bsmariamaggiore.mp3"
         },
@@ -121,7 +121,7 @@
             "pauseAudioButton": "Pause",
             "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
+            "lastUpdate": "2025-12-24",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "en/bsmariamaggiore.mp3"
         }
