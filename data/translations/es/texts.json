@@ -291,7 +291,7 @@
     },
     "bsmariamaggiore": {
         "headImage": "public/images/panorama_bologna.jpg",
-        "audioSource": "Audio/es/bsmariamaggiore.mp3",
+        "audioSource": "es/bsmariamaggiore.mp3",
         "mainText1": "es_bsmariamaggiore_maintext1.html",
         "pageTitle": "Basílica Santa Maria Maggiore",
         "mainText": "",
