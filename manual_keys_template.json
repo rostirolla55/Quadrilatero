@@ -100,7 +100,7 @@
             "playAudioButton": "Escuchar la historia",
             "pauseAudioButton": "Detener la reproducción",
             "mainText": "<p><font color=\"#ff0000\"><b>Si entra en la iglesia, use auriculares para escuchar el audio.</b></font> </p><p><font color=\"#3465a4\">Para conocer el horario de apertura, visite la página https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
-            "sourceText": " ",
+            "sourceText": "",
             "lastUpdate": "2025-12-19",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "es/bsmariamaggiore.mp3"
