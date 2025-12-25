@@ -90,6 +90,11 @@
             "audioSource": "it/lastre.mp3"
         }
     },   
+    "carraci": {
+        "it": {
+            "audioSource": "it/carraci.mp3"
+        }
+    },   
      "cavaticcio": {
         "it": {
             "pageTitle": "Centrale Idroelettrica del Cavaticcio",
