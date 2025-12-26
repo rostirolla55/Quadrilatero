@@ -1,0 +1,50 @@
+trova bsmariamaggiore
+git checkout -- .
+git clean -fd
+trova bsmariamaggiore
+trova "{ id:" *.py
+help findstr
+trova /C:"{ id:" *.py
+add_page.py
+got
+esci
+HISTORY_BCK_20251226_150145.txt
+dir /od
+npa full.xx
+npa full.xxx
+trova add_page.py txt
+trova qrtp01 lista
+dir
+lista_7z.txt
+7z l C:\Users\User\Documents\salvataggi_github\QuartierePorto@20251129_182241.7z -a add_page.py
+7z --help
+7z e C:\Users\User\Documents\salvataggi_github\QuartierePorto@20251129_182241.7z  add_page.py
+7z e "C:\Users\User\Documents\salvataggi_github\QuartierePorto@20251129_182241.7z"  "add_page.py"
+trova add_page.py txt
+7z e "C:\Users\User\Documents\salvataggi_github\QuartierePorto@20251129_182241.7z"  "QuartierePorto\add_page.py"
+dir
+goquad
+convert_page it bsmariamaggiore
+esci
+HISTORY_BCK_20251226_163450.txt
+lista_file_da.bat
+26/12/2025
+trova bsmariamaggiore
+add_page.py
+mv history* \tmp
+trova bsmariamaggiore
+trova "audioSource":
+trova audioSource
+trova sync_config.py 
+convert_page.bat it bsmariamaggiore
+trova bsmariamaggiore
+diff template-it.html carracci-it.html
+cat add_bsmariamaggiore.bat
+add_bsmariamaggiore.bat
+dir bsmariamaggiore*.html
+pip install autopep8
+pip install ThInter
+dir add_page* /b
+cp add_page.py add_page_old.py
+cp add_page_new.py add_page.py
+esci
