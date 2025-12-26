@@ -1,0 +1,35 @@
+            // ... (lista navLinksData) ... (Tutto questo blocco è corretto e rimane)
+            const navLinksData = [
+                { id: 'navHome', key: 'navHome', base: 'index' },
+                { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
+                { id: 'navLastre', key: 'navLastre', base: 'lastre' },
+                { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
+                { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
+                { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene' },
+                { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
+                { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
+                { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
+                { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
+                { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
+                { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' }
+    { id: 'navbsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore' },
+// ** MARKER: START NEW NAV LINKS **
+
+nella riga del cavaticcio, deve aggiungere la virgola a fondo riga e
+nella riga nuova bsmariamaggiore non deve mettere la virgola
+            const navLinksData = [
+                { id: 'navHome', key: 'navHome', base: 'index' },
+                { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
+                { id: 'navLastre', key: 'navLastre', base: 'lastre' },
+                { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
+                { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
+                { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene' },
+                { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
+                { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
+                { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
+                { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
+                { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
+                { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' },
+                { id: 'navbsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore' }
+                // ** MARKER: START NEW NAV LINKS **
+            ];

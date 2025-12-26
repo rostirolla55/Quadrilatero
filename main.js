@@ -9,7 +9,7 @@ import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasej
 const APP_VERSION = '1.2.16 - inserito gestione fetch html in loadContent';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
-const LAST_LANG_KEY = 'Quartiere Porto_lastLang'; // Chiave per salvare l'ultima lingua in localStorage (Coerente con index.html)
+const LAST_LANG_KEY = 'Quadrilatero_lastLang'; // Chiave per salvare l'ultima lingua in localStorage (Coerente con index.html)
 let currentLang = 'it';
 let nearbyPoiButton, nearbyMenuPlaceholder;
 
@@ -24,8 +24,8 @@ let isAuthReady = false;
 // ===========================================
 // DATI: Punti di Interesse GPS (DA COMPILARE)
 // ===========================================
-// Attenzione le coordinate sono della zona PORTORENO
-// in C:\Users\User\Documents\salvataggi_github\ARCO_LOCATIONS_Quartiere Porto_js.txt
+// Attenzione le coordinate sono della zona QUADDRILATERO
+// in C:\Users\User\Documents\salvataggi_github\POIA_LOCATIONS_Quadrilatero_js.txt
 const POIS_LOCATIONS = [
     { id: 'manifattura', lat: 44.498910, lon: 11.342241, distanceThreshold: 50 },
     { id: 'pittoricarracci', lat: 44.50085, lon: 11.33610, distanceThreshold: 50 },
@@ -321,9 +321,8 @@ async function loadContent(lang) {
                 { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
                 { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
                 { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
+            // ** MARKER: START NEW NAV LINKS **
                 { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' }
-// ** MARKER: START NEW NAV LINKS **
-
             ];
 
             // Aggiorna HREF e Testo per tutti i link del menu principale
