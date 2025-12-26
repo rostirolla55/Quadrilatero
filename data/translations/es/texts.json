@@ -33,7 +33,8 @@
         "navGraziaxx": "Placa votiva de Grazia",
         "navManifattura": "Ex Fabrica de Tabaco",
         "navpittoricarracci": "Los Pintores Carracci",
-        "navgcavaticcio": "Central hidroelectrica de Cavaticcio"
+        "navgcavaticcio": "Central hidroelectrica de Cavaticcio",
+        "navbsmariamaggiore": "Basílica San Maria Maggiore"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -287,5 +288,25 @@
         "creationDate": "2025-11-27",
         "lastUpdate": "2025-12-19",
         "audioSource": "es/centraleidroelettricacavaticcio.mp3"
+    },
+    "bsmariamaggiore": {
+        "pageTitle": "Basílica San Maria Maggiore",
+        "mainText": "",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Ascolta con le cuffie",
+        "pauseAudioButton": "Pausa",
+        "imageSource1": "",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "",
+        "creationDate": "2025-12-26",
+        "lastUpdate": "2025-12-26",
+        "audioSource": "es/bsmariamaggiore.mp3"
     }
 }

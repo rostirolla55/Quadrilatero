@@ -220,7 +220,7 @@ def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_i
                 continue
 
             # Determiniamo la lingua del file attuale per mettere il link corretto
-            # Se il file è pittoricarracci-fr.html, il link sarà bsmariamaggiore-fr.html
+            # Se il file è pittoricarracci-fr.html, il link sarà pittoricarracci-fr.html
             current_lang = 'it'
             for lang in ['en', 'es', 'fr']:
                 if f'-{lang}.html' in filename:

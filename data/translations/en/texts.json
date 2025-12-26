@@ -33,7 +33,8 @@
         "navGraziaxx": "Grazia votive plaque",
         "navManifattura": "Ex Tobacco Factory",
         "navpittoricarracci": "The Carracci Painters",
-        "navcavaticcio": "Cavaticcio hydroelectric power plant"
+        "navcavaticcio": "Cavaticcio hydroelectric power plant",
+        "navbsmariamaggiore": "Basilica Saint Maria Maggiore"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -297,5 +298,25 @@
         "lastUpdate": "2025-12-19",
         "headImage": "chiesapioggia.jpg",
         "audioSource": "en/chiesapioggia.mp3"
+    },
+    "bsmariamaggiore": {
+        "pageTitle": "Basilica Saint Maria Maggiore",
+        "mainText": "Testo iniziale per la traduzione.",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Ascolta con le cuffie",
+        "pauseAudioButton": "Pausa",
+        "imageSource1": "",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "",
+        "creationDate": "2025-12-26",
+        "lastUpdate": "2025-12-26",
+        "audioSource": "en/bsmariamaggiore.mp3"
     }
 }

@@ -33,7 +33,8 @@
         "navGraziaxx": "Plaque votive Grazia",
         "navManifattura": "Ancienne Manufacture de Tabac",
         "navpittoricarracci": "Les Peintres Carrache",
-        "navcavaticcio": "Centrale hydroélectrique de Cavaticcio"
+        "navcavaticcio": "Centrale hydroélectrique de Cavaticcio",
+        "navbsmariamaggiore": "Basilique Saint Maria Maggiore"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -286,5 +287,25 @@
         "creationDate": "2025-11-27",
         "lastUpdate": "2025-12-19",
         "audioSource": "fr/centraleidroelettricacavaticcio.mp3"
+    },
+    "bsmariamaggiore": {
+        "pageTitle": "Basilique Saint Maria Maggiore",
+        "mainText": "",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Ascolta con le cuffie",
+        "pauseAudioButton": "Pausa",
+        "imageSource1": "",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "",
+        "creationDate": "2025-12-26",
+        "lastUpdate": "2025-12-26",
+        "audioSource": "fr/bsmariamaggiore.mp3"
     }
 }
