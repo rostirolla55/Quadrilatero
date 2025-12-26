@@ -1,5 +1,47 @@
 {
     "description": "<font color=\"#ff0000\">rosso</font>, <font color=\"#3465a4\">blu</font> Questo file contiene gli override manuali per le chiavi in texts.json. Le modifiche qui definite verranno applicate allo specifico PAGE_ID (es. 'manifattura') solo quando il manual_key_updater.py viene eseguito per quella pagina. le chiavi statiche  cono 'audioSource' 'headImage' 'pageTitle' 'pauseAudioButton' 'playAudioButton' 'sourceText' 'creationDate' 'lastUpdate' 'mainText'",
+    "bsmariamaggiore": {
+        "it": {
+            "pageTitle": "Basilica di Santa Maria Maggiore",
+            "playAudioButton": "Ascolta la storia",
+            "pauseAudioButton": "Ferma la riproduzione",
+            "mainText": "<p><font color=\"#ff0000\"><b>Se entri in chiesa, usa gli auricolari per ascoltare l'audio </b></font> </p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
+            "sourceText": "",
+            "lastUpdate": "2025-12-26",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "it/bsmariamaggiore.mp3"
+        },
+        "es": {
+            "pageTitle": "Basílica de Santa María la Mayor",
+            "playAudioButton": "Escuchar la historia",
+            "pauseAudioButton": "Detener la reproducción",
+            "mainText": "<p><font color=\"#ff0000\"><b>Si entra en la iglesia, use auriculares para escuchar el audio.</b></font> </p><p><font color=\"#3465a4\">Para conocer el horario de apertura, visite la página https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
+            "sourceText": "",
+            "lastUpdate": "2025-12-26",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "es/bsmariamaggiore.mp3"
+        },
+        "fr": {
+            "pageTitle": "Basilique de Santa Maria Maggiore",
+            "playAudioButton": "Écouter le récit",
+            "pauseAudioButton": "Arrêter la lecture",
+            "mainText": "<p><font color=\"#ff0000\"><b>Si vous entrez dans l'église, utilisez des écouteurs pour écouter l'audio.</b></font> </p><p><font color=\"#3465a4\">Pour connaître les horaires d'ouverture, veuillez consulter la page https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
+            "sourceText": "",
+            "lastUpdate": "2025-12-26",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "fr/bsmariamaggiore.mp3"
+        },
+        "en": {
+            "pageTitle": "Basilica of Santa Maria Maggiore",
+            "playAudioButton": "Listen with headphones",
+            "pauseAudioButton": "Pause",
+            "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
+            "sourceText": "",
+            "lastUpdate": "2025-12-26",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "en/bsmariamaggiore.mp3"
+        }
+    },
     "chiesapioggia": {
         "it": {
             "pageTitle": "Chiesa della Pioggia",
@@ -41,48 +83,7 @@
             "headImage": "chiesapioggia.jpg",
             "audioSource": "en/chiesapioggia.mp3"
         }
-    },    "bsmariamaggiore": {
-        "it": {
-            "pageTitle": "Chiesa della Pioggia",
-            "playAudioButton": "Ascolta la storia",
-            "pauseAudioButton": "Ferma la riproduzione",
-            "mainText": "<p><font color=\"#ff0000\"><b>Se entri in chiesa, usa gli auricolari per ascoltare l'audio </b></font> </p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
-            "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
-            "audioSource": "it/chiesapioggia.mp3"
-        },
-        "es": {
-            "pageTitle": "Iglesia de Pioggia",
-            "playAudioButton": "Escuchar la historia",
-            "pauseAudioButton": "Detener la reproducción",
-            "mainText": "<p><font color=\"#ff0000\"><b>Si entra en la iglesia, use auriculares para escuchar el audio.</b></font> </p><p><font color=\"#3465a4\">Para conocer el horario de apertura, visite la página https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
-            "sourceText": " ",
-            "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
-            "audioSource": "es/chiesapioggia.mp3"
-        },
-        "fr": {
-            "pageTitle": "Église de la Pluie",
-            "playAudioButton": "Écouter le récit",
-            "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "<p><font color=\"#ff0000\"><b>Si vous entrez dans l'église, utilisez des écouteurs pour écouter l'audio.</b></font> </p><p><font color=\"#3465a4\">Pour connaître les horaires d'ouverture, veuillez consulter la page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
-            "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
-            "audioSource": "fr/chiesapioggia.mp3"
-        },
-        "en": {
-            "pageTitle": "Church of the Rain",
-            "playAudioButton": "Listen with headphones",
-            "pauseAudioButton": "Pause",
-            "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
-            "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
-            "audioSource": "en/chiesapioggia.mp3"
-        }
-    },
+    },    
     "chiesasbene": {
         "it": {
             "pageTitle": "Chiesa di San Benedetto",
@@ -125,7 +126,6 @@
             "audioSource": "en/chiesasbene.mp3"
         }
     },
-
     "lastre": {
         "it": {
             "audioSource": "it/lastre.mp3"
@@ -145,7 +145,7 @@
             "audioSource": "fr/carracci.mp3"
         }
     },   
-     "cavaticcio": {
+    "cavaticcio": {
         "it": {
             "pageTitle": "Centrale Idroelettrica del Cavaticcio",
             "headImage": "panorama_bologna.jpg",
