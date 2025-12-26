@@ -90,9 +90,18 @@
             "audioSource": "it/lastre.mp3"
         }
     },   
-    "carraci": {
+    "carracci": {
         "it": {
-            "audioSource": "it/carraci.mp3"
+            "audioSource": "it/carracci.mp3"
+        },
+        "en": {
+            "audioSource": "en/carracci.mp3"
+        },
+        "es": {
+            "audioSource": "es/carracci.mp3"
+        },
+        "fr": {
+            "audioSource": "fr/carracci.mp3"
         }
     },   
      "cavaticcio": {
