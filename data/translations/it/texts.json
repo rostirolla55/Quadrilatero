@@ -30,11 +30,7 @@
         "navPioggia1": "Paesaggio con San Bartolomeo Alfonso Lombardi",
         "navPioggia2": "Scultura San Bartolomeo Ludovico Mattioli",
         "navPioggia3": "Adorazione dei pastori Agostino Carracci",
-        "navGraziaxx": "Lapide votiva Grazia",
-        "navManifattura": "Ex Manifattura Tabacchi",
-        "navPittoriCarracci": "I Pittori Carracci",
-        "navCavaticcio": "La Centrale Idroelettrica del Cavaticcio",
-        "navbsmariamaggiore": "Basilica Santa Maria Maggiore"
+        "navGraziaxx": "Lapide votiva Grazia"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -291,22 +287,6 @@
     "bsmariamaggiore": {
         "headImage": "public/images/panorama_bologna.jpg",
         "audioSource": "it/bsmariamaggiore.mp3",
-        "mainText1": "it_bsmariamaggiore_maintext1.html",
-        "pageTitle": "Basilica Santa Maria Maggiore",
-        "mainText": "",
-        "mainText2": "",
-        "mainText3": "",
-        "mainText4": "",
-        "mainText5": "",
-        "playAudioButton": "Ascolta con le cuffie",
-        "pauseAudioButton": "Pausa",
-        "imageSource1": "",
-        "imageSource2": "",
-        "imageSource3": "",
-        "imageSource4": "",
-        "imageSource5": "",
-        "sourceText": "",
-        "creationDate": "2025-12-26",
-        "lastUpdate": "2025-12-26"
+        "mainText1": "it_bsmariamaggiore_maintext1.html"
     }
 }
