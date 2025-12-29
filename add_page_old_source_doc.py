@@ -196,7 +196,6 @@ def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_i
     
     MARKER_MAIN_NAV = '</ul>' # Inseriamo il nuovo link prima della chiusura della lista
     today_version = datetime.datetime.now().strftime("%Y%m%d_%H%M") 
-    template_path = os.path.join(repo_root, HTML_TEMPLATE_NAME)
 
     # Recuperiamo tutti i file HTML nella root
     all_html_files = [
@@ -204,16 +203,6 @@ def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_i
         for f in os.listdir(repo_root) 
         if f.endswith('.html') and f != 'template-it.html'
     ]
-    
-    # Leggi il template una volta
-    template_content = ""
-    if os.path.exists(template_path):
-        try:
-            with open(template_path, 'r', encoding='utf-8') as f:
-                template_content = f.read()
-        except Exception as e:
-            print(f"ERRORE leggendo il template: {e}")
-            return
     
     for existing_path in all_html_files:
         try:
@@ -256,31 +245,6 @@ def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_i
 
         except Exception as e:
             print(f"ERRORE aggiornando HTML {filename}: {e}")
-    
-    # Crea i file HTML specifici per lingua basati sul template
-    if template_content:
-        for lang in LANGUAGES:
-            if lang == 'it':
-                new_html_filename = f'{page_id}.html'
-            else:
-                new_html_filename = f'{page_id}-{lang}.html'
-            
-            new_html_path = os.path.join(repo_root, new_html_filename)
-            
-            # Se il file non esiste, crealo dal template
-            if not os.path.exists(new_html_path):
-                try:
-                    new_content = template_content
-                    # Sostituisci il placeholder del titolo
-                    new_content = re.sub(r'<title>.*?</title>', f'<title>{translations[lang]}</title>', new_content)
-                    new_content = re.sub(r'main\.js\?v=[0-9A-Z_]*', f'main.js?v={today_version}', new_content)
-                    
-                    with open(new_html_path, 'w', encoding='utf-8') as f:
-                        f.write(new_content)
-                    
-                    print(f"✅ File HTML creato: {new_html_filename}")
-                except Exception as e:
-                    print(f"ERRORE creando HTML {new_html_filename}: {e}")
             
 def main():
     if len(sys.argv) != 8:
