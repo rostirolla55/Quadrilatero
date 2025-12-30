@@ -94,7 +94,6 @@ def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
                 data = json.load(f)
             
             # 1. Aggiorna il blocco 'nav'
-            if 'nav' not in data: data['nav'] = {}
             data['nav'][nav_key_id] = translations[lang]
 
             # 2. Inizializza/Aggiorna il blocco della pagina
@@ -234,13 +233,11 @@ def main():
         return
 
     page_id, nav_key_id, title, lat, lon, dist, root = sys.argv[1:8]
-    root = root.strip('"')
 
     print(f"\nAVVIO AGGIORNAMENTO: {page_id}")
     translations = get_translations_for_nav(title)
 
     update_main_js(root, page_id, nav_key_id, lat, lon, dist)
-    update_texts_json_nav(root, page_id, nav_key_id, translations)
     update_html_files(root, page_id, nav_key_id, translations, title)
     
     print(f"\nOperazione completata per {page_id}!")
