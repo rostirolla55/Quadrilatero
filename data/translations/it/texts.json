@@ -33,7 +33,8 @@
         "navGraziaxx": "Lapide votiva Grazia",
         "navManifattura": "Ex Manifattura Tabacchi",
         "navPittoriCarracci": "I Pittori Carracci",
-        "navCavaticcio": "La Centrale Idroelettrica del Cavaticcio"
+        "navCavaticcio": "La Centrale Idroelettrica del Cavaticcio",
+        "navbsmariamaggiore": "Basilica Santa Maria Maggiore"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -286,5 +287,25 @@
         "creationDate": "2025-11-27",
         "lastUpdate": "2025-12-19",
         "audioSource": "it/centraleidroelettricacavaticcio.mp3"
+    },
+    "bsmariamaggiore": {
+        "pageTitle": "Basilica Santa Maria Maggiore",
+        "mainText": "",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Ascolta con le cuffie",
+        "pauseAudioButton": "Pausa",
+        "imageSource1": "",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "",
+        "creationDate": "2026-01-01",
+        "lastUpdate": "2026-01-01",
+        "audioSource": "it/bsmariamaggiore.mp3"
     }
 }
