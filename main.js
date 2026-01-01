@@ -50,7 +50,6 @@ const POIS_LOCATIONS = [
     { id: 'pioggia3', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
     // Tanari_11.jpg
     { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50 }
-    { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50 },
 // ** MARKER: START NEW POIS **
 ];
 
@@ -323,8 +322,7 @@ async function loadContent(lang) {
                 { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
                 { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
                 { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' }
-                    { id: 'navbsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore' },
-// ** MARKER: START NEW NAV LINKS **
+                // ** MARKER: START NEW NAV LINKS **
             ];
 
             // Aggiorna HREF e Testo per tutti i link del menu principale

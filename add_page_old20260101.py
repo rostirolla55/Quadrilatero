@@ -52,46 +52,36 @@ def get_translations_for_nav(page_title_it):
     return translations
 
 def update_main_js(repo_root, page_id, nav_key_id, lat, lon, distance):
-    """Aggiorna POIS_LOCATIONS e navLinksData in main.js aggiungendo la virgola finale se necessario."""
+    """Aggiorna POIS_LOCATIONS e navLinksData in main.js aggiungendo la virgola finale."""
     js_path = os.path.join(repo_root, 'main.js')
+    # AGGIUNTA VIRGOLA FINALE: Assicura che la sintassi dell'array JS rimanga valida
+    new_poi = f"    {{ id: '{page_id}', lat: {lat}, lon: {lon}, distanceThreshold: {distance} }},"
+    new_nav = f"    {{ id: '{nav_key_id}', key: '{nav_key_id}', base: '{page_id}' }},"
     
-    # Nuove linee da inserire (senza virgola finale, verrà gestita dinamicamente)
-    new_poi = f"    {{ id: '{page_id}', lat: {lat}, lon: {lon}, distanceThreshold: {distance} }}"
-    new_nav = f"    {{ id: '{nav_key_id}', key: '{nav_key_id}', base: '{page_id}' }}"
+    # Le linee saranno inserite prima del marker, mantenendo la formattazione pulita
+    new_poi_injection = new_poi + '\n' + POI_MARKER
+    new_nav_injection = new_nav + '\n' + NAV_MARKER
     
     try:
         with open(js_path, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
+            content = f.read()
 
-        new_lines = []
-        for i, line in enumerate(lines):
-            # Gestione iniezione POI
-            if POI_MARKER in line:
-                if not any(f"id: '{page_id}'" in l for l in lines):
-                    # Controlla se la riga precedente ha bisogno della virgola
-                    if len(new_lines) > 0 and '}' in new_lines[-1] and not new_lines[-1].strip().endswith(','):
-                        new_lines[-1] = new_lines[-1].rstrip() + ',\n'
-                    
-                    new_lines.append(new_poi + '\n')
-                    print(f"✅ Inserito POI in main.js")
-                new_lines.append(line)
+        # Inserimento POI
+        if POI_MARKER in content:
+            content = content.replace(POI_MARKER, new_poi_injection)
+            print(f"✅ Inserito POI in main.js")
+        else:
+            print(f"⚠️ ATTENZIONE: Marcatore POI non trovato: '{POI_MARKER}'")
 
-            # Gestione iniezione NAV LINK DATA
-            elif NAV_MARKER in line:
-                if not any(f"id: '{nav_key_id}'" in l for l in lines):
-                    # Controlla se la riga precedente ha bisogno della virgola
-                    if len(new_lines) > 0 and '}' in new_lines[-1] and not new_lines[-1].strip().endswith(','):
-                        new_lines[-1] = new_lines[-1].rstrip() + ',\n'
-                        
-                    new_lines.append(new_nav + '\n')
-                    print(f"✅ Inserito navLinksData in main.js")
-                new_lines.append(line)
+        # Inserimento NAV LINK DATA
+        if NAV_MARKER in content:
+            content = content.replace(NAV_MARKER, new_nav_injection)
+            print(f"✅ Inserito navLinksData in main.js")
+        else:
+            print(f"⚠️ ATTENZIONE: Marcatore NavLinks non trovato: '{NAV_MARKER}'")
             
-            else:
-                new_lines.append(line)
-
         with open(js_path, 'w', encoding='utf-8') as f:
-            f.writelines(new_lines)
+            f.write(content)
             
     except Exception as e:
         print(f"ERRORE aggiornando main.js: {e}")
