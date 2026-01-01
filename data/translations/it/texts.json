@@ -289,7 +289,7 @@
         "audioSource": "it/centraleidroelettricacavaticcio.mp3"
     },
     "bsmariamaggiore": {
-        "pageTitle": "Basilica di Santa Maria Maggiore",
+        "pageTitle": "Basilica Santa Maria Maggiore",
         "mainText": "<p><font color=\"#ff0000\"><b>Se entri in chiesa, usa gli auricolari per ascoltare l'audio </b></font> </p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
         "mainText1": "",
         "mainText2": "",
@@ -305,7 +305,7 @@
         "imageSource5": "",
         "sourceText": "",
         "creationDate": "2026-01-01",
-        "lastUpdate": "2025-12-26",
+        "lastUpdate": "2026-01-02",
         "audioSource": "it/bsmariamaggiore.mp3",
         "headImage": "panorama_bologna.jpg"
     }
