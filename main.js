@@ -322,9 +322,9 @@ async function loadContent(lang) {
                 { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
                 { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
                 { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
+                    { id: 'navbsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore' },
+// ** MARKER: START NEW NAV LINKS **
                 { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' }
-    { id: 'navbsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore' },
-                // ** MARKER: START NEW NAV LINKS **
             ];
 
             // Aggiorna HREF e Testo per tutti i link del menu principale
