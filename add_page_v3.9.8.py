@@ -19,18 +19,16 @@ LANGUAGE_NAMES = {"it": "Italiano", "en": "English", "es": "Español", "fr": "Fr
 def get_translations_for_nav(page_title_it):
     """Genera traduzioni automatiche per il menu basate su parole chiave."""
     mapping = {
-        "Basilica": {"en": "Basilica", "es": "Basílica", "fr": "Basilique"},
-        "Canale": {"en": "Channel", "es": "Canal", "fr": "Canal"},
-        "Centrale": {"en": "Power Station", "es": "Central", "fr": "Centrale"},
-        "Chiesa": {"en": "Church", "es": "Iglesia", "fr": "Église"},
-        "Maggiore": {"en": "Major", "es": "Mayor", "fr": "Majeure"},
-        "Maria": {"en": "Mary", "es": "María", "fr": "Marie"},
+        "Template": {"en": "Template", "es": "Plantilla", "fr": "Modèle"},
         "Portico": {"en": "Portico", "es": "Pórtico", "fr": "Portique"},
-        "Santa": {"en": "Saint", "es": "San", "fr": "Saint"},
-        "Santo": {"en": "Saint", "es": "San", "fr": "Saint"},
+        "Chiesa": {"en": "Church", "es": "Iglesia", "fr": "Église"},
+        "Basilica": {"en": "Basilica", "es": "Basílica", "fr": "Basilique"},
         "Statua": {"en": "Statue", "es": "Estatua", "fr": "Statue"},
-        "Template": {"en": "Template", "es": "Plantilla", "fr": "Modèle"}
-   }
+        "Canale": {"en": "Channel", "es": "Canal", "fr": "Canal"},
+        "Santo": {"en": "Saint", "es": "San", "fr": "Saint"},
+        "Santa": {"en": "Saint", "es": "San", "fr": "Saint"},
+        "Centrale": {"en": "Power Station", "es": "Central", "fr": "Centrale"}
+    }
     translations = {"it": page_title_it}
     for lang in ["en", "es", "fr"]:
         translated_title = page_title_it
@@ -213,6 +211,7 @@ def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_i
                 content = f.read()
 
             if f'id="{nav_key_id}"' not in content:
+                # Correzione del link di destinazione basata sulla lingua del file corrente
                 target_href = (
                     f"{page_id}-{current_lang}.html"
                     if current_lang != "it"

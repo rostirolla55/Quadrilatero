@@ -6,68 +6,73 @@ import shutil
 import re
 
 # --- CONFIGURAZIONI GLOBALI ---
-LANGUAGES = ['it', 'en', 'es', 'fr']
-NAV_MARKER = '// ** MARKER: START NEW NAV LINKS **' # Marcatore per main.js
-POI_MARKER = '// ** MARKER: START NEW POIS **' # Marcatore per main.js
-HTML_NAV_MARKER = '</ul>' # Marcatore per i file HTML: USIAMO </ul> per INSERIRE IN FONDO
-HTML_TEMPLATE_NAME = 'template-it.html' # Nome del file HTML da usare come template
+LANGUAGES = ["it", "en", "es", "fr"]
+NAV_MARKER = "// ** MARKER: START NEW NAV LINKS **"
+POI_MARKER = "// ** MARKER: START NEW POIS **"
+HTML_NAV_MARKER = "</ul>"
+HTML_TEMPLATE_NAME = "template-it.html"
+LANGUAGE_SWITCHER_MARKER = "<!-- LANGUAGE_SWITCHER_PLACEHOLDER -->"
 
-# NUOVO MARCATORE PER IL CAMBIO LINGUA
-LANGUAGE_SWITCHER_MARKER = '<!-- LANGUAGE_SWITCHER_PLACEHOLDER -->'
-LANGUAGE_NAMES = {'it': 'Italiano', 'en': 'English', 'es': 'Español', 'fr': 'Français'}
+LANGUAGE_NAMES = {"it": "Italiano", "en": "English", "es": "Español", "fr": "Français"}
 
-# ----------------------------------------------------------------------------------
 
 def get_translations_for_nav(page_title_it):
-    """
-    Ritorna le traduzioni hardcoded per il link di navigazione.
-    """
-    print("ATTENZIONE: Stiamo usando traduzioni placeholder per il menu. AGGIORNARE manualemnte se necessario.")
-    return {
-        'it': page_title_it,
-        'en': 'The Carracci Painters', # Traduzione placeholder EN (Regolare se necessario)
-        'es': 'Los Pintores Carracci', # Traduzione placeholder ES (Regolare se necessario)
-        'fr': 'Les Peintres Carache' # Traduzione placeholder FR (Regolare se necessario)
-    }
+    """Genera traduzioni automatiche per il menu basate su parole chiave."""
+    mapping = {
+        "Basilica": {"en": "Basilica", "es": "Basílica", "fr": "Basilique"},
+        "Canale": {"en": "Channel", "es": "Canal", "fr": "Canal"},
+        "Centrale": {"en": "Power Station", "es": "Central", "fr": "Centrale"}
+        "Chiesa": {"en": "Church", "es": "Iglesia", "fr": "Église"},
+        "Portico": {"en": "Portico", "es": "Pórtico", "fr": "Portique"},
+        "Santa": {"en": "Saint", "es": "San", "fr": "Saint"},
+        "Santo": {"en": "Saint", "es": "San", "fr": "Saint"},
+        "Statua": {"en": "Statue", "es": "Estatua", "fr": "Statue"},
+        "Template": {"en": "Template", "es": "Plantilla", "fr": "Modèle"},
+   }
+    translations = {"it": page_title_it}
+    for lang in ["en", "es", "fr"]:
+        translated_title = page_title_it
+        for word_it, trans_dict in mapping.items():
+            if word_it.lower() in page_title_it.lower():
+                reg = re.compile(re.escape(word_it), re.IGNORECASE)
+                translated_title = reg.sub(trans_dict[lang], translated_title)
+        translations[lang] = translated_title
+    return translations
+
+
 
 def update_main_js(repo_root, page_id, nav_key_id, lat, lon, distance):
-    """Aggiorna POIS_LOCATIONS e navLinksData in main.js."""
+    """Aggiorna main.js aggiungendo POI e NavLinksData con gestione virgole."""
     js_path = os.path.join(repo_root, 'main.js')
-    
-    # Linee da iniettare: rimosso eccesso di a capo per evitare righe vuote
-    new_poi = f"    {{ id: '{page_id}', lat: {lat}, lon: {lon}, distanceThreshold: {distance} }},"
-    new_nav = f"    {{ id: '{nav_key_id}', key: '{nav_key_id}', base: '{page_id}' }},"
-    
-    # Le linee saranno inserite prima del marker, mantenendo la formattazione pulita
-    new_poi_injection = new_poi + '\n' + POI_MARKER
-    new_nav_injection = new_nav + '\n' + NAV_MARKER
+    new_poi = f"    {{ id: '{page_id}', lat: {lat}, lon: {lon}, distanceThreshold: {distance} }}"
+    new_nav = f"    {{ id: '{nav_key_id}', key: '{nav_key_id}', base: '{page_id}' }}"
     
     try:
         with open(js_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-
-        # Inserimento POI
-        if POI_MARKER in content:
-            content = content.replace(POI_MARKER, new_poi_injection)
-            print(f"✅ Inserito POI in main.js")
-        else:
-            print(f"⚠️ ATTENZIONE: Marcatore POI non trovato: '{POI_MARKER}'")
-
-        # Inserimento NAV LINK DATA
-        if NAV_MARKER in content:
-            content = content.replace(NAV_MARKER, new_nav_injection)
-            print(f"✅ Inserito navLinksData in main.js")
-        else:
-            print(f"⚠️ ATTENZIONE: Marcatore NavLinks non trovato: '{NAV_MARKER}'")
-            
+            lines = f.readlines()
+        new_lines = []
+        for line in lines:
+            if POI_MARKER in line:
+                if not any(f"id: '{page_id}'" in l for l in lines):
+                    if len(new_lines) > 0 and '}' in new_lines[-1] and not new_lines[-1].strip().endswith(','):
+                        new_lines[-1] = new_lines[-1].rstrip() + ',\n'
+                    new_lines.append(new_poi + '\n')
+                new_lines.append(line)
+            elif NAV_MARKER in line:
+                if not any(f"id: '{nav_key_id}'" in l for l in lines):
+                    if len(new_lines) > 0 and '}' in new_lines[-1] and not new_lines[-1].strip().endswith(','):
+                        new_lines[-1] = new_lines[-1].rstrip() + ',\n'
+                    new_lines.append(new_nav + '\n')
+                new_lines.append(line)
+            else:
+                new_lines.append(line)
         with open(js_path, 'w', encoding='utf-8') as f:
-            f.write(content)
-            
+            f.writelines(new_lines)
     except Exception as e:
-        print(f"ERRORE aggiornando main.js: {e}")
+        print(f"ERRORE main.js: {e}")
 
 def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
-    """Aggiorna il blocco nav e inizializza il blocco della pagina con tutte le chiavi (SCHEMA COMPLETO)."""
+    """Aggiorna i file JSON di traduzione."""
     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
     
     # SCHEMA COMPLETO (tutte le chiavi inizializzate)
@@ -100,6 +105,7 @@ def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
                 data = json.load(f)
             
             # 1. Aggiorna il blocco 'nav'
+            if 'nav' not in data: data['nav'] = {}
             data['nav'][nav_key_id] = translations[lang]
 
             # 2. Inizializza/Aggiorna il blocco della pagina
@@ -138,189 +144,118 @@ def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
         except Exception as e:
             print(f"ERRORE aggiornando JSON per {lang}: {e}")
 
-def get_target_lang_code(filename):
-    """Determina il codice linguistico corretto dal nome del file HTML."""
-    match = re.search(r'-([a-z]{2})\.html$', filename)
-    if match:
-        return match.group(1)
-    
-    # La pagina base (es. index.html) è trattata a parte o è l'italiano di default
-    if filename.endswith('.html') and filename != HTML_TEMPLATE_NAME:
-        return 'it_default' 
-    return None
 
 def generate_language_switcher(page_id, current_lang):
-    """Genera i tag <li> per il cambio lingua."""
+    """Genera i link per il cambio lingua da inserire nella nuova pagina."""
     switcher_html = ['<ul class="language-switcher">']
-    
     for lang in LANGUAGES:
-        # Crea il nome del file specifico per la lingua (es. pittoricarracci-en.html)
-        target_file = f'{page_id}-{lang}.html'
-        
-        # Determina la classe per il link attivo
-        is_active = ' active' if lang == current_lang else ''
-        
-        # Link structure: <a href="pittoricarracci-en.html" lang="en">English</a>
+        target_file = f"{page_id}-{lang}.html" if lang != "it" else f"{page_id}.html"
+        is_active = " active" if lang == current_lang else ""
         switcher_html.append(
             f'        <li class="lang-item{is_active}"><a href="{target_file}" lang="{lang}">{LANGUAGE_NAMES[lang]}</a></li>'
         )
-        
-    switcher_html.append('    </ul>')
-    return '\n'.join(switcher_html)
+    switcher_html.append("    </ul>")
+    return "\n".join(switcher_html)
+
 
 def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_it):
     """
-    1. Crea i 4 nuovi file HTML con suffisso lingua e inietta il navigatore linguistico.
-    2. Crea il file base di reindirizzamento ({page_id}.html).
-    3. Aggiorna TUTTI i file HTML esistenti (navigazione principale e cache).
+    1. Crea fisicamente i nuovi file HTML (it, en, es, fr).
+    2. Aggiorna il menu in tutti i file HTML della cartella.
     """
-    
-    MARKER_MAIN_NAV = HTML_NAV_MARKER # Il tag </ul> per il menu principale
-    MARKER_LANG_SWITCHER = LANGUAGE_SWITCHER_MARKER # Marcatore per il cambio lingua
-    
-    today_version = datetime.datetime.now().strftime("%Y%m%d_%H%M") 
     template_path = os.path.join(repo_root, HTML_TEMPLATE_NAME)
+    today_version = datetime.datetime.now().strftime("%Y%m%d_%H%M")
 
-    # ----------------------------------------------
-    # 1. CREAZIONE NUOVE PAGINE SPECIFICHE PER LINGUA
-    # ----------------------------------------------
     if not os.path.exists(template_path):
-        print(f"ERRORE FATALE: Template HTML non trovato: {HTML_TEMPLATE_NAME}. Impossibile creare le pagine.")
+        print(f"ERRORE: Template {HTML_TEMPLATE_NAME} non trovato in {repo_root}")
         return
 
+    # --- 1. CREAZIONE NUOVI FILE ---
     for lang in LANGUAGES:
-        new_page_filename = f'{page_id}-{lang}.html'
-        new_page_path = os.path.join(repo_root, new_page_filename)
+        new_filename = f"{page_id}-{lang}.html" if lang != "it" else f"{page_id}.html"
+        new_path = os.path.join(repo_root, new_filename)
 
-        if not os.path.exists(new_page_path):
-            # Copia dal template
-            shutil.copyfile(template_path, new_page_path)
-            
-            with open(new_page_path, 'r', encoding='utf-8') as f:
+        if not os.path.exists(new_path):
+            shutil.copyfile(template_path, new_path)
+            with open(new_path, "r", encoding="utf-8") as f:
                 content = f.read()
-            
-            # 1a. Aggiorna l'ID del body e il tag <html> lang
+
+            # Personalizza ID body e attributo lang
             content = content.replace('id="template"', f'id="{page_id}"')
             content = re.sub(r'<html lang="[a-z]{2}">', f'<html lang="{lang}">', content)
-            
-            # 1b. INIETTA IL NAVIGATORE LINGUISTICO
-            lang_switcher_html = generate_language_switcher(page_id, lang)
-            if MARKER_LANG_SWITCHER in content:
-                content = content.replace(MARKER_LANG_SWITCHER, lang_switcher_html)
-            else:
-                print(f"⚠️ ATTENZIONE: Marcatore cambio lingua '{MARKER_LANG_SWITCHER}' non trovato nel template. Saltata iniezione navigatore per {lang}.")
 
-            with open(new_page_path, 'w', encoding='utf-8') as f:
+            # Inserisce lo switcher di lingua
+            switcher = generate_language_switcher(page_id, lang)
+            if LANGUAGE_SWITCHER_MARKER in content:
+                content = content.replace(LANGUAGE_SWITCHER_MARKER, switcher)
+
+            with open(new_path, "w", encoding="utf-8") as f:
                 f.write(content)
-                
-            print(f"✅ Creato NUOVO FILE LINGUA: {new_page_filename}")
-        else:
-            print(f"⚠️ Pagina {new_page_filename} esiste già. Saltata creazione.")
+            print(f"Creata nuova pagina: {new_filename}")
 
-    # ----------------------------------------------------
-    # 2. CREAZIONE NUOVO FILE BASE DI REINDIRIZZAMENTO
-    # ----------------------------------------------------
-    new_page_base_filename = f'{page_id}.html'
-    new_page_base_path = os.path.join(repo_root, new_page_base_filename)
-    
-    if not os.path.exists(new_page_base_path):
-        shutil.copyfile(template_path, new_page_base_path)
-        
-        with open(new_page_base_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-            
-        # Aggiorna l'ID del body e imposta la lingua di default (IT)
-        content = content.replace('id="template"', f'id="{page_id}"')
-        content = re.sub(r'<html lang="[a-z]{2}">', f'<html lang="it">', content)
-        
-        # Rimuovi il placeholder del navigatore linguistico (non necessario nella pagina base, sarà gestito da JS)
-        content = content.replace(MARKER_LANG_SWITCHER, '')
-        
-        # Sostituisci i riferimenti interni al template-it.html con il file base
-        content = content.replace(f'href="template-it.html"', f'href="{page_id}.html"')
-
-        with open(new_page_base_path, 'w', encoding='utf-8') as f:
-            f.write(content)
-            
-        print(f"✅ Creato NUOVO FILE BASE DI REINDIRIZZAMENTO: {new_page_base_filename}")
-        
-    # ----------------------------------------------------------------------
-    # 3. AGGIORNAMENTO DI TUTTI I FILE HTML ESISTENTI (NAVIGAZIONE E CACHE)
-    # ----------------------------------------------------------------------
-    
-    all_html_files = [
-        os.path.join(repo_root, f) 
-        for f in os.listdir(repo_root) 
-        if f.endswith('.html')
+    # --- 2. AGGIORNAMENTO MENU IN TUTTI I FILE ---
+    all_files = [
+        f for f in os.listdir(repo_root) if f.endswith(".html") and f != HTML_TEMPLATE_NAME
     ]
-    
-    for existing_path in all_html_files:
+
+    for filename in all_files:
+        file_path = os.path.join(repo_root, filename)
+
+        current_lang = "it"
+        for l in ["en", "es", "fr"]:
+            if f"-{l}.html" in filename:
+                current_lang = l
+
         try:
-            filename = os.path.basename(existing_path)
-            
-            # Salta i file che non devono avere un link principale
-            if filename == HTML_TEMPLATE_NAME:
-                continue 
-
-            with open(existing_path, 'r', encoding='utf-8') as f:
+            with open(file_path, "r", encoding="utf-8") as f:
                 content = f.read()
-            
-            # Link da iniettare: PUNTA SEMPRE AL FILE BASE ({page_id}.html)
-            nav_link_href = f'{page_id}.html'
-            
-            # Genera il link, usando la chiave di traduzione del menu
-            nav_link_to_insert = (
-                f'        <li><a id="{nav_key_id}" href="{nav_link_href}">'
-                f'{{{{ {nav_key_id} }}}}</a></li>' # Uso la sintassi di Handlebars/Text che il tuo main.js userà per il rendering
-            )
-            
-            injection_string = nav_link_to_insert + '\n    ' + MARKER_MAIN_NAV
-            
-            # 1. Iniezione del link nel menu: SOSTITUIAMO </ul> con [NUOVO LINK] + </ul>
-            if MARKER_MAIN_NAV in content and nav_link_to_insert not in content:
-                content = content.replace(MARKER_MAIN_NAV, injection_string)
-                print(f"✅ Aggiunto link principale a {filename} (target: {nav_link_href})")
-                
-            # 2. Aggiornamento Cache Busting
-            content = re.sub(r'main\.js\?v=([0-9A-Z_]*)', f'main.js?v={today_version}', content)
-            
-            with open(existing_path, 'w', encoding='utf-8') as f:
-                f.write(content)
-                
-            print(f"✅ Aggiornata cache in {filename}")
 
+            if f'id="{nav_key_id}"' not in content:
+                target_href = (
+                    f"{page_id}-{current_lang}.html"
+                    if current_lang != "it"
+                    else f"{page_id}.html"
+                )
+                label = translations.get(current_lang, page_title_it)
+
+                # Inserimento link pulito senza doppie graffe
+                nav_link = f'                <li><a id="{nav_key_id}" href="{target_href}">{label}</a></li>'
+
+                if HTML_NAV_MARKER in content:
+                    parts = content.rsplit(HTML_NAV_MARKER, 1)
+                    content = (
+                        parts[0] + nav_link + "\n            " + HTML_NAV_MARKER + parts[1]
+                    )
+
+                # Cache busting
+                content = re.sub(
+                    r"main\.js\?v=[0-9A-Z_]*", f"main.js?v={today_version}", content
+                )
+
+                with open(file_path, "w", encoding="utf-8") as f:
+                    f.write(content)
+                print(f"Menu aggiornato in {filename}")
         except Exception as e:
-            print(f"ERRORE aggiornando HTML: {filename}: {e}")
+            print(f"Errore durante l'aggiornamento di {filename}: {e}")
+
 
 def main():
-    if len(sys.argv) != 8:
-        print("Uso: python add_page.py <page_id> <nav_key_id> <page_title_it> <lat> <lon> <distance> <repo_root>")
-        sys.exit(1)
+    if len(sys.argv) < 8:
+        print("Parametri insufficienti.")
+        return
 
-    page_id = sys.argv[1]
-    nav_key_id = sys.argv[2]
-    page_title_it = sys.argv[3]
-    lat = sys.argv[4]
-    lon = sys.argv[5]
-    distance = sys.argv[6]
-    repo_root = sys.argv[7]
+    page_id, nav_key_id, title, lat, lon, dist, root = sys.argv[1:8]
+    root = root.strip('"')
+
+    print(f"\nAVVIO AGGIORNAMENTO: {page_id}")
+    translations = get_translations_for_nav(title)
+
+    update_main_js(root, page_id, nav_key_id, lat, lon, dist)
+    update_texts_json_nav(root, page_id, nav_key_id, translations)
+    update_html_files(root, page_id, nav_key_id, translations, title)
     
-    print("\n=================================================")
-    print(f"AVVIO CREAZIONE PAGINA: {page_id}")
-    print("=================================================")
+    print(f"\nOperazione completata per {page_id}!")
 
-    # 1. Recupero traduzioni per la navigazione
-    translations = get_translations_for_nav(page_title_it)
-
-    print("\n--- AGGIORNAMENTO JSON ---")
-    update_texts_json_nav(repo_root, page_id, nav_key_id, translations)
-    
-    print("\n--- AGGIORNAMENTO MAIN.JS ---")
-    update_main_js(repo_root, page_id, nav_key_id, lat, lon, distance)
-
-    print("\n--- AGGIORNAMENTO HTML E CREAZIONE NUOVE PAGINE ---")
-    # L'aggiornamento HTML ora include la creazione dei file specifici per lingua
-    update_html_files(repo_root, page_id, nav_key_id, translations, page_title_it)
 
 if __name__ == "__main__":
     main()
