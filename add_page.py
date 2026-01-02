@@ -20,17 +20,11 @@ def get_translations_for_nav(page_title_it):
     """Genera traduzioni automatiche per il menu basate su parole chiave."""
     mapping = {
         "Basilica": {"en": "Basilica", "es": "Basílica", "fr": "Basilique"},
-        "Canale": {"en": "Channel", "es": "Canal", "fr": "Canal"},
-        "Centrale": {"en": "Power Station", "es": "Central", "fr": "Centrale"},
         "Chiesa": {"en": "Church", "es": "Iglesia", "fr": "Église"},
-        "Maggiore": {"en": "Major", "es": "Mayor", "fr": "Majeure"},
-        "Maria": {"en": "Mary", "es": "María", "fr": "Marie"},
-        "Portico": {"en": "Portico", "es": "Pórtico", "fr": "Portique"},
         "Santa": {"en": "Saint", "es": "San", "fr": "Saint"},
-        "Santo": {"en": "Saint", "es": "San", "fr": "Saint"},
-        "Statua": {"en": "Statue", "es": "Estatua", "fr": "Statue"},
-        "Template": {"en": "Template", "es": "Plantilla", "fr": "Modèle"}
-   }
+        "Maria": {"en": "Mary", "es": "María", "fr": "Marie"},
+        "Maggiore": {"en": "Major", "es": "Mayor", "fr": "Majeure"},
+    }
     translations = {"it": page_title_it}
     for lang in ["en", "es", "fr"]:
         translated_title = page_title_it
@@ -42,36 +36,29 @@ def get_translations_for_nav(page_title_it):
     return translations
 
 
-
 def update_main_js(repo_root, page_id, nav_key_id, lat, lon, distance):
-    """Aggiorna main.js aggiungendo POI e NavLinksData con gestione virgole."""
-    js_path = os.path.join(repo_root, 'main.js')
-    new_poi = f"    {{ id: '{page_id}', lat: {lat}, lon: {lon}, distanceThreshold: {distance} }}"
-    new_nav = f"    {{ id: '{nav_key_id}', key: '{nav_key_id}', base: '{page_id}' }}"
-    
+    js_path = os.path.join(repo_root, "main.js")
+    new_poi = f"    {{ id: '{page_id}', lat: {lat}, lon: {lon}, distanceThreshold: {distance} }},"
+    new_nav = f"    {{ id: '{nav_key_id}', key: '{nav_key_id}', base: '{page_id}' }},"
     try:
-        with open(js_path, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
-        new_lines = []
-        for line in lines:
-            if POI_MARKER in line:
-                if not any(f"id: '{page_id}'" in l for l in lines):
-                    if len(new_lines) > 0 and '}' in new_lines[-1] and not new_lines[-1].strip().endswith(','):
-                        new_lines[-1] = new_lines[-1].rstrip() + ',\n'
-                    new_lines.append(new_poi + '\n')
-                new_lines.append(line)
-            elif NAV_MARKER in line:
-                if not any(f"id: '{nav_key_id}'" in l for l in lines):
-                    if len(new_lines) > 0 and '}' in new_lines[-1] and not new_lines[-1].strip().endswith(','):
-                        new_lines[-1] = new_lines[-1].rstrip() + ',\n'
-                    new_lines.append(new_nav + '\n')
-                new_lines.append(line)
+        with open(js_path, "r", encoding="utf-8") as f:
+            content = f.read()
+            if POI_MARKER in content:
+                if new_poi not in content:
+                    content = content.replace(POI_MARKER, new_poi + "\n" + POI_MARKER)
             else:
-                new_lines.append(line)
-        with open(js_path, 'w', encoding='utf-8') as f:
-            f.writelines(new_lines)
+                print(f"⚠️ ATTENZIONE: Marcatore POI non trovato: '{POI_MARKER}'")
+            if NAV_MARKER in content:
+                if new_nav not in content:
+                    content = content.replace(NAV_MARKER, new_nav + "\n" + NAV_MARKER)
+            else:
+                print(f"⚠️ ATTENZIONE: Marcatore NavLinks non trovato: '{NAV_MARKER}'")
+            with open(js_path, "w", encoding="utf-8") as f:
+                f.write(content)
+                print("main.js aggiornato.")
     except Exception as e:
-        print(f"ERRORE main.js: {e}")
+        print(f"Errore main.js: {e}")
+
 
 def update_texts_json_nav(repo_root, page_id, nav_key_id, translations):
     """Aggiorna i file JSON di traduzione."""
