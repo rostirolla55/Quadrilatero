@@ -34,7 +34,8 @@
         "navManifattura": "Ancienne Manufacture de Tabac",
         "navpittoricarracci": "Les Peintres Carrache",
         "navcavaticcio": "Centrale hydroélectrique de Cavaticcio",
-        "navbsmariamaggiore": "Basilique Saint Marie Majeure"
+        "navbsmariamaggiore": "Basilique Saint Marie Majeure",
+        "navchiesasancarlo": "Église San Carlo Borromeo"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -308,5 +309,26 @@
         "imageSource4": "",
         "imageSource5": "",
         "creationDate": "2026-01-02"
+    },
+    "chiesasancarlo": {
+        "headImage": "public/images/panorama_bologna.jpg",
+        "audioSource": "fr/chiesasancarlo.mp3",
+        "mainText1": "fr_chiesasancarlo_maintext1.html",
+        "pageTitle": "Église San Carlo Borromeo",
+        "mainText": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Ascolta con le cuffie",
+        "pauseAudioButton": "Pausa",
+        "imageSource1": "",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "",
+        "creationDate": "2026-01-05",
+        "lastUpdate": "2026-01-05"
     }
 }

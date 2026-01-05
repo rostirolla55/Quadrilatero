@@ -31,6 +31,7 @@ const POIS_LOCATIONS = [
     { id: 'pittoricarracci', lat: 44.50085, lon: 11.33610, distanceThreshold: 50 },
     { id: 'cavaticcio', lat: 44.50018, lon: 11.33807, distanceThreshold: 50 },
         { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50 },
+    { id: 'chiesasancarlo', lat: 44.50100929028893, lon: 11.3409277679376, distanceThreshold: 50 },
 // ** MARKER: START NEW POIS **
     // Lapide_Grazia.jpg
     { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50 },
@@ -323,6 +324,7 @@ async function loadContent(lang) {
                 { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
                 { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
                     { id: 'navbsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore' },
+    { id: 'navchiesasancarlo', key: 'navchiesasancarlo', base: 'chiesasancarlo' },
 // ** MARKER: START NEW NAV LINKS **
                     { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' }
             ];

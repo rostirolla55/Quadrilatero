@@ -34,7 +34,8 @@
         "navManifattura": "Ex Tobacco Factory",
         "navpittoricarracci": "The Carracci Painters",
         "navcavaticcio": "Cavaticcio hydroelectric power plant",
-        "navbsmariamaggiore": "Basilica Saint Mary Major"
+        "navbsmariamaggiore": "Basilica Saint Mary Major",
+        "navchiesasancarlo": "Church San Carlo Borromeo"
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -319,5 +320,26 @@
         "imageSource4": "",
         "imageSource5": "",
         "creationDate": "2026-01-02"
+    },
+    "chiesasancarlo": {
+        "headImage": "public/images/panorama_bologna.jpg",
+        "audioSource": "en/chiesasancarlo.mp3",
+        "mainText1": "en_chiesasancarlo_maintext1.html",
+        "pageTitle": "Church San Carlo Borromeo",
+        "mainText": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "playAudioButton": "Ascolta con le cuffie",
+        "pauseAudioButton": "Pausa",
+        "imageSource1": "",
+        "imageSource2": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": "",
+        "sourceText": "",
+        "creationDate": "2026-01-05",
+        "lastUpdate": "2026-01-05"
     }
 }
