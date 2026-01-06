@@ -1,3 +1,0 @@
-cavaticcio|imageSource1|cavaticcio/panorama_bologna.jpg
-cavaticcio|imageSource2|cavaticcio/cantierefontanina.jpg
-cavaticcio|imageSource3|cavaticcio/serrandeImbrattate.jpg
