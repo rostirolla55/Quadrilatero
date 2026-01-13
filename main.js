@@ -506,3 +506,174 @@ const startGeolocation = (allPageData) => {
 };
 // BLOCCO QUATTRO - FINE
 // 
+// ===========================================
+// BLOCCO CINQUE - FUNZIONI LINGUA E UI
+// ===========================================
+
+function updateLanguageSelectorActiveState(lang) {
+    document.querySelectorAll('.language-selector button').forEach(button => {
+        if (button.getAttribute('data-lang') === lang) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    });
+}
+
+function handleLanguageChange(event) {
+    const newLang = event.currentTarget.getAttribute('data-lang');
+    if (newLang && LANGUAGES.includes(newLang) && newLang !== currentLang) {
+        localStorage.setItem(LAST_LANG_KEY, newLang);
+        
+        let fileBase = getCurrentPageId();
+        if (fileBase === 'home') fileBase = 'index';
+
+        // Reindirizzamento al file corrispondente (es: index-en.html)
+        const newPath = `${fileBase}-${newLang}.html`;
+        document.location.href = newPath;
+    }
+}
+
+function initEventListeners(lang) {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navBarMain = document.getElementById('navBarMain');
+    const body = document.body;
+
+    // Hamburger Menu Principale
+    if (menuToggle && navBarMain && !menuToggle.dataset.listenerAttached) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navBarMain.classList.toggle('active');
+            body.classList.toggle('menu-open');
+            if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.classList.remove('poi-active');
+        });
+
+        navBarMain.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                menuToggle.classList.remove('active');
+                navBarMain.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        });
+        menuToggle.dataset.listenerAttached = 'true';
+    }
+
+    // Menu POI Vicini (Pulsante Verde)
+    if (nearbyPoiButton && nearbyMenuPlaceholder && !nearbyPoiButton.dataset.listenerAttached) {
+        nearbyPoiButton.addEventListener('click', () => {
+            nearbyMenuPlaceholder.classList.toggle('poi-active');
+            if (menuToggle && navBarMain) {
+                menuToggle.classList.remove('active');
+                navBarMain.classList.remove('active');
+            }
+            body.classList.toggle('menu-open', nearbyMenuPlaceholder.classList.contains('poi-active'));
+        });
+
+        nearbyMenuPlaceholder.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                nearbyMenuPlaceholder.classList.remove('poi-active');
+                body.classList.remove('menu-open');
+            }
+        });
+        nearbyPoiButton.dataset.listenerAttached = 'true';
+    }
+
+    // Audio Player
+    const localAudioPlayer = document.getElementById('audioPlayer');
+    const localPlayButton = document.getElementById('playAudio');
+    if (localAudioPlayer && localPlayButton && !localPlayButton.dataset.listenerAttached) {
+        localPlayButton.addEventListener('click', () => toggleAudioPlayback(localAudioPlayer, localPlayButton));
+        localAudioPlayer.addEventListener('ended', () => handleAudioEnded(localAudioPlayer, localPlayButton));
+        localPlayButton.dataset.listenerAttached = 'true';
+    }
+
+    // Selettore Lingua
+    document.querySelectorAll('.language-selector button').forEach(button => {
+        button.addEventListener('click', handleLanguageChange);
+    });
+}
+
+// ===========================================
+// BLOCCO SEI - LOGICA NAVIGAZIONE DINAMICA (POI VICINI)
+// ===========================================
+
+async function updateNearbyMenu(lang) {
+    if (!nearbyMenuPlaceholder) return;
+
+    try {
+        const coords = await getCurrentLocation();
+        const nearbyPOIs = getNearbyPOIs(coords.latitude, coords.longitude, POI_DATA);
+
+        if (nearbyPOIs.length > 0) {
+            let html = `<ul class="nearby-list">`;
+            nearbyPOIs.forEach(poi => {
+                // Genera link tipo "nomepoi-it.html"
+                const poiLink = `${poi.id}-${lang}.html`;
+                html += `<li><a href="${poiLink}">${poi.label[lang] || poi.label['it']} (${poi.distance.toFixed(0)}m)</a></li>`;
+            });
+            html += `</ul>`;
+            nearbyMenuPlaceholder.innerHTML = html;
+            if (nearbyPoiButton) nearbyPoiButton.style.display = 'flex';
+        } else {
+            nearbyMenuPlaceholder.innerHTML = `<p>Nessun punto di interesse nelle immediate vicinanze.</p>`;
+        }
+    } catch (error) {
+        console.warn("Impossibile aggiornare menu vicini:", error);
+        nearbyMenuPlaceholder.innerHTML = `<p>Attiva la posizione per vedere i punti vicini.</p>`;
+    }
+}
+
+// ===========================================
+// BLOCCO SETTE - PUNTO DI INGRESSO (DOM LOADED)
+// ===========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.info(`🌍 Versione in esecuzione: ${APP_VERSION}`);
+
+    // 1. ASSEGNAZIONE VARIABILI GLOBALI
+    nearbyPoiButton = document.getElementById('nearbyPoiButton');
+    nearbyMenuPlaceholder = document.getElementById('nearbyMenuPlaceholder');
+
+    // 2. DETERMINAZIONE LINGUA CORRENTE
+    let finalLang = 'it';
+    const savedLang = localStorage.getItem(LAST_LANG_KEY);
+    if (savedLang && LANGUAGES.includes(savedLang)) finalLang = savedLang;
+
+    const urlPath = document.location.pathname;
+    const langMatch = urlPath.match(/-([a-z]{2})\.html/);
+    if (langMatch && LANGUAGES.includes(langMatch[1])) {
+        finalLang = langMatch[1];
+        localStorage.setItem(LAST_LANG_KEY, finalLang);
+    }
+
+    currentLang = finalLang;
+    document.documentElement.lang = currentLang;
+
+    // 3. INIZIALIZZAZIONE UI E CONTENUTI
+    updateLanguageSelectorActiveState(currentLang);
+    initEventListeners(currentLang);
+    loadContent(currentLang);
+
+    // 4. ATTIVAZIONE GEOLOCALIZZAZIONE (Novità Blocco 6)
+    updateNearbyMenu(currentLang);
+
+    // 5. ANALYTICS
+    if (typeof gtag === 'function') {
+        gtag('event', 'page_view', {
+            'page_title': document.title,
+            'page_path': window.location.pathname,
+            'lingua_pagina': currentLang
+        });
+    }
+
+    // 6. FIREBASE (Opzionale)
+    if (typeof initializeApp !== 'undefined' && typeof firebaseConfig !== 'undefined') {
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        auth = getAuth(app);
+        
+        signInAnonymously(auth).then(() => {
+            console.log("Firebase: Autenticazione anonima completata.");
+        }).catch(err => console.error("Firebase Auth Error:", err));
+    }
+});
