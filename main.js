@@ -34,6 +34,7 @@ let isAuthReady = false;
 // ===========================================
 // Attenzione le coordinate sono della zona QUADDRILATERO
 // in C:\Users\User\Documents\salvataggi_github\POIA_LOCATIONS_Quadrilatero_js.txt
+const notificationSound = new Audio('assets/sounds/drin.mp3');
 const POIS_LOCATIONS = [
     { id: 'manifattura', lat: 44.498910, lon: 11.342241, distanceThreshold: 50 },
     { id: 'pittoricarracci', lat: 44.50085, lon: 11.33610, distanceThreshold: 50 },
@@ -76,6 +77,24 @@ const getCurrentPageId = () => {
     }
     return fileName.replace(/-[a-z]{2}\.html/i, '').replace('.html', '').toLowerCase();
 };
+
+/**
+ * Funzione per riprodurre il suono
+ * Nota: I browser moderni bloccano l'audio se l'utente non ha interagito 
+ * almeno una volta con la pagina (un click ovunque).
+ */
+function playNotification() {
+    notificationSound.play().catch(error => {
+        console.warn("Riproduzione audio bloccata dal browser. L'utente deve interagire con la pagina prima.", error);
+    });
+
+    // Feedback visivo o vibrazione per dispositivi mobili
+    if ("vibrate" in navigator) {
+        navigator.vibrate([300, 100, 300]);
+    }
+}
+
+
 
 /**
  * Carica il contenuto di un file in modo asincrono (Tuo codice originale)
@@ -156,7 +175,7 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     // 1. Calcola la distanza e filtra in base alla soglia specifica del POI
     locations.forEach(location => {
         const distance = calculateDistance(userLat, userLon, location.lat, location.lon);
-        
+
         // Soglia dinamica: usa quella del POI o un default di 50m
         const threshold = location.distanceThreshold || 50;
 
@@ -259,7 +278,7 @@ async function loadContent(lang) {
 
         for (const key of textKeysToUpdate) {
             const value = pageData[key];
-            
+
             // isFilePath deve essere una funzione che controlla se la stringa termina con .txt o .html
             if (value && isFilePath(value)) {
                 const fullPath = "text_files/" + value;
@@ -397,8 +416,8 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
 };
@@ -409,10 +428,10 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 const triggerPoiNotification = (poiId, poiName) => {
     if (!visitedPois.has(poiId)) {
         visitedPois.add(poiId);
-        
+
         // Effetto "Campanello": Feedback visivo/logico
         console.warn(`🔔 NOTIFICA: Sei vicino a "${poiName}"!`);
-        
+
         // Qui potresti attivare una classe CSS per far lampeggiare il tasto POI
         if (nearbyPoiButton) {
             nearbyPoiButton.classList.add('notification-ring');
@@ -454,6 +473,15 @@ const checkProximity = (position, allPageData) => {
             if (dist < 50) { // Raggio di 50 metri
                 triggerPoiNotification(poi.id, poi.id);
             }
+            // Esempio: Se siamo a meno di 50 metri e non abbiamo ancora suonato per questo POI
+            if (dist < 50 && !poi.notified) {
+
+                // --- QUI RICHIAMI LA FUNZIONE ---
+                playNotification();
+
+                console.log("Notifica attivata per: " + poi.name);
+                poi.notified = true; // Impedisce al drin di ripetersi ogni secondo
+            }
         });
     }
 
@@ -480,7 +508,7 @@ const startGeolocation = (allPageData) => {
 
     if (navigator.geolocation) {
         console.info("Avvio monitoraggio GPS...");
-        
+
         navigator.geolocation.watchPosition(
             (position) => {
                 const FORCE_DEBUG = false; // Impostare a true per simulare la posizione in ufficio
@@ -524,7 +552,7 @@ function handleLanguageChange(event) {
     const newLang = event.currentTarget.getAttribute('data-lang');
     if (newLang && LANGUAGES.includes(newLang) && newLang !== currentLang) {
         localStorage.setItem(LAST_LANG_KEY, newLang);
-        
+
         let fileBase = getCurrentPageId();
         if (fileBase === 'home') fileBase = 'index';
 
@@ -666,14 +694,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
     // 6. FIREBASE (Opzionale)
     if (typeof initializeApp !== 'undefined' && typeof firebaseConfig !== 'undefined') {
         const app = initializeApp(firebaseConfig);
         db = getFirestore(app);
         auth = getAuth(app);
-        
+
         signInAnonymously(auth).then(() => {
             console.log("Firebase: Autenticazione anonima completata.");
         }).catch(err => console.error("Firebase Auth Error:", err));
     }
+    console.log("App pronta: Inizializzazione dati e GPS...");
 });
