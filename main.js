@@ -19,10 +19,29 @@ let currentLang = localStorage.getItem(LAST_LANG_KEY) || 'it';
 const app_id = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
 
+// blocco emergenza inizio
+async function startApp() {
+    try {
+        // Inizializzazione Servizi
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+    } catch (e) {
+        console.error("Firebase non configurato correttamente, ma l'app prosegue:", e);
+    }
+
+    // 3. FUORI DAL TRY/CATCH METTI IL CODICE CHE FA GIRARE L'APP
+    // (Caricamento mappa, rimozione loader, logica dei bottoni)
+    document.getElementById('loading-screen').style.display = 'none';
+    setupMap();
+}
+startApp();
+// blocco emergenza fine 
+
 // Inizializzazione Servizi
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+// const app = initializeApp(firebaseConfig);
+// const auth = getAuth(app);
+// const db = getFirestore(app);
 
 // Stato Utente
 let currentUser = null;
@@ -684,7 +703,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 3. INIZIALIZZAZIONE UI E CONTENUTI
     updateLanguageSelectorActiveState(currentLang);
     initEventListeners(currentLang);
-    
+
     try {
         await loadContent(currentLang);
     } catch (err) {
@@ -708,7 +727,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (typeof initializeApp !== 'undefined' && typeof firebaseConfig !== 'undefined') {
         try {
             // Controlliamo che la configurazione abbia almeno una chiave API valida
-            if (!firebaseConfig.apiKey || firebaseConfig.apiKey.includes("AIza")) { 
+            if (!firebaseConfig.apiKey || firebaseConfig.apiKey.includes("AIza")) {
                 const app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
