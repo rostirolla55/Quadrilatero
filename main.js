@@ -655,7 +655,11 @@ async function updateNearbyMenu(lang) {
 // BLOCCO SETTE - PUNTO DI INGRESSO (DOM LOADED)
 // ===========================================
 
-document.addEventListener('DOMContentLoaded', () => {
+// ===========================================
+// BLOCCO SETTE - PUNTO DI INGRESSO (DOM LOADED)
+// ===========================================
+
+document.addEventListener('DOMContentLoaded', async () => {
     console.info(`🌍 Versione in esecuzione: ${APP_VERSION}`);
 
     // 1. ASSEGNAZIONE VARIABILI GLOBALI
@@ -680,12 +684,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. INIZIALIZZAZIONE UI E CONTENUTI
     updateLanguageSelectorActiveState(currentLang);
     initEventListeners(currentLang);
-    loadContent(currentLang);
+    
+    try {
+        await loadContent(currentLang);
+    } catch (err) {
+        console.warn("Errore durante il caricamento dei contenuti:", err);
+    }
 
-    // 4. ATTIVAZIONE GEOLOCALIZZAZIONE (Novità Blocco 6)
+    // 4. ATTIVAZIONE GEOLOCALIZZAZIONE
     updateNearbyMenu(currentLang);
 
-    // 5. ANALYTICS
+    // 5. ANALYTICS (Safe call)
     if (typeof gtag === 'function') {
         gtag('event', 'page_view', {
             'page_title': document.title,
@@ -694,16 +703,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-    // 6. FIREBASE (Opzionale)
+    // 6. FIREBASE - GESTIONE ERRORI PER EVITARE BLOCCHI
+    // Se la configurazione è mancante o errata, l'app continuerà a funzionare
     if (typeof initializeApp !== 'undefined' && typeof firebaseConfig !== 'undefined') {
-        const app = initializeApp(firebaseConfig);
-        db = getFirestore(app);
-        auth = getAuth(app);
+        try {
+            // Controlliamo che la configurazione abbia almeno una chiave API valida
+            if (!firebaseConfig.apiKey || firebaseConfig.apiKey.includes("AIza")) { 
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
 
-        signInAnonymously(auth).then(() => {
-            console.log("Firebase: Autenticazione anonima completata.");
-        }).catch(err => console.error("Firebase Auth Error:", err));
+                signInAnonymously(auth).then(() => {
+                    console.log("Firebase: Autenticazione anonima completata.");
+                }).catch(err => {
+                    console.error("Firebase Auth Error (Sign-in):", err.message);
+                });
+            } else {
+                console.warn("Firebase: API Key non valida o mancante nella configurazione.");
+            }
+        } catch (err) {
+            console.error("Firebase Init Error:", err.message);
+            // Non rilanciamo l'errore, così l'app non si blocca
+        }
+    } else {
+        console.info("Firebase: Librerie non caricate o configurazione assente.");
     }
-    console.log("App pronta: Inizializzazione dati e GPS...");
+
+    // 7. RIMOZIONE SCHERMATA CARICAMENTO (Fallback di sicurezza)
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        loadingScreen.style.display = 'none';
+        console.info("Applicazione pronta.");
+    }
 });
