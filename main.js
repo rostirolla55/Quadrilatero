@@ -34,7 +34,7 @@ let isAuthReady = false;
 // ===========================================
 // Attenzione le coordinate sono della zona QUADDRILATERO
 // in C:\Users\User\Documents\salvataggi_github\POIA_LOCATIONS_Quadrilatero_js.txt
-const notificationSound = new Audio('assets/sounds/drin.mp3');
+const notificationSound = new Audio('assets/audio/drin.mp3');
 const POIS_LOCATIONS = [
     { id: 'manifattura', lat: 44.498910, lon: 11.342241, distanceThreshold: 50 },
     { id: 'pittoricarracci', lat: 44.50085, lon: 11.33610, distanceThreshold: 50 },
