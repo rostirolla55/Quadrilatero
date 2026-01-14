@@ -4,9 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quartiere Porto</title>
+    <title id="pageTitle">Caricamento...</title>
     <link rel="stylesheet" href="style.css">
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E57BP15BBX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        // CONFIGURAZIONE: Associa 'dimension1' al nome parametro 'lingua_pagina'
+        gtag('config', 'G-E57BP15BBX', {
+            'custom_map': { 'dimension1': 'lingua_pagina' }
+        });
+    </script>
 </head>
 
 <body>
@@ -64,7 +75,6 @@
         <main class="content-body">
 
             <div class="header-image-container">
-                <!-- MODIFICA 1: L'immagine di testata usa ora ID="headImage" -->
                 <img id="headImage" src="" alt="Immagine di sfondo testata">
                 <h1 class="header-title" id="headerTitle"></h1>
             </div>
@@ -77,7 +87,6 @@
                 <p id="mainText"></p>
 
                 <p id="mainText1"></p>
-                <!-- MODIFICA 2: L'immagine di contenuto 1 usa ora ID="pageImage1" -->
                 <img id="pageImage1" src="" style="display: none;" alt="Immagine 1 corpo">
 
                 <p id="mainText2"></p>
@@ -115,6 +124,7 @@
 
                 </div>
                 <!-- FINE NUOVA SEZIONE -->
+
             </div>
 
             <footer class="info-footer">

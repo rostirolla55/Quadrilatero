@@ -5,54 +5,25 @@
 // 1. IMPORTAZIONI FIREBASE (Standard 11.6.1)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getFirestore, doc, onSnapshot, collection, addDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 const APP_VERSION = '1.3.00 - Integrata logica Firebase e Cronologia';
 
 // 2. GESTIONE LINGUA
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quadrilatero_lastLang';
-// Recupero l'ultima lingua o default 'it'
 let currentLang = localStorage.getItem(LAST_LANG_KEY) || 'it';
 
-// 3. CONFIGURAZIONE FIREBASE (Usa costanti globali fornite dall'ambiente)
-const app_id = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+// 3. CONFIGURAZIONE FIREBASE & VARIABILI GLOBALI
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
 
-// blocco emergenza inizio
-async function startApp() {
-    try {
-        // Inizializzazione Servizi
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-    } catch (e) {
-        console.error("Firebase non configurato correttamente, ma l'app prosegue:", e);
-    }
-
-    // 3. FUORI DAL TRY/CATCH METTI IL CODICE CHE FA GIRARE L'APP
-    // (Caricamento mappa, rimozione loader, logica dei bottoni)
-    document.getElementById('loading-screen').style.display = 'none';
-    setupMap();
-}
-startApp();
-// blocco emergenza fine 
-
-// Inizializzazione Servizi
-// const app = initializeApp(firebaseConfig);
-// const auth = getAuth(app);
-// const db = getFirestore(app);
-
-// Stato Utente
+// Dichiarazione globale dei servizi (accessibili da tutto il file)
+let app, auth, db;
 let currentUser = null;
 let isAuthReady = false;
 
-// 4. COORDINATE POI (Mantenute dal tuo originale)
-// ===========================================
-// DATI: Punti di Interesse GPS (DA COMPILARE)
-// ===========================================
-// Attenzione le coordinate sono della zona QUADDRILATERO
-// in C:\Users\User\Documents\salvataggi_github\POIA_LOCATIONS_Quadrilatero_js.txt
+// 4. COORDINATE POI (Originali)
 const notificationSound = new Audio('assets/audio/drin.mp3');
 const POIS_LOCATIONS = [
     { id: 'manifattura', lat: 44.498910, lon: 11.342241, distanceThreshold: 50 },
@@ -60,64 +31,75 @@ const POIS_LOCATIONS = [
     { id: 'cavaticcio', lat: 44.50018, lon: 11.33807, distanceThreshold: 50 },
     { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50 },
     { id: 'chiesasancarlo', lat: 44.50100929028893, lon: 11.3409277679376, distanceThreshold: 50 },
-    // ** MARKER: START NEW POIS **
-    // Lapide_Grazia.jpg
     { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50 },
-    // Pugliole.jpg
     { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 50 },
-    // Casa_Carracci_Portone.jpg
     { id: 'carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50 },
-    // ViaGalliera79.jpg 44.501514, 11.343557
     { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120 },
-    // Piazzetta Pioggia da Galliera 44.498910, 11.342241
     { id: 'chiesapioggia', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
-    // Paesaggio con San Bartolomeo Alfonso Lombardi -  44.498910, 11.342241
     { id: 'pioggia1', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
-    // Scultura San Bartolomeo - 44.498910, 11.342241
     { id: 'pioggia2', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
-    // Opera di Agostino Carracci - 44.498910, 11.342241
     { id: 'pioggia3', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
-    // Tanari_11.jpg
     { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50 }
 ];
 
+// 5. INIZIALIZZAZIONE APP & FIREBASE
+async function startApp() {
+    try {
+        // Inizializzazione Servizi (Assegnazione alle variabili globali)
+        app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+
+        // Autenticazione (Fondamentale per i permessi Firestore)
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+            await signInAnonymously(auth);
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                isAuthReady = true;
+                console.log("Firebase Pronto - UID:", user.uid);
+                // Innesca il caricamento della cronologia o altre funzioni real-time qui
+                if (window.inizializzaLogicaFirebase) window.inizializzaLogicaFirebase();
+            }
+        });
+
+    } catch (e) {
+        console.error("Errore inizializzazione Firebase:", e);
+    }
+
+    // Logica di avvio interfaccia
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) loadingScreen.style.display = 'none';
+
+    // Chiamata alla tua funzione di setup mappa (assicurati che esista nel resto del file)
+    if (typeof setupMap === 'function') setupMap();
+}
+
+// Avvio
+startApp();
+
 // ===========================================
-// FUNZIONI UTILITY (CON AGGIUNTE PER FIREBASE)
+// FUNZIONI UTILITY (Originali + Export)
 // ===========================================
 
-/**
- * Ottiene l'ID della pagina corrente per caricamento JSON e Cronologia
- */
 const getCurrentPageId = () => {
     const path = window.location.pathname;
     const fileName = path.substring(path.lastIndexOf('/') + 1);
-    if (fileName === '' || fileName.startsWith('index')) {
-        return 'home';
-    }
+    if (fileName === '' || fileName.startsWith('index')) return 'home';
     return fileName.replace(/-[a-z]{2}\.html/i, '').replace('.html', '').toLowerCase();
 };
 
-/**
- * Funzione per riprodurre il suono
- * Nota: I browser moderni bloccano l'audio se l'utente non ha interagito 
- * almeno una volta con la pagina (un click ovunque).
- */
 function playNotification() {
     notificationSound.play().catch(error => {
-        console.warn("Riproduzione audio bloccata dal browser. L'utente deve interagire con la pagina prima.", error);
+        console.warn("Audio bloccato: richiede interazione utente.", error);
     });
-
-    // Feedback visivo o vibrazione per dispositivi mobili
-    if ("vibrate" in navigator) {
-        navigator.vibrate([300, 100, 300]);
-    }
+    if ("vibrate" in navigator) navigator.vibrate([300, 100, 300]);
 }
 
-
-
-/**
- * Carica il contenuto di un file in modo asincrono (Tuo codice originale)
- */
 async function fetchFileContent(filePath) {
     try {
         const response = await fetch(filePath);
@@ -129,19 +111,9 @@ async function fetchFileContent(filePath) {
     }
 }
 
-// Espongo le funzioni al window per usarle in altri file non-module se necessario
-window.getCurrentPageId = getCurrentPageId;
-window.fetchFileContent = fetchFileContent;
-
-
-// ===========================================
-// FUNZIONI AUDIO (Corrette per argomenti locali)
-// ===========================================
-
 const toggleAudioPlayback = function (audioPlayer, playButton) {
     const currentPlayText = playButton.dataset.playText || "Ascolta";
     const currentPauseText = playButton.dataset.pauseText || "Pausa";
-
     if (audioPlayer.paused) {
         audioPlayer.play();
         playButton.textContent = currentPauseText;
@@ -160,10 +132,20 @@ const handleAudioEnded = function (audioPlayer, playButton) {
     playButton.classList.replace('pause-style', 'play-style');
 };
 
+// Esposizione globale
+window.getCurrentPageId = getCurrentPageId;
+window.fetchFileContent = fetchFileContent;
+window.toggleAudioPlayback = toggleAudioPlayback;
+window.handleAudioEnded = handleAudioEnded;
+window.playNotification = playNotification;
+
 /**
- * BLOCCO DUE - GESTIONE PUNTI DI INTERESSE (POI)
- * Gestisce il calcolo delle distanze e la generazione del menu dinamico.
+ * BLOCCO DUE - GESTIONE PUNTI DI INTERESSE (POI) E SEGNALI
+ * Gestisce il calcolo delle distanze, il menu dinamico e l'invio dei segnali a Firestore.
  */
+
+// Importa le funzioni di Firestore (da aggiungere agli import iniziali se non presenti)
+// import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
 const formatDistance = (distance) => {
     if (!Number.isFinite(distance)) return '–';
@@ -175,12 +157,66 @@ const formatDistance = (distance) => {
 };
 
 /**
+ * Gestisce l'invio del segnale "Drin" a Firestore.
+ * @param {Object} poi - Il punto di interesse più vicino.
+ * @param {string} userId - L'ID dell'utente autenticato.
+ */
+async function sendDrinSignal(poi, userId) {
+    if (typeof db === 'undefined' || !userId) return;
+
+    try {
+        // RULE 1: Percorso obbligatorio per dati pubblici
+        const signalsRef = collection(db, 'artifacts', appId, 'public', 'data', 'signals');
+
+        await addDoc(signalsRef, {
+            poiId: poi.id,
+            poiTitle: poi.title || poi.id,
+            userId: userId,
+            timestamp: new Date().toISOString(), // In alternativa serverTimestamp() se importato
+            type: 'drin'
+        });
+
+        console.log(`Segnale inviato per: ${poi.id}`);
+    } catch (error) {
+        console.error("Errore nell'invio del segnale:", error);
+    }
+}
+
+/**
+ * Funzione principale attivata dal tasto "Drin" (Campanella).
+ * Coordina il controllo posizione, l'invio dati e il feedback UI.
+ */
+async function handleDrinAction(locations, userLat, userLon, user) {
+    if (!locations || !userLat || !userLon) return;
+
+    // Trova il POI più vicino entro la soglia
+    let closestPoi = null;
+    let minDistance = Infinity;
+
+    locations.forEach(location => {
+        const distance = calculateDistance(userLat, userLon, location.lat, location.lon);
+        const threshold = location.distanceThreshold || 50;
+
+        if (distance <= threshold && distance < minDistance) {
+            minDistance = distance;
+            closestPoi = location;
+        }
+    });
+
+    if (closestPoi && user) {
+        // Se siamo vicino a un POI, invia il segnale al database
+        await sendDrinSignal(closestPoi, user.uid);
+
+        // Esegui qui il feedback visivo (animazione campanella, suoneria, etc.)
+        // es: triggerVisualDrin(closestPoi);
+    } else {
+        // Feedback: "Troppo lontano per suonare"
+        console.log("Nessun POI abbastanza vicino per inviare il segnale.");
+    }
+}
+
+/**
  * Aggiorna il menu dei POI vicini basandosi sulla posizione utente.
- * @param {Array} locations - Array di oggetti POI dal database.
- * @param {number} userLat - Latitudine utente.
- * @param {number} userLon - Longitudine utente.
- * @param {string} userLang - Lingua corrente (it, en, es, fr).
- * @param {Object} allPageData - Oggetto contenente i testi tradotti di tutte le pagine.
  */
 function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     const nearbyLocations = [];
@@ -191,11 +227,8 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
         return;
     }
 
-    // 1. Calcola la distanza e filtra in base alla soglia specifica del POI
     locations.forEach(location => {
         const distance = calculateDistance(userLat, userLon, location.lat, location.lon);
-
-        // Soglia dinamica: usa quella del POI o un default di 50m
         const threshold = location.distanceThreshold || 50;
 
         if (distance <= threshold) {
@@ -206,11 +239,9 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
         }
     });
 
-    // 2. Ordina per distanza crescente e rimuovi eventuali duplicati ID
     nearbyLocations.sort((a, b) => a.distance - b.distance);
     const uniquePois = [...new Map(nearbyLocations.map(item => [item['id'], item])).values()];
 
-    // 3. Genera l'HTML del menu
     let menuHtml = '';
 
     if (uniquePois.length > 0) {
@@ -218,13 +249,10 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
 
         uniquePois.forEach(poi => {
             const poiContent = allPageData ? allPageData[poi.id] : null;
-
-            // Recupera il titolo tradotto, pulito da spazi
             const displayTitle = (poiContent && poiContent.pageTitle)
                 ? poiContent.pageTitle.trim()
                 : `[Titolo: ${poi.id}]`;
 
-            // Costruzione URL (es: museo-en.html o museo-it.html)
             const langSuffix = userLang === 'it' ? '-it' : `-${userLang}`;
             const href = `${poi.id}${langSuffix}.html`;
 
@@ -234,7 +262,6 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
         menuHtml = `<ul class="poi-links">${listItems}</ul>`;
 
     } else {
-        // Fallback: Nessun POI trovato
         let maxThreshold = locations.reduce((max, loc) => Math.max(max, loc.distanceThreshold || 50), 0);
         let noPoiMessage;
 
@@ -249,12 +276,10 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
         menuHtml = `<div class="no-poi-alert" style="color:#e53e3e; padding: 20px; text-align: center; font-weight: 500;">${noPoiMessage}</div>`;
     }
 
-    // 4. Iniezione nel DOM
     if (nearbyMenuPlaceholder) {
         nearbyMenuPlaceholder.innerHTML = menuHtml;
     }
 }
-// BLOCCO DUE - FINE 
 // BLOCCO TRE - INIZIO 
 /**
  * BLOCCO TRE - CARICAMENTO DINAMICO DEI CONTENUTI E TRADUZIONI
@@ -581,6 +606,62 @@ function handleLanguageChange(event) {
     }
 }
 
+/**
+ * Gestisce l'invio del segnale Drin a Firestore se l'utente è vicino a un POI.
+ */
+async function handleDrinClick() {
+    // Verifichiamo di avere posizione e dati necessari
+    if (typeof userLat === 'undefined' || typeof userLon === 'undefined' || !locations) {
+        console.warn("Posizione non disponibile o POI non caricati.");
+        return;
+    }
+
+    // Cerchiamo il POI più vicino entro la sua soglia (utilizza la logica del Blocco 2)
+    let closestPoi = null;
+    let minDistance = Infinity;
+
+    locations.forEach(location => {
+        const distance = calculateDistance(userLat, userLon, location.lat, location.lon);
+        const threshold = location.distanceThreshold || 50;
+
+        if (distance <= threshold && distance < minDistance) {
+            minDistance = distance;
+            closestPoi = location;
+        }
+    });
+
+    if (closestPoi) {
+        // Se siamo vicino a un POI, inviamo il segnale a Firestore
+        // Nota: Assicurati che 'auth' e 'db' siano inizializzati globalmente
+        const user = typeof auth !== 'undefined' ? auth.currentUser : null;
+        const uid = user ? user.uid : "anonymous";
+
+        try {
+            const signalsRef = collection(db, 'artifacts', appId, 'public', 'data', 'signals');
+            await addDoc(signalsRef, {
+                poiId: closestPoi.id,
+                userId: uid,
+                timestamp: new Date().toISOString(),
+                type: 'drin'
+            });
+
+            // Feedback visivo: animazione campanella
+            const drinBtn = document.getElementById('drinButton');
+            if (drinBtn) {
+                drinBtn.classList.add('drin-animation');
+                setTimeout(() => drinBtn.classList.remove('drin-animation'), 1000);
+            }
+            
+            console.log("Drin inviato con successo per:", closestPoi.id);
+        } catch (e) {
+            console.error("Errore invio segnale:", e);
+        }
+    } else {
+        console.log("Troppo lontano dai punti di interesse per suonare.");
+        // Opzionale: mostra un piccolo messaggio UI all'utente
+    }
+}
+
 function initEventListeners(lang) {
     const menuToggle = document.querySelector('.menu-toggle');
     const navBarMain = document.getElementById('navBarMain');
@@ -592,7 +673,9 @@ function initEventListeners(lang) {
             menuToggle.classList.toggle('active');
             navBarMain.classList.toggle('active');
             body.classList.toggle('menu-open');
-            if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.classList.remove('poi-active');
+            if (typeof nearbyMenuPlaceholder !== 'undefined' && nearbyMenuPlaceholder) {
+                nearbyMenuPlaceholder.classList.remove('poi-active');
+            }
         });
 
         navBarMain.addEventListener('click', (e) => {
@@ -606,7 +689,7 @@ function initEventListeners(lang) {
     }
 
     // Menu POI Vicini (Pulsante Verde)
-    if (nearbyPoiButton && nearbyMenuPlaceholder && !nearbyPoiButton.dataset.listenerAttached) {
+    if (typeof nearbyPoiButton !== 'undefined' && nearbyPoiButton && !nearbyPoiButton.dataset.listenerAttached) {
         nearbyPoiButton.addEventListener('click', () => {
             nearbyMenuPlaceholder.classList.toggle('poi-active');
             if (menuToggle && navBarMain) {
@@ -625,6 +708,13 @@ function initEventListeners(lang) {
         nearbyPoiButton.dataset.listenerAttached = 'true';
     }
 
+    // --- NUOVO: Gestione Pulsante Drin (Campanella) ---
+    const drinButton = document.getElementById('drinButton');
+    if (drinButton && !drinButton.dataset.listenerAttached) {
+        drinButton.addEventListener('click', handleDrinClick);
+        drinButton.dataset.listenerAttached = 'true';
+    }
+
     // Audio Player
     const localAudioPlayer = document.getElementById('audioPlayer');
     const localPlayButton = document.getElementById('playAudio');
@@ -639,7 +729,6 @@ function initEventListeners(lang) {
         button.addEventListener('click', handleLanguageChange);
     });
 }
-
 // ===========================================
 // BLOCCO SEI - LOGICA NAVIGAZIONE DINAMICA (POI VICINI)
 // ===========================================
