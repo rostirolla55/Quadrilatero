@@ -1,350 +1,251 @@
 // ====================================================================
-// BLOCCO UNO (REVISIONATO) - CONFIGURAZIONE, FIREBASE E UTILITY
+// DICHIARAZIONE VARIABILI GLOBALI (NECESSARIE)
 // ====================================================================
-
+// NOTA: Le importazioni Firebase sono mantenute anche se non usate in loadContent
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-// 1. CONFIGURAZIONE CORE
-const APP_VERSION = '1.3.00 - Quadrilatero';
+const APP_VERSION = '1.2.16 - inserito gestione fetch html in loadContent';
 
-// Lettura sicura della configurazione (Risolve l'errore invalid-api-key)
-const firebaseConfig = JSON.parse(__firebase_config);
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const appId = typeof __app_id !== 'undefined' ? __app_id : 'quadrilatero-bologna';
+const LANGUAGES = ['it', 'en', 'fr', 'es'];
+const LAST_LANG_KEY = 'Quadrilatero_lastLang'; // Chiave per salvare l'ultima lingua in localStorage (Coerente con index.html)
+let currentLang = 'it';
+let nearbyPoiButton, nearbyMenuPlaceholder;
 
-// Stato globale
-let currentUser = null;
+// Variabili Firebase (anche se loadContent usa fetch locale)
+const app_id = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+let db, auth;
+let currentUserId = null;
 let isAuthReady = false;
-let currentLang = localStorage.getItem('Quadrilatero_lastLang') || 'it';
 
-// 2. COORDINATE PUNTI DI INTERESSE (POI)
-const notificationSound = new Audio('assets/audio/drin.mp3');
+
+// ===========================================
+// DATI: Punti di Interesse GPS (DA COMPILARE)
+// ===========================================
+// Attenzione le coordinate sono della zona QUADDRILATERO
+// in C:\Users\User\Documents\salvataggi_github\POIA_LOCATIONS_Quadrilatero_js.txt
 const POIS_LOCATIONS = [
     { id: 'manifattura', lat: 44.498910, lon: 11.342241, distanceThreshold: 50 },
     { id: 'pittoricarracci', lat: 44.50085, lon: 11.33610, distanceThreshold: 50 },
     { id: 'cavaticcio', lat: 44.50018, lon: 11.33807, distanceThreshold: 50 },
-    { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50 },
-    { id: 'chiesasancarlo', lat: 44.50100929028893, lon: 11.3409277679376, distanceThreshold: 50 },
+        { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50 },
+// ** MARKER: START NEW POIS **
+    // Lapide_Grazia.jpg
     { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50 },
+    // Pugliole.jpg
     { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 50 },
+    // Casa_Carracci_Portone.jpg
     { id: 'carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50 },
+    // ViaSanCarlo45_f.jpg
+    { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50 },
+    // ViaGalliera79.jpg 44.501514, 11.343557
     { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120 },
+    // Piazzetta Pioggia da Galliera 44.498910, 11.342241
     { id: 'chiesapioggia', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
+    // Paesaggio con San Bartolomeo Alfonso Lombardi -  44.498910, 11.342241
     { id: 'pioggia1', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
+    // Scultura San Bartolomeo - 44.498910, 11.342241
     { id: 'pioggia2', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
+    // Opera di Agostino Carracci - 44.498910, 11.342241
     { id: 'pioggia3', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
+    // Tanari_11.jpg
     { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50 }
 ];
 
-// 3. LOGICA DI AVVIO FIREBASE
-async function startAppServices() {
-    try {
-        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-            await signInWithCustomToken(auth, __initial_auth_token);
-        } else {
-            await signInAnonymously(auth);
-        }
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUser = user;
-                isAuthReady = true;
-                const status = document.getElementById('status-label');
-                if (status) status.innerText = "Sistema connesso";
-                initHistoryListener();
-            }
-        });
-    } catch (e) {
-        console.error("Errore inizializzazione Firebase:", e);
-    }
-}
+// ===========================================
+// FUNZIONI UTILITY GENERALI (Lingua e DOM)
+// ===========================================
 
-// 4. FUNZIONI UTILITY
 const getCurrentPageId = () => {
     const path = window.location.pathname;
     const fileName = path.substring(path.lastIndexOf('/') + 1);
-    if (fileName === '' || fileName.startsWith('index')) return 'home';
+
+    // Correzione: La base 'index' deve essere gestita come 'home' per il JSON
+    if (fileName === '' || fileName.startsWith('index')) {
+        return 'home';
+    }
+
     return fileName.replace(/-[a-z]{2}\.html/i, '').replace('.html', '').toLowerCase();
 };
 
-function playNotification() {
-    notificationSound.play().catch(() => console.warn("Audio richiede interazione"));
-    if ("vibrate" in navigator) navigator.vibrate([300, 100, 300]);
-}
-
-// 5. GESTIONE CRONOLOGIA (Regole 1 e 2)
-function initHistoryListener() {
-    const historyRef = collection(db, 'artifacts', appId, 'public', 'data', 'access_history');
-    onSnapshot(historyRef, (snapshot) => {
-        const historyList = document.getElementById('historyList');
-        if (!historyList) return;
-        let entries = [];
-        snapshot.forEach(doc => entries.push({ id: doc.id, ...doc.data() }));
-        entries.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
-        historyList.innerHTML = entries.slice(0, 8).map(entry => `
-            <li style="padding: 10px; border-bottom: 1px solid #eee; font-size: 0.85em;">
-                <strong style="color: #e53e3e;">🔔 ${entry.pageName}</strong><br>
-                <small style="color: #666;">${entry.timestamp ? new Date(entry.timestamp.seconds * 1000).toLocaleString('it-IT') : 'Adesso'}</small>
-            </li>
-        `).join('') || '<li style="padding:10px; color:#999; text-align:center;">Nessun DRIN.</li>';
-    });
-}
-
-// 6. FUNZIONE DRIN
-async function handleDrin() {
-    const feedback = document.getElementById('drin-feedback');
-    if (!currentUser) return;
-    try {
-        const historyRef = collection(db, 'artifacts', appId, 'public', 'data', 'access_history');
-        const pageTitle = document.getElementById('pageTitle')?.innerText || document.title;
-        await addDoc(historyRef, {
-            userId: currentUser.uid,
-            pageName: pageTitle,
-            timestamp: serverTimestamp()
-        });
-        if (feedback) {
-            feedback.style.color = "green";
-            feedback.innerText = "✅ Registrato!";
-            setTimeout(() => { if(feedback) feedback.innerText = ""; }, 3000);
-        }
-        playNotification();
-    } catch (error) { console.error("Errore DRIN:", error); }
-}
-
-// Esposizione globale e avvio
-window.handleDrin = handleDrin;
-window.getCurrentPageId = getCurrentPageId;
-startAppServices();
-
-/**
- * BLOCCO DUE - GESTIONE PUNTI DI INTERESSE (POI) E SEGNALI
- * Integra il calcolo delle distanze e la gestione dinamica dell'interfaccia.
- */
-
-import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-/**
- * Calcola la distanza tra due punti (Formula di Haversine)
- */
-function calculateDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371e3; // Raggio della Terra in metri
-    const phi1 = lat1 * Math.PI / 180;
-    const phi2 = lat2 * Math.PI / 180;
-    const deltaPhi = (lat2 - lat1) * Math.PI / 180;
-    const deltaLambda = (lon2 - lon1) * Math.PI / 180;
-
-    const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
-              Math.cos(phi1) * Math.cos(phi2) *
-              Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return R * c; // Distanza in metri
-}
-
-const formatDistance = (distance) => {
-    if (!Number.isFinite(distance)) return '–';
-    distance = Math.abs(distance);
-    if (distance < 1000) return `${Math.round(distance)} m`;
-    return `${parseFloat((distance / 1000).toFixed(1))} km`;
+const updateTextContent = (id, value) => {
+    const element = document.getElementById(id);
+    if (element) {
+        element.textContent = value || '';
+    }
 };
 
-/**
- * Invia il segnale "Drin" a Firestore (RULE 1 applicata)
- */
-async function sendDrinSignal(poi, userId) {
-    if (typeof db === 'undefined' || !userId) return;
+const updateHTMLContent = (id, htmlContent) => {
+    const element = document.getElementById(id);
+    if (element) {
+        element.innerHTML = htmlContent || '';
+    }
+};
 
+// ===========================================
+// NUOVE FUNZIONI ASINCRONE PER CARICAMENTO FILE
+// ===========================================
+
+/**
+ * Funzione helper per determinare se una stringa è probabilmente un percorso di file (es. frammento HTML).
+ * @param {string} value Il valore della chiave JSON.
+ * @returns {boolean} True se sembra un percorso di file.
+ */
+function isFilePath(value) {
+    if (typeof value !== 'string') return false;
+    // Cerca pattern tipici di file (es. che finiscono con .html, .txt)
+    return /\.(html|txt)$/i.test(value.trim());
+}
+
+/**
+ * Carica il contenuto di un file in modo asincrono tramite fetch.
+ * @param {string} filePath Il percorso del file da caricare (es. "text_files/it_manifattura_maintext1.html")
+ * @returns {Promise<string>} Il contenuto del file come stringa.
+ */
+
+async function fetchFileContent(filePath) {
     try {
-        // Percorso obbligatorio per dati pubblici: /artifacts/{appId}/public/data/{collection}
-        const signalsRef = collection(db, 'artifacts', appId, 'public', 'data', 'signals');
-
-        await addDoc(signalsRef, {
-            poiId: poi.id,
-            poiTitle: poi.title || poi.id,
-            userId: userId,
-            timestamp: serverTimestamp(),
-            type: 'drin'
-        });
-
-        console.log(`Segnale registrato nel cloud per: ${poi.id}`);
-    } catch (error) {
-        console.error("Errore nell'invio del segnale:", error);
-    }
-}
-
-/**
- * Funzione coordinatrice per l'azione della campanella
- */
-async function handleDrinAction(locations, userLat, userLon, user) {
-    if (!locations || !userLat || !userLon) {
-        console.warn("Dati posizione mancanti per il Drin");
-        return;
-    }
-
-    let closestPoi = null;
-    let minDistance = Infinity;
-
-    locations.forEach(location => {
-        const distance = calculateDistance(userLat, userLon, location.lat, location.lon);
-        const threshold = location.distanceThreshold || 50;
-
-        if (distance <= threshold && distance < minDistance) {
-            minDistance = distance;
-            closestPoi = location;
+        const response = await fetch(filePath);
+        if (!response.ok) {
+            throw new Error(`Errore HTTP: ${response.status} per ${filePath}`);
         }
-    });
-
-    if (closestPoi && user) {
-        await sendDrinSignal(closestPoi, user.uid);
-        // Richiama la funzione audio definita nel Blocco Uno
-        if (typeof window.playNotification === 'function') window.playNotification();
-        
-        return { success: true, poi: closestPoi };
-    } else {
-        console.log("Sei fuori portata per suonare questo campanello.");
-        return { success: false, reason: 'too_far' };
+        return await response.text();
+    } catch (error) {
+        console.error(`ERRORE: Impossibile caricare il frammento ${filePath}`, error);
+        return `[ERRORE: Caricamento fallito per ${filePath}. ${error.message}]`;
     }
 }
 
-/**
- * Aggiorna il menu dei POI vicini nell'interfaccia
- */
-function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
-    const nearbyMenuPlaceholder = document.getElementById('nearbyMenuPlaceholder');
-    if (!nearbyMenuPlaceholder) return;
 
+// ===========================================
+// FUNZIONI AUDIO (Corrette per argomenti locali)
+// ===========================================
+
+const toggleAudioPlayback = function (audioPlayer, playButton) {
+    const currentPlayText = playButton.dataset.playText || "Ascolta";
+    const currentPauseText = playButton.dataset.pauseText || "Pausa";
+
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+        playButton.textContent = currentPauseText;
+        playButton.classList.replace('play-style', 'pause-style');
+    } else {
+        audioPlayer.pause();
+        playButton.textContent = currentPlayText;
+        playButton.classList.replace('pause-style', 'play-style');
+    }
+};
+
+const handleAudioEnded = function (audioPlayer, playButton) {
+    const currentPlayText = playButton.dataset.playText || "Ascolta";
+    audioPlayer.currentTime = 0;
+    playButton.textContent = currentPlayText;
+    playButton.classList.replace('pause-style', 'play-style');
+};
+
+// BLOCCO DUE - INIZIO 
+
+// ===========================================
+// FUNZIONI POI (PULSANTE VERDE)
+// ===========================================
+
+const formatDistance = (distance) => {
+    if (distance < 1000) {
+        return `${Math.round(distance)}m`;
+    }
+    return `${(distance / 1000).toFixed(1)}km`;
+};
+
+// main.js - Modifica la funzione updatePoiMenu (riga 108)
+// Nota: La funzione riceve allPageData da checkProximity
+
+function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     const nearbyLocations = [];
 
+    // 1. Calcola la distanza e filtra
     locations.forEach(location => {
         const distance = calculateDistance(userLat, userLon, location.lat, location.lon);
-        const threshold = location.distanceThreshold || 100; // Soglia leggermente più ampia per il menu
 
-        if (distance <= threshold) {
-            nearbyLocations.push({ ...location, distance });
+        // 🔥 CORREZIONE 1: Usa la soglia dinamica del POI
+        if (distance <= location.distanceThreshold) {
+            nearbyLocations.push({
+                ...location,
+                distance: distance
+            });
         }
     });
 
+    // 2. Ordina per distanza e Rimuovi duplicati
     nearbyLocations.sort((a, b) => a.distance - b.distance);
-    
-    // Rimuove duplicati per ID
-    const uniquePois = Array.from(new Map(nearbyLocations.map(item => [item.id, item])).values());
+    const uniquePois = [...new Map(nearbyLocations.map(item => [item['id'], item])).values()];
+
+    // 3. Genera l'HTML del menu
+    let menuHtml = '';
 
     if (uniquePois.length > 0) {
-        let listHtml = '<ul class="poi-links" style="list-style:none; padding:0; margin:0;">';
+        let listItems = '';
+
+        // 🔥 CORREZIONE 2: Usa allPageData per ottenere il titolo
         uniquePois.forEach(poi => {
             const poiContent = allPageData ? allPageData[poi.id] : null;
-            const displayTitle = (poiContent && poiContent.pageTitle) ? poiContent.pageTitle : poi.id;
+
+            // CORREZIONE 1: Aggiungi .trim() per pulire gli spazi bianchi e rimuovi l'indentazione del template literal
+            const displayTitle = (poiContent && poiContent.pageTitle)
+                ? poiContent.pageTitle.trim() // Rimuovi spazi all'inizio/fine
+                : `[Titolo mancante: ${poi.id}]`;
+
             const langSuffix = userLang === 'it' ? '-it' : `-${userLang}`;
             const href = `${poi.id}${langSuffix}.html`;
 
-            listHtml += `
-                <li style="margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px;">
-                    <a href="${href}" style="text-decoration:none; color:#2d3748; display:flex; justify-content:space-between; align-items:center;">
-                        <span>📍 ${displayTitle}</span>
-                        <span style="font-size:0.8em; color:#718096; background:#edf2f7; padding:2px 6px; rounded:4px;">
-                            ${formatDistance(poi.distance)}
-                        </span>
-                    </a>
-                </li>`;
+            // CORREZIONE 2: Rimuovi gli a capo e l'indentazione eccessiva
+            listItems += `<li><a href="${href}">${displayTitle} <span class="poi-distance">(${poi.distance.toFixed(0)}m)</span></a></li>`;
         });
-        listHtml += '</ul>';
-        nearbyMenuPlaceholder.innerHTML = listHtml;
+
+        menuHtml = `<ul class="poi-links">${listItems}</ul>`;
+
     } else {
-        const messages = {
-            it: "Nessun luogo d'interesse nelle immediate vicinanze.",
-            en: "No points of interest nearby.",
-            es: "No hay puntos de interés cerca.",
-            fr: "Aucun point d'intérêt à proximité."
-        };
-        const msg = messages[userLang] || messages.it;
-        nearbyMenuPlaceholder.innerHTML = `<div style="text-align:center; color:#a0aec0; padding:20px;">${msg}</div>`;
+        // Nessun POI trovato: mostra un messaggio informativo
+        let maxThreshold = locations.reduce((max, loc) => Math.max(max, loc.distanceThreshold || 50), 0);
+
+        let noPoiMessage;
+        switch (userLang) {
+            case 'es': noPoiMessage = `No se encontraron puntos de interés dentro ${maxThreshold}m. <br><br>   Pulse de nuevo el botón verde para cerrar el menú.`; break;
+            case 'en': noPoiMessage = `No Points of Interest found within ${maxThreshold}m. <br><br>   Press the green button again to close the menu.`; break;
+            case 'fr': noPoiMessage = `Aucun point d'interet trouve dans les environs ${maxThreshold}m. <br><br>  Appuyez à nouveau sur le bouton vert pour fermer le menu.`; break;
+            case 'it':
+            default: noPoiMessage = `Nessun Punto di Interesse trovato entro ${maxThreshold}m.<br><br> Premere di nuovo il bottone verde per chiudere la lista.`; break;
+        }
+
+        // Uso colore rosso per i test
+        menuHtml = `<div style="color:red; padding: 20px; text-align: center; font-size: 1em;">${noPoiMessage}</div>`;
+    }
+
+
+    // 4. Inietta l'HTML nel placeholder
+    if (nearbyMenuPlaceholder) {
+        nearbyMenuPlaceholder.innerHTML = menuHtml;
     }
 }
 
-// Esposizione per l'utilizzo globale
-window.calculateDistance = calculateDistance;
-window.handleDrinAction = handleDrinAction;
-window.updatePoiMenu = updatePoiMenu;
-
-
-// ### Cosa ho aggiunto per far funzionare il tuo codice:
-// 1.  **Formula di Haversine**: Ho aggiunto la funzione `calculateDistance` completa, altrimenti il menu e il Drin non avrebbero potuto calcolare i metri di distanza.
-// 2.  **Integrazione tra blocchi**: Ho collegato `handleDrinAction` alla funzione `playNotification` del Blocco Uno per garantire il feedback sonoro.
-// 3.  **Gestione Titoli Fallback**: Se `allPageData` è vuoto, il menu usa l'ID del POI come titolo per evitare link vuoti.
-// 4.  **Stile Inline**: Ho aggiunto un minimo di stile CSS inline nel menu per assicurarmi che sia leggibile anche senza un foglio di stile esterno caricato.
-
+// BLOCCO DUE - FINE 
 // BLOCCO TRE - INIZIO 
-/**
- * BLOCCO TRE - CARICAMENTO DINAMICO DEI CONTENUTI E TRADUZIONI
- * Gestisce l'iniezione dei testi, dei frammenti HTML esterni e degli asset multimediali.
- */
 
-// --- FUNZIONI DI SUPPORTO (Helper) ---
-
-/**
- * Determina se una stringa è un percorso a un file esterno
- */
-const isFilePath = (str) => {
-    if (typeof str !== 'string') return false;
-    return str.endsWith('.txt') || str.endsWith('.html');
-};
-
-/**
- * Recupera il contenuto testuale di un file esterno con gestione errori
- */
-async function fetchFileContent(path) {
-    try {
-        const response = await fetch(path);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return await response.text();
-    } catch (error) {
-        console.error(`Errore nel recupero del file ${path}:`, error);
-        return `[Errore nel caricamento del frammento: ${path}]`;
-    }
-}
-
-/**
- * Estrae l'ID della pagina corrente dall'URL (es: index-it.html -> index)
- */
-function getCurrentPageId() {
-    const path = window.location.pathname;
-    const page = path.split("/").pop() || 'index.html';
-    // Rimuove l'estensione e il suffisso lingua (es: -it, -en)
-    return page.replace(/-(it|en|es|fr)\.html$/, '').replace(/\.html$/, '');
-}
-
-/**
- * Aggiorna in modo sicuro il contenuto testuale di un elemento
- */
-function updateTextContent(id, text) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = text || '';
-}
-
-/**
- * Aggiorna in modo sicuro il contenuto HTML di un elemento
- */
-function updateHTMLContent(id, html) {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = html || '';
-}
-
-// --- FUNZIONE PRINCIPALE DI CARICAMENTO ---
+// ===========================================
+// FUNZIONI DI CARICAMENTO CONTENUTI (loadContent)
+// ===========================================
 
 async function loadContent(lang) {
     document.documentElement.lang = lang;
 
     try {
         const pageId = getCurrentPageId();
-        // Carica il dizionario delle traduzioni per la lingua selezionata
         const response = await fetch(`data/translations/${lang}/texts.json`);
 
         if (!response.ok) {
-            console.error(`File di traduzione non trovato per la lingua: ${lang}. Fallback su 'it'.`);
+            console.error(`File di traduzione non trovato per la lingua: ${lang}. Tentativo di fallback su 'it'.`);
             if (lang !== 'it') {
                 loadContent('it');
                 return;
@@ -355,46 +256,60 @@ async function loadContent(lang) {
         const data = await response.json();
         const pageData = data[pageId];
 
-        // Se la pagina specifica non esiste nel JSON, mostra un errore amichevole
+        // Correzione 1: Se non ci sono dati, mostra un errore, ma apri la pagina
         if (!pageData) {
-            console.warn(`Dati non trovati per la chiave pagina: ${pageId} in lingua: ${lang}.`);
-            updateTextContent('pageTitle', `[Errore Contenuto: ${pageId}]`);
+            console.warn(`Dati non trovati per la chiave pagina: ${pageId} nel file JSON per la lingua: ${lang}.`);
+            updateTextContent('pageTitle', `[ERRORE] Dati mancanti (${pageId}/${lang})`);
+            // Apriamo la pagina per mostrare il messaggio d'errore.
             document.body.classList.add('content-loaded');
             return;
         }
 
         // ====================================================================
-        // LOGICA CARICAMENTO ASINCRONO FRAMMENTI (FILE .txt o .html esterni)
+        // 🔥 NUOVA LOGICA: CARICAMENTO ASINCRONO DEI FRAMMENTI HTML/TESTO
         // ====================================================================
         const fragmentPromises = [];
         const textKeysToUpdate = ['mainText', 'mainText1', 'mainText2', 'mainText3', 'mainText4', 'mainText5'];
 
         for (const key of textKeysToUpdate) {
             const value = pageData[key];
-
             if (value && isFilePath(value)) {
+                // ************************************************************
+                // CORREZIONE CHIAVE: Prependi 'text_files/' al nome del file
                 const fullPath = "text_files/" + value;
-                console.log(`Caricamento frammento esterno per ${key}: ${fullPath}`);
+                // ************************************************************
 
+                console.log(`Caricamento frammento asincrono per ${key}: ${fullPath}`);
+
+                // Usa il percorso completo per il fetch
                 const promise = fetchFileContent(fullPath).then(content => ({ key, content }));
                 fragmentPromises.push(promise);
             } else if (value !== undefined) {
+                // Se è testo normale o non definito -> risolvi immediatamente
                 fragmentPromises.push(Promise.resolve({ key, content: value }));
             }
         }
 
+        // Attendi che tutti i frammenti siano stati caricati
         const fragmentResults = await Promise.all(fragmentPromises);
 
+        // Sovrascrivi i percorsi file con il contenuto caricato in pageData
         fragmentResults.forEach(item => {
             pageData[item.key] = item.content;
         });
         // ====================================================================
+        // 🔥 FINE LOGICA ASINCRONA
+        // ====================================================================
 
-        // AGGIORNAMENTO MENU DI NAVIGAZIONE
+
+        // AGGIORNAMENTO NAVIGAZIONE (Resto della funzione invariato)
         const navBarMain = document.getElementById('navBarMain');
+
         if (data.nav && navBarMain) {
+            // Usa il suffisso -it anche per IT in questo blocco, per coerenza URL
             const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
 
+            // ... (lista navLinksData) ... (Tutto questo blocco è corretto e rimane)
             const navLinksData = [
                 { id: 'navHome', key: 'navHome', base: 'index' },
                 { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
@@ -407,248 +322,220 @@ async function loadContent(lang) {
                 { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
                 { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
                 { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
-                { id: 'navbsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore' },
-                { id: 'navchiesasancarlo', key: 'navchiesasancarlo', base: 'chiesasancarlo' },
-                { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' }
+                    { id: 'navbsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore' },
+// ** MARKER: START NEW NAV LINKS **
+                    { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' }
             ];
 
+            // Aggiorna HREF e Testo per tutti i link del menu principale
             navLinksData.forEach(link => {
-                const el = document.getElementById(link.id);
-                if (el) {
-                    el.href = `${link.base}${langSuffix}.html`;
-                    if (data.nav[link.key]) el.textContent = data.nav[link.key];
+                const linkElement = document.getElementById(link.id);
+                if (linkElement) {
+                    // Correzione: Il link IT deve usare '-it' se la pagina IT è index-it.html
+                    linkElement.href = `${link.base}${langSuffix}.html`;
+
+                    if (data.nav[link.key]) {
+                        linkElement.textContent = data.nav[link.key];
+                    } else {
+                        console.warn(`[Nav Warning] Chiave di navigazione mancante: ${link.key}`);
+                    }
+                } else {
+                    // Log per avvisare di ID mancanti in HTML
+                    console.warn(`[Nav Warning] Elemento HTML non trovato per l'ID: ${link.id}`);
                 }
             });
         }
+        // FINE AGGIORNAMENTO NAVIGAZIONE
 
-        // AGGIORNAMENTO ELEMENTI TESTATA
+        // AGGIORNAMENTO TESTATA (Titolo e Immagine)
         updateTextContent('pageTitle', pageData.pageTitle);
         updateHTMLContent('headerTitle', pageData.pageTitle);
 
+        // AGGIORNAMENTO IMMAGINE DI FONDO TESTATA
         const headerImage = document.getElementById('headImage');
         if (headerImage && pageData.headImage) {
-            headerImage.src = `public/images/${pageData.headImage}`;
-            headerImage.alt = pageData.pageTitle || "Header";
+            headerImage.src = `public/images/${pageData.headImage}`; // CORRETTO (usa headImage)
+            headerImage.alt = pageData.pageTitle || "Immagine di testata";
         }
 
-        // AGGIORNAMENTO CORPO DEL TESTO (Main Text 0-5)
+        // AGGIORNAMENTO DEL CONTENUTO (Testi principali)
+        // Ora pageData.mainTextX contiene il testo finale (dal JSON o dal file caricato)
         updateHTMLContent('mainText', pageData.mainText || '');
-        for (let i = 1; i <= 5; i++) {
-            updateHTMLContent(`mainText${i}`, pageData[`mainText${i}`] || '');
+        updateHTMLContent('mainText1', pageData.mainText1 || '');
+        updateHTMLContent('mainText2', pageData.mainText2 || '');
+        updateHTMLContent('mainText3', pageData.mainText3 || '');
+        updateHTMLContent('mainText4', pageData.mainText4 || '');
+        updateHTMLContent('mainText5', pageData.mainText5 || '');
+
+        // AGGIORNAMENTO INFORMAZIONI SULLA FONTE E DATA
+        if (pageData.sourceText) {
+            updateTextContent('infoSource', `Fonte: ${pageData.sourceText}`);
+        }
+        if (pageData.creationDate) {
+            updateTextContent('infoCreatedDate', `Data Creazione: ${pageData.creationDate}`);
+        }
+        if (pageData.lastUpdate) {
+            updateTextContent('infoUpdatedDate', `Ultimo Aggiornamento: ${pageData.lastUpdate}`);
         }
 
-        // AGGIORNAMENTO INFO FOOTER
-        if (pageData.sourceText) updateTextContent('infoSource', `Fonte: ${pageData.sourceText}`);
-        if (pageData.creationDate) updateTextContent('infoCreatedDate', `Data: ${pageData.creationDate}`);
-        if (pageData.lastUpdate) updateTextContent('infoUpdatedDate', `Aggiornamento: ${pageData.lastUpdate}`);
+        // AGGIORNAMENTO AUDIO E BOTTONE
+        const currentAudioPlayer = document.getElementById('audioPlayer');
+        const currentPlayButton = document.getElementById('playAudio');
 
-        // GESTIONE AUDIO
-        const audioPlayer = document.getElementById('audioPlayer');
-        const playBtn = document.getElementById('playAudio');
-
-        if (audioPlayer && playBtn && pageData.audioSource) {
-            audioPlayer.src = `Assets/Audio/${pageData.audioSource}`;
-            audioPlayer.load();
-            playBtn.textContent = pageData.playAudioButton;
-            playBtn.dataset.playText = pageData.playAudioButton;
-            playBtn.dataset.pauseText = pageData.pauseAudioButton;
-            playBtn.style.display = 'inline-block';
-        } else if (playBtn) {
-            playBtn.style.display = 'none';
+        if (currentAudioPlayer && currentPlayButton && pageData.audioSource) {
+            if (!currentAudioPlayer.paused) {
+                currentAudioPlayer.pause();
+                currentAudioPlayer.currentTime = 0;
+            }
+            currentPlayButton.textContent = pageData.playAudioButton;
+            currentPlayButton.dataset.playText = pageData.playAudioButton;
+            currentPlayButton.dataset.pauseText = pageData.pauseAudioButton;
+            currentAudioPlayer.src = `Assets/Audio/${pageData.audioSource}`; // <-- CORREZIONE
+            currentAudioPlayer.load();
+            currentPlayButton.classList.remove('pause-style');
+            currentPlayButton.classList.add('play-style');
+        } else if (currentPlayButton) {
+            // Nasconde il pulsante Audio se la sorgente non è presente
+            currentPlayButton.style.display = 'none';
         }
 
-        // AGGIORNAMENTO IMMAGINI DINAMICHE
+        // AGGIORNAMENTO IMMAGINI DINAMICHE (dalla 1 alla 5)
         for (let i = 1; i <= 5; i++) {
-            const imgEl = document.getElementById(`pageImage${i}`);
-            const src = pageData[`imageSource${i}`];
-            if (imgEl) {
-                if (src) {
-                    imgEl.src = `Assets/images/${src}`;
-                    imgEl.style.display = 'block';
-                } else {
-                    imgEl.style.display = 'none';
-                }
+            const imageElement = document.getElementById(`pageImage${i}`);
+            const imageSource = pageData[`imageSource${i}`]; // Nome file (es. 'manifattura0.jpg')
+
+            // Costruisce il percorso completo solo se l'immagine è definita
+            const fullImagePath = imageSource ? `Assets/images/${imageSource}` : '';
+
+            if (imageElement) {
+                // USA IL PERCORSO COMPLETO
+                imageElement.src = fullImagePath;
+                // Nasconde l'elemento se non c'è una sorgente
+                imageElement.style.display = imageSource ? 'block' : 'none';
+                imageElement.alt = pageData.pageTitle || `Immagine ${i}`;
             }
         }
+        console.log(`✅ Contenuto caricato con successo per la lingua: ${lang} e pagina: ${pageId}`);
 
-        // AVVIO GEOLOCALIZZAZIONE (Passando l'intero oggetto traduzioni per i menu POI)
-        if (typeof window.startGeolocation === 'function') {
-            window.startGeolocation(data);
-        }
+        // 🔥 NUOVA CHIAMATA: Avvia il monitoraggio GPS DOPO aver caricato il contenuto
+        // NOTA: Dobbiamo salvare la funzione startGeolocation per poter passare i dati
+        startGeolocation(data); // <-- AGGIUNTA CHIAMATA
 
+
+        // 🔥 CORREZIONE 2: SPOSTA LA RIGA PER MOSTRARE LA PAGINA ALLA FINE
         document.body.classList.add('content-loaded');
-        console.log(`✅ Pagina "${pageId}" caricata in lingua: ${lang}`);
 
     } catch (error) {
-        console.error('Errore critico durante loadContent:', error);
-        document.body.classList.add('content-loaded');
+        console.error('Errore critico nel caricamento dei testi:', error);
+        document.body.classList.add('content-loaded'); // Apri la pagina anche in caso di errore
     }
 }
-
-// Esposizione globale
-window.loadContent = loadContent;
-window.getCurrentPageId = getCurrentPageId;
 // BLOCCO TRE - FINE 
 // BLOCCO QUATTRO - INIZIO 
-/**
- * BLOCCO QUATTRO - UTILITY GPS, CALCOLO DISTANZE E GESTIONE PROSSIMITÀ
- * Gestisce la logica di posizione, notifiche sonore e cronologia.
- * Nota: POIS_LOCATIONS è importato dal Blocco Uno.
- */
+// ===========================================
+// FUNZIONI UTILITY PER GPS E POI
+// ===========================================
 
-// Stato locale per la sessione corrente
-const visitedPois = new Set();
-const nearbyPoiButton = document.getElementById('nearbyPoiButton');
-
-/**
- * Riproduce un feedback sonoro (Campanello) sintetizzato
- */
-const playNotification = () => {
-    try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
-
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); 
-        oscillator.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.5);
-
-        gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-
-        oscillator.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-
-        oscillator.start();
-        oscillator.stop(audioCtx.currentTime + 0.5);
-    } catch (e) {
-        console.warn("Audio Context non supportato o bloccato dal browser.");
-    }
-};
-
-/**
- * Calcola la distanza tra due punti (Haversine)
- * @returns {number} Distanza in metri
- */
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371e3; 
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const R = 6371e3; // Raggio della terra in metri
+    const φ1 = lat1 * Math.PI / 180;
+    const φ2 = lat2 * Math.PI / 180;
+    const Δφ = (lat2 - lat1) * Math.PI / 180;
+    const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+        Math.cos(φ1) * Math.cos(φ2) *
+        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
+
+    return R * c; // Distanza in metri
 };
 
-/**
- * Gestisce la notifica visiva e il salvataggio in cronologia
- */
-const triggerPoiNotification = (poiId, poiName) => {
-    if (!visitedPois.has(poiId)) {
-        visitedPois.add(poiId);
-
-        console.warn(`🔔 PROSSIMITÀ: ${poiName}`);
-
-        if (nearbyPoiButton) {
-            nearbyPoiButton.classList.add('notification-ring');
-            setTimeout(() => nearbyPoiButton.classList.remove('notification-ring'), 3000);
-        }
-
-        saveToHistory(poiId, poiName);
-    }
-};
-
-/**
- * Salva il passaggio nel localStorage
- */
-const saveToHistory = (id, name) => {
-    try {
-        const history = JSON.parse(localStorage.getItem('trekking_history') || '[]');
-        if (!history.find(item => item.id === id)) {
-            history.push({ id, name, timestamp: new Date().toISOString() });
-            localStorage.setItem('trekking_history', JSON.stringify(history));
-        }
-    } catch (e) {
-        console.error("Errore localStorage:", e);
-    }
-};
-
-/**
- * Cuore della logica GPS: confronta posizione utente con POI
- */
+// main.js - Modifica la funzione checkProximity
 const checkProximity = (position, allPageData) => {
-    if (!position || !position.coords) return;
+    // 🔥 STEP 1: LOG DI DEBUG CRITICO 🔥
+    if (!position || !position.coords) {
+        console.error("DEBUG CRITICO: Oggetto posizione non valido (checkProximity).");
+        return;
+    }
 
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
-    const userLang = typeof currentLang !== 'undefined' ? currentLang : (document.documentElement.lang || 'it');
+    const userLang = currentLang;
 
-    // Verifica la presenza dei dati dal Blocco Uno
-    if (typeof POIS_LOCATIONS !== 'undefined' && Array.isArray(POIS_LOCATIONS)) {
-        POIS_LOCATIONS.forEach(poi => {
-            const dist = calculateDistance(userLat, userLon, poi.lat, poi.lon);
-            
-            // Soglia di prossimità: 50 metri
-            if (dist < 50) {
-                triggerPoiNotification(poi.id, poi.name || poi.id);
-                
-                if (!poi.notified) {
-                    playNotification();
-                    poi.notified = true; 
-                }
-            } else if (dist > 100) {
-                // Reset per permettere una nuova notifica se l'utente torna indietro
-                poi.notified = false;
-            }
-        });
-    }
+    // 🚨 STAMPA LA POSIZIONE RICEVUTA (Valore chiave per il debug) 🚨
+    console.warn(`[POI DEBUG] POSIZIONE RICEVUTA DAL BROWSER: Lat=${userLat}, Lon=${userLon}`);
 
-    // Aggiornamento UI
+
     if (nearbyPoiButton) {
         nearbyPoiButton.style.display = 'block';
-        if (typeof window.updatePoiMenu === 'function') {
-            window.updatePoiMenu(POIS_LOCATIONS, userLat, userLon, userLang, allPageData);
+        if (typeof updatePoiMenu === 'function') {
+            // PASSAGGIO CHIAVE: Passa allPageData a updatePoiMenu
+            updatePoiMenu(POIS_LOCATIONS, userLat, userLon, userLang, allPageData);
         }
     }
 };
 
-/**
- * Inizializza il monitoraggio della posizione
- */
+const handleGeolocationError = (error) => {
+    console.warn(`ERRORE GPS: ${error.code}: ${error.message}`);
+    // Nascondi il pulsante in caso di errore non gestito
+    //    if (nearbyPoiButton) { nearbyPoiButton.style.display = 'none'; }
+};
+
+// main.js - Modifica la funzione startGeolocation
 const startGeolocation = (allPageData) => {
+    // 1. Definisci la posizione di debug (Chiesa della Pioggia)
     const debugPosition = {
-        coords: { latitude: 44.498910, longitude: 11.342241 } // Punto di test
+        coords: {
+            latitude: 44.498910,
+            longitude: 11.342241
+        }
     };
 
     if (navigator.geolocation) {
+        console.info("Tentativo di avviare il monitoraggio GPS in background.");
+        // Tenta di ottenere la posizione reale
         navigator.geolocation.watchPosition(
             (position) => {
-                // Cambiare in true per testare la logica stando fermi in ufficio
-                const USE_DEBUG = false; 
-                checkProximity(USE_DEBUG ? debugPosition : position, allPageData);
+                console.log("GPS REALE: Posizione ottenuta.");
+                const FORCE_DEBUG = false; // <--- IMPOSTA QUI A TRUE PER TEST STABILI
+                if (FORCE_DEBUG) {
+                    // ... usa debugPosition
+                    checkProximity(debugPosition, allPageData);
+                } else {
+                    // ... usa position
+                    checkProximity(position, allPageData);
+                }
             },
-            (error) => {
-                console.warn("GPS non disponibile, avvio simulazione.");
+            (error) => { // Gestore d'errore: se il GPS reale fallisce
+                console.warn(`ERRORE GPS REALE (${error.code}): ${error.message}. Eseguo la simulazione desktop.`);
+
+                // 🛑 FORZATURA SIMULAZIONE QUI IN CASO DI ERRORE
+                if (nearbyPoiButton) { nearbyPoiButton.style.display = 'block'; }
                 checkProximity(debugPosition, allPageData);
             },
-            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            }
         );
+        console.log("Monitoraggio GPS avviato.");
     } else {
+        // Se il browser non supporta proprio il GPS, esegui la simulazione
+        console.error("Il tuo browser non supporta la geolocalizzazione. Eseguo la simulazione.");
+        if (nearbyPoiButton) { nearbyPoiButton.style.display = 'block'; }
         checkProximity(debugPosition, allPageData);
     }
+
+    // RIMOZIONE: rimosso il 'display: none' qui, lo gestisce handleGeolocationError in caso di fallimento
 };
 
-// Esportazione per gli altri blocchi
-window.startGeolocation = startGeolocation;
-// BLOCCO QUATTRO - FINE
-// 
-/**
- * BLOCCO CINQUE - FUNZIONI LINGUA, UI E SEGNALI (DRIN)
- * Gestisce il cambio lingua, i menu a comparsa e l'invio segnali a Firestore.
- */
+// BLOCCO QUATTRO - FINE// BLOCCO CINQUE - INIZIO 
 
-// --- GESTIONE LINGUA ---
+// ===========================================
+// FUNZIONI LINGUA E BANDIERE
+// ===========================================
 
 function updateLanguageSelectorActiveState(lang) {
     document.querySelectorAll('.language-selector button').forEach(button => {
@@ -662,98 +549,47 @@ function updateLanguageSelectorActiveState(lang) {
 
 function handleLanguageChange(event) {
     const newLang = event.currentTarget.getAttribute('data-lang');
-    // Verifica variabili globali dal Blocco Uno
-    if (newLang && typeof LANGUAGES !== 'undefined' && LANGUAGES.includes(newLang) && newLang !== currentLang) {
-        localStorage.setItem(typeof LAST_LANG_KEY !== 'undefined' ? LAST_LANG_KEY : 'selected_lang', newLang);
 
-        let fileBase = typeof getCurrentPageId === 'function' ? getCurrentPageId() : 'index';
+    if (newLang && LANGUAGES.includes(newLang) && newLang !== currentLang) {
+        localStorage.setItem(LAST_LANG_KEY, newLang);
+
+        const urlPath = document.location.pathname;
+        const fileName = urlPath.substring(urlPath.lastIndexOf('/') + 1);
+
+        // Correzione: Assicurati che fileBase sia 'index' se la pagina corrente è home
+        let fileBase = getCurrentPageId();
         if (fileBase === 'home') fileBase = 'index';
 
-        // Reindirizzamento: es. index-en.html
+
+        // L'homepage italiana è 'index-it.html' (ora abbiamo la certezza che esiste)
+        // TUTTE le pagine usano il suffisso, anche la IT (index-it.html)
         const newPath = `${fileBase}-${newLang}.html`;
+
         document.location.href = newPath;
     }
 }
 
-// --- GESTIONE DRIN (SEGNALI PROSSIMITÀ) ---
 
-/**
- * Invia un segnale 'drin' a Firestore se l'utente è vicino a un POI
- */
-async function handleDrinClick() {
-    // Recupero coordinate globali aggiornate dal Blocco Quattro
-    const uLat = window.userLat; 
-    const uLon = window.userLon;
+// ===========================================
+// ASSEGNAZIONE EVENT LISTENER (Menu Hamburger, Pulsante Verde, Audio)
+// ===========================================
 
-    if (!uLat || !uLon || typeof POIS_LOCATIONS === 'undefined') {
-        console.warn("Posizione non rilevata o dati POI mancanti.");
-        return;
-    }
-
-    let closestPoi = null;
-    let minDistance = Infinity;
-
-    POIS_LOCATIONS.forEach(location => {
-        // calculateDistance è definita nel Blocco Quattro
-        const distance = typeof calculateDistance === 'function' 
-            ? calculateDistance(uLat, uLon, location.lat, location.lon) 
-            : 999;
-        
-        const threshold = location.distanceThreshold || 50;
-
-        if (distance <= threshold && distance < minDistance) {
-            minDistance = distance;
-            closestPoi = location;
-        }
-    });
-
-    if (closestPoi) {
-        const user = typeof auth !== 'undefined' ? auth.currentUser : null;
-        const uid = user ? user.uid : "anonymous";
-        const aId = typeof appId !== 'undefined' ? appId : 'default-app';
-
-        try {
-            // Importante: Rispettiamo la RULE 1 dei percorsi Firestore
-            const signalsRef = collection(db, 'artifacts', aId, 'public', 'data', 'signals');
-            await addDoc(signalsRef, {
-                poiId: closestPoi.id,
-                userId: uid,
-                timestamp: new Date().toISOString(),
-                type: 'drin'
-            });
-
-            // Feedback visivo
-            const drinBtn = document.getElementById('drinButton');
-            if (drinBtn) {
-                drinBtn.classList.add('drin-animation');
-                setTimeout(() => drinBtn.classList.remove('drin-animation'), 1000);
-            }
-            
-            console.log("Drin inviato per:", closestPoi.id);
-        } catch (e) {
-            console.error("Errore invio segnale Firestore:", e);
-        }
-    } else {
-        console.log("Troppo lontano dai POI per suonare.");
-    }
-}
-
-// --- INIZIALIZZAZIONE UI ---
-
-function initEventListeners(lang) {
+function initEventListeners(currentLang) {
     const menuToggle = document.querySelector('.menu-toggle');
     const navBarMain = document.getElementById('navBarMain');
-    const nearbyPoiButton = document.getElementById('nearbyPoiButton');
-    const nearbyMenuPlaceholder = document.getElementById('nearbyMenuPlaceholder');
     const body = document.body;
 
-    // 1. Hamburger Menu Principale
+    // --- Logica Menu Hamburger Principale ---
     if (menuToggle && navBarMain && !menuToggle.dataset.listenerAttached) {
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
             navBarMain.classList.toggle('active');
+
             body.classList.toggle('menu-open');
-            if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.classList.remove('poi-active');
+
+            if (nearbyMenuPlaceholder) {
+                nearbyMenuPlaceholder.classList.remove('poi-active');
+            }
         });
 
         navBarMain.addEventListener('click', (e) => {
@@ -766,15 +602,23 @@ function initEventListeners(lang) {
         menuToggle.dataset.listenerAttached = 'true';
     }
 
-    // 2. Menu POI Vicini (Pulsante Verde)
+    // --- Logica Menu Hamburger POI (Pulsante Verde) ---
     if (nearbyPoiButton && nearbyMenuPlaceholder && !nearbyPoiButton.dataset.listenerAttached) {
         nearbyPoiButton.addEventListener('click', () => {
             nearbyMenuPlaceholder.classList.toggle('poi-active');
-            if (menuToggle) {
+
+            if (menuToggle && navBarMain) {
                 menuToggle.classList.remove('active');
                 navBarMain.classList.remove('active');
             }
-            body.classList.toggle('menu-open', nearbyMenuPlaceholder.classList.contains('poi-active'));
+
+            if (nearbyMenuPlaceholder.classList.contains('poi-active')) {
+                body.classList.add('menu-open');
+            } else {
+                if (!navBarMain.classList.contains('active')) {
+                    body.classList.remove('menu-open');
+                }
+            }
         });
 
         nearbyMenuPlaceholder.addEventListener('click', (e) => {
@@ -786,176 +630,72 @@ function initEventListeners(lang) {
         nearbyPoiButton.dataset.listenerAttached = 'true';
     }
 
-    // 3. Pulsante Drin (Campanella)
-    const drinButton = document.getElementById('drinButton');
-    if (drinButton && !drinButton.dataset.listenerAttached) {
-        drinButton.addEventListener('click', handleDrinClick);
-        drinButton.dataset.listenerAttached = 'true';
-    }
-
-    // 4. Audio Player (Logica dal Blocco 3)
+    // --- Logica Audio ---
     const localAudioPlayer = document.getElementById('audioPlayer');
     const localPlayButton = document.getElementById('playAudio');
+
     if (localAudioPlayer && localPlayButton && !localPlayButton.dataset.listenerAttached) {
-        localPlayButton.addEventListener('click', () => {
-            if (typeof toggleAudioPlayback === 'function') {
-                toggleAudioPlayback(localAudioPlayer, localPlayButton);
-            }
-        });
-        localAudioPlayer.addEventListener('ended', () => {
-            if (typeof handleAudioEnded === 'function') {
-                handleAudioEnded(localAudioPlayer, localPlayButton);
-            }
-        });
+        localPlayButton.addEventListener('click', toggleAudioPlayback.bind(null, localAudioPlayer, localPlayButton));
+        localAudioPlayer.addEventListener('ended', handleAudioEnded.bind(null, localAudioPlayer, localPlayButton));
         localPlayButton.dataset.listenerAttached = 'true';
     }
 
-    // 5. Selettore Lingua
+
+    // --- Logica Selettore Lingua (Bandiere) ---
+    // Rimuovi la gestione duplicata degli event listener (non è necessario farlo qui, ma non fa male)
     document.querySelectorAll('.language-selector button').forEach(button => {
+        button.removeEventListener('click', handleLanguageChange);
         button.addEventListener('click', handleLanguageChange);
     });
-
-    // Aggiorna lo stato visivo dei bottoni lingua all'avvio
-    updateLanguageSelectorActiveState(lang);
 }
-
-// Esponiamo le funzioni per l'avvio globale
-window.initEventListeners = initEventListeners;
-
-// BLOCCO CINQUE - FINE
-/**
- * BLOCCO SEI E SETTE - NAVIGAZIONE DINAMICA E BOOTSTRAP
- * Gestisce il menu contestuale dei POI e l'avvio globale dell'app.
- */
+// BLOCCO CINQUE - FINE 
+// BLOCCO SEI - INIZIO 
 
 // ===========================================
-// LOGICA NAVIGAZIONE DINAMICA (POI VICINI)
+// PUNTO DI INGRESSO (DOM LOADED)
 // ===========================================
 
-/**
- * Aggiorna il menu a comparsa con i link ai POI fisicamente vicini
- */
-async function updateNearbyMenu(lang) {
-    if (!nearbyMenuPlaceholder) return;
+document.addEventListener('DOMContentLoaded', () => {
 
-    try {
-        // getCurrentLocation() e getNearbyPOIs() definiti nel Blocco Quattro
-        const coords = await getCurrentLocation();
-        const nearbyPOIs = getNearbyPOIs(coords.latitude, coords.longitude, typeof POI_DATA !== 'undefined' ? POI_DATA : {});
+    console.info(`🌍 Versione in esecuzione: ${APP_VERSION}`);
+    console.info(`Lingua predefinita rilevata: ${currentLang}`);
 
-        if (nearbyPOIs.length > 0) {
-            let html = `<ul class="nearby-list" style="list-style:none; padding:1rem; margin:0;">`;
-            nearbyPOIs.forEach(poi => {
-                // Genera link relativo: nomepoi-it.html
-                const poiLink = `${poi.id}-${lang}.html`;
-                const label = (poi.label && poi.label[lang]) ? poi.label[lang] : (poi.id.toUpperCase());
-                
-                html += `
-                <li style="margin-bottom:0.8rem; border-bottom:1px solid #eee; padding-bottom:0.5rem;">
-                    <a href="${poiLink}" style="text-decoration:none; color:inherit; display:block;">
-                        <div style="font-weight:bold;">${label}</div>
-                        <div style="font-size:0.8rem; color:#666;">Distante ${poi.distance.toFixed(0)}m</div>
-                    </a>
-                </li>`;
-            });
-            html += `</ul>`;
-            
-            nearbyMenuPlaceholder.innerHTML = html;
-            if (nearbyPoiButton) nearbyPoiButton.style.display = 'flex';
-        } else {
-            const msg = lang === 'it' ? "Nessun punto nelle vicinanze" : "No points nearby";
-            nearbyMenuPlaceholder.innerHTML = `<p style="padding:1rem; text-align:center; color:#666;">${msg}</p>`;
-        }
-    } catch (error) {
-        console.warn("Impossibile aggiornare menu vicini:", error);
-        const errorMsg = lang === 'it' ? "Attiva la posizione per vedere i punti vicini." : "Enable GPS to see nearby places.";
-        nearbyMenuPlaceholder.innerHTML = `<p style="padding:1rem; text-align:center; color:#888; font-size:0.9rem;">${errorMsg}</p>`;
-    }
-}
-
-// ===========================================
-// PUNTO DI INGRESSO (DOM CONTENT LOADED)
-// ===========================================
-
-document.addEventListener('DOMContentLoaded', async () => {
-    console.info(`🌍 Versione in esecuzione: ${typeof APP_VERSION !== 'undefined' ? APP_VERSION : '1.0.0'}`);
-
-    // 1. ASSEGNAZIONE RIFERIMENTI UI GLOBALI
-    window.nearbyPoiButton = document.getElementById('nearbyPoiButton');
-    window.nearbyMenuPlaceholder = document.getElementById('nearbyMenuPlaceholder');
+    // 1. ASSEGNAZIONE DELLE VARIABILI GLOBALI
+    nearbyPoiButton = document.getElementById('nearbyPoiButton');
+    nearbyMenuPlaceholder = document.getElementById('nearbyMenuPlaceholder');
 
     // 2. DETERMINAZIONE LINGUA CORRENTE
     let finalLang = 'it';
-    const savedLang = localStorage.getItem(typeof LAST_LANG_KEY !== 'undefined' ? LAST_LANG_KEY : 'selected_lang');
-    if (savedLang && typeof LANGUAGES !== 'undefined' && LANGUAGES.includes(savedLang)) {
+
+    // A) Controlla la lingua salvata
+    const savedLang = localStorage.getItem(LAST_LANG_KEY);
+    if (savedLang && LANGUAGES.includes(savedLang)) {
         finalLang = savedLang;
     }
 
-    // Check da URL (priorità sul salvataggio locale se presente)
+    // B) Controlla la lingua nell'URL (prevale sulla persistenza)
     const urlPath = document.location.pathname;
     const langMatch = urlPath.match(/-([a-z]{2})\.html/);
-    if (langMatch && typeof LANGUAGES !== 'undefined' && LANGUAGES.includes(langMatch[1])) {
+    if (langMatch && LANGUAGES.includes(langMatch[1])) {
         finalLang = langMatch[1];
-        localStorage.setItem(typeof LAST_LANG_KEY !== 'undefined' ? LAST_LANG_KEY : 'selected_lang', finalLang);
+        localStorage.setItem(LAST_LANG_KEY, finalLang);
     }
 
-    window.currentLang = finalLang;
+    // Imposta la lingua globale
+    currentLang = finalLang;
     document.documentElement.lang = currentLang;
 
-    // 3. INIZIALIZZAZIONE UI E LINGUA
-    if (typeof updateLanguageSelectorActiveState === 'function') {
-        updateLanguageSelectorActiveState(currentLang);
-    }
-    if (typeof initEventListeners === 'function') {
-        initEventListeners(currentLang);
-    }
+    // 3. INIZIALIZZA LA SELEZIONE LINGUA
+    updateLanguageSelectorActiveState(currentLang);
 
-    // 4. CARICAMENTO CONTENUTI (Blocco Due)
-    try {
-        if (typeof loadContent === 'function') {
-            await loadContent(currentLang);
-        }
-    } catch (err) {
-        console.error("Errore critico caricamento contenuti:", err);
-    }
+    // 4. INIZIALIZZA GLI EVENT LISTENER
+    initEventListeners(currentLang);
 
-    // 5. ATTIVAZIONE FIREBASE (Con gestione errori sicura)
-    if (typeof initializeApp !== 'undefined' && typeof __firebase_config !== 'undefined') {
-        try {
-            const firebaseConfig = JSON.parse(__firebase_config);
-            const app = initializeApp(firebaseConfig);
-            window.db = getFirestore(app);
-            window.auth = getAuth(app);
+    // 5. CARICAMENTO CONTENUTO (maintext)
+    loadContent(currentLang);
 
-            // Regola 3: Autenticazione prima di qualsiasi query
-            const initAuth = async () => {
-                try {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                    console.log("Firebase: Autenticazione completata.");
-                } catch (authErr) {
-                    console.error("Firebase Auth Error:", authErr.message);
-                }
-            };
-            await initAuth();
-        } catch (initErr) {
-            console.error("Firebase Initialization Failed:", initErr.message);
-        }
-    }
 
-    // 6. AVVIO GEOLOCALIZZAZIONE E MENU VICINI
-    // Eseguiamo un primo aggiornamento manuale
-    updateNearbyMenu(currentLang);
-    
-    // Attiviamo il monitoraggio continuo (Blocco Quattro)
-    if (typeof startProximityTracking === 'function') {
-        startProximityTracking();
-    }
-
-    // 7. ANALYTICS
+    // Invio dati a Google Analytics
     if (typeof gtag === 'function') {
         gtag('event', 'page_view', {
             'page_title': document.title,
@@ -964,13 +704,31 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // 8. RIMOZIONE LOADING SCREEN
-    const loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen) {
-        loadingScreen.style.opacity = '0';
-        setTimeout(() => {
-            loadingScreen.style.display = 'none';
-            console.info("🚀 Applicazione pronta.");
-        }, 500);
+    // 6. LOGICA DI AUTENTICAZIONE FIREBASE (Mantenuta in background)
+    // Non strettamente necessaria per il fetch locale, ma utile se passi a Firestore.
+    // L'ascolto dei dati non è attivo in questa versione dato che loadContent usa fetch.
+    if (typeof initializeApp !== 'undefined') {
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        auth = getAuth(app);
+
+        const authenticateUser = async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined') {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                onAuthStateChanged(auth, (user) => {
+                    currentUserId = user ? user.uid : null;
+                    isAuthReady = true;
+                });
+            } catch (error) {
+                console.error("Errore nell'autenticazione Firebase:", error);
+            }
+        };
+        authenticateUser();
     }
+
 });
+// BLOCCO SEI - FINE
