@@ -1,0 +1,50 @@
+data\translations\fr\texts.json
+backup quadrilatero
+backup quadrilatero senza_bsmariamaggiore_html_json
+cd C:\Users\User\Documents\SitiBackup\quadrilatero\Snapshot_20260102_1903_senza_bsmariamaggiore_html_json
+trova bsmariamaggiore
+data\translations\en\texts.json
+data\translations\es\texts.json
+data\translations\fr\texts.json
+data\translations\it\texts.json
+goquad
+ripristino quadrilatero
+Snapshot_20260102_1903_senza_bsmariamaggiore_html_json
+S
+ripristino quadrilatero
+Snapshot_20260102_1903_senza_bsmariamaggiore_html_json
+S
+cat \Utilities\ripristino.bat
+echo %DIR_GITHUB%\history_ripristini.txt"
+dir history_ripristini.txt
+more history_ripristini.txt
+ripristino quadrilatero
+Snapshot_20260102_1903_senza_bsmariamaggiore_html_json
+S
+echo.
+echo Confermi il ripristino di [%NOME_SNAP%] in %SITO%?
+set /p "CONFIRM=(S/N): "
+if /i not "%CONFIRM%"=="S" exit /b
+:: 6. Esecuzione Ripristino
+echo Ripristino in corso...
+xcopy "%FULL_SOURCE%\*.*" "%DIR_GITHUB%" /E /I /Y /Q
+ripristino quadrilatero
+Snapshot_20260102_1903_senza_bsmariamaggiore_html_json
+S
+ripristino quadrilatero
+Snapshot_20260102_1903_senza_bsmariamaggiore_html_json
+S
+dir /b add_page*
+cp add_page_v3.9.16.py add_page.py
+trova bsmariamaggiore
+backup
+dir /ad  C:\Users\User\Documents\SitiBackup\Quadrilatero\Snapshot_20260102_1939 | findstr git
+dir /s /b  C:\Users\User\Documents\SitiBackup\Quadrilatero\Snapshot_20260102_1939\.git | wc -l
+dir /s /b  C:\Users\User\Documents\SitiBackup\Quadrilatero\Snapshot_20260102_1939 | wc -l
+dir /s C:\Users\User\Documents\SitiBackup\Quadrilatero\Snapshot_20260102_1939 | tail -20
+dir /s C:\Users\User\Documents\SitiBackup\Quadrilatero\Snapshot_20260102_1939\.git | tail -20
+trova bsmariamaggiore
+check_lista bsmariamaggiore
+check_pagina 
+check_pagina bsmariamaggiore
+esci

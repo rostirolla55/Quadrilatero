@@ -161,36 +161,26 @@ def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_i
 
     # --- 1. CREAZIONE NUOVI FILE ---
     for lang in LANGUAGES:
-        # Generiamo sempre il nome con il suffisso (es. pagina-it.html)
-        filename_with_lang = f"{page_id}-{lang}.html"
-        # Manteniamo la logica del file di default senza suffisso per l'italiano
-        filename_default = f"{page_id}.html"
-        
-        # Lista dei file da generare per questa lingua
-        files_to_create = [filename_with_lang]
-        if lang == "it":
-            files_to_create.append(filename_default)
+        new_filename = f"{page_id}-{lang}.html" if lang != "it" else f"{page_id}.html"
+        new_path = os.path.join(repo_root, new_filename)
 
-        for new_filename in files_to_create:
-            new_path = os.path.join(repo_root, new_filename)
+        if not os.path.exists(new_path):
+            shutil.copyfile(template_path, new_path)
+            with open(new_path, "r", encoding="utf-8") as f:
+                content = f.read()
 
-            if not os.path.exists(new_path):
-                shutil.copyfile(template_path, new_path)
-                with open(new_path, "r", encoding="utf-8") as f:
-                    content = f.read()
+            # Personalizza ID body e attributo lang
+            content = content.replace('id="template"', f'id="{page_id}"')
+            content = re.sub(r'<html lang="[a-z]{2}">', f'<html lang="{lang}">', content)
 
-                # Personalizza ID body e attributo lang
-                content = content.replace('id="template"', f'id="{page_id}"')
-                content = re.sub(r'<html lang="[a-z]{2}">', f'<html lang="{lang}">', content)
+            # Inserisce lo switcher di lingua
+            switcher = generate_language_switcher(page_id, lang)
+            if LANGUAGE_SWITCHER_MARKER in content:
+                content = content.replace(LANGUAGE_SWITCHER_MARKER, switcher)
 
-                # Inserisce lo switcher di lingua
-                switcher = generate_language_switcher(page_id, lang)
-                if LANGUAGE_SWITCHER_MARKER in content:
-                    content = content.replace(LANGUAGE_SWITCHER_MARKER, switcher)
-
-                with open(new_path, "w", encoding="utf-8") as f:
-                    f.write(content)
-                print(f"Creata nuova pagina: {new_filename}")
+            with open(new_path, "w", encoding="utf-8") as f:
+                f.write(content)
+            print(f"Creata nuova pagina: {new_filename}")
 
     # --- 2. AGGIORNAMENTO MENU IN TUTTI I FILE ---
     all_files = [
@@ -236,6 +226,7 @@ def update_html_files(repo_root, page_id, nav_key_id, translations, page_title_i
                 print(f"Menu aggiornato in {filename}")
         except Exception as e:
             print(f"Errore durante l'aggiornamento di {filename}: {e}")
+
 
 def main():
     if len(sys.argv) < 8:
