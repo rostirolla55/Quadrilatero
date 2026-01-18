@@ -218,12 +218,13 @@ async function loadContent(lang) {
 
     try {
         const pageId = getCurrentPageId();
+        // Path corretto per il tuo progetto
         const response = await fetch(`data/translations/${lang}/texts.json`);
 
         if (!response.ok) {
             console.error(`File di traduzione non trovato per la lingua: ${lang}. Tentativo di fallback su 'it'.`);
             if (lang !== 'it') {
-                loadContent('it');
+                await loadContent('it');
                 return;
             }
             throw new Error(`Impossibile caricare i dati per ${lang}.`);
@@ -232,166 +233,137 @@ async function loadContent(lang) {
         const data = await response.json();
         const pageData = data[pageId];
 
-        // Correzione 1: Se non ci sono dati, mostra un errore, ma apri la pagina
+        // Se non ci sono dati per la pagina specifica nel JSON
         if (!pageData) {
-            console.warn(`Dati non trovati per la chiave pagina: ${pageId} nel file JSON per la lingua: ${lang}.`);
-            updateTextContent('pageTitle', `[ERRORE] Dati mancanti (${pageId}/${lang})`);
-            // Apriamo la pagina per mostrare il messaggio d'errore.
+            console.warn(`Dati non trovati per la chiave pagina: ${pageId} nel file JSON (${lang}).`);
+            updateTextContent('pageTitle', `[INFO] Pagina in aggiornamento (${pageId})`);
             document.body.classList.add('content-loaded');
             return;
         }
 
         // ====================================================================
-        // 🔥 NUOVA LOGICA: CARICAMENTO ASINCRONO DEI FRAMMENTI HTML/TESTO
+        // 🔥 LOGICA ASINCRONA: CARICAMENTO FRAMMENTI HTML/TESTO
         // ====================================================================
         const fragmentPromises = [];
         const textKeysToUpdate = ['mainText', 'mainText1', 'mainText2', 'mainText3', 'mainText4', 'mainText5'];
 
         for (const key of textKeysToUpdate) {
             const value = pageData[key];
-            if (value && isFilePath(value)) {
-                // ************************************************************
-                // CORREZIONE CHIAVE: Prependi 'text_files/' al nome del file
+            if (value && typeof value === 'string' && isFilePath(value)) {
                 const fullPath = "text_files/" + value;
-                // ************************************************************
-
                 console.log(`Caricamento frammento asincrono per ${key}: ${fullPath}`);
 
-                // Usa il percorso completo per il fetch
-                const promise = fetchFileContent(fullPath).then(content => ({ key, content }));
+                // fetchFileContent deve essere definita nel tuo script
+                const promise = fetchFileContent(fullPath)
+                    .then(content => ({ key, content }))
+                    .catch(err => {
+                        console.warn(`Errore caricamento file ${fullPath}:`, err);
+                        return { key, content: '' };
+                    });
                 fragmentPromises.push(promise);
             } else if (value !== undefined) {
-                // Se è testo normale o non definito -> risolvi immediatamente
                 fragmentPromises.push(Promise.resolve({ key, content: value }));
             }
         }
 
-        // Attendi che tutti i frammenti siano stati caricati
         const fragmentResults = await Promise.all(fragmentPromises);
-
-        // Sovrascrivi i percorsi file con il contenuto caricato in pageData
         fragmentResults.forEach(item => {
             pageData[item.key] = item.content;
         });
-        // ====================================================================
-        // 🔥 FINE LOGICA ASINCRONA
-        // ====================================================================
 
-
-        // AGGIORNAMENTO NAVIGAZIONE (Resto della funzione invariato)
+        // ====================================================================
+        // AGGIORNAMENTO NAVIGAZIONE
+        // ====================================================================
         const navBarMain = document.getElementById('navBarMain');
+        
+        // FIX: Controllo che window.APP_DATA e navLinksData esistano per evitare TypeError
+        const navLinksData = (window.APP_DATA && window.APP_DATA.navLinksData) ? window.APP_DATA.navLinksData : [];
 
-        if (data.nav && navBarMain) {
-            // Usa il suffisso -it anche per IT in questo blocco, per coerenza URL
+        if (data.nav && navBarMain && navLinksData.length > 0) {
             const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
 
-            // ... (lista navLinksData) ... (Tutto questo blocco è corretto e rimane)
-            const navLinksData = window.APP_DATA.navLinksData;
-
-            // Aggiorna HREF e Testo per tutti i link del menu principale
             navLinksData.forEach(link => {
                 const linkElement = document.getElementById(link.id);
                 if (linkElement) {
-                    // Correzione: Il link IT deve usare '-it' se la pagina IT è index-it.html
                     linkElement.href = `${link.base}${langSuffix}.html`;
-
                     if (data.nav[link.key]) {
                         linkElement.textContent = data.nav[link.key];
-                    } else {
-                        console.warn(`[Nav Warning] Chiave di navigazione mancante: ${link.key}`);
                     }
-                } else {
-                    // Log per avvisare di ID mancanti in HTML
-                    console.warn(`[Nav Warning] Elemento HTML non trovato per l'ID: ${link.id}`);
                 }
             });
         }
-        // FINE AGGIORNAMENTO NAVIGAZIONE
 
-        // AGGIORNAMENTO TESTATA (Titolo e Immagine)
-        updateTextContent('pageTitle', pageData.pageTitle);
-        updateHTMLContent('headerTitle', pageData.pageTitle);
+        // ====================================================================
+        // AGGIORNAMENTO TESTATA E CONTENUTI
+        // ====================================================================
+        updateTextContent('pageTitle', pageData.pageTitle || '');
+        updateHTMLContent('headerTitle', pageData.pageTitle || '');
 
-        // AGGIORNAMENTO IMMAGINE DI FONDO TESTATA
         const headerImage = document.getElementById('headImage');
         if (headerImage && pageData.headImage) {
-            headerImage.src = `public/images/${pageData.headImage}`; // CORRETTO (usa headImage)
+            headerImage.src = `public/images/${pageData.headImage}`;
             headerImage.alt = pageData.pageTitle || "Immagine di testata";
         }
 
-        // AGGIORNAMENTO DEL CONTENUTO (Testi principali)
-        // Ora pageData.mainTextX contiene il testo finale (dal JSON o dal file caricato)
-        updateHTMLContent('mainText', pageData.mainText || '');
-        updateHTMLContent('mainText1', pageData.mainText1 || '');
-        updateHTMLContent('mainText2', pageData.mainText2 || '');
-        updateHTMLContent('mainText3', pageData.mainText3 || '');
-        updateHTMLContent('mainText4', pageData.mainText4 || '');
-        updateHTMLContent('mainText5', pageData.mainText5 || '');
+        // Update testi principali
+        textKeysToUpdate.forEach(key => {
+            updateHTMLContent(key, pageData[key] || '');
+        });
 
-        // AGGIORNAMENTO INFORMAZIONI SULLA FONTE E DATA
-        if (pageData.sourceText) {
-            updateTextContent('infoSource', `Fonte: ${pageData.sourceText}`);
-        }
-        if (pageData.creationDate) {
-            updateTextContent('infoCreatedDate', `Data Creazione: ${pageData.creationDate}`);
-        }
-        if (pageData.lastUpdate) {
-            updateTextContent('infoUpdatedDate', `Ultimo Aggiornamento: ${pageData.lastUpdate}`);
-        }
+        // Metadati (Fonte, Date)
+        if (pageData.sourceText) updateTextContent('infoSource', `Fonte: ${pageData.sourceText}`);
+        if (pageData.creationDate) updateTextContent('infoCreatedDate', `Data Creazione: ${pageData.creationDate}`);
+        if (pageData.lastUpdate) updateTextContent('infoUpdatedDate', `Ultimo Aggiornamento: ${pageData.lastUpdate}`);
 
-        // AGGIORNAMENTO AUDIO E BOTTONE
+        // ====================================================================
+        // GESTIONE AUDIO
+        // ====================================================================
         const currentAudioPlayer = document.getElementById('audioPlayer');
         const currentPlayButton = document.getElementById('playAudio');
 
         if (currentAudioPlayer && currentPlayButton && pageData.audioSource) {
-            if (!currentAudioPlayer.paused) {
-                currentAudioPlayer.pause();
-                currentAudioPlayer.currentTime = 0;
-            }
-            currentPlayButton.textContent = pageData.playAudioButton;
-            currentPlayButton.dataset.playText = pageData.playAudioButton;
-            currentPlayButton.dataset.pauseText = pageData.pauseAudioButton;
-            currentAudioPlayer.src = `Assets/Audio/${pageData.audioSource}`; // <-- CORREZIONE
+            currentPlayButton.style.display = 'inline-block';
+            currentPlayButton.textContent = pageData.playAudioButton || "Play";
+            currentPlayButton.dataset.playText = pageData.playAudioButton || "Play";
+            currentPlayButton.dataset.pauseText = pageData.pauseAudioButton || "Pause";
+            currentAudioPlayer.src = `Assets/Audio/${pageData.audioSource}`;
             currentAudioPlayer.load();
-            currentPlayButton.classList.remove('pause-style');
-            currentPlayButton.classList.add('play-style');
         } else if (currentPlayButton) {
-            // Nasconde il pulsante Audio se la sorgente non è presente
             currentPlayButton.style.display = 'none';
         }
 
-        // AGGIORNAMENTO IMMAGINI DINAMICHE (dalla 1 alla 5)
+        // ====================================================================
+        // IMMAGINI DINAMICHE
+        // ====================================================================
         for (let i = 1; i <= 5; i++) {
             const imageElement = document.getElementById(`pageImage${i}`);
-            const imageSource = pageData[`imageSource${i}`]; // Nome file (es. 'manifattura0.jpg')
-
-            // Costruisce il percorso completo solo se l'immagine è definita
-            const fullImagePath = imageSource ? `Assets/images/${imageSource}` : '';
-
+            const imageSource = pageData[`imageSource${i}`];
             if (imageElement) {
-                // USA IL PERCORSO COMPLETO
-                imageElement.src = fullImagePath;
-                // Nasconde l'elemento se non c'è una sorgente
-                imageElement.style.display = imageSource ? 'block' : 'none';
-                imageElement.alt = pageData.pageTitle || `Immagine ${i}`;
+                if (imageSource) {
+                    imageElement.src = `Assets/images/${imageSource}`;
+                    imageElement.style.display = 'block';
+                    imageElement.alt = pageData.pageTitle || `Immagine ${i}`;
+                } else {
+                    imageElement.style.display = 'none';
+                }
             }
         }
-        console.log(`✅ Contenuto caricato con successo per la lingua: ${lang} e pagina: ${pageId}`);
 
-        // 🔥 NUOVA CHIAMATA: Avvia il monitoraggio GPS DOPO aver caricato il contenuto
-        // NOTA: Dobbiamo salvare la funzione startGeolocation per poter passare i dati
-        startGeolocation(data); // <-- AGGIUNTA CHIAMATA
+        console.log(`✅ Contenuto caricato con successo (${lang} - ${pageId})`);
 
-
-        // 🔥 CORREZIONE 2: SPOSTA LA RIGA PER MOSTRARE LA PAGINA ALLA FINE
+        // GPS e visualizzazione finale
+        if (typeof startGeolocation === 'function') {
+            startGeolocation(data);
+        }
+        
         document.body.classList.add('content-loaded');
 
     } catch (error) {
         console.error('Errore critico nel caricamento dei testi:', error);
-        document.body.classList.add('content-loaded'); // Apri la pagina anche in caso di errore
+        document.body.classList.add('content-loaded');
     }
 }
-// BLOCCO TRE - FINE 
+// BLOCCO TRE - FINE
 // BLOCCO QUATTRO - INIZIO 
 // ===========================================
 // FUNZIONI UTILITY PER GPS E POI
