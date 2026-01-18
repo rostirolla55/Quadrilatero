@@ -30,3 +30,8 @@ window.APP_DATA = {
 { "id": "pugliole", "lat": 44.5001944444444, "lon": 11.3399861111111, "range": 50 }
 ]
 }
+window.CONFIG = window.APP_DATA;
+window.firebaseConfig = {
+    projectId: "quadrilatero", // Usa un ID qualsiasi se non ne hai uno reale
+    apiKey: "dummy-key"
+};

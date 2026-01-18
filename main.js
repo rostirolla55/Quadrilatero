@@ -1,42 +1,45 @@
-// ====================================================================
-// DICHIARAZIONE VARIABILI GLOBALI (NECESSARIE)
-// ====================================================================
-// NOTA: Le importazioni Firebase sono mantenute anche se non usate in loadContent
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
 const APP_VERSION = '1.2.16 - inserito gestione fetch html in loadContent';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
-const LAST_LANG_KEY = 'Quartiere Porto_lastLang'; // Chiave per salvare l'ultima lingua in localStorage (Coerente con index.html)
+const LAST_LANG_KEY = 'Quartiere Porto_lastLang'; 
 let currentLang = 'it';
 let nearbyPoiButton, nearbyMenuPlaceholder;
 
-// Variabili Firebase (anche se loadContent usa fetch locale)
-const app_id = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+// ===========================================
+// CONFIGURAZIONE FIREBASE
+// ===========================================
+// 1. Definiamo i parametri dummy come fallback
+const dummyFirebaseConfig = {
+    projectId: "quadrilatero",
+    apiKey: "dummy-key"
+};
+
+// 2. Cerchiamo la configurazione reale dell'ambiente, altrimenti usiamo la dummy
+const app_id = typeof __app_id !== 'undefined' ? __app_id : 'quadrilatero-app';
+const firebaseConfig = typeof __firebase_config !== 'undefined' 
+    ? JSON.parse(__firebase_config) 
+    : (window.firebaseConfig || dummyFirebaseConfig);
+
+// Assegniamo anche a window per retrocompatibilità se necessario
+window.firebaseConfig = firebaseConfig;
+
 let db, auth;
 let currentUserId = null;
 let isAuthReady = false;
 
-
 // ===========================================
-// DATI: Punti di Interesse GPS (DA COMPILARE)
+// DATI: Punti di Interesse GPS
 // ===========================================
-// Attenzione le coordinate sono della zona PORTORENO
-// in C:\Users\User\Documents\salvataggi_github\ARCO_LOCATIONS_Quartiere Porto_js.txt
-const POIS_LOCATIONS = window.APP_DATA.poisLocations;
+// Verifichiamo che window.APP_DATA esista prima di accedere a poisLocations
+const POIS_LOCATIONS = (window.APP_DATA && window.APP_DATA.poisLocations) ? window.APP_DATA.poisLocations : [];
 
 // ===========================================
 // FUNZIONI UTILITY GENERALI (Lingua e DOM)
 // ===========================================
-
 const getCurrentPageId = () => {
     const path = window.location.pathname;
     const fileName = path.substring(path.lastIndexOf('/') + 1);
 
-    // Correzione: La base 'index' deve essere gestita come 'home' per il JSON
     if (fileName === '' || fileName.startsWith('index')) {
         return 'home';
     }
