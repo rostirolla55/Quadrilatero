@@ -26,7 +26,7 @@ let isAuthReady = false;
 // ===========================================
 // Attenzione le coordinate sono della zona PORTORENO
 // in C:\Users\User\Documents\salvataggi_github\ARCO_LOCATIONS_Quartiere Porto_js.txt
-const POIS_LOCATIONS = window.CONFIG.poisLocations;
+const POIS_LOCATIONS = window.APP_DATA.poisLocations;
 
 // ===========================================
 // FUNZIONI UTILITY GENERALI (Lingua e DOM)
@@ -283,7 +283,7 @@ async function loadContent(lang) {
             const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
 
             // ... (lista navLinksData) ... (Tutto questo blocco è corretto e rimane)
-            const navLinksData = window.CONFIG.navLinksData;
+            const navLinksData = window.APP_DATA.navLinksData;
 
             // Aggiorna HREF e Testo per tutti i link del menu principale
             navLinksData.forEach(link => {
