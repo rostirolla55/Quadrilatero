@@ -1,4 +1,4 @@
-{
+window.APP_DATA = {
 "navigation": [
 { "id": "navHome", "key": "navHome", "base": "index" },
 { "id": "navCarracci", "key": "navCarracci", "base": "carracci" },
