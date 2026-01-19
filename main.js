@@ -1,3 +1,16 @@
+/**
+ * main.js - Quartiere Porto
+ * Handles multi-language content loading, GPS proximity for POIs, 
+ * and asynchronous fragment fetching.
+ */
+
+// ====================================================================
+// DICHIARAZIONE VARIABILI GLOBALI (NECESSARIE)
+// ====================================================================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
 const APP_VERSION = '1.2.16 - inserito gestione fetch html in loadContent';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
@@ -5,24 +18,9 @@ const LAST_LANG_KEY = 'Quartiere Porto_lastLang';
 let currentLang = 'it';
 let nearbyPoiButton, nearbyMenuPlaceholder;
 
-// ===========================================
-// CONFIGURAZIONE FIREBASE
-// ===========================================
-// 1. Definiamo i parametri dummy come fallback
-const dummyFirebaseConfig = {
-    projectId: "quadrilatero",
-    apiKey: "dummy-key"
-};
-
-// 2. Cerchiamo la configurazione reale dell'ambiente, altrimenti usiamo la dummy
-const app_id = typeof __app_id !== 'undefined' ? __app_id : 'quadrilatero-app';
-const firebaseConfig = typeof __firebase_config !== 'undefined' 
-    ? JSON.parse(__firebase_config) 
-    : (window.firebaseConfig || dummyFirebaseConfig);
-
-// Assegniamo anche a window per retrocompatibilità se necessario
-window.firebaseConfig = firebaseConfig;
-
+// Variabili Firebase
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
 let db, auth;
 let currentUserId = null;
 let isAuthReady = false;
@@ -30,20 +28,32 @@ let isAuthReady = false;
 // ===========================================
 // DATI: Punti di Interesse GPS
 // ===========================================
-// Verifichiamo che window.APP_DATA esista prima di accedere a poisLocations
-const POIS_LOCATIONS = (window.APP_DATA && window.APP_DATA.poisLocations) ? window.APP_DATA.poisLocations : [];
+const POIS_LOCATIONS = [
+    { id: 'manifattura', lat: 44.498910, lon: 11.342241, distanceThreshold: 50 },
+    { id: 'pittoricarracci', lat: 44.50085, lon: 11.33610, distanceThreshold: 50 },
+    { id: 'cavaticcio', lat: 44.50018, lon: 11.33807, distanceThreshold: 50 },
+    { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50 },
+    { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50 },
+    { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 50 },
+    { id: 'carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50 },
+    { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50 },
+    { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120 },
+    { id: 'chiesapioggia', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
+    { id: 'pioggia1', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
+    { id: 'pioggia2', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
+    { id: 'pioggia3', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 }
+];
 
 // ===========================================
-// FUNZIONI UTILITY GENERALI (Lingua e DOM)
+// FUNZIONI UTILITY GENERALI
 // ===========================================
+
 const getCurrentPageId = () => {
     const path = window.location.pathname;
     const fileName = path.substring(path.lastIndexOf('/') + 1);
-
     if (fileName === '' || fileName.startsWith('index')) {
         return 'home';
     }
-
     return fileName.replace(/-[a-z]{2}\.html/i, '').replace('.html', '').toLowerCase();
 };
 
@@ -61,26 +71,10 @@ const updateHTMLContent = (id, htmlContent) => {
     }
 };
 
-// ===========================================
-// NUOVE FUNZIONI ASINCRONE PER CARICAMENTO FILE
-// ===========================================
-
-/**
- * Funzione helper per determinare se una stringa è probabilmente un percorso di file (es. frammento HTML).
- * @param {string} value Il valore della chiave JSON.
- * @returns {boolean} True se sembra un percorso di file.
- */
 function isFilePath(value) {
     if (typeof value !== 'string') return false;
-    // Cerca pattern tipici di file (es. che finiscono con .html, .txt)
     return /\.(html|txt)$/i.test(value.trim());
 }
-
-/**
- * Carica il contenuto di un file in modo asincrono tramite fetch.
- * @param {string} filePath Il percorso del file da caricare (es. "text_files/it_manifattura_maintext1.html")
- * @returns {Promise<string>} Il contenuto del file come stringa.
- */
 
 async function fetchFileContent(filePath) {
     try {
@@ -95,9 +89,8 @@ async function fetchFileContent(filePath) {
     }
 }
 
-
 // ===========================================
-// FUNZIONI AUDIO (Corrette per argomenti locali)
+// FUNZIONI AUDIO
 // ===========================================
 
 const toggleAudioPlayback = function (audioPlayer, playButton) {
@@ -122,532 +115,308 @@ const handleAudioEnded = function (audioPlayer, playButton) {
     playButton.classList.replace('pause-style', 'play-style');
 };
 
-// BLOCCO DUE - INIZIO 
-
 // ===========================================
 // FUNZIONI POI (PULSANTE VERDE)
 // ===========================================
 
-const formatDistance = (distance) => {
-    if (distance < 1000) {
-        return `${Math.round(distance)}m`;
-    }
-    return `${(distance / 1000).toFixed(1)}km`;
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371e3;
+    const φ1 = lat1 * Math.PI / 180;
+    const φ2 = lat2 * Math.PI / 180;
+    const Δφ = (lat2 - lat1) * Math.PI / 180;
+    const Δλ = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+        Math.cos(φ1) * Math.cos(φ2) *
+        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
 };
-
-// main.js - Modifica la funzione updatePoiMenu (riga 108)
-// Nota: La funzione riceve allPageData da checkProximity
 
 function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     const nearbyLocations = [];
-
-    // 1. Calcola la distanza e filtra
     locations.forEach(location => {
         const distance = calculateDistance(userLat, userLon, location.lat, location.lon);
-
-        // 🔥 CORREZIONE 1: Usa la soglia dinamica del POI
         if (distance <= location.distanceThreshold) {
-            nearbyLocations.push({
-                ...location,
-                distance: distance
-            });
+            nearbyLocations.push({ ...location, distance: distance });
         }
     });
 
-    // 2. Ordina per distanza e Rimuovi duplicati
     nearbyLocations.sort((a, b) => a.distance - b.distance);
     const uniquePois = [...new Map(nearbyLocations.map(item => [item['id'], item])).values()];
 
-    // 3. Genera l'HTML del menu
     let menuHtml = '';
-
     if (uniquePois.length > 0) {
         let listItems = '';
-
-        // 🔥 CORREZIONE 2: Usa allPageData per ottenere il titolo
         uniquePois.forEach(poi => {
             const poiContent = allPageData ? allPageData[poi.id] : null;
-
-            // CORREZIONE 1: Aggiungi .trim() per pulire gli spazi bianchi e rimuovi l'indentazione del template literal
             const displayTitle = (poiContent && poiContent.pageTitle)
-                ? poiContent.pageTitle.trim() // Rimuovi spazi all'inizio/fine
+                ? poiContent.pageTitle.trim()
                 : `[Titolo mancante: ${poi.id}]`;
 
             const langSuffix = userLang === 'it' ? '-it' : `-${userLang}`;
             const href = `${poi.id}${langSuffix}.html`;
-
-            // CORREZIONE 2: Rimuovi gli a capo e l'indentazione eccessiva
             listItems += `<li><a href="${href}">${displayTitle} <span class="poi-distance">(${poi.distance.toFixed(0)}m)</span></a></li>`;
         });
-
         menuHtml = `<ul class="poi-links">${listItems}</ul>`;
-
     } else {
-        // Nessun POI trovato: mostra un messaggio informativo
         let maxThreshold = locations.reduce((max, loc) => Math.max(max, loc.distanceThreshold || 50), 0);
-
         let noPoiMessage;
         switch (userLang) {
-            case 'es': noPoiMessage = `No se encontraron puntos de interés dentro ${maxThreshold}m. <br><br>   Pulse de nuevo el botón verde para cerrar el menú.`; break;
-            case 'en': noPoiMessage = `No Points of Interest found within ${maxThreshold}m. <br><br>   Press the green button again to close the menu.`; break;
-            case 'fr': noPoiMessage = `Aucun point d'interet trouve dans les environs ${maxThreshold}m. <br><br>  Appuyez à nouveau sur le bouton vert pour fermer le menu.`; break;
+            case 'es': noPoiMessage = `No se encontraron puntos de interés dentro ${maxThreshold}m. <br><br> Pulse de nuevo el botón verde para cerrar.`; break;
+            case 'en': noPoiMessage = `No Points of Interest found within ${maxThreshold}m. <br><br> Press the green button again to close.`; break;
+            case 'fr': noPoiMessage = `Aucun point d'interet trouve dans les environs ${maxThreshold}m. <br><br> Appuyez à nouveau sur le bouton vert.`; break;
             case 'it':
-            default: noPoiMessage = `Nessun Punto di Interesse trovato entro ${maxThreshold}m.<br><br> Premere di nuovo il bottone verde per chiudere la lista.`; break;
+            default: noPoiMessage = `Nessun Punto di Interesse trovato entro ${maxThreshold}m.<br><br> Premere di nuovo il bottone verde per chiudere.`; break;
         }
-
-        // Uso colore rosso per i test
-        menuHtml = `<div style="color:red; padding: 20px; text-align: center; font-size: 1em;">${noPoiMessage}</div>`;
+        menuHtml = `<div style="color:red; padding: 20px; text-align: center;">${noPoiMessage}</div>`;
     }
 
-
-    // 4. Inietta l'HTML nel placeholder
     if (nearbyMenuPlaceholder) {
         nearbyMenuPlaceholder.innerHTML = menuHtml;
     }
 }
 
-// BLOCCO DUE - FINE 
-// BLOCCO TRE - INIZIO 
+// ===========================================
+// GEOLOCALIZZAZIONE
+// ===========================================
+
+const checkProximity = (position, allPageData) => {
+    if (!position || !position.coords) return;
+    const userLat = position.coords.latitude;
+    const userLon = position.coords.longitude;
+    console.warn(`[POI DEBUG] Lat=${userLat}, Lon=${userLon}`);
+
+    if (nearbyPoiButton) {
+        nearbyPoiButton.style.display = 'block';
+        updatePoiMenu(POIS_LOCATIONS, userLat, userLon, currentLang, allPageData);
+    }
+};
+
+const startGeolocation = (allPageData) => {
+    const debugPosition = { coords: { latitude: 44.498910, longitude: 11.342241 } };
+
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(
+            (position) => checkProximity(position, allPageData),
+            (error) => {
+                console.warn(`GPS Error: ${error.message}. Fallback to debug.`);
+                if (nearbyPoiButton) nearbyPoiButton.style.display = 'block';
+                checkProximity(debugPosition, allPageData);
+            },
+            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+        );
+    } else {
+        if (nearbyPoiButton) nearbyPoiButton.style.display = 'block';
+        checkProximity(debugPosition, allPageData);
+    }
+};
 
 // ===========================================
-// FUNZIONI DI CARICAMENTO CONTENUTI (loadContent)
+// CARICAMENTO CONTENUTI (loadContent)
 // ===========================================
 
 async function loadContent(lang) {
     document.documentElement.lang = lang;
-
     try {
         const pageId = getCurrentPageId();
-        // Path corretto per il tuo progetto
         const response = await fetch(`data/translations/${lang}/texts.json`);
 
         if (!response.ok) {
-            console.error(`File di traduzione non trovato per la lingua: ${lang}. Tentativo di fallback su 'it'.`);
-            if (lang !== 'it') {
-                await loadContent('it');
-                return;
-            }
-            throw new Error(`Impossibile caricare i dati per ${lang}.`);
+            if (lang !== 'it') { loadContent('it'); return; }
+            throw new Error(`Data load failed for ${lang}`);
         }
 
         const data = await response.json();
         const pageData = data[pageId];
 
-        // Se non ci sono dati per la pagina specifica nel JSON
         if (!pageData) {
-            console.warn(`Dati non trovati per la chiave pagina: ${pageId} nel file JSON (${lang}).`);
-            updateTextContent('pageTitle', `[INFO] Pagina in aggiornamento (${pageId})`);
+            updateTextContent('pageTitle', `[ERRORE] Dati mancanti (${pageId}/${lang})`);
             document.body.classList.add('content-loaded');
             return;
         }
 
-        // ====================================================================
-        // 🔥 LOGICA ASINCRONA: CARICAMENTO FRAMMENTI HTML/TESTO
-        // ====================================================================
+        // Caricamento Asincrono Frammenti
         const fragmentPromises = [];
-        const textKeysToUpdate = ['mainText', 'mainText1', 'mainText2', 'mainText3', 'mainText4', 'mainText5'];
+        const textKeys = ['mainText', 'mainText1', 'mainText2', 'mainText3', 'mainText4', 'mainText5'];
 
-        for (const key of textKeysToUpdate) {
+        for (const key of textKeys) {
             const value = pageData[key];
-            if (value && typeof value === 'string' && isFilePath(value)) {
+            if (value && isFilePath(value)) {
                 const fullPath = "text_files/" + value;
-                console.log(`Caricamento frammento asincrono per ${key}: ${fullPath}`);
-
-                // fetchFileContent deve essere definita nel tuo script
-                const promise = fetchFileContent(fullPath)
-                    .then(content => ({ key, content }))
-                    .catch(err => {
-                        console.warn(`Errore caricamento file ${fullPath}:`, err);
-                        return { key, content: '' };
-                    });
-                fragmentPromises.push(promise);
+                fragmentPromises.push(fetchFileContent(fullPath).then(content => ({ key, content })));
             } else if (value !== undefined) {
                 fragmentPromises.push(Promise.resolve({ key, content: value }));
             }
         }
 
         const fragmentResults = await Promise.all(fragmentPromises);
-        fragmentResults.forEach(item => {
-            pageData[item.key] = item.content;
-        });
+        fragmentResults.forEach(item => { pageData[item.key] = item.content; });
 
-        // ====================================================================
-        // AGGIORNAMENTO NAVIGAZIONE
-        // ====================================================================
+        // Aggiornamento Navigazione
         const navBarMain = document.getElementById('navBarMain');
-        
-        // FIX: Controllo che window.APP_DATA e navLinksData esistano per evitare TypeError
-        const navLinksData = (window.APP_DATA && window.APP_DATA.navLinksData) ? window.APP_DATA.navLinksData : [];
-
-        if (data.nav && navBarMain && navLinksData.length > 0) {
+        if (data.nav && navBarMain) {
             const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
+            const navLinks = [
+                { id: 'navHome', key: 'navHome', base: 'index' },
+                { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
+                { id: 'navLastre', key: 'navLastre', base: 'lastre' },
+                { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
+                { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
+                { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene' },
+                { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
+                { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
+                { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
+                { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
+                { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
+                { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' },
+                { id: 'navbsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore' }
+            ];
 
-            navLinksData.forEach(link => {
-                const linkElement = document.getElementById(link.id);
-                if (linkElement) {
-                    linkElement.href = `${link.base}${langSuffix}.html`;
-                    if (data.nav[link.key]) {
-                        linkElement.textContent = data.nav[link.key];
-                    }
+            navLinks.forEach(link => {
+                const el = document.getElementById(link.id);
+                if (el) {
+                    el.href = `${link.base}${langSuffix}.html`;
+                    el.textContent = data.nav[link.key] || el.textContent;
                 }
             });
         }
 
-        // ====================================================================
-        // AGGIORNAMENTO TESTATA E CONTENUTI
-        // ====================================================================
-        updateTextContent('pageTitle', pageData.pageTitle || '');
-        updateHTMLContent('headerTitle', pageData.pageTitle || '');
-
-        const headerImage = document.getElementById('headImage');
-        if (headerImage && pageData.headImage) {
-            headerImage.src = `public/images/${pageData.headImage}`;
-            headerImage.alt = pageData.pageTitle || "Immagine di testata";
+        // Update UI
+        updateTextContent('pageTitle', pageData.pageTitle);
+        updateHTMLContent('headerTitle', pageData.pageTitle);
+        
+        const headImg = document.getElementById('headImage');
+        if (headImg && pageData.headImage) {
+            headImg.src = `public/images/${pageData.headImage}`;
+            headImg.alt = pageData.pageTitle;
         }
 
-        // Update testi principali
-        textKeysToUpdate.forEach(key => {
-            updateHTMLContent(key, pageData[key] || '');
-        });
+        textKeys.forEach(key => updateHTMLContent(key, pageData[key] || ''));
+        
+        updateTextContent('infoSource', pageData.sourceText ? `Fonte: ${pageData.sourceText}` : '');
+        updateTextContent('infoCreatedDate', pageData.creationDate ? `Data Creazione: ${pageData.creationDate}` : '');
+        updateTextContent('infoUpdatedDate', pageData.lastUpdate ? `Ultimo Aggiornamento: ${pageData.lastUpdate}` : '');
 
-        // Metadati (Fonte, Date)
-        if (pageData.sourceText) updateTextContent('infoSource', `Fonte: ${pageData.sourceText}`);
-        if (pageData.creationDate) updateTextContent('infoCreatedDate', `Data Creazione: ${pageData.creationDate}`);
-        if (pageData.lastUpdate) updateTextContent('infoUpdatedDate', `Ultimo Aggiornamento: ${pageData.lastUpdate}`);
-
-        // ====================================================================
-        // GESTIONE AUDIO
-        // ====================================================================
-        const currentAudioPlayer = document.getElementById('audioPlayer');
-        const currentPlayButton = document.getElementById('playAudio');
-
-        if (currentAudioPlayer && currentPlayButton && pageData.audioSource) {
-            currentPlayButton.style.display = 'inline-block';
-            currentPlayButton.textContent = pageData.playAudioButton || "Play";
-            currentPlayButton.dataset.playText = pageData.playAudioButton || "Play";
-            currentPlayButton.dataset.pauseText = pageData.pauseAudioButton || "Pause";
-            currentAudioPlayer.src = `Assets/Audio/${pageData.audioSource}`;
-            currentAudioPlayer.load();
-        } else if (currentPlayButton) {
-            currentPlayButton.style.display = 'none';
+        // Audio
+        const player = document.getElementById('audioPlayer');
+        const btn = document.getElementById('playAudio');
+        if (player && btn && pageData.audioSource) {
+            btn.textContent = pageData.playAudioButton;
+            btn.dataset.playText = pageData.playAudioButton;
+            btn.dataset.pauseText = pageData.pauseAudioButton;
+            player.src = `Assets/Audio/${pageData.audioSource}`;
+            player.load();
+            btn.style.display = 'block';
+        } else if (btn) {
+            btn.style.display = 'none';
         }
 
-        // ====================================================================
-        // IMMAGINI DINAMICHE
-        // ====================================================================
+        // Images
         for (let i = 1; i <= 5; i++) {
-            const imageElement = document.getElementById(`pageImage${i}`);
-            const imageSource = pageData[`imageSource${i}`];
-            if (imageElement) {
-                if (imageSource) {
-                    imageElement.src = `Assets/images/${imageSource}`;
-                    imageElement.style.display = 'block';
-                    imageElement.alt = pageData.pageTitle || `Immagine ${i}`;
-                } else {
-                    imageElement.style.display = 'none';
-                }
+            const img = document.getElementById(`pageImage${i}`);
+            const src = pageData[`imageSource${i}`];
+            if (img) {
+                img.src = src ? `Assets/images/${src}` : '';
+                img.style.display = src ? 'block' : 'none';
             }
         }
 
-        console.log(`✅ Contenuto caricato con successo (${lang} - ${pageId})`);
-
-        // GPS e visualizzazione finale
-        if (typeof startGeolocation === 'function') {
-            startGeolocation(data);
-        }
-        
+        startGeolocation(data);
         document.body.classList.add('content-loaded');
-
     } catch (error) {
-        console.error('Errore critico nel caricamento dei testi:', error);
+        console.error('Critical load error:', error);
         document.body.classList.add('content-loaded');
     }
 }
-// BLOCCO TRE - FINE
-// BLOCCO QUATTRO - INIZIO 
-// ===========================================
-// FUNZIONI UTILITY PER GPS E POI
-// ===========================================
-
-const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371e3; // Raggio della terra in metri
-    const φ1 = lat1 * Math.PI / 180;
-    const φ2 = lat2 * Math.PI / 180;
-    const Δφ = (lat2 - lat1) * Math.PI / 180;
-    const Δλ = (lon2 - lon1) * Math.PI / 180;
-
-    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-        Math.cos(φ1) * Math.cos(φ2) *
-        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return R * c; // Distanza in metri
-};
-
-// main.js - Modifica la funzione checkProximity
-const checkProximity = (position, allPageData) => {
-    // 🔥 STEP 1: LOG DI DEBUG CRITICO 🔥
-    if (!position || !position.coords) {
-        console.error("DEBUG CRITICO: Oggetto posizione non valido (checkProximity).");
-        return;
-    }
-
-    const userLat = position.coords.latitude;
-    const userLon = position.coords.longitude;
-    const userLang = currentLang;
-
-    // 🚨 STAMPA LA POSIZIONE RICEVUTA (Valore chiave per il debug) 🚨
-    console.warn(`[POI DEBUG] POSIZIONE RICEVUTA DAL BROWSER: Lat=${userLat}, Lon=${userLon}`);
-
-
-    if (nearbyPoiButton) {
-        nearbyPoiButton.style.display = 'block';
-        if (typeof updatePoiMenu === 'function') {
-            // PASSAGGIO CHIAVE: Passa allPageData a updatePoiMenu
-            updatePoiMenu(POIS_LOCATIONS, userLat, userLon, userLang, allPageData);
-        }
-    }
-};
-
-const handleGeolocationError = (error) => {
-    console.warn(`ERRORE GPS: ${error.code}: ${error.message}`);
-    // Nascondi il pulsante in caso di errore non gestito
-    //    if (nearbyPoiButton) { nearbyPoiButton.style.display = 'none'; }
-};
-
-// main.js - Modifica la funzione startGeolocation
-const startGeolocation = (allPageData) => {
-    // 1. Definisci la posizione di debug (Chiesa della Pioggia)
-    const debugPosition = {
-        coords: {
-            latitude: 44.498910,
-            longitude: 11.342241
-        }
-    };
-
-    if (navigator.geolocation) {
-        console.info("Tentativo di avviare il monitoraggio GPS in background.");
-        // Tenta di ottenere la posizione reale
-        navigator.geolocation.watchPosition(
-            (position) => {
-                console.log("GPS REALE: Posizione ottenuta.");
-                const FORCE_DEBUG = false; // <--- IMPOSTA QUI A TRUE PER TEST STABILI
-                if (FORCE_DEBUG) {
-                    // ... usa debugPosition
-                    checkProximity(debugPosition, allPageData);
-                } else {
-                    // ... usa position
-                    checkProximity(position, allPageData);
-                }
-            },
-            (error) => { // Gestore d'errore: se il GPS reale fallisce
-                console.warn(`ERRORE GPS REALE (${error.code}): ${error.message}. Eseguo la simulazione desktop.`);
-
-                // 🛑 FORZATURA SIMULAZIONE QUI IN CASO DI ERRORE
-                if (nearbyPoiButton) { nearbyPoiButton.style.display = 'block'; }
-                checkProximity(debugPosition, allPageData);
-            },
-            {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            }
-        );
-        console.log("Monitoraggio GPS avviato.");
-    } else {
-        // Se il browser non supporta proprio il GPS, esegui la simulazione
-        console.error("Il tuo browser non supporta la geolocalizzazione. Eseguo la simulazione.");
-        if (nearbyPoiButton) { nearbyPoiButton.style.display = 'block'; }
-        checkProximity(debugPosition, allPageData);
-    }
-
-    // RIMOZIONE: rimosso il 'display: none' qui, lo gestisce handleGeolocationError in caso di fallimento
-};
-
-// BLOCCO QUATTRO - FINE// BLOCCO CINQUE - INIZIO 
 
 // ===========================================
-// FUNZIONI LINGUA E BANDIERE
+// LINGUA E EVENTI
 // ===========================================
 
 function updateLanguageSelectorActiveState(lang) {
-    document.querySelectorAll('.language-selector button').forEach(button => {
-        if (button.getAttribute('data-lang') === lang) {
-            button.classList.add('active');
-        } else {
-            button.classList.remove('active');
-        }
+    document.querySelectorAll('.language-selector button').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
     });
 }
 
 function handleLanguageChange(event) {
     const newLang = event.currentTarget.getAttribute('data-lang');
-
     if (newLang && LANGUAGES.includes(newLang) && newLang !== currentLang) {
         localStorage.setItem(LAST_LANG_KEY, newLang);
-
-        const urlPath = document.location.pathname;
-        const fileName = urlPath.substring(urlPath.lastIndexOf('/') + 1);
-
-        // Correzione: Assicurati che fileBase sia 'index' se la pagina corrente è home
         let fileBase = getCurrentPageId();
         if (fileBase === 'home') fileBase = 'index';
-
-
-        // L'homepage italiana è 'index-it.html' (ora abbiamo la certezza che esiste)
-        // TUTTE le pagine usano il suffisso, anche la IT (index-it.html)
-        const newPath = `${fileBase}-${newLang}.html`;
-
-        document.location.href = newPath;
+        document.location.href = `${fileBase}-${newLang}.html`;
     }
 }
 
-
-// ===========================================
-// ASSEGNAZIONE EVENT LISTENER (Menu Hamburger, Pulsante Verde, Audio)
-// ===========================================
-
-function initEventListeners(currentLang) {
+function initEventListeners() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navBarMain = document.getElementById('navBarMain');
     const body = document.body;
 
-    // --- Logica Menu Hamburger Principale ---
-    if (menuToggle && navBarMain && !menuToggle.dataset.listenerAttached) {
+    if (menuToggle && navBarMain) {
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
             navBarMain.classList.toggle('active');
-
             body.classList.toggle('menu-open');
-
-            if (nearbyMenuPlaceholder) {
-                nearbyMenuPlaceholder.classList.remove('poi-active');
-            }
+            if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.classList.remove('poi-active');
         });
-
-        navBarMain.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
-                menuToggle.classList.remove('active');
-                navBarMain.classList.remove('active');
-                body.classList.remove('menu-open');
-            }
-        });
-        menuToggle.dataset.listenerAttached = 'true';
     }
 
-    // --- Logica Menu Hamburger POI (Pulsante Verde) ---
-    if (nearbyPoiButton && nearbyMenuPlaceholder && !nearbyPoiButton.dataset.listenerAttached) {
+    if (nearbyPoiButton && nearbyMenuPlaceholder) {
         nearbyPoiButton.addEventListener('click', () => {
             nearbyMenuPlaceholder.classList.toggle('poi-active');
-
-            if (menuToggle && navBarMain) {
+            if (menuToggle) {
                 menuToggle.classList.remove('active');
                 navBarMain.classList.remove('active');
             }
-
-            if (nearbyMenuPlaceholder.classList.contains('poi-active')) {
-                body.classList.add('menu-open');
-            } else {
-                if (!navBarMain.classList.contains('active')) {
-                    body.classList.remove('menu-open');
-                }
-            }
+            body.classList.toggle('menu-open', nearbyMenuPlaceholder.classList.contains('poi-active'));
         });
-
-        nearbyMenuPlaceholder.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
-                nearbyMenuPlaceholder.classList.remove('poi-active');
-                body.classList.remove('menu-open');
-            }
-        });
-        nearbyPoiButton.dataset.listenerAttached = 'true';
     }
 
-    // --- Logica Audio ---
-    const localAudioPlayer = document.getElementById('audioPlayer');
-    const localPlayButton = document.getElementById('playAudio');
-
-    if (localAudioPlayer && localPlayButton && !localPlayButton.dataset.listenerAttached) {
-        localPlayButton.addEventListener('click', toggleAudioPlayback.bind(null, localAudioPlayer, localPlayButton));
-        localAudioPlayer.addEventListener('ended', handleAudioEnded.bind(null, localAudioPlayer, localPlayButton));
-        localPlayButton.dataset.listenerAttached = 'true';
+    const audioPlayer = document.getElementById('audioPlayer');
+    const playBtn = document.getElementById('playAudio');
+    if (audioPlayer && playBtn) {
+        playBtn.addEventListener('click', () => toggleAudioPlayback(audioPlayer, playBtn));
+        audioPlayer.addEventListener('ended', () => handleAudioEnded(audioPlayer, playBtn));
     }
 
-
-    // --- Logica Selettore Lingua (Bandiere) ---
-    // Rimuovi la gestione duplicata degli event listener (non è necessario farlo qui, ma non fa male)
-    document.querySelectorAll('.language-selector button').forEach(button => {
-        button.removeEventListener('click', handleLanguageChange);
-        button.addEventListener('click', handleLanguageChange);
+    document.querySelectorAll('.language-selector button').forEach(btn => {
+        btn.addEventListener('click', handleLanguageChange);
     });
 }
-// BLOCCO CINQUE - FINE 
-// BLOCCO SEI - INIZIO 
 
 // ===========================================
-// PUNTO DI INGRESSO (DOM LOADED)
+// INIT
 // ===========================================
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    console.info(`🌍 Versione in esecuzione: ${APP_VERSION}`);
-    console.info(`Lingua predefinita rilevata: ${currentLang}`);
-
-    // 1. ASSEGNAZIONE DELLE VARIABILI GLOBALI
+    console.info(`🌍 Versione: ${APP_VERSION}`);
+    
     nearbyPoiButton = document.getElementById('nearbyPoiButton');
     nearbyMenuPlaceholder = document.getElementById('nearbyMenuPlaceholder');
 
-    // 2. DETERMINAZIONE LINGUA CORRENTE
     let finalLang = 'it';
-
-    // A) Controlla la lingua salvata
     const savedLang = localStorage.getItem(LAST_LANG_KEY);
-    if (savedLang && LANGUAGES.includes(savedLang)) {
-        finalLang = savedLang;
-    }
+    if (savedLang && LANGUAGES.includes(savedLang)) finalLang = savedLang;
+    
+    const langMatch = window.location.pathname.match(/-([a-z]{2})\.html/);
+    if (langMatch && LANGUAGES.includes(langMatch[1])) finalLang = langMatch[1];
 
-    // B) Controlla la lingua nell'URL (prevale sulla persistenza)
-    const urlPath = document.location.pathname;
-    const langMatch = urlPath.match(/-([a-z]{2})\.html/);
-    if (langMatch && LANGUAGES.includes(langMatch[1])) {
-        finalLang = langMatch[1];
-        localStorage.setItem(LAST_LANG_KEY, finalLang);
-    }
-
-    // Imposta la lingua globale
     currentLang = finalLang;
-    document.documentElement.lang = currentLang;
-
-    // 3. INIZIALIZZA LA SELEZIONE LINGUA
     updateLanguageSelectorActiveState(currentLang);
-
-    // 4. INIZIALIZZA GLI EVENT LISTENER
-    initEventListeners(currentLang);
-
-    // 5. CARICAMENTO CONTENUTO (maintext)
+    initEventListeners();
     loadContent(currentLang);
 
-
-    // Invio dati a Google Analytics
-    if (typeof gtag === 'function') {
-        gtag('event', 'page_view', {
-            'page_title': document.title,
-            'page_path': window.location.pathname,
-            'lingua_pagina': currentLang
-        });
-    }
-
-    // 6. LOGICA DI AUTENTICAZIONE FIREBASE (Mantenuta in background)
-    // Non strettamente necessaria per il fetch locale, ma utile se passi a Firestore.
-    // L'ascolto dei dati non è attivo in questa versione dato che loadContent usa fetch.
-    if (typeof initializeApp !== 'undefined') {
+    // Firebase Init
+    if (typeof initializeApp !== 'undefined' && firebaseConfig.apiKey) {
         const app = initializeApp(firebaseConfig);
         db = getFirestore(app);
         auth = getAuth(app);
-
-        const authenticateUser = async () => {
+        
+        const initAuth = async () => {
             try {
-                if (typeof __initial_auth_token !== 'undefined') {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
                 } else {
                     await signInAnonymously(auth);
@@ -656,12 +425,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentUserId = user ? user.uid : null;
                     isAuthReady = true;
                 });
-            } catch (error) {
-                console.error("Errore nell'autenticazione Firebase:", error);
-            }
+            } catch (e) { console.error("Auth error", e); }
         };
-        authenticateUser();
+        initAuth();
     }
-
 });
-// BLOCCO SEI - FINE
