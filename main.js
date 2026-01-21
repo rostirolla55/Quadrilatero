@@ -240,7 +240,7 @@ async function loadContent(lang) {
 
         // Aggiornamento Navigazione
         const navBarMain = document.getElementById('navBarMain');
-        if (data.nav && navBarMain) {
+        if (data    .nav && navBarMain) {
             const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
             const navLinksData = window.APP_DATA.navigation;
             navLinks.forEach(link => {
