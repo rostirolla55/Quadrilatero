@@ -28,7 +28,7 @@ let isAuthReady = false;
 // ===========================================
 // DATI: Punti di Interesse GPS
 // ===========================================
-const POIS_LOCATIONS = window.APP_DATA ? window.APP_DATA.poisLocations : [];
+// const POIS_LOCATIONS = window.APP_DATA ? window.APP_DATA.poisLocations : [];
 
 // ===========================================
 // FUNZIONI UTILITY GENERALI
@@ -172,39 +172,60 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
 // GEOLOCALIZZAZIONE
 // ===========================================
 
-const checkProximity = (position, allPageData) => {
-    if (!position || !position.coords) return;
-    const userLat = position.coords.latitude;
-    const userLon = position.coords.longitude;
-    console.warn(`[POI DEBUG] Lat=${userLat}, Lon=${userLon}`);
+/**
+ * Recupera dinamicamente i dati dei POI dall'oggetto globale.
+ * Questo evita errori di sincronizzazione se il file di configurazione
+ * viene caricato dopo il file logico.
+ */
+function getPoisLocations() {
+    return (window.APP_DATA && window.APP_DATA.poisLocations) ? window.APP_DATA.poisLocations : [];
+}
 
-    if (nearbyPoiButton) {
-        nearbyPoiButton.style.display = 'block';
-        // Utilizziamo POIS_LOCATIONS globale o quello rinfrescato da window.APP_DATA
-        const locations = window.APP_DATA ? window.APP_DATA.poisLocations : POIS_LOCATIONS;
-        updatePoiMenu(locations, userLat, userLon, currentLang, allPageData);
+/**
+ * Funzione checkProximity aggiornata (Righe 175-187 circa)
+ * Gestisce la logica di attivazione automatica dei contenuti audio/testuali
+ * in base alla posizione GPS dell'utente.
+ */
+async function checkProximity(position, allData) {
+    const { latitude, longitude } = position.coords;
+    const pois = getPoisLocations(); // Recupero dinamico invece della costante fissa
+
+    for (const poi of pois) {
+        // Calcola la distanza tra l'utente e il POI
+        const distance = calculateDistance(latitude, longitude, poi.lat, poi.lon);
+
+        // Se l'utente è entro il raggio d'azione e il POI non è quello attuale
+        if (distance <= poi.radius && currentPoiId !== poi.id) {
+            console.log(`[GPS] Entrato nel raggio del POI: ${poi.id} (${distance.toFixed(0)}m)`);
+            
+            currentPoiId = poi.id;
+            
+            // Aggiorna l'interfaccia con i dati del nuovo POI
+            // Passiamo allData per gestire le traduzioni
+            updateUI(poi.id, allData);
+            
+            // Se disponibile, attiva automaticamente l'audio (opzionale)
+            const audioPath = getAudioPath(poi.id, currentLang, allData);
+            if (audioPath) {
+                const audioPlayer = document.getElementById('audioPlayer');
+                audioPlayer.src = audioPath;
+                // Nota: Molti browser bloccano l'autoplay senza interazione previa
+            }
+            
+            break; // Esci dal ciclo una volta trovato il POI corrispondente
+        }
     }
-};
+}
 
-const startGeolocation = (allPageData) => {
-    const debugPosition = { coords: { latitude: 44.498910, longitude: 11.342241 } };
-
-    if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(
-            (position) => checkProximity(position, allPageData),
-            (error) => {
-                console.warn(`GPS Error: ${error.message}. Fallback to debug.`);
-                if (nearbyPoiButton) nearbyPoiButton.style.display = 'block';
-                checkProximity(debugPosition, allPageData);
-            },
-            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
-        );
-    } else {
-        if (nearbyPoiButton) nearbyPoiButton.style.display = 'block';
-        checkProximity(debugPosition, allPageData);
+/**
+ * Funzione di supporto per ottenere il percorso audio corretto
+ */
+function getAudioPath(poiId, lang, allData) {
+    if (allData && allData[lang] && allData[lang].pois && allData[lang].pois[poiId]) {
+        return allData[lang].pois[poiId].audio;
     }
-};
-
+    return null;
+}
 // ===========================================
 // CARICAMENTO CONTENUTI (loadContent)
 // ===========================================
@@ -333,26 +354,55 @@ function initEventListeners() {
     const navBarMain = document.getElementById('navBarMain');
     const body = document.body;
 
+    // Gestione Menu Principale (Hamburger)
     if (menuToggle && navBarMain) {
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
             navBarMain.classList.toggle('active');
             body.classList.toggle('menu-open');
+            // Chiudiamo il menu POI se apriamo quello principale
             if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.classList.remove('poi-active');
         });
     }
 
+    // Gestione Menu POI (Dinamico)
     if (nearbyPoiButton && nearbyMenuPlaceholder) {
         nearbyPoiButton.addEventListener('click', () => {
+            const isOpening = !nearbyMenuPlaceholder.classList.contains('poi-active');
+            
+            // Se stiamo aprendo il menu, forziamo un aggiornamento dei contenuti
+            if (isOpening) {
+                console.log("[POI] Apertura menu: recupero dati aggiornati...");
+                
+                // 1. Recuperiamo la posizione attuale (se disponibile)
+                // Se non vogliamo aspettare il GPS, usiamo l'ultima posizione nota salvata globalmente
+                if (typeof lastKnownPosition !== 'undefined' && lastKnownPosition) {
+                    // Chiamiamo la funzione che rigenera l'HTML del menu
+                    // Nota: Assicurati che updatePoiMenu sia accessibile
+                    updatePoiMenu(
+                        getPoisLocations(), 
+                        lastKnownPosition.lat, 
+                        lastKnownPosition.lon, 
+                        currentLang, 
+                        window.ALL_PAGE_DATA // o l'oggetto che contiene le traduzioni
+                    );
+                }
+            }
+
+            // Gestione Toggle UI
             nearbyMenuPlaceholder.classList.toggle('poi-active');
+            
+            // Chiudiamo il menu principale se apriamo i POI
             if (menuToggle) {
                 menuToggle.classList.remove('active');
                 navBarMain.classList.remove('active');
             }
+            
             body.classList.toggle('menu-open', nearbyMenuPlaceholder.classList.contains('poi-active'));
         });
     }
 
+    // Gestione Audio
     const audioPlayer = document.getElementById('audioPlayer');
     const playBtn = document.getElementById('playAudio');
     if (audioPlayer && playBtn) {
@@ -360,10 +410,18 @@ function initEventListeners() {
         audioPlayer.addEventListener('ended', () => handleAudioEnded(audioPlayer, playBtn));
     }
 
+    // Gestione Lingua
     document.querySelectorAll('.language-selector button').forEach(btn => {
-        btn.addEventListener('click', handleLanguageChange);
+        btn.addEventListener('click', (e) => {
+            handleLanguageChange(e);
+            // Opzionale: Se il menu POI è aperto quando si cambia lingua, lo aggiorniamo subito
+            if (nearbyMenuPlaceholder && nearbyMenuPlaceholder.classList.contains('poi-active')) {
+                refreshPoiUI(window.ALL_PAGE_DATA);
+            }
+        });
     });
 }
+
 
 // ===========================================
 // INIT
