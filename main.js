@@ -11,7 +11,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const APP_VERSION = '1.2.21 - Fix in POI menu startGeolocation';
+const APP_VERSION = '1.2.21 - Fix POI menu startGeolocation';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quartiere Porto_lastLang'; 
