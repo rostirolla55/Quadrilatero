@@ -11,7 +11,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const APP_VERSION = '1.2.19 - Fix forEach undefined in POI menu';
+const APP_VERSION = '1.2.21 - Fix in POI menu startGeolocation';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quartiere Porto_lastLang'; 
@@ -104,19 +104,55 @@ const handleAudioEnded = function (audioPlayer, playButton) {
 // ===========================================
 // FUNZIONI POI (PULSANTE VERDE)
 // ===========================================
+/**
+ * Avvia il tracciamento GPS.
+ * Viene chiamata da main.js durante il caricamento.
+ * @param {Object} allData - L'oggetto contenente tutte le traduzioni e i testi.
+ */
+function startGeolocation(allData) {
+    if ("geolocation" in navigator) {
+        console.log("[GPS] Avvio tracciamento posizione...");
+        
+        // Monitora la posizione in tempo reale
+        navigator.geolocation.watchPosition(
+            (position) => {
+                // Chiama la funzione di controllo prossimità che abbiamo aggiornato prima
+                checkProximity(position, allData);
+            },
+            (error) => {
+                console.error("[GPS] Errore Geolocation:", error.message);
+            },
+            {
+                enableHighAccuracy: true, // Massima precisione
+                timeout: 5000,
+                maximumAge: 0
+            }
+        );
+    } else {
+        console.error("[GPS] Geolocation non supportata dal browser.");
+    }
+}
 
-const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371e3;
+/**
+ * Calcola la distanza tra due punti (Formula di Haversine)
+ */
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371e3; // Raggio della Terra in metri
     const φ1 = lat1 * Math.PI / 180;
     const φ2 = lat2 * Math.PI / 180;
     const Δφ = (lat2 - lat1) * Math.PI / 180;
     const Δλ = (lon2 - lon1) * Math.PI / 180;
+
     const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-        Math.cos(φ1) * Math.cos(φ2) *
-        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-};
+
+    return R * c; // Distanza in metri
+}
+
+// Variabile globale per tracciare il POI attivo ed evitare loop
+let currentPoiId = null;
 
 function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     // MARKER: Controllo sicurezza per evitare TypeError se locations è undefined
@@ -427,12 +463,17 @@ function initEventListeners() {
 // INIT
 // ===========================================
 
+// ===========================================
+// INIT
+// ===========================================
+
 document.addEventListener('DOMContentLoaded', () => {
     console.info(`🌍 Versione: ${APP_VERSION}`);
     
     nearbyPoiButton = document.getElementById('nearbyPoiButton');
     nearbyMenuPlaceholder = document.getElementById('nearbyMenuPlaceholder');
 
+    // Gestione Lingua
     let finalLang = 'it';
     const savedLang = localStorage.getItem(LAST_LANG_KEY);
     if (savedLang && LANGUAGES.includes(savedLang)) finalLang = savedLang;
@@ -442,7 +483,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     currentLang = finalLang;
     updateLanguageSelectorActiveState(currentLang);
+    
+    // Inizializza gli eventi (click sui menu, ecc)
     initEventListeners();
+    
+    // Carica i contenuti (che a sua volta caricherà allData)
     loadContent(currentLang);
 
     // Firebase Init
