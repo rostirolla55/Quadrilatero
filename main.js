@@ -28,7 +28,7 @@ let isAuthReady = false;
 // ===========================================
 // DATI: Punti di Interesse GPS
 // ===========================================
-const POIS_LOCATIONS = (window.APP_DATA && window.APP_DATA.poisLocations) ? window.APP_DATA.poisLocations : [];
+const POIS_LOCATIONS = window.APP_DATA.pois;
 
 // ===========================================
 // FUNZIONI UTILITY GENERALI
@@ -240,9 +240,9 @@ async function loadContent(lang) {
 
         // Aggiornamento Navigazione
         const navBarMain = document.getElementById('navBarMain');
-        if (data    .nav && navBarMain) {
+        if (data.nav && navBarMain) {
             const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
-            const navLinksData = window.APP_DATA.navigation;
+            const navLinks = window.APP_DATA.navigation;
             navLinks.forEach(link => {
                 const el = document.getElementById(link.id);
                 if (el) {
