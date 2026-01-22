@@ -11,7 +11,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const APP_VERSION = '1.2.16 - inserito gestione fetch html in loadContent';
+const APP_VERSION = '1.2.17 - Corretto riferimento titoli menu POI';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quartiere Porto_lastLang'; 
@@ -134,10 +134,11 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     if (uniquePois.length > 0) {
         let listItems = '';
         uniquePois.forEach(poi => {
+            // MARKER: Recupero titolo dinamico dal JSON traduzioni
             const poiContent = allPageData ? allPageData[poi.id] : null;
             const displayTitle = (poiContent && poiContent.pageTitle)
                 ? poiContent.pageTitle.trim()
-                : `[Titolo mancante: ${poi.id}]`;
+                : `[POI: ${poi.id}]`;
 
             const langSuffix = userLang === 'it' ? '-it' : `-${userLang}`;
             const href = `${poi.id}${langSuffix}.html`;
@@ -179,6 +180,7 @@ const checkProximity = (position, allPageData) => {
 };
 
 const startGeolocation = (allPageData) => {
+    // Posizione di test (Bologna Porto)
     const debugPosition = { coords: { latitude: 44.498910, longitude: 11.342241 } };
 
     if (navigator.geolocation) {
@@ -292,6 +294,7 @@ async function loadContent(lang) {
             }
         }
 
+        // MARKER: Inizio monitoraggio GPS passando l'intero oggetto data per i titoli POI
         startGeolocation(data);
         document.body.classList.add('content-loaded');
     } catch (error) {
