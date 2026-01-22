@@ -28,7 +28,7 @@ let isAuthReady = false;
 // ===========================================
 // DATI: Punti di Interesse GPS
 // ===========================================
-const POIS_LOCATIONS = window.APP_DATA.pois;
+const POIS_LOCATIONS = (window.APP_DATA && window.APP_DATA.poisLocations) ? window.APP_DATA.poisLocations : [];
 
 // ===========================================
 // FUNZIONI UTILITY GENERALI
