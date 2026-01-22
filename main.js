@@ -11,7 +11,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const APP_VERSION = '1.2.17 - Corretto riferimento titoli menu POI';
+const APP_VERSION = '1.2.18 - Fix forEach undefined in POI menu';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quartiere Porto_lastLang'; 
@@ -28,7 +28,7 @@ let isAuthReady = false;
 // ===========================================
 // DATI: Punti di Interesse GPS
 // ===========================================
-const POIS_LOCATIONS = window.APP_DATA.pois;
+const POIS_LOCATIONS = window.APP_DATA ? window.APP_DATA.pois : [];
 
 // ===========================================
 // FUNZIONI UTILITY GENERALI
@@ -119,6 +119,12 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 };
 
 function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
+    // MARKER: Controllo sicurezza per evitare TypeError se locations è undefined
+    if (!locations || !Array.isArray(locations)) {
+        console.warn("POI Locations data not available yet.");
+        return;
+    }
+
     const nearbyLocations = [];
     locations.forEach(location => {
         const distance = calculateDistance(userLat, userLon, location.lat, location.lon);
@@ -134,7 +140,6 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     if (uniquePois.length > 0) {
         let listItems = '';
         uniquePois.forEach(poi => {
-            // MARKER: Recupero titolo dinamico dal JSON traduzioni
             const poiContent = allPageData ? allPageData[poi.id] : null;
             const displayTitle = (poiContent && poiContent.pageTitle)
                 ? poiContent.pageTitle.trim()
@@ -149,7 +154,7 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
         let maxThreshold = locations.reduce((max, loc) => Math.max(max, loc.distanceThreshold || 50), 0);
         let noPoiMessage;
         switch (userLang) {
-            case 'es': noPoiMessage = `No se encontraron puntos de interés dentro ${maxThreshold}m. <br><br> Pulse de nuevo el botón verde para cerrar.`; break;
+            case 'es': noPoiMessage = `No se encontraron puntos de interés dentro ${maxThreshold}m. <br><br> Pulse de nuovo il botón verde para cerrar.`; break;
             case 'en': noPoiMessage = `No Points of Interest found within ${maxThreshold}m. <br><br> Press the green button again to close.`; break;
             case 'fr': noPoiMessage = `Aucun point d'interet trouve dans les environs ${maxThreshold}m. <br><br> Appuyez à nouveau sur le bouton vert.`; break;
             case 'it':
@@ -175,12 +180,13 @@ const checkProximity = (position, allPageData) => {
 
     if (nearbyPoiButton) {
         nearbyPoiButton.style.display = 'block';
-        updatePoiMenu(POIS_LOCATIONS, userLat, userLon, currentLang, allPageData);
+        // Utilizziamo POIS_LOCATIONS globale o quello rinfrescato da window.APP_DATA
+        const locations = window.APP_DATA ? window.APP_DATA.pois : POIS_LOCATIONS;
+        updatePoiMenu(locations, userLat, userLon, currentLang, allPageData);
     }
 };
 
 const startGeolocation = (allPageData) => {
-    // Posizione di test (Bologna Porto)
     const debugPosition = { coords: { latitude: 44.498910, longitude: 11.342241 } };
 
     if (navigator.geolocation) {
@@ -244,7 +250,7 @@ async function loadContent(lang) {
         const navBarMain = document.getElementById('navBarMain');
         if (data.nav && navBarMain) {
             const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
-            const navLinks = window.APP_DATA.navigation;
+            const navLinks = (window.APP_DATA && window.APP_DATA.navigation) ? window.APP_DATA.navigation : [];
             navLinks.forEach(link => {
                 const el = document.getElementById(link.id);
                 if (el) {
@@ -294,7 +300,6 @@ async function loadContent(lang) {
             }
         }
 
-        // MARKER: Inizio monitoraggio GPS passando l'intero oggetto data per i titoli POI
         startGeolocation(data);
         document.body.classList.add('content-loaded');
     } catch (error) {
