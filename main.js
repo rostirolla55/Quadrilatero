@@ -181,7 +181,7 @@ const checkProximity = (position, allPageData) => {
     if (nearbyPoiButton) {
         nearbyPoiButton.style.display = 'block';
         // Utilizziamo POIS_LOCATIONS globale o quello rinfrescato da window.APP_DATA
-        const locations = window.APP_DATA ? window.APP_DATA.pois : POIS_LOCATIONS;
+        const locations = window.APP_DATA ? window.APP_DATA.poisLocations : POIS_LOCATIONS;
         updatePoiMenu(locations, userLat, userLon, currentLang, allPageData);
     }
 };
