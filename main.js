@@ -11,7 +11,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const APP_VERSION = '1.2.21 - Fix POI menu startGeolocation';
+const APP_VERSION = '1.2.22 - Final POI Fix';
 
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quartiere Porto_lastLang'; 
@@ -25,10 +25,9 @@ let db, auth;
 let currentUserId = null;
 let isAuthReady = false;
 
-// ===========================================
-// DATI: Punti di Interesse GPS
-// ===========================================
-// const POIS_LOCATIONS = window.APP_DATA ? window.APP_DATA.poisLocations : [];
+// Variabile globale per tracciare la posizione e il POI attivo
+window.lastKnownPosition = null;
+let currentPoiId = null;
 
 // ===========================================
 // FUNZIONI UTILITY GENERALI
@@ -102,36 +101,8 @@ const handleAudioEnded = function (audioPlayer, playButton) {
 };
 
 // ===========================================
-// FUNZIONI POI (PULSANTE VERDE)
+// FUNZIONI POI E GEOLOCALIZZAZIONE
 // ===========================================
-/**
- * Avvia il tracciamento GPS.
- * Viene chiamata da main.js durante il caricamento.
- * @param {Object} allData - L'oggetto contenente tutte le traduzioni e i testi.
- */
-function startGeolocation(allData) {
-    if ("geolocation" in navigator) {
-        console.log("[GPS] Avvio tracciamento posizione...");
-        
-        // Monitora la posizione in tempo reale
-        navigator.geolocation.watchPosition(
-            (position) => {
-                // Chiama la funzione di controllo prossimità che abbiamo aggiornato prima
-                checkProximity(position, allData);
-            },
-            (error) => {
-                console.error("[GPS] Errore Geolocation:", error.message);
-            },
-            {
-                enableHighAccuracy: true, // Massima precisione
-                timeout: 5000,
-                maximumAge: 0
-            }
-        );
-    } else {
-        console.error("[GPS] Geolocation non supportata dal browser.");
-    }
-}
 
 /**
  * Calcola la distanza tra due punti (Formula di Haversine)
@@ -151,11 +122,61 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     return R * c; // Distanza in metri
 }
 
-// Variabile globale per tracciare il POI attivo ed evitare loop
-let currentPoiId = null;
+function getPoisLocations() {
+    return (window.APP_DATA && window.APP_DATA.poisLocations) ? window.APP_DATA.poisLocations : [];
+}
 
+/**
+ * Avvia il tracciamento GPS.
+ */
+function startGeolocation(allData) {
+    if ("geolocation" in navigator) {
+        console.log("[GPS] Avvio tracciamento posizione...");
+        
+        navigator.geolocation.watchPosition(
+            (position) => {
+                // Salviamo la posizione globalmente per il menu POI
+                window.lastKnownPosition = {
+                    lat: position.coords.latitude,
+                    lon: position.coords.longitude
+                };
+                checkProximity(position, allData);
+            },
+            (error) => {
+                console.error("[GPS] Errore Geolocation:", error.message);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            }
+        );
+    } else {
+        console.error("[GPS] Geolocation non supportata dal browser.");
+    }
+}
+
+async function checkProximity(position, allData) {
+    const { latitude, longitude } = position.coords;
+    const pois = getPoisLocations();
+
+    for (const poi of pois) {
+        const distance = calculateDistance(latitude, longitude, poi.lat, poi.lon);
+
+        if (distance <= (poi.radius || 50) && currentPoiId !== poi.id) {
+            console.log(`[GPS] Entrato nel raggio del POI: ${poi.id} (${distance.toFixed(0)}m)`);
+            currentPoiId = poi.id;
+            
+            // Nota: Se hai una funzione updateUI definita altrove, chiamala qui
+            // updateUI(poi.id, allData);
+        }
+    }
+}
+
+/**
+ * Aggiorna l'HTML del menu POI verde
+ */
 function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
-    // MARKER: Controllo sicurezza per evitare TypeError se locations è undefined
     if (!locations || !Array.isArray(locations)) {
         console.warn("POI Locations data not available yet.");
         return;
@@ -164,7 +185,7 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     const nearbyLocations = [];
     locations.forEach(location => {
         const distance = calculateDistance(userLat, userLon, location.lat, location.lon);
-        if (distance <= location.distanceThreshold) {
+        if (distance <= (location.distanceThreshold || 500)) { // Raggio di visibilità nel menu
             nearbyLocations.push({ ...location, distance: distance });
         }
     });
@@ -176,10 +197,10 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     if (uniquePois.length > 0) {
         let listItems = '';
         uniquePois.forEach(poi => {
-            const poiContent = allPageData ? allPageData[poi.id] : null;
-            const displayTitle = (poiContent && poiContent.pageTitle)
-                ? poiContent.pageTitle.trim()
-                : `[POI: ${poi.id}]`;
+            // Cerchiamo il titolo nelle traduzioni o usiamo ID
+            const displayTitle = (allPageData && allPageData.nav && allPageData.nav[poi.id]) 
+                                 ? allPageData.nav[poi.id] 
+                                 : poi.id;
 
             const langSuffix = userLang === 'it' ? '-it' : `-${userLang}`;
             const href = `${poi.id}${langSuffix}.html`;
@@ -190,13 +211,13 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
         let maxThreshold = locations.reduce((max, loc) => Math.max(max, loc.distanceThreshold || 50), 0);
         let noPoiMessage;
         switch (userLang) {
-            case 'es': noPoiMessage = `No se encontraron puntos de interés dentro ${maxThreshold}m. <br><br> Pulse de nuovo il botón verde para cerrar.`; break;
+            case 'es': noPoiMessage = `No si trovano puntos de interés dentro de ${maxThreshold}m. <br><br> Pulse de nuevo para cerrar.`; break;
             case 'en': noPoiMessage = `No Points of Interest found within ${maxThreshold}m. <br><br> Press the green button again to close.`; break;
-            case 'fr': noPoiMessage = `Aucun point d'interet trouve dans les environs ${maxThreshold}m. <br><br> Appuyez à nouveau sur le bouton vert.`; break;
+            case 'fr': noPoiMessage = `Aucun point d'intérêt trouvé dans i ${maxThreshold}m. <br><br> Appuyez à nouveau pour fermer.`; break;
             case 'it':
             default: noPoiMessage = `Nessun Punto di Interesse trovato entro ${maxThreshold}m.<br><br> Premere di nuovo il bottone verde per chiudere.`; break;
         }
-        menuHtml = `<div style="color:red; padding: 20px; text-align: center;">${noPoiMessage}</div>`;
+        menuHtml = `<div style="color:#fff; padding: 20px; text-align: center;">${noPoiMessage}</div>`;
     }
 
     if (nearbyMenuPlaceholder) {
@@ -204,64 +225,6 @@ function updatePoiMenu(locations, userLat, userLon, userLang, allPageData) {
     }
 }
 
-// ===========================================
-// GEOLOCALIZZAZIONE
-// ===========================================
-
-/**
- * Recupera dinamicamente i dati dei POI dall'oggetto globale.
- * Questo evita errori di sincronizzazione se il file di configurazione
- * viene caricato dopo il file logico.
- */
-function getPoisLocations() {
-    return (window.APP_DATA && window.APP_DATA.poisLocations) ? window.APP_DATA.poisLocations : [];
-}
-
-/**
- * Funzione checkProximity aggiornata (Righe 175-187 circa)
- * Gestisce la logica di attivazione automatica dei contenuti audio/testuali
- * in base alla posizione GPS dell'utente.
- */
-async function checkProximity(position, allData) {
-    const { latitude, longitude } = position.coords;
-    const pois = getPoisLocations(); // Recupero dinamico invece della costante fissa
-
-    for (const poi of pois) {
-        // Calcola la distanza tra l'utente e il POI
-        const distance = calculateDistance(latitude, longitude, poi.lat, poi.lon);
-
-        // Se l'utente è entro il raggio d'azione e il POI non è quello attuale
-        if (distance <= poi.radius && currentPoiId !== poi.id) {
-            console.log(`[GPS] Entrato nel raggio del POI: ${poi.id} (${distance.toFixed(0)}m)`);
-            
-            currentPoiId = poi.id;
-            
-            // Aggiorna l'interfaccia con i dati del nuovo POI
-            // Passiamo allData per gestire le traduzioni
-            updateUI(poi.id, allData);
-            
-            // Se disponibile, attiva automaticamente l'audio (opzionale)
-            const audioPath = getAudioPath(poi.id, currentLang, allData);
-            if (audioPath) {
-                const audioPlayer = document.getElementById('audioPlayer');
-                audioPlayer.src = audioPath;
-                // Nota: Molti browser bloccano l'autoplay senza interazione previa
-            }
-            
-            break; // Esci dal ciclo una volta trovato il POI corrispondente
-        }
-    }
-}
-
-/**
- * Funzione di supporto per ottenere il percorso audio corretto
- */
-function getAudioPath(poiId, lang, allData) {
-    if (allData && allData[lang] && allData[lang].pois && allData[lang].pois[poiId]) {
-        return allData[lang].pois[poiId].audio;
-    }
-    return null;
-}
 // ===========================================
 // CARICAMENTO CONTENUTI (loadContent)
 // ===========================================
@@ -357,7 +320,12 @@ async function loadContent(lang) {
             }
         }
 
+        // Salviamo i dati globalmente per il menu POI
+        window.ALL_PAGE_DATA = data;
+        
+        // AVVIO GEOLOCALIZZAZIONE (Dopo il caricamento dati)
         startGeolocation(data);
+        
         document.body.classList.add('content-loaded');
     } catch (error) {
         console.error('Critical load error:', error);
@@ -396,7 +364,6 @@ function initEventListeners() {
             menuToggle.classList.toggle('active');
             navBarMain.classList.toggle('active');
             body.classList.toggle('menu-open');
-            // Chiudiamo il menu POI se apriamo quello principale
             if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.classList.remove('poi-active');
         });
     }
@@ -406,34 +373,27 @@ function initEventListeners() {
         nearbyPoiButton.addEventListener('click', () => {
             const isOpening = !nearbyMenuPlaceholder.classList.contains('poi-active');
             
-            // Se stiamo aprendo il menu, forziamo un aggiornamento dei contenuti
             if (isOpening) {
-                console.log("[POI] Apertura menu: recupero dati aggiornati...");
+                console.log("[POI] Apertura menu: calcolo distanze...");
                 
-                // 1. Recuperiamo la posizione attuale (se disponibile)
-                // Se non vogliamo aspettare il GPS, usiamo l'ultima posizione nota salvata globalmente
-                if (typeof lastKnownPosition !== 'undefined' && lastKnownPosition) {
-                    // Chiamiamo la funzione che rigenera l'HTML del menu
-                    // Nota: Assicurati che updatePoiMenu sia accessibile
+                if (window.lastKnownPosition) {
                     updatePoiMenu(
                         getPoisLocations(), 
-                        lastKnownPosition.lat, 
-                        lastKnownPosition.lon, 
+                        window.lastKnownPosition.lat, 
+                        window.lastKnownPosition.lon, 
                         currentLang, 
-                        window.ALL_PAGE_DATA // o l'oggetto che contiene le traduzioni
+                        window.ALL_PAGE_DATA
                     );
+                } else {
+                    nearbyMenuPlaceholder.innerHTML = `<div style="color:orange; padding:20px; text-align:center;">Attivazione GPS in corso...</div>`;
                 }
             }
 
-            // Gestione Toggle UI
             nearbyMenuPlaceholder.classList.toggle('poi-active');
-            
-            // Chiudiamo il menu principale se apriamo i POI
             if (menuToggle) {
                 menuToggle.classList.remove('active');
                 navBarMain.classList.remove('active');
             }
-            
             body.classList.toggle('menu-open', nearbyMenuPlaceholder.classList.contains('poi-active'));
         });
     }
@@ -448,20 +408,9 @@ function initEventListeners() {
 
     // Gestione Lingua
     document.querySelectorAll('.language-selector button').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            handleLanguageChange(e);
-            // Opzionale: Se il menu POI è aperto quando si cambia lingua, lo aggiorniamo subito
-            if (nearbyMenuPlaceholder && nearbyMenuPlaceholder.classList.contains('poi-active')) {
-                refreshPoiUI(window.ALL_PAGE_DATA);
-            }
-        });
+        btn.addEventListener('click', handleLanguageChange);
     });
 }
-
-
-// ===========================================
-// INIT
-// ===========================================
 
 // ===========================================
 // INIT
@@ -473,7 +422,6 @@ document.addEventListener('DOMContentLoaded', () => {
     nearbyPoiButton = document.getElementById('nearbyPoiButton');
     nearbyMenuPlaceholder = document.getElementById('nearbyMenuPlaceholder');
 
-    // Gestione Lingua
     let finalLang = 'it';
     const savedLang = localStorage.getItem(LAST_LANG_KEY);
     if (savedLang && LANGUAGES.includes(savedLang)) finalLang = savedLang;
@@ -484,14 +432,11 @@ document.addEventListener('DOMContentLoaded', () => {
     currentLang = finalLang;
     updateLanguageSelectorActiveState(currentLang);
     
-    // Inizializza gli eventi (click sui menu, ecc)
     initEventListeners();
-    
-    // Carica i contenuti (che a sua volta caricherà allData)
     loadContent(currentLang);
 
     // Firebase Init
-    if (typeof initializeApp !== 'undefined' && firebaseConfig.apiKey) {
+    if (typeof firebaseConfig.apiKey !== 'undefined') {
         const app = initializeApp(firebaseConfig);
         db = getFirestore(app);
         auth = getAuth(app);
