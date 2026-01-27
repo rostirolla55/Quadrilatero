@@ -26,7 +26,7 @@
         "navLastre": "House numbers on sandstone slabs",
         "navPugliole": "The pugliole",
         "navChiesaSBene": "Church of San Benedetto",
-        "navChiesaPioggia": "Church of the Rain",
+        "navsantuariopioggia": "Church of the Rain",
         "navPioggia1": "Landscape with Saint Bartholomew Alfonso Lombardi",
         "navPioggia2": "Sculpture of Saint Bartholomew Ludovico Mattioli",
         "navPioggia3": "The Adoration of the Shepherds Agostino Carracci",
@@ -142,10 +142,10 @@
         "lastUpdate": "2025-12-19",
         "audioSource": "en/chiesasbene.mp3"
     },
-    "chiesapioggia": {
+    "santuariopioggia": {
         "pageTitle": "Church of the Rain",
         "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
-        "mainText1": "en_chiesapioggia_maintext1.html",
+        "mainText1": "en_santuariopioggia_maintext1.html",
         "mainText2": "",
         "mainText3": "",
         "mainText4": "",
@@ -161,7 +161,7 @@
         "sourceText": "",
         "creationDate": "2025-08-30",
         "lastUpdate": "2025-12-19",
-        "audioSource": "en/chiesapioggia.mp3"
+        "audioSource": "en/santuariopioggia.mp3"
     },
     "pioggia1": {
         "pageTitle": "Landscape with St. Bartholomew",
@@ -173,7 +173,7 @@
         "mainText5": "",
         "playAudioButton": "Listen with headphones",
         "pauseAudioButton": "Pause",
-        "headImage": "chiesapioggia.jpg",
+        "headImage": "santuariopioggia.jpg",
         "imageSource1": "pioggia1/Paesaggio_con_San_Bartolomeo.jpg",
         "imageSource2": "",
         "imageSource3": "",
@@ -194,7 +194,7 @@
         "mainText5": "",
         "playAudioButton": "Listen with headphones",
         "pauseAudioButton": "Pause",
-        "headImage": "chiesapioggia.jpg",
+        "headImage": "santuariopioggia.jpg",
         "imageSource1": "pioggia2/San_Bartolomeo.jpg",
         "imageSource2": "",
         "imageSource3": "",
@@ -215,7 +215,7 @@
         "mainText5": "",
         "playAudioButton": "Listen with headphones",
         "pauseAudioButton": "Pause",
-        "headImage": "chiesapioggia.jpg",
+        "headImage": "santuariopioggia.jpg",
         "imageSource1": "pioggia3/AdorazionePastori.jpg",
         "imageSource2": "",
         "imageSource3": "",
@@ -297,8 +297,8 @@
         "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/San-Benedetto-Bologna-602DC </font> </p>",
         "sourceText": "",
         "lastUpdate": "2025-12-19",
-        "headImage": "chiesapioggia.jpg",
-        "audioSource": "en/chiesapioggia.mp3"
+        "headImage": "santuariopioggia.jpg",
+        "audioSource": "en/santuariopioggia.mp3"
     },
     "bsmariamaggiore": {
         "headImage": "panorama_bologna.jpg",
