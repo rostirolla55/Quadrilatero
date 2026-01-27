@@ -43,7 +43,7 @@ const POIS_LOCATIONS = [
     // ViaGalliera79.jpg 44.501514, 11.343557
     { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120 },
     // Piazzetta Pioggia da Galliera 44.498910, 11.342241
-    { id: 'chiesapioggia', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
+    { id: 'santuariopioggia', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
     // Paesaggio con San Bartolomeo Alfonso Lombardi -  44.498910, 11.342241
     { id: 'pioggia1', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
     // Scultura San Bartolomeo - 44.498910, 11.342241
@@ -317,6 +317,7 @@ async function loadContent(lang) {
                 { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
                 { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
                 { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene' },
+                { id: 'navSantuarioPioggia', key: 'navSantuarioPioggia', base: 'santuariopioggia' },
                 { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
                 { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
                 { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
