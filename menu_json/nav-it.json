@@ -64,6 +64,11 @@
             "id": "navCavaticcio",
             "href": "cavaticcio-it.html",
             "text": "Centrale idroelettrica del Cavaticcio"
+        },
+        {
+            "id": "navbsmariamaggiore",
+            "href": "bsmariamaggiore-it.html",
+            "text": "Basilica Santa Maria Maggiore"
         }
     ]
 }
