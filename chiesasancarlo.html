@@ -10,16 +10,45 @@
   <link href="style.css" rel="stylesheet"/>
   
   <style>
-    /* CORREZIONE ILLEGIBILITÀ MENU:
-       Assicuriamo che il menu di navigazione non utilizzi font esterni 
-       ma erediti correttamente lo stile dal tuo file CSS o dai default di sistema.
-    */
-    .nav-bar-main, 
-    .nav-list, 
+    /* FORZATURA LEGGIBILITÀ MENU (OVERRIDE VIOLA) */
+    .nav-bar-main {
+        background-color: #000000 !important; /* Fondo nero deciso */
+    }
+
+    .nav-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .nav-list li {
+        border-bottom: 1px solid #333; /* Separatore sottile scuro */
+    }
+
     .nav-list a {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
-        font-weight: 500; /* Peso leggibile */
-        text-decoration: none;
+        display: block;
+        padding: 15px 20px;
+        color: #FFFFFF !important; /* TESTO BIANCO PURO PER MASSIMO CONTRASTO */
+        text-decoration: none !important;
+        font-family: sans-serif !important;
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: background 0.3s;
+    }
+
+    /* Effetto al tocco/passaggio mouse */
+    .nav-list a:hover, 
+    .nav-list a:active {
+        background-color: #333333 !important; /* Grigio scuro al passaggio */
+        color: #FFD700 !important; /* Giallo oro per evidenziare la selezione */
+    }
+
+    /* Messaggio di caricamento leggibile */
+    #loading-message {
+        color: white;
+        background: black;
+        text-align: center;
+        padding: 20px;
     }
   </style>
 
