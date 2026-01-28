@@ -9,49 +9,64 @@
   <!-- Carichiamo il tuo stile originale -->
   <link href="style.css" rel="stylesheet"/>
   
-  <style>
-    /* FORZATURA LEGGIBILITÀ MENU (OVERRIDE VIOLA) */
-    .nav-bar-main {
-        background-color: #000000 !important; /* Fondo nero deciso */
-    }
+    <style>
+        /* Forza il tema scuro su ogni dispositivo, inclusi smartphone */
+        :root {
+            --bg-primary: #121212;
+            --text-primary: #f0f0f0;
+            --accent-gold: #e5c07b;
+            --card-bg: #1e1e1e;
+        }
 
-    .nav-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
+        body {
+            background-color: var(--bg-primary) !important;
+            color: var(--text-primary) !important;
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent; /* Rimuove l'evidenziazione blu/viola al tocco su mobile */
+        }
 
-    .nav-list li {
-        border-bottom: 1px solid #333; /* Separatore sottile scuro */
-    }
+        /* Correzione specifica per Mobile: sovrascriviamo eventuali media queries precedenti */
+        @media (max-width: 768px) {
+            .mobile-container {
+                background-color: var(--bg-primary) !important;
+            }
+            
+            h1, h2, p, span, div {
+                color: var(--text-primary) !important;
+            }
 
-    .nav-list a {
-        display: block;
-        padding: 15px 20px;
-        color: #FFFFFF !important; /* TESTO BIANCO PURO PER MASSIMO CONTRASTO */
-        text-decoration: none !important;
-        font-family: sans-serif !important;
-        font-size: 1.1rem;
-        font-weight: 500;
-        transition: background 0.3s;
-    }
+            .card {
+                background-color: var(--card-bg) !important;
+                border: 1px solid #333;
+            }
 
-    /* Effetto al tocco/passaggio mouse */
-    .nav-list a:hover, 
-    .nav-list a:active {
-        background-color: #333333 !important; /* Grigio scuro al passaggio */
-        color: #FFD700 !important; /* Giallo oro per evidenziare la selezione */
-    }
+            /* Rimuove link viola o blu di default */
+            a {
+                color: var(--accent-gold) !important;
+                text-decoration: none;
+            }
+        }
 
-    /* Messaggio di caricamento leggibile */
-    #loading-message {
-        color: white;
-        background: black;
-        text-align: center;
-        padding: 20px;
-    }
-  </style>
+        .museum-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-gold);
+        }
 
+        .btn-primary {
+            background-color: var(--accent-gold);
+            color: #000 !important;
+            font-weight: bold;
+            padding: 12px 24px;
+            border-radius: 8px;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E57BP15BBX">
   </script>
   <script>
