@@ -10,68 +10,69 @@
   <link href="style.css" rel="stylesheet"/>
   
     <style>
-        /* Reset totale per eliminare viola e blu di sistema */
-        * {
+        /* Reset per eliminare i colori dei link visitati (viola) */
+        :root {
+            --bg-dark: #000000;
+            --text-light: #ffffff;
+            --bg-light: #ffffff;
+            --text-dark: #1a1a1a;
+            --accent-hover: #3b82f6; /* Blu per l'hover */
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            font-family: system-ui, -apple-system, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* Elimina il flash viola al tocco su Android/iOS */
         }
 
-        /* Forza lo sfondo nero su TUTTO il documento */
-        html, body {
-            background-color: #000000 !important;
-            color: #ffffff !important;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            min-height: 100vh;
-        }
-
-        /* Sovrascrittura link: mai più viola */
-        a, button, span, h1, h2, h3, p {
-            color: inherit !important;
-            text-decoration: none !important;
-        }
-
-        /* Palette colori specifica */
-        .text-accent { color: #E5C07B !important; } /* Oro */
-        .bg-card { background-color: #1A1A1A !important; } /* Grigio molto scuro */
-        .border-accent { border-color: #E5C07B !important; }
-
-        /* Contenitore principale */
-        .app-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #000000 !important;
-        }
-
-        .card {
-            background-color: #1A1A1A !important;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #333;
-        }
-
-        .btn-gold {
-            background-color: #E5C07B !important;
-            color: #000000 !important;
-            font-weight: 700;
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            display: block;
+        /* Navigazione NERA con testo BIANCO su ogni dispositivo */
+        nav {
+            background-color: var(--bg-dark) !important;
             width: 100%;
-            transition: opacity 0.2s;
         }
 
-        .btn-gold:active {
-            opacity: 0.8;
+        .nav-link {
+            display: block;
+            padding: 15px 20px;
+            color: var(--text-light) !important;
+            text-decoration: none !important;
+            border-bottom: 1px solid #333;
+            font-weight: 500;
+            transition: background-color 0.2s;
         }
 
-        /* Rimuove il viola dei link visitati */
-        a:visited {
-            color: #E5C07B !important;
+        /* Forza il colore bianco anche per i link visitati */
+        .nav-link:visited, .nav-link:active, .nav-link:link {
+            color: var(--text-light) !important;
+        }
+
+        .nav-link:hover {
+            background-color: #222;
+            color: var(--accent-hover) !important;
+        }
+
+        header {
+            background-color: var(--bg-light);
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 800px;
+            }
+        }
+
+        .content-area {
+            padding: 2rem 1.5rem;
+            line-height: 1.6;
         }
     </style>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E57BP15BBX">
