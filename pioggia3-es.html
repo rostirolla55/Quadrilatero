@@ -10,61 +10,68 @@
   <link href="style.css" rel="stylesheet"/>
   
     <style>
-        /* Forza il tema scuro su ogni dispositivo, inclusi smartphone */
-        :root {
-            --bg-primary: #121212;
-            --text-primary: #f0f0f0;
-            --accent-gold: #e5c07b;
-            --card-bg: #1e1e1e;
-        }
-
-        body {
-            background-color: var(--bg-primary) !important;
-            color: var(--text-primary) !important;
-            font-family: system-ui, -apple-system, sans-serif;
+        /* Reset totale per eliminare viola e blu di sistema */
+        * {
             margin: 0;
             padding: 0;
-            -webkit-tap-highlight-color: transparent; /* Rimuove l'evidenziazione blu/viola al tocco su mobile */
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent; /* Elimina il flash viola al tocco su Android/iOS */
         }
 
-        /* Correzione specifica per Mobile: sovrascriviamo eventuali media queries precedenti */
-        @media (max-width: 768px) {
-            .mobile-container {
-                background-color: var(--bg-primary) !important;
-            }
-            
-            h1, h2, p, span, div {
-                color: var(--text-primary) !important;
-            }
-
-            .card {
-                background-color: var(--card-bg) !important;
-                border: 1px solid #333;
-            }
-
-            /* Rimuove link viola o blu di default */
-            a {
-                color: var(--accent-gold) !important;
-                text-decoration: none;
-            }
+        /* Forza lo sfondo nero su TUTTO il documento */
+        html, body {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
         }
 
-        .museum-card {
-            background: var(--card-bg);
-            border-radius: 12px;
+        /* Sovrascrittura link: mai più viola */
+        a, button, span, h1, h2, h3, p {
+            color: inherit !important;
+            text-decoration: none !important;
+        }
+
+        /* Palette colori specifica */
+        .text-accent { color: #E5C07B !important; } /* Oro */
+        .bg-card { background-color: #1A1A1A !important; } /* Grigio molto scuro */
+        .border-accent { border-color: #E5C07B !important; }
+
+        /* Contenitore principale */
+        .app-container {
+            max-width: 600px;
+            margin: 0 auto;
             padding: 20px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--accent-gold);
+            background-color: #000000 !important;
         }
 
-        .btn-primary {
-            background-color: var(--accent-gold);
-            color: #000 !important;
-            font-weight: bold;
-            padding: 12px 24px;
-            border-radius: 8px;
-            display: inline-block;
+        .card {
+            background-color: #1A1A1A !important;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+        }
+
+        .btn-gold {
+            background-color: #E5C07B !important;
+            color: #000000 !important;
+            font-weight: 700;
+            padding: 15px;
+            border-radius: 12px;
             text-align: center;
+            display: block;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+
+        .btn-gold:active {
+            opacity: 0.8;
+        }
+
+        /* Rimuove il viola dei link visitati */
+        a:visited {
+            color: #E5C07B !important;
         }
     </style>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E57BP15BBX">
