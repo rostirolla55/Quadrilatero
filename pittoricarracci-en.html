@@ -6,7 +6,23 @@
   <title id="pageTitle">
    Caricamento...
   </title>
+  <!-- Carichiamo il tuo stile originale -->
   <link href="style.css" rel="stylesheet"/>
+  
+  <style>
+    /* CORREZIONE ILLEGIBILITÀ MENU:
+       Assicuriamo che il menu di navigazione non utilizzi font esterni 
+       ma erediti correttamente lo stile dal tuo file CSS o dai default di sistema.
+    */
+    .nav-bar-main, 
+    .nav-list, 
+    .nav-list a {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+        font-weight: 500; /* Peso leggibile */
+        text-decoration: none;
+    }
+  </style>
+
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E57BP15BBX">
   </script>
   <script>
