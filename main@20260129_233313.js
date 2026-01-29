@@ -23,8 +23,8 @@ let db, auth, currentUserId = null, isAuthReady = false;
 // DATI: POI GPS (Tutti i 13 punti originali)
 // ===========================================
 const POIS_LOCATIONS = [
-    { id: 'manifattura', lat: 44.49891, lon: 11.342241, distanceThreshold: 50 },
-    { id: 'pittoricarracci', lat: 44.50085, lon: 11.3361, distanceThreshold: 50 },
+    { id: 'manifattura', lat: 44.498910, lon: 11.342241, distanceThreshold: 50 },
+    { id: 'pittoricarracci', lat: 44.50085, lon: 11.33610, distanceThreshold: 50 },
     { id: 'cavaticcio', lat: 44.50018, lon: 11.33807, distanceThreshold: 50 },
     { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50 },
     { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50 },
@@ -32,10 +32,10 @@ const POIS_LOCATIONS = [
     { id: 'carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50 },
     { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50 },
     { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120 },
-    { id: 'santuariopioggia', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
-    { id: 'pioggia1', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
-    { id: 'pioggia2', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
-    { id: 'pioggia3', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 }
+    { id: 'chiesapioggia', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
+    { id: 'pioggia1', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
+    { id: 'pioggia2', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 },
+    { id: 'pioggia3', lat: 44.498910, lon: 11.342241, distanceThreshold: 120 }
 ];
 
 // ===========================================
@@ -72,7 +72,7 @@ function setupDrinListener() {
     onSnapshot(drinDocRef, (snap) => {
         if (snap.exists()) {
             const audio = new Audio('Assets/Audio/drin.mp3');
-            audio.play().catch(() => { });
+            audio.play().catch(() => {});
         }
     });
 }
@@ -92,7 +92,7 @@ async function logAccess(pageId, lang) {
 async function loadContent(lang) {
     document.documentElement.lang = lang;
     const pageId = getCurrentPageId();
-
+    
     try {
         const response = await fetch(`data/translations/${lang}/texts.json`);
         const data = await response.json();
@@ -107,7 +107,7 @@ async function loadContent(lang) {
         // 1. Titoli e Header
         updateText('pageTitle', pageData.pageTitle);
         updateHTML('headerTitle', pageData.pageTitle);
-
+        
         // 2. Immagine di Testata
         const headImg = document.getElementById('headImage');
         if (headImg && pageData.headImage) {
@@ -170,21 +170,20 @@ async function loadContent(lang) {
 function updateNavigation(navData, lang) {
     if (!navData) return;
     const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
-    const navLinksData = [
+    const links = [
         { id: 'navHome', key: 'navHome', base: 'index' },
-        { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
-        { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
-        { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' },
-        { id: 'navbsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore' },
-        { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
-        { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
         { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
         { id: 'navLastre', key: 'navLastre', base: 'lastre' },
+        { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
+        { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
         { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene' },
-        { id: 'navSantuarioPioggia', key: 'navSantuarioPioggia', base: 'santuariopioggia' },
         { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
         { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
-        { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' }
+        { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
+        { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
+        { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
+        { id: 'navbsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore' },
+        { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' }
     ];
     links.forEach(l => {
         const el = document.getElementById(l.id);
@@ -203,8 +202,8 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371e3;
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
 };
 
 function startGeolocation(allData) {
@@ -213,7 +212,7 @@ function startGeolocation(allData) {
         const lat = pos.coords.latitude;
         const lon = pos.coords.longitude;
         if (nearbyPoiButton) nearbyPoiButton.style.display = 'block';
-
+        
         let menuHtml = '<ul class="poi-links">';
         let found = false;
         POIS_LOCATIONS.forEach(poi => {
@@ -296,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const app = initializeApp(firebaseConfig);
         db = getFirestore(app);
         auth = getAuth(app);
-
+        
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 currentUserId = user.uid;
