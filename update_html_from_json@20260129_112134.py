@@ -5,8 +5,7 @@ from bs4 import BeautifulSoup
 
 def update_html_from_json():
     """
-    Aggiorna i file HTML ripristinando la struttura corretta del menu:
-    <nav id="navBarMain"> -> <div class="nav-bar-content"> -> <ul>
+    Aggiorna i file HTML leggendo i dati dai file JSON situati nella cartella 'menu_json'.
     """
     # Directory principale (dove si trovano gli HTML)
     root_path = os.getcwd()
@@ -59,8 +58,7 @@ def update_html_from_json():
         
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-                soup = BeautifulSoup(content, 'html.parser')
+                soup = BeautifulSoup(f, 'html.parser')
             
             nav_tag = soup.find('nav', id='navBarMain')
             
@@ -68,12 +66,8 @@ def update_html_from_json():
                 # Sostituiamo il contenuto del tag nav
                 nav_tag.clear()
                 
-                # 1. Creiamo il div intermedio 'nav-bar-content'
-                nav_content_div = soup.new_tag('div', attrs={'class': 'nav-bar-content'})
-                
-                # 2. Creiamo la lista ul (rimossa la classe 'nav-list' per tornare all'originale)
-                ul = soup.new_tag('ul')
-                
+                # Creiamo la nuova struttura
+                ul = soup.new_tag('ul', attrs={'class': 'nav-list'})
                 for item in menu_data[lang].get('items', []):
                     li = soup.new_tag('li')
                     a = soup.new_tag('a', href=item['href'])
@@ -83,15 +77,12 @@ def update_html_from_json():
                     li.append(a)
                     ul.append(li)
                 
-                # Assemblaggio della struttura: nav -> div -> ul
-                nav_content_div.append(ul)
-                nav_tag.append(nav_content_div)
+                nav_tag.append(ul)
                 
-                # Scrittura su file
+                # Scrittura su file (mantenendo la formattazione pulita)
                 with open(file_path, 'w', encoding='utf-8') as f:
-                    # Usiamo formatter=None per evitare l'encoding delle entità HTML se necessario
-                    f.write(soup.prettify(formatter="html"))
-                print(f"OK: {html_name} aggiornato con la struttura corretta.")
+                    f.write(soup.prettify())
+                print(f"OK: {html_name} aggiornato con successo.")
             else:
                 print(f"AVVISO: {html_name} non contiene <nav id='navBarMain'>")
                 
@@ -99,6 +90,6 @@ def update_html_from_json():
             print(f"Errore durante l'elaborazione di {html_name}: {e}")
 
 if __name__ == "__main__":
-    print("Inizio aggiornamento automatico menu (versione layout originale)...")
+    print("Inizio aggiornamento automatico menu...")
     update_html_from_json()
     print("\nProcedura completata.")
