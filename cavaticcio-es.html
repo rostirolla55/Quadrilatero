@@ -175,7 +175,11 @@
     </footer>
    </main>
   </div>
-  <script src="main.js" type="module">
+    <!-- Carica prima i dati di configurazione (GPS e Navigazione) -->
+    <script src="config.js"></script>
+    
+    <!-- Carica poi il motore dell'applicazione che userà quei dati -->
+    <script type="module" src="main.js"></script>
   </script>
  </body>
 </html>
