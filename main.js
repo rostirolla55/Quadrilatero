@@ -5,7 +5,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const APP_VERSION = '1.2.30 - Full Restoration 2026 ';
+const APP_VERSION = '1.2.30 - Full Restoration 2026 versione rettificata';
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quadrilatero_lastLang';
 let currentLang = 'it';
@@ -23,7 +23,7 @@ let db, auth, currentUserId = null, isAuthReady = false;
 // DATI: POI GPS (Tutti i 13 punti originali)
 // ===========================================
 // FIX: Controllo che window.APP_DATA e navLinksData esistano per evitare TypeError
-const navLinksData_futuro = (window.APP_DATA && window.APP_DATA.navLinksData) ? window.APP_DATA.navLinksData : [];
+// const navLinksData_futuro = (window.APP_DATA && window.APP_DATA.navLinksData) ? window.APP_DATA.navLinksData : [];
 
 const POIS_LOCATIONS = [
     { id: 'manifattura', lat: 44.49891, lon: 11.342241, distanceThreshold: 50 },
@@ -175,7 +175,7 @@ function updateNavigation(navData, lang) {
     const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
 
     // FIX: Controllo che window.APP_DATA e navLinksData esistano per evitare TypeError
-    const navLinksData_futuro = (window.APP_DATA && window.APP_DATA.navLinksData) ? window.APP_DATA.navLinksData : [];
+//    const navLinksData_futuro = (window.APP_DATA && window.APP_DATA.navLinksData) ? window.APP_DATA.navLinksData : [];
 
     const navLinksData = [
         { id: 'navHome', key: 'navHome', base: 'index' },
