@@ -5,11 +5,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const APP_VERSION = '1.2.30 - Full Restoration 2026 versione rettificata';
+const APP_VERSION = '1.2.31 - Fix POI & Navigation';
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quadrilatero_lastLang';
 let currentLang = 'it';
 console.log(`Version : ${APP_VERSION}`);
+
 // Elementi DOM Globali
 let nearbyPoiButton;
 let nearbyMenuPlaceholder;
@@ -20,11 +21,8 @@ const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__f
 let db, auth, currentUserId = null, isAuthReady = false;
 
 // ===========================================
-// DATI: POI GPS (Tutti i 13 punti originali)
+// DATI: POI GPS
 // ===========================================
-// FIX: Controllo che window.APP_DATA e navLinksData esistano per evitare TypeError
-// const navLinksData_futuro = (window.APP_DATA && window.APP_DATA.navLinksData) ? window.APP_DATA.navLinksData : [];
-
 const POIS_LOCATIONS = [
     { id: 'manifattura', lat: 44.49891, lon: 11.342241, distanceThreshold: 50 },
     { id: 'pittoricarracci', lat: 44.50085, lon: 11.3361, distanceThreshold: 50 },
@@ -42,9 +40,8 @@ const POIS_LOCATIONS = [
 ];
 
 // ===========================================
-// UTILITY E SUPPORTO
+// UTILITY
 // ===========================================
-
 const getCurrentPageId = () => {
     const urlPath = window.location.pathname;
     let fileName = urlPath.substring(urlPath.lastIndexOf('/') + 1);
@@ -54,7 +51,6 @@ const getCurrentPageId = () => {
 
 const updateText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || ''; };
 const updateHTML = (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val || ''; };
-
 const isFilePath = (val) => typeof val === 'string' && (val.endsWith('.html') || val.endsWith('.txt'));
 
 async function fetchFileContent(path) {
@@ -68,7 +64,6 @@ async function fetchFileContent(path) {
 // ===========================================
 // LOGICA FIREBASE
 // ===========================================
-
 function setupDrinListener() {
     if (!db) return;
     const drinDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'commands', 'drin');
@@ -89,9 +84,8 @@ async function logAccess(pageId, lang) {
 }
 
 // ===========================================
-// CARICAMENTO CONTENUTI (LA PARTE MANCANTE)
+// CARICAMENTO CONTENUTI
 // ===========================================
-
 async function loadContent(lang) {
     document.documentElement.lang = lang;
     const pageId = getCurrentPageId();
@@ -107,18 +101,15 @@ async function loadContent(lang) {
             return;
         }
 
-        // 1. Titoli e Header
         updateText('pageTitle', pageData.pageTitle);
         updateHTML('headerTitle', pageData.pageTitle);
 
-        // 2. Immagine di Testata
         const headImg = document.getElementById('headImage');
         if (headImg && pageData.headImage) {
             headImg.src = `public/images/${pageData.headImage}`;
             headImg.style.display = 'block';
         }
 
-        // 3. Testi Principali (Gestione file .txt)
         const textKeys = ['mainText', 'mainText1', 'mainText2', 'mainText3', 'mainText4', 'mainText5'];
         for (const key of textKeys) {
             let content = pageData[key];
@@ -128,7 +119,6 @@ async function loadContent(lang) {
             updateHTML(key, content);
         }
 
-        // 4. Immagini Secondarie (1-5)
         for (let i = 1; i <= 5; i++) {
             const imgEl = document.getElementById(`pageImage${i}`);
             const src = pageData[`imageSource${i}`];
@@ -142,11 +132,9 @@ async function loadContent(lang) {
             }
         }
 
-        // 5. Metadati
         updateText('infoSource', pageData.sourceText ? `Fonte: ${pageData.sourceText}` : '');
         updateText('infoCreatedDate', pageData.creationDate ? `Data: ${pageData.creationDate}` : '');
 
-        // 6. Audio
         const audioPlayer = document.getElementById('audioPlayer');
         const playBtn = document.getElementById('playAudio');
         if (audioPlayer && playBtn && pageData.audioSource) {
@@ -157,9 +145,7 @@ async function loadContent(lang) {
             playBtn.style.display = 'block';
         }
 
-        // 7. Navigazione
         updateNavigation(data.nav, lang);
-
         startGeolocation(data);
         document.body.classList.add('content-loaded');
         if (isAuthReady) logAccess(pageId, lang);
@@ -173,9 +159,6 @@ async function loadContent(lang) {
 function updateNavigation(navData, lang) {
     if (!navData) return;
     const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
-
-    // FIX: Controllo che window.APP_DATA e navLinksData esistano per evitare TypeError
-//    const navLinksData_futuro = (window.APP_DATA && window.APP_DATA.navLinksData) ? window.APP_DATA.navLinksData : [];
 
     const navLinksData = [
         { id: 'navHome', key: 'navHome', base: 'index' },
@@ -193,7 +176,9 @@ function updateNavigation(navData, lang) {
         { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
         { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' }
     ];
-    links.forEach(l => {
+
+    // FIX: Cambiato 'links' in 'navLinksData' per risolvere il ReferenceError
+    navLinksData.forEach(l => {
         const el = document.getElementById(l.id);
         if (el) {
             el.href = `${l.base}${langSuffix}.html`;
@@ -203,9 +188,8 @@ function updateNavigation(navData, lang) {
 }
 
 // ===========================================
-// GEOLOCALIZZAZIONE E AUDIO
+// GEOLOCALIZZAZIONE
 // ===========================================
-
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371e3;
     const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -216,34 +200,46 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 
 function startGeolocation(allData) {
     if (!navigator.geolocation) return;
+    
+    // Opzioni per maggiore precisione
+    const geoOptions = { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 };
+
     navigator.geolocation.watchPosition((pos) => {
         const lat = pos.coords.latitude;
         const lon = pos.coords.longitude;
-        if (nearbyPoiButton) nearbyPoiButton.style.display = 'block';
+        
+        // Appena riceviamo una posizione valida, mostriamo il bottone
+        if (nearbyPoiButton) {
+            nearbyPoiButton.style.display = 'block';
+            nearbyPoiButton.classList.add('ready'); // Opzionale: per feedback visivo
+        }
 
         let menuHtml = '<ul class="poi-links">';
         let found = false;
+        
         POIS_LOCATIONS.forEach(poi => {
             const dist = calculateDistance(lat, lon, poi.lat, poi.lon);
             if (dist <= poi.distanceThreshold) {
-                const title = allData[poi.id]?.pageTitle || poi.id;
+                const title = (allData[poi.id] && allData[poi.id].pageTitle) ? allData[poi.id].pageTitle : poi.id;
                 const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
                 menuHtml += `<li><a href="${poi.id}${suffix}.html">${title} (${dist.toFixed(0)}m)</a></li>`;
                 found = true;
             }
         });
+        
         menuHtml += '</ul>';
         if (!found) menuHtml = '<div style="padding:20px;text-align:center;">Nessun punto vicino</div>';
         if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.innerHTML = menuHtml;
-    });
+        
+    }, (err) => {
+        console.warn("Geolocation error:", err.message);
+    }, geoOptions);
 }
 
 // ===========================================
-// EVENTI E INIZIALIZZAZIONE
+// INIZIALIZZAZIONE
 // ===========================================
-
 function initEvents() {
-    // Menu principale
     const toggle = document.querySelector('.menu-toggle');
     const nav = document.getElementById('navBarMain');
     if (toggle && nav) {
@@ -254,7 +250,6 @@ function initEvents() {
         };
     }
 
-    // Menu POI
     if (nearbyPoiButton && nearbyMenuPlaceholder) {
         nearbyPoiButton.onclick = () => {
             nearbyMenuPlaceholder.classList.toggle('poi-active');
@@ -262,7 +257,6 @@ function initEvents() {
         };
     }
 
-    // Audio
     const playBtn = document.getElementById('playAudio');
     const player = document.getElementById('audioPlayer');
     if (playBtn && player) {
@@ -278,10 +272,9 @@ function initEvents() {
         player.onended = () => { playBtn.textContent = playBtn.dataset.playText; };
     }
 
-    // Lingue
-    document.querySelectorAll('.language-selector button').forEach(btn => {
-        btn.onclick = () => {
-            const lang = btn.dataset.lang;
+    document.querySelectorAll('.language-selector img').forEach(img => {
+        img.onclick = () => {
+            const lang = img.dataset.lang;
             localStorage.setItem(LAST_LANG_KEY, lang);
             const base = getCurrentPageId() === 'home' ? 'index' : getCurrentPageId();
             location.href = `${base}-${lang}.html`;
@@ -293,6 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem(LAST_LANG_KEY);
     const urlLang = location.pathname.match(/-([a-z]{2})\.html/);
     currentLang = (urlLang && urlLang[1]) || savedLang || 'it';
+    
     nearbyPoiButton = document.getElementById('nearbyPoiButton');
     nearbyMenuPlaceholder = document.getElementById('nearbyMenuPlaceholder');
 
