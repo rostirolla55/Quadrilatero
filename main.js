@@ -22,7 +22,10 @@ let db, auth, currentUserId = null, isAuthReady = false;
 // ===========================================
 // DATI: POI GPS (Tutti i 13 punti originali)
 // ===========================================
-const POIS_LOCATIONS = [
+// FIX: Controllo che window.APP_DATA e navLinksData esistano per evitare TypeError
+const navLinksData = (window.APP_DATA && window.APP_DATA.navLinksData) ? window.APP_DATA.navLinksData : [];
+
+const POIS_LOCATIONS_precedente = [
     { id: 'manifattura', lat: 44.49891, lon: 11.342241, distanceThreshold: 50 },
     { id: 'pittoricarracci', lat: 44.50085, lon: 11.3361, distanceThreshold: 50 },
     { id: 'cavaticcio', lat: 44.50018, lon: 11.33807, distanceThreshold: 50 },
@@ -170,7 +173,11 @@ async function loadContent(lang) {
 function updateNavigation(navData, lang) {
     if (!navData) return;
     const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
-    const navLinksData = [
+
+    // FIX: Controllo che window.APP_DATA e navLinksData esistano per evitare TypeError
+    const navLinksData = (window.APP_DATA && window.APP_DATA.navLinksData) ? window.APP_DATA.navLinksData : [];
+
+    const navLinksData_precedente = [
         { id: 'navHome', key: 'navHome', base: 'index' },
         { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
         { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
