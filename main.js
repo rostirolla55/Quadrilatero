@@ -5,7 +5,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const APP_VERSION = '1.2.31 - Fix POI & Navigation';
+const APP_VERSION = '1.2.32 - Fix Menu Toggle & Navigation';
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quadrilatero_lastLang';
 let currentLang = 'it';
@@ -177,7 +177,6 @@ function updateNavigation(navData, lang) {
         { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' }
     ];
 
-    // FIX: Cambiato 'links' in 'navLinksData' per risolvere il ReferenceError
     navLinksData.forEach(l => {
         const el = document.getElementById(l.id);
         if (el) {
@@ -201,17 +200,14 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 function startGeolocation(allData) {
     if (!navigator.geolocation) return;
     
-    // Opzioni per maggiore precisione
     const geoOptions = { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 };
 
     navigator.geolocation.watchPosition((pos) => {
         const lat = pos.coords.latitude;
         const lon = pos.coords.longitude;
         
-        // Appena riceviamo una posizione valida, mostriamo il bottone
         if (nearbyPoiButton) {
             nearbyPoiButton.style.display = 'block';
-            nearbyPoiButton.classList.add('ready'); // Opzionale: per feedback visivo
         }
 
         let menuHtml = '<ul class="poi-links">';
@@ -237,13 +233,34 @@ function startGeolocation(allData) {
 }
 
 // ===========================================
-// INIZIALIZZAZIONE
+// INIZIALIZZAZIONE EVENTI (CON FIX CHIUSURA MENU)
 // ===========================================
 function initEvents() {
     const toggle = document.querySelector('.menu-toggle');
     const nav = document.getElementById('navBarMain');
+
+    // Funzioni helper per la chiusura
+    const closeMainMenu = () => {
+        if (toggle && nav) {
+            toggle.classList.remove('active');
+            nav.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        }
+    };
+
+    const closePoiMenu = () => {
+        if (nearbyMenuPlaceholder) {
+            nearbyMenuPlaceholder.classList.remove('poi-active');
+            document.body.classList.remove('menu-open');
+        }
+    };
+
     if (toggle && nav) {
-        toggle.onclick = () => {
+        toggle.onclick = (e) => {
+            e.stopPropagation();
+            // Se apro il menu principale, chiudo quello dei POI
+            closePoiMenu();
+            
             toggle.classList.toggle('active');
             nav.classList.toggle('active');
             document.body.classList.toggle('menu-open');
@@ -251,12 +268,17 @@ function initEvents() {
     }
 
     if (nearbyPoiButton && nearbyMenuPlaceholder) {
-        nearbyPoiButton.onclick = () => {
+        nearbyPoiButton.onclick = (e) => {
+            e.stopPropagation();
+            // Se apro il menu dei POI, chiudo quello principale
+            closeMainMenu();
+
             nearbyMenuPlaceholder.classList.toggle('poi-active');
             document.body.classList.toggle('menu-open');
         };
     }
 
+    // Audio
     const playBtn = document.getElementById('playAudio');
     const player = document.getElementById('audioPlayer');
     if (playBtn && player) {
@@ -272,9 +294,11 @@ function initEvents() {
         player.onended = () => { playBtn.textContent = playBtn.dataset.playText; };
     }
 
-    document.querySelectorAll('.language-selector img').forEach(img => {
-        img.onclick = () => {
-            const lang = img.dataset.lang;
+    // Lingue (Supporta sia button che img)
+    document.querySelectorAll('.language-selector button, .language-selector img').forEach(el => {
+        el.onclick = () => {
+            const lang = el.dataset.lang;
+            if (!lang) return;
             localStorage.setItem(LAST_LANG_KEY, lang);
             const base = getCurrentPageId() === 'home' ? 'index' : getCurrentPageId();
             location.href = `${base}-${lang}.html`;
