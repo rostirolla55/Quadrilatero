@@ -161,21 +161,21 @@ function updateNavigation(navData, lang) {
     const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
 
     const navLinksData = [
-        { id: 'navHome', key: 'navHome', base: 'index' },
-        { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
-        { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
-        { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' },
-        { id: 'navbsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore' },
-        { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
-        { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
-        { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
-        { id: 'navLastre', key: 'navLastre', base: 'lastre' },
-        { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene' },
-        { id: 'navSantuarioPioggia', key: 'navSantuarioPioggia', base: 'santuariopioggia' },
-        { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
-        { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
-        { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' }
-    ];
+    { id: 'navHome', key: 'navHome', base: 'index' },
+    { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
+    { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
+    { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' },
+    { id: 'navBSMariaMaggiore', key: 'navBSMariaMaggiore', base: 'bsmariamaggiore' },
+    { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
+    { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
+    { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
+    { id: 'navLastre', key: 'navLastre', base: 'lastre' },
+    { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene' },
+    { id: 'navSantuarioPioggia', key: 'navSantuarioPioggia', base: 'santuariopioggia' },
+    { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
+    { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
+    { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' }
+];
 
     navLinksData.forEach(l => {
         const el = document.getElementById(l.id);
