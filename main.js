@@ -131,9 +131,16 @@ async function loadContent(lang) {
                 }
             }
         }
-
-        updateText('infoSource', pageData.sourceText ? `Fonte: ${pageData.sourceText}` : '');
-        updateText('infoCreatedDate', pageData.creationDate ? `Data: ${pageData.creationDate}` : '');
+        // AGGIORNAMENTO INFORMAZIONI SULLA FONTE E DATA
+        if (pageData.sourceText) {
+            updateTextContent('infoSource', `Fonte: ${pageData.sourceText}`);
+        }
+        if (pageData.creationDate) {
+            updateTextContent('infoCreatedDate', `Data Creazione: ${pageData.creationDate}`);
+        }
+        if (pageData.lastUpdate) {
+            updateTextContent('infoUpdatedDate', `Ultimo Aggiornamento: ${pageData.lastUpdate}`);
+        }
 
         const audioPlayer = document.getElementById('audioPlayer');
         const playBtn = document.getElementById('playAudio');
