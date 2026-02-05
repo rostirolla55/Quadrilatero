@@ -44,7 +44,7 @@
       "id": "pugliole",
       "lat": 44.5001944444444,
       "lon": 11.3399861111111,
-      "threshold": 10,
+      "threshold": 50,
       "nav_id": "navPugliole",
       "base_name": "pugliole"
     },
@@ -52,7 +52,7 @@
       "id": "carracci",
       "lat": 44.4999972222222,
       "lon": 11.3403888888889,
-      "threshold": 10,
+      "threshold": 50,
       "nav_id": "navCarracci",
       "base_name": "carracci"
     },
