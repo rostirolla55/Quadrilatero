@@ -168,21 +168,21 @@ function updateNavigation(navData, lang) {
     const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
 
     const navLinksData = [
-    { id: 'navHome', key: 'navHome', base: 'index' },
-    { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
-    { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
-    { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' },
-    { id: 'navBSMariaMaggiore', key: 'navBSMariaMaggiore', base: 'bsmariamaggiore' },
-    { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
-    { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
-    { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
-    { id: 'navLastre', key: 'navLastre', base: 'lastre' },
-    { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene' },
-    { id: 'navSantuarioPioggia', key: 'navSantuarioPioggia', base: 'santuariopioggia' },
-    { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
-    { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
-    { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' }
-];
+        { id: 'navHome', key: 'navHome', base: 'index' },
+        { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
+        { id: 'navPittoriCarracci', key: 'navPittoriCarracci', base: 'pittoricarracci' },
+        { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' },
+        { id: 'navBSMariaMaggiore', key: 'navBSMariaMaggiore', base: 'bsmariamaggiore' },
+        { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
+        { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
+        { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
+        { id: 'navLastre', key: 'navLastre', base: 'lastre' },
+        { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene' },
+        { id: 'navSantuarioPioggia', key: 'navSantuarioPioggia', base: 'santuariopioggia' },
+        { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
+        { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
+        { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' }
+    ];
 
     navLinksData.forEach(l => {
         const el = document.getElementById(l.id);
@@ -206,20 +206,20 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 
 function startGeolocation(allData) {
     if (!navigator.geolocation) return;
-    
+
     const geoOptions = { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 };
 
     navigator.geolocation.watchPosition((pos) => {
         const lat = pos.coords.latitude;
         const lon = pos.coords.longitude;
-        
+
         if (nearbyPoiButton) {
             nearbyPoiButton.style.display = 'block';
         }
 
         let menuHtml = '<ul class="poi-links">';
         let found = false;
-        
+
         POIS_LOCATIONS.forEach(poi => {
             const dist = calculateDistance(lat, lon, poi.lat, poi.lon);
             if (dist <= poi.distanceThreshold) {
@@ -229,14 +229,38 @@ function startGeolocation(allData) {
                 found = true;
             }
         });
-        
+
         menuHtml += '</ul>';
-        if (!found) menuHtml = '<div style="padding:20px;text-align:center;">Nessun punto vicino</div>';
-        if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.innerHTML = menuHtml;
-        
-    }, (err) => {
-        console.warn("Geolocation error:", err.message);
-    }, geoOptions);
+        if (!found) {
+            // Nessun POI trovato: mostra un messaggio informativo
+            let maxThreshold = locations.reduce((max, loc) => Math.max(max, loc.distanceThreshold || 50), 0);
+
+            let noPoiMessage;
+            switch (userLang) {
+                case 'es': noPoiMessage = `No se encontraron puntos de interés dentro ${maxThreshold}m. <br><br>   Pulse de nuevo el botón verde para cerrar el menú.`; break;
+                case 'en': noPoiMessage = `No Points of Interest found within ${maxThreshold}m. <br><br>   Press the green button again to close the menu.`; break;
+                case 'fr': noPoiMessage = `Aucun point d'interet trouve dans les environs ${maxThreshold}m. <br><br>  Appuyez à nouveau sur le bouton vert pour fermer le menu.`; break;
+                case 'it':
+                default: noPoiMessage = `Nessun Punto di Interesse trovato entro ${maxThreshold}m.<br><br> Premere di nuovo il bottone verde per chiudere la lista.`; break;
+            }
+
+            // Uso colore rosso per i test
+            menuHtml = `<div style="color:red; padding: 20px; text-align: center; font-size: 1em;">${noPoiMessage}</div>`;
+        }
+    }
+    
+            
+            
+//            menuHtml = '<div style="padding:20px;text-align:center;">Nessun punto vicino</div>';
+
+
+
+
+    if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.innerHTML = menuHtml;
+
+}, (err) => {
+    console.warn("Geolocation error:", err.message);
+}, geoOptions);
 }
 
 // ===========================================
@@ -267,7 +291,7 @@ function initEvents() {
             e.stopPropagation();
             // Se apro il menu principale, chiudo quello dei POI
             closePoiMenu();
-            
+
             toggle.classList.toggle('active');
             nav.classList.toggle('active');
             document.body.classList.toggle('menu-open');
@@ -317,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem(LAST_LANG_KEY);
     const urlLang = location.pathname.match(/-([a-z]{2})\.html/);
     currentLang = (urlLang && urlLang[1]) || savedLang || 'it';
-    
+
     nearbyPoiButton = document.getElementById('nearbyPoiButton');
     nearbyMenuPlaceholder = document.getElementById('nearbyMenuPlaceholder');
 
