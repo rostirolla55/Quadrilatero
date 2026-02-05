@@ -232,35 +232,25 @@ function startGeolocation(allData) {
 
         menuHtml += '</ul>';
         if (!found) {
-            // Nessun POI trovato: mostra un messaggio informativo
-            let maxThreshold = locations.reduce((max, loc) => Math.max(max, loc.distanceThreshold || 50), 0);
-
             let noPoiMessage;
-            switch (userLang) {
+            switch (currentLang) {
                 case 'es': noPoiMessage = `No se encontraron puntos de interés dentro ${maxThreshold}m. <br><br>   Pulse de nuevo el botón verde para cerrar el menú.`; break;
                 case 'en': noPoiMessage = `No Points of Interest found within ${maxThreshold}m. <br><br>   Press the green button again to close the menu.`; break;
                 case 'fr': noPoiMessage = `Aucun point d'interet trouve dans les environs ${maxThreshold}m. <br><br>  Appuyez à nouveau sur le bouton vert pour fermer le menu.`; break;
                 case 'it':
                 default: noPoiMessage = `Nessun Punto di Interesse trovato entro ${maxThreshold}m.<br><br> Premere di nuovo il bottone verde per chiudere la lista.`; break;
             }
+        // Uso colore rosso per i test
+        menuHtml = `<div style="color:red; padding: 20px; text-align: center; font-size: 1em;">${noPoiMessage}</div>`;
 
-            // Uso colore rosso per i test
-            menuHtml = `<div style="color:red; padding: 20px; text-align: center; font-size: 1em;">${noPoiMessage}</div>`;
-        }
-    }
-    
-            
-            
-//            menuHtml = '<div style="padding:20px;text-align:center;">Nessun punto vicino</div>';
+//      menuHtml = '<div style="padding:20px;text-align:center;">Nessun punto vicino</div>'
 
+        };
+        if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.innerHTML = menuHtml;
 
-
-
-    if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.innerHTML = menuHtml;
-
-}, (err) => {
-    console.warn("Geolocation error:", err.message);
-}, geoOptions);
+    }, (err) => {
+        console.warn("Geolocation error:", err.message);
+    }, geoOptions);
 }
 
 // ===========================================
