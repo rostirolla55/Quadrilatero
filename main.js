@@ -307,9 +307,11 @@ function initEvents() {
             if (player.paused) {
                 player.play();
                 playBtn.textContent = playBtn.dataset.pauseText;
+                playBtn.classList.replace('play-style', 'pause-style');
             } else {
                 player.pause();
                 playBtn.textContent = playBtn.dataset.playText;
+                playBtn.classList.replace('pause-style', 'play-style');
             }
         };
         player.onended = () => { playBtn.textContent = playBtn.dataset.playText; };
