@@ -103,6 +103,14 @@
       "threshold": 120,
       "nav_id": "navPioggia3",
       "base_name": "pioggia3"
+    },
+    {
+      "id": "chiesasancarlo",
+      "lat": 44.49891,
+      "lon": 11.342241,
+      "threshold": 120,
+      "nav_id": "navChiesaSancarlo",
+      "base_name": "chiesasancarlo"
     }
   ]
 }
