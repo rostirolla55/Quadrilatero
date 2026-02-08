@@ -36,7 +36,8 @@ const POIS_LOCATIONS = [
     { id: 'santuariopioggia', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
     { id: 'pioggia1', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
     { id: 'pioggia2', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
-    { id: 'pioggia3', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 }
+    { id: 'pioggia3', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
+    { id: 'chiesasancarlo', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 }
 ];
 
 // ===========================================
@@ -181,7 +182,8 @@ function updateNavigation(navData, lang) {
     { id: 'navSantuarioPioggia', key: 'navSantuarioPioggia', base: 'santuariopioggia' },
     { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
     { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
-    { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' }
+    { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
+    { id: 'navChiesaSancarlo', key: 'navChiesaSancarlo', base: 'chiesasancarlo' }
 ];
 
     navLinksData.forEach(l => {

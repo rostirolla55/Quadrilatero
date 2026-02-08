@@ -2,7 +2,6 @@ import sys
 import os
 import json
 import datetime
-import shutil
 import re
 
 # --- CONFIGURAZIONI GLOBALI ---
@@ -10,7 +9,7 @@ LANGUAGES = ["it", "en", "es", "fr"]
 HTML_TEMPLATE_NAME = "template-it.html"
 
 def get_translations_for_nav(page_title_it):
-    """Genera traduzioni automatiche semplificate per il menu."""
+    """Genera traduzioni automatiche per i file nav-xx.json."""
     mapping = {
         "Basilica": {"en": "Basilica", "es": "Basílica", "fr": "Basilique"},
         "Chiesa": {"en": "Church", "es": "Iglesia", "fr": "Église"},
@@ -26,14 +25,13 @@ def get_translations_for_nav(page_title_it):
     return translations
 
 def update_pois_config(root, page_id, nav_key_id, lat, lon, dist):
-    """Aggiunge il nuovo POI al file pois_config.json."""
+    """Aggiunge il nuovo POI a pois_config.json per l'uso con load_config_poi.py."""
     config_path = os.path.join(root, "pois_config.json")
     if os.path.exists(config_path):
         with open(config_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
         
-        # Verifica se il POI esiste già
-        if not any(p.get('id') == page_id for p in data['pois']):
+        if not any(p.get('id') == page_id for p in data.get('pois', [])):
             new_poi = {
                 "id": page_id,
                 "lat": float(lat),
@@ -42,28 +40,34 @@ def update_pois_config(root, page_id, nav_key_id, lat, lon, dist):
                 "nav_id": nav_key_id,
                 "base_name": page_id
             }
-            data['pois'].append(new_poi)
+            data.setdefault('pois', []).append(new_poi)
             with open(config_path, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
-            print("Aggiornato pois_config.json con le nuove coordinate.")
+            print("Aggiornato pois_config.json.")
 
 def update_nav_json_files(root, page_id, nav_key_id, translations):
-    """Aggiorna i file nav-it.json, nav-en.json, etc."""
+    """Aggiorna nav-it.json, nav-en.json, etc. aggiungendo il blocco nuova pagina."""
     for lang in LANGUAGES:
         nav_file = os.path.join(root, f"nav-{lang}.json")
         if os.path.exists(nav_file):
             with open(nav_file, 'r', encoding='utf-8') as f:
-                try: nav_data = json.load(f)
-                except: nav_data = []
+                try:
+                    nav_data = json.load(f)
+                except:
+                    nav_data = []
             
             if not any(item.get('id') == nav_key_id for item in nav_data):
-                nav_data.append({"id": nav_key_id, "base": page_id, "text": translations[lang]})
+                nav_data.append({
+                    "id": nav_key_id,
+                    "base": page_id,
+                    "text": translations[lang]
+                })
                 with open(nav_file, 'w', encoding='utf-8') as f:
                     json.dump(nav_data, f, indent=2, ensure_ascii=False)
-                print(f"Aggiornato nav-{lang}.json")
+                print(f"Incrementato nav-{lang}.json con la nuova voce menu.")
 
 def update_texts_json(root, page_id, nav_key_id, page_title_it):
-    """Crea il blocco contenuti in texts.json."""
+    """Crea il blocco contenuti in data/translations/xx/texts.json."""
     for lang in LANGUAGES:
         json_path = os.path.join(root, "data", "translations", lang, "texts.json")
         if os.path.exists(json_path):
@@ -72,40 +76,44 @@ def update_texts_json(root, page_id, nav_key_id, page_title_it):
 
             if page_id not in data:
                 data[page_id] = {
-                    "pageTitle": f"{page_title_it}",
+                    "pageTitle": page_title_it,
                     "headerTitle": page_title_it,
-                    "mainText": f"Descrizione per {page_id}...",
+                    "mainText": f"Contenuto introduttivo per {page_id}...",
                     "mainText1": "", "mainText2": "", "mainText3": "", "mainText4": "", "mainText5": ""
                 }
+            
+            # Assicura che la chiave nav sia presente per le traduzioni manuali residue
             if "nav" in data and nav_key_id not in data["nav"]:
                 data["nav"][nav_key_id] = page_title_it
 
             with open(json_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=4, ensure_ascii=False)
+            print(f"Aggiornato texts.json ({lang})")
 
 def create_html_files(root, page_id):
-    """Genera i 4 file lingua + il file di redirect."""
+    """Genera i 4 file lingua + il file di redirect automatico."""
     template_path = os.path.join(root, HTML_TEMPLATE_NAME)
     if not os.path.exists(template_path):
-        print("ERRORE: Template non trovato.")
+        print(f"ERRORE: Template {HTML_TEMPLATE_NAME} non trovato.")
         return
 
     with open(template_path, "r", encoding="utf-8") as f:
         template_content = f.read()
 
-    # 1. Crea i 4 file per lingua (es. carracci-it.html)
+    # 1. File per ogni lingua (es. carracci-it.html)
     for lang in LANGUAGES:
         target_path = os.path.join(root, f"{page_id}-{lang}.html")
         content = template_content.replace('lang="it"', f'lang="{lang}"')
-        # Sostituzione link lingue nel template
+        
+        # Sostituzione link switcher bandierine
         for l in LANGUAGES:
             content = content.replace(f'href="index-{l}.html"', f'href="{page_id}-{l}.html"')
-        
+
         with open(target_path, "w", encoding="utf-8") as f:
             f.write(content)
-        print(f"Creato: {page_id}-{lang}.html")
+        print(f"Creato file lingua: {page_id}-{lang}.html")
 
-    # 2. Crea il file di redirect (es. carracci.html)
+    # 2. File di redirect (es. carracci.html)
     redirect_path = os.path.join(root, f"{page_id}.html")
     redirect_code = f"""<!DOCTYPE html>
 <html>
@@ -117,12 +125,12 @@ def create_html_files(root, page_id):
     </script>
 </head>
 <body>
-    <p>Redirecting...</p>
+    <p>Redirecting to your language version...</p>
 </body>
 </html>"""
     with open(redirect_path, "w", encoding="utf-8") as f:
         f.write(redirect_code)
-    print(f"Creato file di redirect: {page_id}.html")
+    print(f"Creato file redirect: {page_id}.html")
 
 def main():
     if len(sys.argv) < 8:
@@ -132,20 +140,24 @@ def main():
     page_id, nav_key_id, title, lat, lon, dist, root = sys.argv[1:8]
     root = root.strip('"')
 
-    # 1. Aggiorna configurazione POI (per load_config_poi.py)
+    # Passo 1: Aggiorna il config dei POI per la sincronizzazione main.js
     update_pois_config(root, page_id, nav_key_id, lat, lon, dist)
     
-    # 2. Aggiorna i file di navigazione
+    # Passo 2: Aggiorna i file di navigazione JSON (nav-xx.json)
     translations = get_translations_for_nav(title)
     update_nav_json_files(root, page_id, nav_key_id, translations)
     
-    # 3. Aggiorna i database testi
+    # Passo 3: Aggiorna i testi e i blocchi mainText nel database JSON
     update_texts_json(root, page_id, nav_key_id, title)
     
-    # 4. Crea i 5 file HTML (4 lingue + 1 redirect)
+    # Passo 4: Generazione fisica dei file HTML
     create_html_files(root, page_id)
-    
-    print(f"\nOperazione completata per {page_id}.")
+
+    print(f"\nGenerazione completata per '{page_id}'.")
+    print("-" * 40)
+    print("PROSSIMI PASSI:")
+    print(f"1. Esegui 'python load_config_poi.py' per aggiornare main.js con le coordinate.")
+    print(f"2. Esegui 'python update_html_from_json.py' per aggiornare i menu in tutto il sito.")
 
 if __name__ == "__main__":
     main()
