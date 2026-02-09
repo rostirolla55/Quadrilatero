@@ -1,77 +1,77 @@
 [
     {
         "id": "navHome",
-        "href": "index.html",
+        "href": "index-it.html",
         "text": "Home"
     },
     {
         "id": "navManifattura",
-        "href": "manifattura.html",
+        "href": "manifattura-it.html",
         "text": "manifattura"
     },
     {
         "id": "navPittoriCarracci",
-        "href": "pittoricarracci.html",
+        "href": "pittoricarracci-it.html",
         "text": "pittoricarracci"
     },
     {
         "id": "navCavaticcio",
-        "href": "cavaticcio.html",
+        "href": "cavaticcio-it.html",
         "text": "cavaticcio"
     },
     {
         "id": "navBSMariaMaggiore",
-        "href": "bsmariamaggiore.html",
+        "href": "bsmariamaggiore-it.html",
         "text": "bsmariamaggiore"
     },
     {
         "id": "navGraziaxx",
-        "href": "graziaxx.html",
+        "href": "graziaxx-it.html",
         "text": "graziaxx"
     },
     {
         "id": "navPugliole",
-        "href": "pugliole.html",
+        "href": "pugliole-it.html",
         "text": "pugliole"
     },
     {
         "id": "navCarracci",
-        "href": "carracci.html",
+        "href": "carracci-it.html",
         "text": "carracci"
     },
     {
         "id": "navLastre",
-        "href": "lastre.html",
+        "href": "lastre-it.html",
         "text": "lastre"
     },
     {
         "id": "navChiesaSBene",
-        "href": "chiesasbene.html",
+        "href": "chiesasbene-it.html",
         "text": "chiesasbene"
     },
     {
         "id": "navSantuarioPioggia",
-        "href": "santuariopioggia.html",
+        "href": "santuariopioggia-it.html",
         "text": "santuariopioggia"
     },
     {
         "id": "navPioggia1",
-        "href": "pioggia1.html",
+        "href": "pioggia1-it.html",
         "text": "pioggia1"
     },
     {
         "id": "navPioggia2",
-        "href": "pioggia2.html",
+        "href": "pioggia2-it.html",
         "text": "pioggia2"
     },
     {
         "id": "navPioggia3",
-        "href": "pioggia3.html",
+        "href": "pioggia3-it.html",
         "text": "pioggia3"
     },
     {
-        "id": "navChiesaSancarlo",
-        "href": "chiesasancarlo.html",
-        "text": "Chiesa San Carlo Borromeo del Porto"
+        "id": "navChiesaSanCarlo",
+        "href": "chiesasancarlo-it.html",
+        "text": "chiesasancarlo"
     }
 ]
