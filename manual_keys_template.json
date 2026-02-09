@@ -1,5 +1,19 @@
 {
     "description": "<font color=\"#ff0000\">rosso</font>, <font color=\"#3465a4\">blu</font> Questo file contiene gli override manuali per le chiavi in texts.json. Le modifiche qui definite verranno applicate allo specifico PAGE_ID (es. 'manifattura') solo quando il manual_key_updater.py viene eseguito per quella pagina. le chiavi statiche  cono 'audioSource' 'headImage' 'pageTitle' 'pauseAudioButton' 'playAudioButton' 'sourceText' 'creationDate' 'lastUpdate' 'mainText'",
+    "nav": {
+        "it": {
+        "navChiesaSanCarlo": "Chiesa San Carlo Borromeo al Porto"
+        },
+        "en": {
+        "navChiesaSanCarlo": "Church San Carlo Borromeo al Porto"
+        },
+        "es": {
+        "navChiesaSanCarlo": "Iglesia San Carlo Borromeo al Porto"
+        },
+        "fr": {
+        "navChiesaSanCarlo": "Église San Carlo Borromeo al Porto"
+        }
+    },    
     "bsmariamaggiore": {
         "it": {
             "pageTitle": "Basilica di Santa Maria Maggiore",
@@ -435,7 +449,7 @@
             "audioSource": "fr/chiesasancarlo.mp3"
         },
         "en": {
-            "pageTitle": "Church of San Carlo al Porto",
+            "pageTitle": "Church of San Carlo Borromeo al Porto",
             "playAudioButton": "Listen with headphones",
             "pauseAudioButton": "Pause",
             "mainText": "",
