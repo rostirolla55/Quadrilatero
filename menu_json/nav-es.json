@@ -1,7 +1,77 @@
 [
-  {
-    "id": "navChiesaSancarlo",
-    "base": "chiesasancarlo",
-    "text": "Titolo per chiesasancarlo"
-  }
+    {
+        "id": "navHome",
+        "href": "index-es.html",
+        "text": "Inicio"
+    },
+    {
+        "id": "navManifattura",
+        "href": "manifattura-es.html",
+        "text": "manifattura"
+    },
+    {
+        "id": "navPittoriCarracci",
+        "href": "pittoricarracci-es.html",
+        "text": "pittoricarracci"
+    },
+    {
+        "id": "navCavaticcio",
+        "href": "cavaticcio-es.html",
+        "text": "cavaticcio"
+    },
+    {
+        "id": "navBSMariaMaggiore",
+        "href": "bsmariamaggiore-es.html",
+        "text": "bsmariamaggiore"
+    },
+    {
+        "id": "navGraziaxx",
+        "href": "graziaxx-es.html",
+        "text": "graziaxx"
+    },
+    {
+        "id": "navPugliole",
+        "href": "pugliole-es.html",
+        "text": "pugliole"
+    },
+    {
+        "id": "navCarracci",
+        "href": "carracci-es.html",
+        "text": "carracci"
+    },
+    {
+        "id": "navLastre",
+        "href": "lastre-es.html",
+        "text": "lastre"
+    },
+    {
+        "id": "navChiesaSBene",
+        "href": "chiesasbene-es.html",
+        "text": "chiesasbene"
+    },
+    {
+        "id": "navSantuarioPioggia",
+        "href": "santuariopioggia-es.html",
+        "text": "santuariopioggia"
+    },
+    {
+        "id": "navPioggia1",
+        "href": "pioggia1-es.html",
+        "text": "pioggia1"
+    },
+    {
+        "id": "navPioggia2",
+        "href": "pioggia2-es.html",
+        "text": "pioggia2"
+    },
+    {
+        "id": "navPioggia3",
+        "href": "pioggia3-es.html",
+        "text": "pioggia3"
+    },
+    {
+        "id": "navChiesaSancarlo",
+        "href": "chiesasancarlo-es.html",
+        "text": "chiesasancarlo"
+    }
 ]
