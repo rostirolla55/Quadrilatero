@@ -408,7 +408,7 @@
     },
     "chiesasancarlo": {
         "it": {
-            "pageTitle": "Chiesa di San Carlo",
+            "pageTitle": "Chiesa di San Carlo Borromeo",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
             "mainText": "",
@@ -417,7 +417,7 @@
             "audioSource": "it/chiesasancarlo.mp3"
         },
         "es": {
-            "pageTitle": "Iglesia de San Carlo",
+            "pageTitle": "Iglesia de San Carlo Borromeo",
             "playAudioButton": "Escuchar la historia",
             "pauseAudioButton": "Detener la reproducción",
             "mainText": "",
@@ -426,7 +426,7 @@
             "audioSource": "es/chiesasancarlo.mp3"
         },
         "fr": {
-            "pageTitle": "Église de San Carlo",
+            "pageTitle": "Église de San Carlo Borromeo",
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
             "mainText": "",
@@ -435,7 +435,7 @@
             "audioSource": "fr/chiesasancarlo.mp3"
         },
         "en": {
-            "pageTitle": "Church of San Carlo",
+            "pageTitle": "Church of San Carlo Borromeo",
             "playAudioButton": "Listen with headphones",
             "pauseAudioButton": "Pause",
             "mainText": "",
