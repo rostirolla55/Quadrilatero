@@ -106,8 +106,8 @@
     },
     {
       "id": "chiesasancarlo",
-      "lat": 44.49891,
-      "lon": 11.342241,
+      "lat": 44.3000,
+      "lon": 11.3000,
       "threshold": 120,
       "nav_id": "navChiesaSancarlo",
       "base_name": "chiesasancarlo"
