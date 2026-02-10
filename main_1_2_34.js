@@ -5,7 +5,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const APP_VERSION = '1.2.34 - gestione delle bandiere per chiesa san carlo';
+const APP_VERSION = '1.2.35 - Lingue (Supporta button, img e tag a)';
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quadrilatero_lastLang';
 let currentLang = 'it';
@@ -319,18 +319,26 @@ function initEvents() {
         player.onended = () => { playBtn.textContent = playBtn.dataset.playText; };
     }
 
-// Lingue (Supporta button, img e aggiungiamo il supporto ai tag 'a')
+// Lingue (Supporta button, img e tag 'a')
+    // Sostituisci il vecchio blocco con questo:
     document.querySelectorAll('.language-selector button, .language-selector img, .language-selector a').forEach(el => {
         el.onclick = (e) => {
-            const lang = el.dataset.lang;
-            if (!lang) return;
+            // Recupera la lingua dal dataset
+            const lang = el.dataset.lang || el.getAttribute('data-lang');
             
-            // Se l'elemento è un link <a>, impediamo il comportamento predefinito
-            if (el.tagName === 'A') e.preventDefault();
+            if (!lang) return;
+
+            // BLOCCA il link HTML (evita che il browser resti sulla stessa pagina)
+            if (e) e.preventDefault();
+            
+            console.log("Cambio lingua rilevato:", lang);
             
             localStorage.setItem(LAST_LANG_KEY, lang);
-            const base = getCurrentPageId() === 'home' ? 'index' : getCurrentPageId();
-            location.href = `${base}-${lang}.html`;
+            const pageId = getCurrentPageId();
+            const base = pageId === 'home' ? 'index' : pageId;
+            
+            // Esegue il reindirizzamento forzato via JS
+            window.location.href = `${base}-${lang}.html`;
         };
     });
 }
