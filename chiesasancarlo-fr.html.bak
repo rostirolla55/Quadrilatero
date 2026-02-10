@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="fr">
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -38,7 +38,7 @@
     </button>
     <div class="right-header-group">
      <div class="language-selector">
-      <button data-lang="it">
+      <button data-lang="fr">
        <img alt="Italiano" src="public/flag/it.png"/>
       </button>
       <button data-lang="en">
@@ -59,77 +59,77 @@
     <div class="nav-bar-content">
      <ul>
       <li>
-       <a href="index-es.html" id="navHome">
-        Inicio
+       <a href="index-fr.html" id="navHome">
+        Accueil
        </a>
       </li>
       <li>
-       <a href="manifattura-es.html" id="navManifattura">
+       <a href="manifattura-fr.html" id="navManifattura">
         Link
        </a>
       </li>
       <li>
-       <a href="pittoricarracci-es.html" id="navPittoriCarracci">
+       <a href="pittoricarracci-fr.html" id="navPittoriCarracci">
         Link
        </a>
       </li>
       <li>
-       <a href="cavaticcio-es.html" id="navCavaticcio">
+       <a href="cavaticcio-fr.html" id="navCavaticcio">
         Link
        </a>
       </li>
       <li>
-       <a href="bsmariamaggiore-es.html" id="navBSMariaMaggiore">
+       <a href="bsmariamaggiore-fr.html" id="navBSMariaMaggiore">
         Link
        </a>
       </li>
       <li>
-       <a href="graziaxx-es.html" id="navGraziaxx">
+       <a href="graziaxx-fr.html" id="navGraziaxx">
         Link
        </a>
       </li>
       <li>
-       <a href="pugliole-es.html" id="navPugliole">
+       <a href="pugliole-fr.html" id="navPugliole">
         Link
        </a>
       </li>
       <li>
-       <a href="carracci-es.html" id="navCarracci">
+       <a href="carracci-fr.html" id="navCarracci">
         Link
        </a>
       </li>
       <li>
-       <a href="lastre-es.html" id="navLastre">
+       <a href="lastre-fr.html" id="navLastre">
         Link
        </a>
       </li>
       <li>
-       <a href="chiesasbene-es.html" id="navChiesaSBene">
+       <a href="chiesasbene-fr.html" id="navChiesaSBene">
         Link
        </a>
       </li>
       <li>
-       <a href="santuariopioggia-es.html" id="navSantuarioPioggia">
+       <a href="santuariopioggia-fr.html" id="navSantuarioPioggia">
         Link
        </a>
       </li>
       <li>
-       <a href="pioggia1-es.html" id="navPioggia1">
+       <a href="pioggia1-fr.html" id="navPioggia1">
         Link
        </a>
       </li>
       <li>
-       <a href="pioggia2-es.html" id="navPioggia2">
+       <a href="pioggia2-fr.html" id="navPioggia2">
         Link
        </a>
       </li>
       <li>
-       <a href="pioggia3-es.html" id="navPioggia3">
+       <a href="pioggia3-fr.html" id="navPioggia3">
         Link
        </a>
       </li>
       <li>
-       <a href="chiesasancarlo-es.html" id="navChiesaSanCarlo">
+       <a href="chiesasancarlo-fr.html" id="navChiesaSanCarlo">
         Link
        </a>
       </li>
