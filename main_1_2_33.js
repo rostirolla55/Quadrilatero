@@ -319,15 +319,11 @@ function initEvents() {
         player.onended = () => { playBtn.textContent = playBtn.dataset.playText; };
     }
 
-// Lingue (Supporta button, img e aggiungiamo il supporto ai tag 'a')
-    document.querySelectorAll('.language-selector button, .language-selector img, .language-selector a').forEach(el => {
-        el.onclick = (e) => {
+    // Lingue (Supporta sia button che img)
+    document.querySelectorAll('.language-selector button, .language-selector img').forEach(el => {
+        el.onclick = () => {
             const lang = el.dataset.lang;
             if (!lang) return;
-            
-            // Se l'elemento è un link <a>, impediamo il comportamento predefinito
-            if (el.tagName === 'A') e.preventDefault();
-            
             localStorage.setItem(LAST_LANG_KEY, lang);
             const base = getCurrentPageId() === 'home' ? 'index' : getCurrentPageId();
             location.href = `${base}-${lang}.html`;
