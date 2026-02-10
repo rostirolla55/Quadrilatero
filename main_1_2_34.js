@@ -5,7 +5,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const APP_VERSION = '1.2.35 - Lingue (Supporta button, img e tag a)';
+const APP_VERSION = '1.2.36 - Lingue (Supporta button, img e tag a)';
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quadrilatero_lastLang';
 let currentLang = 'it';
@@ -319,25 +319,28 @@ function initEvents() {
         player.onended = () => { playBtn.textContent = playBtn.dataset.playText; };
     }
 
-// Lingue (Supporta button, img e tag 'a')
-    // Sostituisci il vecchio blocco con questo:
+
+// Lingue (Supporta button, img e tag 'a' anche nidificati)
     document.querySelectorAll('.language-selector button, .language-selector img, .language-selector a').forEach(el => {
         el.onclick = (e) => {
-            // Recupera la lingua dal dataset
-            const lang = el.dataset.lang || el.getAttribute('data-lang');
+            // Cerca data-lang sull'elemento cliccato o sul genitore più vicino
+            // (Fondamentale se clicchi sull'<img> dentro un <a>)
+            const target = e.target.closest('[data-lang]');
+            const lang = target ? target.dataset.lang : null;
             
             if (!lang) return;
-
-            // BLOCCA il link HTML (evita che il browser resti sulla stessa pagina)
-            if (e) e.preventDefault();
             
-            console.log("Cambio lingua rilevato:", lang);
+            // Blocca il link HTML per gestire il cambio via JS
+            e.preventDefault();
+            e.stopPropagation(); 
+            
+            console.log("Cambio lingua forzato a:", lang);
             
             localStorage.setItem(LAST_LANG_KEY, lang);
             const pageId = getCurrentPageId();
-            const base = pageId === 'home' ? 'index' : pageId;
+            const base = (pageId === 'home' || pageId === 'index') ? 'index' : pageId;
             
-            // Esegue il reindirizzamento forzato via JS
+            // Reindirizzamento esplicito
             window.location.href = `${base}-${lang}.html`;
         };
     });
