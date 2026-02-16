@@ -1,77 +1,74 @@
-[
-    {
-        "id": "navHome",
-        "href": "index-fr.html",
-        "text": "Accueil"
-    },
-    {
-        "id": "navManifattura",
-        "href": "manifattura-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navPittoriCarracci",
-        "href": "pittoricarracci-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navCavaticcio",
-        "href": "cavaticcio-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navBSMariaMaggiore",
-        "href": "bsmariamaggiore-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navGraziaxx",
-        "href": "graziaxx-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navPugliole",
-        "href": "pugliole-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navCarracci",
-        "href": "carracci-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navLastre",
-        "href": "lastre-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navChiesaSBene",
-        "href": "chiesasbene-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navSantuarioPioggia",
-        "href": "santuariopioggia-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navPioggia1",
-        "href": "pioggia1-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navPioggia2",
-        "href": "pioggia2-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navPioggia3",
-        "href": "pioggia3-fr.html",
-        "text": "Link"
-    },
-    {
-        "id": "navChiesaSanCarlo",
-        "href": "chiesasancarlo-fr.html",
-        "text": "Link"
-    }
-]
+{
+    "items": [
+        {
+            "id": "navHome",
+            "href": "index-fr.html",
+            "text": "Accueil"
+        },
+        {
+            "id": "navManifattura",
+            "href": "manifattura-fr.html",
+            "text": "Link"
+        },
+        {
+            "id": "navPittoriCarracci",
+            "href": "pittoricarracci-fr.html",
+            "text": "Link"
+        },
+        {
+            "id": "navCavaticcio",
+            "href": "cavaticcio-fr.html",
+            "text": "Link"
+        },
+        {
+            "id": "navBSMariaMaggiore",
+            "href": "bsmariamaggiore-fr.html",
+            "text": "Link"
+        },
+        {
+            "id": "navGraziaxx",
+            "href": "graziaxx-fr.html",
+            "text": "Link"
+        },
+        {
+            "id": "navPugliole",
+            "href": "pugliole-fr.html",
+            "text": "Link"
+        },
+        {
+            "id": "navCarracci",
+            "href": "carracci-fr.html",
+            "text": "Link"
+        },
+        {
+            "id": "navLastre",
+            "href": "lastre-fr.html",
+            "text": "Link"
+        },
+        {
+            "id": "navChiesaSBene",
+            "href": "chiesasbene-fr.html",
+            "text": "Link"
+        },
+        {
+            "id": "navSantuarioPioggia",
+            "href": "santuariopioggia-fr.html",
+            "text": "Link"
+        },
+        {
+            "id": "navPioggia1",
+            "href": "pioggia1-fr.html",
+            "text": "Link"
+        },
+        {
+            "id": "navPioggia2",
+            "href": "pioggia2-fr.html",
+            "text": "Link"
+        },
+        {
+            "id": "navPioggia3",
+            "href": "pioggia3-fr.html",
+            "text": "Link"
+        }
+    ]
+}

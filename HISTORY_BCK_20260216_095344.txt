@@ -1,0 +1,14 @@
+goquad
+dir /s /b /od *.py
+dir /od *.py
+mv go_dimissione.py go_dimissione.pyx
+recupero 
+ripristino
+ripristino quadrilatero
+Snapshot_20260216_0037_prima_della_dismissione_chiesasancarlo
+S
+dir /b *.pyx
+cp go_dimissione.pyx go_dimissione.py
+trova chiesasancarlo
+check_pagina.bat chiesasancarlo
+esci

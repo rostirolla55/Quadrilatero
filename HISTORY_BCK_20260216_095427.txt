@@ -1,0 +1,26 @@
+goquad
+python go_dimissione.py chiesasancarlo
+cat dimissione_procedura.bat
+pois_config.json
+dimissione_procedura.bat
+trova chiesasancarlo
+cat santuariopioggia-it.html
+python extract_nav_to_json.py
+dir /s /b nav-*.json
+python go_dimissione.py chiesasancarlo
+cat menu_json\nav-it.json
+cls
+trova chiesasancarlo
+dimissione_procedura.bat
+trova chiesasancarlo
+gossiti
+cd Quadrilatero
+dir
+cd Snapshot_20260216_0037_prima_della_dismissione_chiesasancarlo
+dir /s /b *.py
+dir /s /b /od *.py 
+dir /s /b /od *.bat 
+dir  /od *.bat 
+dir  /od *.py
+goquad
+esci
