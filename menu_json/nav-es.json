@@ -69,6 +69,11 @@
             "id": "navPioggia3",
             "href": "pioggia3-es.html",
             "text": "Link"
+        },
+        {
+            "id": "navChiesaSanCarlo",
+            "href": "chiesasancarlo-es.html",
+            "text": "Iglesia de San Carlos Borromeo al Porto"
         }
     ]
 }
