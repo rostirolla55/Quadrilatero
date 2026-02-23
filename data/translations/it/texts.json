@@ -312,7 +312,7 @@
     },
     "chiesasancarlo": {
         "headImage": "",
-        "audioSource": "",
+        "audioSource": "it/chiesasancarlo.mp3",
         "mainText1": "it_chiesasancarlo_maintext1.html",
         "pageTitle": "",
         "playAudioButton": "",
