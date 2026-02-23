@@ -422,40 +422,40 @@
     },
     "chiesasancarlo": {
         "it": {
-            "pageTitle": "Chiesa di San Carlo Borromeo",
-            "playAudioButton": "Ascolta la storia",
-            "pauseAudioButton": "Ferma la riproduzione",
+            "pageTitle": "",
+            "playAudioButton": "",
+            "pauseAudioButton": "",
             "mainText": "",
-            "sourceText": "Settore Musei Civici Bologna | Area Storia e Memoria",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "it/chiesasancarlo.mp3"
+            "sourceText": "",
+            "headImage": "",
+            "audioSource": ""
         },
         "es": {
-            "pageTitle": "Iglesia de San Carlo Borromeo",
-            "playAudioButton": "Escuchar la historia",
-            "pauseAudioButton": "Detener la reproducción",
+            "pageTitle": "",
+            "playAudioButton": "",
+            "pauseAudioButton": "",
             "mainText": "",
-            "sourceText": "Settore Musei Civici Bologna | Area Storia e Memoria",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "es/chiesasancarlo.mp3"
+            "sourceText": "",
+            "headImage": "",
+            "audioSource": ""
         },
         "fr": {
-            "pageTitle": "Église de San Carlo Borromeo",
-            "playAudioButton": "Écouter le récit",
-            "pauseAudioButton": "Arrêter la lecture",
+            "pageTitle": "",
+            "playAudioButton": "",
+            "pauseAudioButton": "",
             "mainText": "",
-            "sourceText": "Settore Musei Civici Bologna | Area Storia e Memoria",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "fr/chiesasancarlo.mp3"
+            "sourceText": "",
+            "headImage": "",
+            "audioSource": ""
         },
         "en": {
-            "pageTitle": "Church of San Carlo Borromeo al Porto",
-            "playAudioButton": "Listen with headphones",
-            "pauseAudioButton": "Pause",
+            "pageTitle": "",
+            "playAudioButton": "",
+            "pauseAudioButton": "",
             "mainText": "",
-            "sourceText": "Settore Musei Civici Bologna | Area Storia e Memoria",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "en/chiesasancarlo.mp3"
+            "sourceText": "",
+            "headImage": "",
+            "audioSource": ""
         }
     }
 }
