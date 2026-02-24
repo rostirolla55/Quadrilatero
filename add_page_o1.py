@@ -27,17 +27,19 @@ def get_translations(title_it):
 def update_texts_and_nav_json(root, page_id, nav_key_id, title_it):
     """
     Aggiorna i file texts.json e i menu JSON (nav-*.json).
+    Si assicura che la struttura dei menu sia {"items": [...]} per la compatibilità.
     """
     trans = get_translations(title_it)
     
     for lang in LANGUAGES:
-        # 1. Aggiornamento dei file texts.json
+        # 1. Aggiornamento dei file texts.json (Contenuti testuali della pagina)
         texts_path = os.path.join(root, "data", "translations", lang, "texts.json")
         if os.path.exists(texts_path):
             try:
                 with open(texts_path, "r", encoding="utf-8") as f:
                     data = json.load(f)
                 
+                # Aggiunge la pagina se non esiste già nelle traduzioni
                 if page_id not in data:
                     data[page_id] = {
                         "pageTitle": trans[lang],
@@ -51,22 +53,25 @@ def update_texts_and_nav_json(root, page_id, nav_key_id, title_it):
             except Exception as e:
                 print(f"Errore caricamento texts.json ({lang}): {e}")
 
-        # 2. Aggiornamento dei file nav-*.json
+        # 2. Aggiornamento dei file nav-*.json (Menu di navigazione)
         nav_json_path = os.path.join(root, "menu_json", f"nav-{lang}.json")
         if os.path.exists(nav_json_path):
             try:
                 with open(nav_json_path, "r", encoding="utf-8") as f:
                     nav_content = json.load(f)
                 
+                # Normalizzazione: se il file è una lista [], lo trasformiamo in {"items": []}
                 if isinstance(nav_content, list):
                     nav_content = {"items": nav_content}
+                elif not isinstance(nav_content, dict):
+                    nav_content = {"items": []}
                 
                 if "items" not in nav_content:
                     nav_content["items"] = []
 
+                # Verifica se il link esiste già per evitare duplicati
                 if not any(item.get('id') == nav_key_id for item in nav_content["items"]):
-                    # Il link nel menu punta sempre alla versione specifica per lingua
-                    href = f"{page_id}-{lang}.html"
+                    href = f"{page_id}.html" if lang == "it" else f"{page_id}-{lang}.html"
                     nav_content["items"].append({
                         "id": nav_key_id,
                         "href": href,
@@ -79,6 +84,8 @@ def update_texts_and_nav_json(root, page_id, nav_key_id, title_it):
                 print(f"Errore aggiornamento menu JSON ({lang}): {e}")
 
 def main():
+    # Parametri attesi dal file .bat:
+    # 1: page_id, 2: nav_key_id, 3: title, 4: lat, 5: lon, 6: dist, 7: root_path
     if len(sys.argv) < 8:
         print("Errore: Parametri insufficienti per add_page.py")
         return
@@ -91,10 +98,10 @@ def main():
     # Aggiorna database testi e menu JSON
     update_texts_and_nav_json(root, page_id, nav_key_id, title)
     
-    # 1. Creazione dei 4 file con suffisso (it, en, es, fr)
-    # Questi usano i template specifici per lingua
+    # Creazione fisica dei file HTML partendo dai template se non esistono
     for lang in LANGUAGES:
-        filename = f"{page_id}-{lang}.html"
+        suffix = "" if lang == "it" else f"-{lang}"
+        filename = f"{page_id}{suffix}.html"
         target_path = os.path.join(root, filename)
         
         if not os.path.exists(target_path):
@@ -103,30 +110,13 @@ def main():
             
             if os.path.exists(template_path):
                 shutil.copy(template_path, target_path)
-                print(f" [+] Creato file lingua: {filename}")
+                print(f" [+] Creato file: {filename}")
             else:
-                # Fallback sul template-it se manca quello specifico
+                # Se manca il template specifico, prova quello italiano
                 template_it = os.path.join(root, "template-it.html")
                 if os.path.exists(template_it):
                     shutil.copy(template_it, target_path)
-                    print(f" [!] Creato {filename} usando template-it.html")
-
-    # 2. Creazione del file "Redirect" senza suffisso (es: manifattura.html)
-    # Questo file non ha il tag Google Analytics e serve da ingresso principale
-    redirect_filename = f"{page_id}.html"
-    redirect_target = os.path.join(root, redirect_filename)
-    
-    if not os.path.exists(redirect_target):
-        # Cerca un template specifico per il redirect, altrimenti usa quello base
-        template_redir = os.path.join(root, "template-redirect.html")
-        if not os.path.exists(template_redir):
-            template_redir = os.path.join(root, "template.html")
-            
-        if os.path.exists(template_redir):
-            shutil.copy(template_redir, redirect_target)
-            print(f" [+] Creato file redirect principale: {redirect_filename}")
-        else:
-            print(f" [!] ATTENZIONE: Impossibile creare {redirect_filename}, template-redirect.html non trovato.")
+                    print(f" [!] Creato {filename} usando template-it.html (mancava template-{lang})")
 
 if __name__ == "__main__":
     main()
