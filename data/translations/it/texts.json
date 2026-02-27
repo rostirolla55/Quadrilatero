@@ -311,12 +311,17 @@
         "creationDate": "2026-01-02"
     },
     "chiesasancarlo": {
-        "headImage": "public/images/panorama_bologna.jpg",
+        "headImage": "panorama_bologna.jpg",
         "audioSource": "it/chiesasancarlo.mp3",
         "mainText1": "it_chiesasancarlo_maintext1.html",
         "imageSource1": "chiesasancarlo/oratorio_volta.jpg",
         "mainText2": "it_chiesasancarlo_maintext2.html",
         "imageSource2": "chiesasancarlo/facciata.jpg",
-        "mainText3": "it_chiesasancarlo_maintext3.html"
+        "mainText3": "it_chiesasancarlo_maintext3.html",
+        "pageTitle": "Chiesa San Carlo Borromeo al Porto",
+        "playAudioButton": "Ascolta la storia",
+        "pauseAudioButton": "Ferma la riproduzione",
+        "mainText": "",
+        "sourceText": ""
     }
 }
