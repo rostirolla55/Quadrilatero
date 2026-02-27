@@ -37,7 +37,7 @@ const POIS_LOCATIONS = [
     { id: 'pioggia1', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
     { id: 'pioggia2', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
     { id: 'pioggia3', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
-    { id: 'chiesasancarlo', lat: 44.50164337162508, lon: 11.340944498309975, distanceThreshold: 50 }
+    { id: 'chiesasancarlo', lat: 44.50124875821167, lon: 11.340753666229292, distanceThreshold: 120 }
 ];
 
 // ===========================================

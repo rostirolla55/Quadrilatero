@@ -311,14 +311,9 @@
         "creationDate": "2026-01-02"
     },
     "chiesasancarlo": {
-        "headImage": "",
+        "headImage": "public/images/panorama_bologna.jpg",
         "audioSource": "it/chiesasancarlo.mp3",
         "mainText1": "it_chiesasancarlo_maintext1.html",
-        "pageTitle": "",
-        "playAudioButton": "",
-        "pauseAudioButton": "",
-        "mainText": "",
-        "sourceText": "",
         "imageSource1": "chiesasancarlo/oratorio_volta.jpg",
         "mainText2": "it_chiesasancarlo_maintext2.html",
         "imageSource2": "chiesasancarlo/facciata.jpg",

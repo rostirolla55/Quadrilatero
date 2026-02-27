@@ -422,39 +422,39 @@
     },
     "chiesasancarlo": {
         "it": {
-            "pageTitle": "",
-            "playAudioButton": "",
-            "pauseAudioButton": "",
+            "pageTitle": "Chiesa San Carlo Borromeo al Porto",
+            "playAudioButton": "Ascolta la storia",
+            "pauseAudioButton": "Ferma la riproduzione",
             "mainText": "",
             "sourceText": "",
-            "headImage": "",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "it/chiesasancarlo.mp3"
         },
         "es": {
-            "pageTitle": "",
-            "playAudioButton": "",
-            "pauseAudioButton": "",
+            "pageTitle": "Iglesia de San Carlo Borromeo",
+            "playAudioButton": "Escuchar la historia",
+            "pauseAudioButton": "Detener la reproducción",
             "mainText": "",
             "sourceText": "",
-            "headImage": "",
+            "headImage": "panorama_bologna.jpg",
            "audioSource": "es/chiesasancarlo.mp3"
         },
         "fr": {
-            "pageTitle": "",
-            "playAudioButton": "",
-            "pauseAudioButton": "",
+            "pageTitle": "Église San Carlo Borromeo al Porto",
+            "playAudioButton": "Écouter le récit",
+            "pauseAudioButton": "Arrêter la lecture",
             "mainText": "",
             "sourceText": "",
-            "headImage": "",
+            "headImage": "panorama_bologna.jpg",
            "audioSource": "fr/chiesasancarlo.mp3"
         },
         "en": {
-            "pageTitle": "",
-            "playAudioButton": "",
-            "pauseAudioButton": "",
+            "pageTitle": "Church San Carlo Borromeo al Porto",
+            "playAudioButton": "Listen with headphones",
+            "pauseAudioButton": "Pause",
             "mainText": "",
             "sourceText": "",
-            "headImage": "",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "en/chiesasancarlo.mp3"
         }
     }
