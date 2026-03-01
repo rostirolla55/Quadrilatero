@@ -316,7 +316,10 @@ function initEvents() {
                 playBtn.classList.replace('pause-style', 'play-style');
             }
         };
-        player.onended = () => { playBtn.textContent = playBtn.dataset.playText; };
+        player.onended = () => { 
+            playBtn.textContent = playBtn.dataset.playText; 
+            playBtn.classList.replace('pause-style', 'play-style');
+        };
     }
 
 
