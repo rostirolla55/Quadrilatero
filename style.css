@@ -454,3 +454,59 @@ body.content-loaded #app-wrapper {
 /* =========================================== */
 /* FINE BLOCCO: OTTIMIZZAZIONE DESKTOP (Tipografia) */
 /* =========================================== */
+/* Stile per il nome del POI al passaggio del mouse */
+.map-tooltip {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #d32f2f;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+/* Assicurati che il contenitore della mappa abbia una dimensione visibile */
+#map {
+    margin: 20px 0;
+    z-index: 1; /* Evita che copra il menu hamburger */
+}
+/* =========================================== */
+/* SEZIONE MAPPA INTERATTIVA (Leaflet)         */
+/* =========================================== */
+
+#map {
+    height: 500px; /* Altezza della mappa */
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 1; /* Fondamentale per non coprire i menu a comparsa */
+}
+
+/* Stile del fumetto che appare al passaggio del mouse (Tooltip) */
+.map-tooltip {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #d32f2f; /* Rosso come il tuo PIN */
+    border: 1px solid #9a1b1b;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+/* Rimuove la freccetta bianca standard del tooltip di Leaflet */
+.leaflet-tooltip-top:before, 
+.leaflet-tooltip-bottom:before, 
+.leaflet-tooltip-left:before, 
+.leaflet-tooltip-right:before {
+    border-top-color: #d32f2f;
+}
+
+/* Rendi la mappa un po' più piccola sui telefoni molto stretti */
+@media (max-width: 480px) {
+    #map {
+        height: 350px;
+    }
+}

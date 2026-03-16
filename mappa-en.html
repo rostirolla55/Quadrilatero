@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title id="pageTitle">Map - Quadrilatero</title>
-    <link href="style.css" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet" />
 </head>
+
 <body>
-    <div id="loading-message"><p>loading map ...</p></div>
-    
+    <div id="loading-message">
+        <p>loading map ...</p>
+    </div>
+
     <div id="app-wrapper">
         <header class="main-header">
             <div class="left-header-group">
@@ -16,36 +20,99 @@
                     <span class="bar"></span><span class="bar"></span><span class="bar"></span>
                 </button>
                 <a href="mappa-it.html" id="mapNavLink" class="map-link">
-                    <svg viewBox="0 0 24 24" class="pin-icon"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <svg viewBox="0 0 24 24" class="pin-icon">
+                        <path
+                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                    </svg>
                 </a>
             </div>
             <div class="right-header-group">
                 <div class="language-selector">
-                    <button data-lang="it"><img alt="Italiano" src="public/flag/it.png"/></button>
-                    <button data-lang="en"><img alt="English" src="public/flag/en.png"/></button>
-                    <button data-lang="es"><img alt="Español" src="public/flag/es.png"/></button>
-                    <button data-lang="fr"><img alt="Français" src="public/flag/fr.png"/></button>
+                    <button data-lang="it"><img alt="Italiano" src="public/flag/it.png" /></button>
+                    <button data-lang="en"><img alt="English" src="public/flag/en.png" /></button>
+                    <button data-lang="es"><img alt="Español" src="public/flag/es.png" /></button>
+                    <button data-lang="fr"><img alt="Français" src="public/flag/fr.png" /></button>
                 </div>
             </div>
         </header>
 
         <div class="header-image-container">
-            <img class="header-image-sfumata" id="headImage" src="public/images/panorama_bologna.jpg"/>
+            <img class="header-image-sfumata" id="headImage" src="public/images/panorama_bologna.jpg" />
             <h1 class="header-title" id="headerTitle">Mappa dei Luoghi</h1>
         </div>
 
         <div class="main-content-area">
             <p id="mainMapsDesc" style="margin-bottom: 20px; font-style: italic;">
-                </p>
-            
-            <div class="map-container" style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-     <iframe src="https://www.google.com/maps/d/embed?mid=1P_79ayf6mQAQtjJFqT7idToS0LyK3Jo&ehbc=2E312F" width="100%" height="450" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen="" loading="lazy"></iframe>        </div>
+            </p>
 
-        <footer class="info-footer">
-            <p>© 2026 - Bologna Quadrilatero - Versione Beta</p>
-        </footer>
-    </div>
+            <div class="map-container"
+                style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    <script type="module" src="main.js"></script>
+                <div id="map"
+                    style="height: 500px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+                </div>
+            </div>
+
+            <footer class="info-footer">
+                <p>© 2026 - Bologna Quadrilatero - Versione Beta</p>
+            </footer>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                // 1. Rileviamo la lingua corrente dal tag <html lang="...">
+                const currentLang = document.documentElement.lang || 'it';
+
+                // 2. Inizializziamo la mappa su Bologna
+                // [44.499, 11.340] sono le coordinate centrali del Quadrilatero
+                const map = L.map('map').setView([44.499, 11.340], 16);
+
+                // 3. Aggiungiamo lo sfondo (Tiles)
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap'
+                }).addTo(map);
+
+                try {
+                    // 4. Carichiamo contemporaneamente POI e Testi
+                    const [poisRes, textsRes] = await Promise.all([
+                        fetch('pois_config.json'),
+                        fetch('texts.json')
+                    ]);
+                    const poisData = await poisRes.json();
+                    const textsData = await textsRes.json();
+
+                    // Estraiamo i titoli dal blocco "nav" del JSON (come nel tuo script Python)
+                    const navTitles = textsData.nav || {};
+
+                    // 5. Posizioniamo i PIN
+                    poisData.pois.forEach(poi => {
+                        // Recuperiamo il titolo leggibile (es: "Casa di Ludovico Carracci")
+                        const title = navTitles[poi.nav_id] || poi.id;
+
+                        // Creiamo il marker
+                        const marker = L.marker([poi.lat, poi.lon]).addTo(map);
+
+                        // HOVER: Mostra il titolo quando si passa il mouse
+                        marker.bindTooltip(title, {
+                            direction: 'top',
+                            sticky: true,
+                            className: 'map-tooltip' // Puoi personalizzarlo nel CSS
+                        });
+
+                        // CLICK: Vai alla pagina specifica (es: carracci-it.html)
+                        marker.on('click', () => {
+                            window.location.href = `${poi.base_name}-${currentLang}.html`;
+                        });
+                    });
+
+                } catch (error) {
+                    console.error("Errore nel caricamento dei dati mappa:", error);
+                }
+            });
+        </script>
+        <script type="module" src="main.js"></script>
 </body>
+
 </html>

@@ -47,10 +47,12 @@
 
             <div class="map-container"
                 style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                <iframe src="https://www.google.com/maps/d/embed?mid=1P_79ayf6mQAQtjJFqT7idToS0LyK3Jo&ehbc=2E312F"
-                    width="100%" height="450"
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen=""
-                    loading="lazy"></iframe>
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+                <div id="map"
+                    style="height: 500px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+                </div>
             </div>
         </div>
 
@@ -59,6 +61,58 @@
         </footer>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. Rileviamo la lingua corrente dal tag <html lang="...">
+            const currentLang = document.documentElement.lang || 'it';
+
+            // 2. Inizializziamo la mappa su Bologna
+            // [44.499, 11.340] sono le coordinate centrali del Quadrilatero
+            const map = L.map('map').setView([44.499, 11.340], 16);
+
+            // 3. Aggiungiamo lo sfondo (Tiles)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+
+            try {
+                // 4. Carichiamo contemporaneamente POI e Testi
+                const [poisRes, textsRes] = await Promise.all([
+                    fetch('pois_config.json'),
+                    fetch('texts.json')
+                ]);
+                const poisData = await poisRes.json();
+                const textsData = await textsRes.json();
+
+                // Estraiamo i titoli dal blocco "nav" del JSON (come nel tuo script Python)
+                const navTitles = textsData.nav || {};
+
+                // 5. Posizioniamo i PIN
+                poisData.pois.forEach(poi => {
+                    // Recuperiamo il titolo leggibile (es: "Casa di Ludovico Carracci")
+                    const title = navTitles[poi.nav_id] || poi.id;
+
+                    // Creiamo il marker
+                    const marker = L.marker([poi.lat, poi.lon]).addTo(map);
+
+                    // HOVER: Mostra il titolo quando si passa il mouse
+                    marker.bindTooltip(title, {
+                        direction: 'top',
+                        sticky: true,
+                        className: 'map-tooltip' // Puoi personalizzarlo nel CSS
+                    });
+
+                    // CLICK: Vai alla pagina specifica (es: carracci-it.html)
+                    marker.on('click', () => {
+                        window.location.href = `${poi.base_name}-${currentLang}.html`;
+                    });
+                });
+
+            } catch (error) {
+                console.error("Errore nel caricamento dei dati mappa:", error);
+            }
+        });
+    </script>
     <script type="module" src="main.js"></script>
 </body>
 
