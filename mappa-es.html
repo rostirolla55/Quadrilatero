@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title id="pageTitle">Mapa - Quadrilatero</title>
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+    <div id="loading-message"><p>cargando mapa...</p></div>
+    
+    <div id="app-wrapper">
+        <header class="main-header">
+            <div class="left-header-group">
+                <button aria-label="Apri menu" class="menu-toggle">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+                <a href="mappa-it.html" id="mapNavLink" class="map-link">
+                    <svg viewBox="0 0 24 24" class="pin-icon"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                </a>
+            </div>
+            <div class="right-header-group">
+                <div class="language-selector">
+                    <button data-lang="it"><img alt="Italiano" src="public/flag/it.png"/></button>
+                    <button data-lang="en"><img alt="English" src="public/flag/en.png"/></button>
+                    <button data-lang="es"><img alt="Español" src="public/flag/es.png"/></button>
+                    <button data-lang="fr"><img alt="Français" src="public/flag/fr.png"/></button>
+                </div>
+            </div>
+        </header>
+
+        <div class="header-image-container">
+            <img class="header-image-sfumata" id="headImage" src="public/images/panorama_bologna.jpg"/>
+            <h1 class="header-title" id="headerTitle">Mappa dei Luoghi</h1>
+        </div>
+
+        <div class="main-content-area">
+            <p id="mainMapsDesc" style="margin-bottom: 20px; font-style: italic;">
+                </p>
+            
+            <div class="map-container" style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <iframe src="URL_DELLA_TUA_MAPPA" width="100%" height="450" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+
+        <footer class="info-footer">
+            <p>© 2026 - Bologna Quadrilatero - Versione Beta</p>
+        </footer>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

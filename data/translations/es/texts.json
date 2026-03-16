@@ -37,6 +37,11 @@
         "navBSMariaMaggiore": "Basílica San María Mayor",
         "navChiesaSanCarlo": "Iglesia San Carlo Borromeo al Porto"
     },
+    "mappa": {
+        "pageTitle": "Mapa del Cuadrilátero",
+        "mainMaps": "Utiliza este mapa interactivo para descubrir puntos de interés a tu alrededor. Haz clic en los marcadores para leer una breve historia y escuchar la audioguía.",
+        "headImage": "panorama_bologna.jpg"
+    },
     "pugliole": {
         "pageTitle": "Le Pugliole",
         "mainText": "",
