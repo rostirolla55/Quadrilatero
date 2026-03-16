@@ -426,6 +426,31 @@ body.content-loaded #app-wrapper {
     }
 }
 
+/* Allineamento gruppo sinistra */
+.left-header-group {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Spazio tra hamburger e PIN */
+}
+
+/* Stile del PIN */
+.map-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.pin-icon {
+    width: 32px; 
+    height: 32px;
+    fill: #d32f2f; /* Rosso tipico dei pin */
+    filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));
+    transition: transform 0.2s;
+}
+
+.map-link:hover .pin-icon {
+    transform: scale(1.1);
+}
 /* =========================================== */
 /* FINE BLOCCO: OTTIMIZZAZIONE DESKTOP (Tipografia) */
 /* =========================================== */
