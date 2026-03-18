@@ -10,8 +10,8 @@
     },
     {
       "id": "pittoricarracci",
-      "lat": 44.50085,
-      "lon": 11.3361,
+      "lat": 44.498944,
+      "lon": 11.340329,
       "threshold": 50,
       "nav_id": "navPittoriCarracci",
       "base_name": "pittoricarracci"
@@ -74,15 +74,15 @@
     },
     {
       "id": "santuariopioggia",
-      "lat": 44.49891,
-      "lon": 11.342241,
+      "lat": 44.498899,
+      "lon": 11.342153,
       "threshold": 120,
       "nav_id": "navSantuarioPioggia",
       "base_name": "santuariopioggia"
     },
     {
       "id": "pioggia1",
-      "lat": 44.498913,
+      "lat": 44.498899,
       "lon": 11.342241,
       "threshold": 120,
       "nav_id": "navPioggia1",
@@ -90,16 +90,16 @@
     },
     {
       "id": "pioggia2",
-      "lat": 44.498917,
-      "lon": 11.342241,
+      "lat": 44.499069,
+      "lon": 11.341809,
       "threshold": 120,
       "nav_id": "navPioggia2",
       "base_name": "pioggia2"
     },
     {
       "id": "pioggia3",
-      "lat": 44.498920,
-      "lon": 11.342241,
+      "lat": 44.499080,
+      "lon": 11.3422411,
       "threshold": 120,
       "nav_id": "navPioggia3",
       "base_name": "pioggia3"
