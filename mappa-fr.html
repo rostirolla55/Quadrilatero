@@ -119,28 +119,39 @@
             </div>
         </header>
 
-        <div class="header-image-container">
-            <img class="header-image-sfumata" id="headImage" src="public/images/panorama_bologna.jpg" />
-            <h1 class="header-title" id="headerTitle">Mappa dei Luoghi</h1>
-        </div>
+</header>
 
-        <div class="main-content-area">
-            <p id="mainMapsDesc" style="margin-bottom: 20px; font-style: italic;">
-            </p>
+</header>
 
-            <div class="map-container"
-                style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <nav class="nav-bar-main" id="navBarMain">
+            <div class="nav-bar-content">
+                <ul>
+                    <li><a href="index-it.html" id="navHome">Home</a></li>
+                    </ul>
+            </div>
+        </nav>
+        <div class="nav-bar-nearby" id="nearbyMenuPlaceholder"></div>
 
-                <div id="map"
-                    style="height: 500px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+        <main class="content-body">
+            <div class="header-image-container">
+                <img id="headImage" src="public/images/panorama_bologna.jpg" alt="Mappa" />
+                <h1 class="header-title" id="headerTitle">Carte des lieux</h1>
+            </div>
+
+            <div class="main-content-area">
+                <p id="mainMapsDesc" style="margin-bottom: 20px; font-style: italic;"></p>
+
+                <div class="map-container" style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+                    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+                    <div id="map" style="height: 500px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);"></div>
                 </div>
             </div>
-            <footer class="info-footer">
-                <p>© 2026 - Bologna Quadrilatero - Versione Beta</p>
-            </footer>
-        </div>
+        </main>
+
+        <footer class="info-footer">
+            <p>&copy; 2024 Quadrilatero. Tous droits réservés.</p>  
+        </footer>
 
         <script>
             document.addEventListener('DOMContentLoaded', async () => {

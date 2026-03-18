@@ -36,111 +36,38 @@
             </div>
         </header>
 
-        <div class="header-image-container">
-            <img class="header-image-sfumata" id="headImage" src="public/images/panorama_bologna.jpg" />
-            <h1 class="header-title" id="headerTitle">Mappa dei Luoghi</h1>
-        </div>
+</header>
+
         <nav class="nav-bar-main" id="navBarMain">
             <div class="nav-bar-content">
                 <ul>
-                    <li>
-                        <a href="index-es.html" id="navHome">
-                            Inicio
-                        </a>
-                    </li>
-                    <li>
-                        <a href="manifattura-es.html" id="navManifattura">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pittoricarracci-es.html" id="navPittoriCarracci">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="cavaticcio-es.html" id="navCavaticcio">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="bsmariamaggiore-es.html" id="navBSMariaMaggiore">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="graziaxx-es.html" id="navGraziaxx">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pugliole-es.html" id="navPugliole">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="carracci-es.html" id="navCarracci">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="lastre-es.html" id="navLastre">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chiesasbene-es.html" id="navChiesaSBene">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="santuariopioggia-es.html" id="navSantuarioPioggia">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pioggia1-es.html" id="navPioggia1">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pioggia2-es.html" id="navPioggia2">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pioggia3-es.html" id="navPioggia3">
-                            Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chiesasancarlo-es.html" id="navChiesaSanCarlo">
-                            Iglesia de San Carlo Borromeo en el puerto
-                        </a>
-                    </li>
-                </ul>
+                    <li><a href="index-it.html" id="navHome">Home</a></li>
+                    </ul>
             </div>
         </nav>
-        <div class="nav-bar-nearby" id="nearbyMenuPlaceholder">
-        </div>
-        <div class="main-content-area">
-            <p id="mainMapsDesc" style="margin-bottom: 20px; font-style: italic;">
-            </p>
+        <div class="nav-bar-nearby" id="nearbyMenuPlaceholder"></div>
 
-            <div class="map-container"
-                style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-                <div id="map"
-                    style="height: 500px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
-                </div>
+        <main class="content-body">
+            <div class="header-image-container">
+                <img id="headImage" src="public/images/panorama_bologna.jpg" alt="Mappa" />
+                <h1 class="header-title" id="headerTitle">Mapa de lugares</h1>
             </div>
 
-            <footer class="info-footer">
-                <p>© 2026 - Bologna Quadrilatero - Versione Beta</p>
-            </footer>
-        </div>
+            <div class="main-content-area">
+                <p id="mainMapsDesc" style="margin-bottom: 20px; font-style: italic;"></p>
+
+                <div class="map-container" style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+                    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+                    <div id="map" style="height: 500px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="info-footer">
+            <p>&copy; 2024 Quadrilatero. Todos los derechos reservados.</p>
+        </footer>
+
 
         <script>
             document.addEventListener('DOMContentLoaded', async () => {
