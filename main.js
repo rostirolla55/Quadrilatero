@@ -24,7 +24,7 @@ let db, auth, currentUserId = null, isAuthReady = false;
 // DATI: POI GPS
 // ===========================================
 const POIS_LOCATIONS = [
-    { id: 'manifattura', lat: 44.49891, lon: 11.342241, distanceThreshold: 50 },
+    { id: 'manifattura', lat: 44.49911485308791, lon: 11.336683863655372, distanceThreshold: 50 },
     { id: 'pittoricarracci', lat: 44.50085, lon: 11.3361, distanceThreshold: 50 },
     { id: 'cavaticcio', lat: 44.50018, lon: 11.33807, distanceThreshold: 50 },
     { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50 },
@@ -34,9 +34,9 @@ const POIS_LOCATIONS = [
     { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50 },
     { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120 },
     { id: 'santuariopioggia', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
-    { id: 'pioggia1', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
-    { id: 'pioggia2', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
-    { id: 'pioggia3', lat: 44.49891, lon: 11.342241, distanceThreshold: 120 },
+    { id: 'pioggia1', lat: 44.498913, lon: 11.342241, distanceThreshold: 120 },
+    { id: 'pioggia2', lat: 44.498917, lon: 11.342241, distanceThreshold: 120 },
+    { id: 'pioggia3', lat: 44.49892, lon: 11.342241, distanceThreshold: 120 },
     { id: 'chiesasancarlo', lat: 44.50124875821167, lon: 11.340753666229292, distanceThreshold: 120 }
 ];
 

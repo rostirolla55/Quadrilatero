@@ -2,8 +2,8 @@
   "pois": [
     {
       "id": "manifattura",
-      "lat": 44.49891,
-      "lon": 11.342241,
+      "lat": 44.49911485308791,
+      "lon": 11.336683863655372,
       "threshold": 50,
       "nav_id": "navManifattura",
       "base_name": "manifattura"
@@ -82,7 +82,7 @@
     },
     {
       "id": "pioggia1",
-      "lat": 44.49891,
+      "lat": 44.498913,
       "lon": 11.342241,
       "threshold": 120,
       "nav_id": "navPioggia1",
@@ -90,7 +90,7 @@
     },
     {
       "id": "pioggia2",
-      "lat": 44.49891,
+      "lat": 44.498917,
       "lon": 11.342241,
       "threshold": 120,
       "nav_id": "navPioggia2",
@@ -98,7 +98,7 @@
     },
     {
       "id": "pioggia3",
-      "lat": 44.49891,
+      "lat": 44.498920,
       "lon": 11.342241,
       "threshold": 120,
       "nav_id": "navPioggia3",
