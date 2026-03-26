@@ -510,3 +510,38 @@ body.content-loaded #app-wrapper {
         height: 350px;
     }
 }
+
+/* Pin di Gruppo (Cluster) */
+.cluster-pin {
+    background-color: #28a745; /* Verde */
+    border: 2px solid white;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+
+/* Bottone di chiusura menu (Verde) */
+#close-cluster-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 2000;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    display: none; /* Nascosto di default */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+#close-cluster-btn:hover {
+    background-color: #218838;
+}
