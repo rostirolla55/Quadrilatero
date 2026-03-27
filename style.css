@@ -431,84 +431,70 @@ body.content-loaded #app-wrapper {
 /* =========================================== */
 
 /* =========================================== */
-/* INIZIO BLOCCO: GESTIONE MAPPA E CLUSTERING  */
+/* AGGIORNAMENTO FIX: CLUSTER E LISTA NERA     */
 /* =========================================== */
 
-#map {
-    width: 100%;
-    height: 500px;
-    border-radius: 8px;
-    margin-top: 10px;
-    z-index: 1;
-}
-
-/* --- PIN SINGOLO: Blu con puntino nero al centro --- */
-.custom-pin-single {
-    background-color: #007bff; /* Blu */
-    border: 2px solid #ffffff;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-.custom-pin-single::after {
-    content: '';
-    width: 6px;
-    height: 6px;
-    background-color: #000000; /* Puntino nero */
-    border-radius: 50%;
-}
-
-/* --- PIN CLUSTER: Verde con numero --- */
+/* 1. Centramento del numero nel cerchio verde */
 .cluster-pin {
-    background-color: #28a745 !important; /* Verde */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #28a745 !important;
     border: 2px solid white;
     border-radius: 50%;
     color: white;
     font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
     cursor: pointer;
     z-index: 1000 !important;
 }
 
-/* --- MENU CLUSTER: In alto a destra sotto il bottone chiudi --- */
+/* Assicura che lo span interno non abbia margini strani */
+.cluster-pin span {
+    display: block;
+    line-height: 1;
+    text-align: center;
+}
+
+/* 2. Lista POI con fondo nero (stile menu sito) */
 #nearbyMenuPlaceholder {
     display: none; 
     position: fixed;
-    top: 130px; /* Sotto il bottone verde di chiusura */
+    top: 130px; /* Sotto il bottone verde */
     right: 15px;
-    width: 250px;
-    background: white;
+    width: 280px;
+    background: #000000; /* FONDO NERO richiesto */
     padding: 10px;
     border-radius: 8px;
-    box-shadow: -2px 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     z-index: 2000;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
 }
 
 #nearbyMenuPlaceholder.active {
     display: flex !important;
 }
 
+/* 3. Voci della lista (Bottoni) */
 .cluster-menu-item {
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
-    padding: 10px;
+    background-color: #222; /* Grigio molto scuro */
+    color: #ffffff; /* Testo bianco */
+    border: 1px solid #444;
+    padding: 12px 15px;
     border-radius: 5px;
     text-align: left;
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
-/* Bottone Rettangolare Verde per chiusura */
+.cluster-menu-item:hover {
+    background-color: #333;
+    border-color: #28a745; /* Evidenzia in verde al passaggio */
+}
+
+/* 4. Bottone Rettangolare Verde "CHIUDI ELENCO" */
 #close-cluster-btn {
     display: none; 
     position: fixed;
@@ -521,9 +507,7 @@ body.content-loaded #app-wrapper {
     padding: 10px 20px;
     border-radius: 4px; /* Rettangolare */
     font-weight: bold;
+    text-transform: uppercase;
     cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
-
-/* =========================================== */
-/* FINE BLOCCO MAPPA                           */
-/* =========================================== */
