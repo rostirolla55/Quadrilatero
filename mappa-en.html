@@ -170,89 +170,62 @@
                     const navTitles = textsData.nav || {};
 
                     // --- INIZIO LOGICA CLUSTERING (PIN DI GRUPPO) ---
+// --- INIZIO LOGICA CLUSTERING (PIN DI GRUPPO) ---
+                    const clusters = clusterPOI(allPois, 0.0003);
 
-                    // Funzione di utilità per calcolare la distanza "visiva" tra due punti
-                    function getDistance(lat1, lon1, lat2, lon2) {
-                        return Math.sqrt(Math.pow(lat1 - lat2, 2) + Math.pow(lon1 - lon2, 2));
-                    }
-
-                    const groups = [];
-                    const DISTANCE_THRESHOLD = 0.0006; // Regola questo valore per raggruppare più o meno punti
-
-                    // Raggruppiamo i POI che sono molto vicini tra loro
-                    poisData.pois.forEach(poi => {
-                        let addedToGroup = false;
-                        for (let group of groups) {
-                            let first = group[0];
-                            if (getDistance(poi.lat, poi.lon, first.lat, first.lon) < DISTANCE_THRESHOLD) {
-                                group.push(poi);
-                                addedToGroup = true;
-                                break;
-                            }
-                        }
-                        if (!addedToGroup) groups.push([poi]);
-                    });
-
-                    // 5. Posizioniamo i PIN (Singoli o di Gruppo)
-                    groups.forEach(group => {
+                    clusters.forEach(group => {
                         if (group.length === 1) {
-                            // --- PIN SINGOLO (Rosso standard) ---
+                            // PIN SINGOLO
                             const poi = group[0];
-                            const title = navTitles[poi.nav_id] || poi.id;
-
-                            // Creiamo il marker
-                            const marker = L.marker([poi.lat, poi.lon]).addTo(map);
-
-                            // HOVER: Mostra il titolo quando si passa il mouse
-                            marker.bindTooltip(title, {
-                                direction: 'top',
-                                sticky: true,
-                                className: 'map-tooltip'
-                            });
-
-                            // CLICK: Vai alla pagina specifica (es: carracci-it.html)
-                            marker.on('click', () => {
-                                window.location.href = `${poi.base_name}-${currentLang}.html`;
-                            });
-
+                            L.marker([poi.lat, poi.lon], { icon: redPinIcon })
+                                .addTo(map)
+                                .bindTooltip(navTitles[poi.nav_id] || poi.id, {
+                                    permanent: false,
+                                    direction: 'top',
+                                    className: 'map-tooltip'
+                                })
+                                .on('click', () => {
+                                    const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
+                                    window.location.href = `${poi.base_name}${suffix}.html`;
+                                });
                         } else {
-                            // --- PIN DI GRUPPO (Verde con numero) ---
-                            // Calcoliamo la posizione media per il pin di gruppo
+                            // PIN DI GRUPPO (CLUSTER)
                             const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
                             const avgLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
 
-                            // Definiamo l'icona verde circolare
                             const clusterIcon = L.divIcon({
-                                html: `<span>${group.length}</span>`,
-                                className: 'cluster-pin', // Definita nel tuo style.css
-                                iconSize: [30, 30],
-                                iconAnchor: [15, 15]
+                                html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
+                                className: '',
+                                iconSize: [40, 40],
+                                iconAnchor: [20, 20]
                             });
 
                             const clusterMarker = L.marker([avgLat, avgLon], { icon: clusterIcon }).addTo(map);
 
-                            // CLICK sul gruppo: apre il menu con l'elenco dei POI
-                            clusterMarker.on('click', () => {
-                                const menu = document.getElementById('nearbyMenuPlaceholder');
-                                const closeBtn = document.getElementById('close-cluster-btn');
+                            clusterMarker.on('click', (e) => {
+                                L.DomEvent.stopPropagation(e);
+                                
+                                // Riferimento ai nuovi ID separati per la mappa
+                                const menu = document.getElementById('nearbyMenuPlaceholder-map');
+                                const closeBtn = document.getElementById('close-cluster-btn-map');
 
                                 if (menu) {
-                                    menu.innerHTML = ''; // Pulizia menu precedente
-
-                                    // Popoliamo il menu con i nomi delle pagine raggruppate
+                                    menu.innerHTML = '';
                                     group.forEach(poi => {
-                                        const title = navTitles[poi.nav_id] || poi.id;
                                         const btn = document.createElement('button');
+                                        // Usiamo la nuova classe CSS specifica per la mappa
+                                        btn.className = 'cluster-menu-item-map';
+                                        
+                                        const title = (typeof navTitles !== 'undefined' && navTitles[poi.nav_id]) ? navTitles[poi.nav_id] : poi.id;
                                         btn.textContent = title;
-                                        btn.style.width = '100%';
-                                        btn.style.marginBottom = '5px';
+                                        
                                         btn.onclick = () => {
-                                            window.location.href = `${poi.base_name}-${currentLang}.html`;
+                                            const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
+                                            window.location.href = `${poi.base_name}${suffix}.html`;
                                         };
                                         menu.appendChild(btn);
                                     });
 
-                                    // Mostriamo il menu e il bottone verde di chiusura
                                     menu.classList.add('active');
                                     if (closeBtn) closeBtn.style.display = 'block';
                                 }
@@ -260,17 +233,16 @@
                         }
                     });
 
-                    // Gestione del click sul bottone verde "CHIUDI ELENCO"
-                    const closeBtn = document.getElementById('close-cluster-btn');
-                    if (closeBtn) {
-                        closeBtn.onclick = function () {
-                            const menu = document.getElementById('nearbyMenuPlaceholder');
+                    // Gestione del click sul bottone verde di chiusura specifico per la mappa
+                    const closeBtnMap = document.getElementById('close-cluster-btn-map');
+                    if (closeBtnMap) {
+                        closeBtnMap.onclick = function() {
+                            const menu = document.getElementById('nearbyMenuPlaceholder-map');
                             if (menu) menu.classList.remove('active');
                             this.style.display = 'none';
                         };
                     }
-
-
+                    // --- FINE LOGICA CLUSTERING ---
                     // --- FINE LOGICA CLUSTERING ---
 
                 } catch (error) {

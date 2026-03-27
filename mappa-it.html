@@ -183,10 +183,12 @@
                     const navTitles = textsData.nav || {};
 
                     // --- INIZIO LOGICA CLUSTERING (PIN DI GRUPPO) ---
+// --- INIZIO LOGICA CLUSTERING (PIN DI GRUPPO) ---
                     const clusters = clusterPOI(allPois, 0.0003);
 
                     clusters.forEach(group => {
                         if (group.length === 1) {
+                            // PIN SINGOLO
                             const poi = group[0];
                             L.marker([poi.lat, poi.lon], { icon: redPinIcon })
                                 .addTo(map)
@@ -200,6 +202,7 @@
                                     window.location.href = `${poi.base_name}${suffix}.html`;
                                 });
                         } else {
+                            // PIN DI GRUPPO (CLUSTER)
                             const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
                             const avgLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
 
@@ -214,8 +217,8 @@
 
                             clusterMarker.on('click', (e) => {
                                 L.DomEvent.stopPropagation(e);
-
-                                // Puntamento ai nuovi ID per la mappa
+                                
+                                // Riferimento ai nuovi ID separati per la mappa
                                 const menu = document.getElementById('nearbyMenuPlaceholder-map');
                                 const closeBtn = document.getElementById('close-cluster-btn-map');
 
@@ -223,11 +226,12 @@
                                     menu.innerHTML = '';
                                     group.forEach(poi => {
                                         const btn = document.createElement('button');
+                                        // Usiamo la nuova classe CSS specifica per la mappa
                                         btn.className = 'cluster-menu-item-map';
-
+                                        
                                         const title = (typeof navTitles !== 'undefined' && navTitles[poi.nav_id]) ? navTitles[poi.nav_id] : poi.id;
                                         btn.textContent = title;
-
+                                        
                                         btn.onclick = () => {
                                             const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
                                             window.location.href = `${poi.base_name}${suffix}.html`;
@@ -242,15 +246,16 @@
                         }
                     });
 
-                    // Gestione del click sul bottone verde "CHIUDI ELENCO" della mappa
+                    // Gestione del click sul bottone verde di chiusura specifico per la mappa
                     const closeBtnMap = document.getElementById('close-cluster-btn-map');
                     if (closeBtnMap) {
-                        closeBtnMap.onclick = function () {
+                        closeBtnMap.onclick = function() {
                             const menu = document.getElementById('nearbyMenuPlaceholder-map');
                             if (menu) menu.classList.remove('active');
                             this.style.display = 'none';
                         };
                     }
+                    // --- FINE LOGICA CLUSTERING ---
                     // --- FINE LOGICA CLUSTERING ---
                 } catch (error) {
                     console.error("Errore nel caricamento dei dati mappa:", error);
