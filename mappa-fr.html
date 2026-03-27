@@ -165,7 +165,6 @@
                 }).addTo(map);
 
                 try {
-                try {
                     // 3. Caricamento dati dai JSON (Configurazione POI e Testi)
                     const [poisRes, textsRes] = await Promise.all([
                         fetch('pois_config.json'),
