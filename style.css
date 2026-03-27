@@ -450,3 +450,61 @@ body.content-loaded #app-wrapper {
     align-items: center;
     text-decoration: none;
 }
+
+/* --- IL CERCHIO VERDE DEL CLUSTER --- */
+.cluster-pin {
+    background-color: #28a745 !important; /* Verde */
+    border: 2px solid #ffffff !important;
+    border-radius: 50% !important;
+    color: #ffffff !important;
+    font-weight: bold !important;
+    width: 40px !important;  /* Dimensione fissa */
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4) !important;
+    cursor: pointer !important;
+    z-index: 1000 !important;
+}
+
+/* Assicura che il numero dentro sia leggibile */
+.cluster-pin span {
+    pointer-events: none; /* Il click deve passare al cerchio */
+    font-size: 16px;
+}
+/* Stile per il Cerchio Verde del Cluster */
+.cluster-pin {
+    background-color: #28a745 !important; /* Verde */
+    border: 2px solid #ffffff !important;
+    border-radius: 50% !important;
+    color: white !important;
+    font-weight: bold !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    cursor: pointer !important;
+}
+
+/* Stile per la Lista POI (Fondo Nero) */
+#nearbyMenuPlaceholder {
+    display: none; 
+    position: fixed;
+    top: 130px; 
+    right: 20px;
+    width: 280px;
+    background: #000000 !important; /* Fondo Nero */
+    padding: 15px;
+    border-radius: 8px;
+    z-index: 2000;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+#nearbyMenuPlaceholder.active {
+    display: flex !important;
+}

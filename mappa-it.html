@@ -247,14 +247,18 @@
                                 const closeBtn = document.getElementById('close-cluster-btn');
 
                                 if (menu) {
-                                    menu.innerHTML = '';
-                                    menu.style.display = 'block'; // Assicuriamoci che sia visibile
+                                    menu.innerHTML = ''; // Pulisce la lista
+                                    // Forza lo stile visibile
+                                    menu.style.display = 'flex';
 
                                     group.forEach(poi => {
-                                        const title = navTitles[poi.nav_id] || poi.id;
                                         const btn = document.createElement('button');
+                                        btn.className = 'cluster-menu-item';
+
+                                        // Prende il titolo dal JSON dei testi (navTitles)
+                                        const title = navTitles[poi.nav_id] || poi.id;
                                         btn.textContent = title;
-                                        btn.className = 'cluster-menu-item'; // Usa una classe per lo stile
+
                                         btn.onclick = () => {
                                             const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
                                             window.location.href = `${poi.base_name}${suffix}.html`;
