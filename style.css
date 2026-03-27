@@ -431,70 +431,53 @@ body.content-loaded #app-wrapper {
 /* =========================================== */
 
 /* =========================================== */
-/* AGGIORNAMENTO FIX: CLUSTER E LISTA NERA     */
+/* FIX POSIZIONAMENTO E STILE MENU CLUSTER     */
 /* =========================================== */
 
-/* 1. Centramento del numero nel cerchio verde */
-.cluster-pin {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background-color: #28a745 !important;
-    border: 2px solid white;
-    border-radius: 50%;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 1000 !important;
-}
-
-/* Assicura che lo span interno non abbia margini strani */
-.cluster-pin span {
-    display: block;
-    line-height: 1;
-    text-align: center;
-}
-
-/* 2. Lista POI con fondo nero (stile menu sito) */
+/* Il contenitore della lista POI */
 #nearbyMenuPlaceholder {
     display: none; 
     position: fixed;
-    top: 130px; /* Sotto il bottone verde */
-    right: 15px;
-    width: 280px;
-    background: #000000; /* FONDO NERO richiesto */
+    top: 130px; /* Sotto il bottone "CHIUDI ELENCO" */
+    right: 15px; /* Margine dal bordo destro */
+    left: 15px;  /* Margine dal bordo sinistro per non farlo uscire su mobile */
+    max-width: 300px; /* Larghezza contenuta */
+    margin-left: auto; /* Lo spinge a destra ma lo tiene nei limiti */
+    background: #000000; /* FONDO NERO */
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     z-index: 2000;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
 }
 
 #nearbyMenuPlaceholder.active {
     display: flex !important;
 }
 
-/* 3. Voci della lista (Bottoni) */
+/* Le voci della lista (Bottoni dei POI) */
 .cluster-menu-item {
-    background-color: #222; /* Grigio molto scuro */
+    background-color: #1a1a1a; /* Grigio molto scuro quasi nero */
     color: #ffffff; /* Testo bianco */
-    border: 1px solid #444;
+    border: 1px solid #333;
     padding: 12px 15px;
     border-radius: 5px;
     text-align: left;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: bold;
     cursor: pointer;
+    white-space: normal; /* Permette al testo lungo di andare a capo */
+    word-wrap: break-word;
     transition: background 0.2s;
 }
 
 .cluster-menu-item:hover {
     background-color: #333;
-    border-color: #28a745; /* Evidenzia in verde al passaggio */
+    border-color: #28a745; /* Bordino verde al passaggio */
 }
 
-/* 4. Bottone Rettangolare Verde "CHIUDI ELENCO" */
+/* Bottone CHIUDI ELENCO (Rettangolare Verde) */
 #close-cluster-btn {
     display: none; 
     position: fixed;
@@ -505,9 +488,8 @@ body.content-loaded #app-wrapper {
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 4px; /* Rettangolare */
+    border-radius: 4px; /* Taglio rettangolare */
     font-weight: bold;
-    text-transform: uppercase;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
