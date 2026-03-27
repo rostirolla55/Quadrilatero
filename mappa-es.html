@@ -113,12 +113,39 @@
                         return clusters;
                     }
 
-                    // --- INIZIO LOGICA CLUSTERING (PIN DI GRUPPO) ---
+// --- INIZIO LOGICA CLUSTERING (PIN DI GRUPPO) ---
+                    
+                    // 1. Estraiamo i dati necessari (fondamentale!)
+                    const allPois = poisData.pois;
+                    const navTitles = textsData.nav || {};
+
+                    // 2. Definiamo la funzione di clustering (senza questa i pin non appaiono)
+                    function clusterPOI(pois, radius) {
+                        const clusters = [];
+                        const visited = new Set();
+                        pois.forEach((p1, i) => {
+                            if (visited.has(i)) return;
+                            const group = [p1];
+                            visited.add(i);
+                            pois.forEach((p2, j) => {
+                                if (visited.has(j)) return;
+                                const dist = Math.sqrt(Math.pow(p1.lat - p2.lat, 2) + Math.pow(p1.lon - p2.lon, 2));
+                                if (dist < radius) {
+                                    group.push(p2);
+                                    visited.add(j);
+                                }
+                            });
+                            clusters.push(group);
+                        });
+                        return clusters;
+                    }
+
+                    // 3. Eseguiamo il clustering e creiamo i pin
                     const clusters = clusterPOI(allPois, 0.0003);
 
                     clusters.forEach(group => {
                         if (group.length === 1) {
-                            // PIN SINGOLO (Rosso)
+                            // PIN SINGOLO
                             const poi = group[0];
                             L.marker([poi.lat, poi.lon], { icon: redPinIcon })
                                 .addTo(map)
@@ -132,7 +159,7 @@
                                     window.location.href = `${poi.base_name}${suffix}.html`;
                                 });
                         } else {
-                            // PIN DI GRUPPO (Cerchio Verde)
+                            // CLUSTER (PIN DI GRUPPO)
                             const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
                             const avgLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
 
@@ -147,7 +174,6 @@
 
                             clusterMarker.on('click', (e) => {
                                 L.DomEvent.stopPropagation(e);
-
                                 const menu = document.getElementById('nearbyMenuPlaceholder-map');
                                 const closeBtn = document.getElementById('close-cluster-btn-map');
 
@@ -156,17 +182,13 @@
                                     group.forEach(poi => {
                                         const btn = document.createElement('button');
                                         btn.className = 'cluster-menu-item-map';
-
-                                        const title = navTitles[poi.nav_id] || poi.id;
-                                        btn.textContent = title;
-
+                                        btn.textContent = navTitles[poi.nav_id] || poi.id;
                                         btn.onclick = () => {
                                             const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
                                             window.location.href = `${poi.base_name}${suffix}.html`;
                                         };
                                         menu.appendChild(btn);
                                     });
-
                                     menu.classList.add('active');
                                     if (closeBtn) closeBtn.style.display = 'block';
                                 }
@@ -174,17 +196,16 @@
                         }
                     });
 
-                    // Gestione chiusura specifica per la mappa
+                    // 4. Gestione chiusura menu
                     const closeBtnMap = document.getElementById('close-cluster-btn-map');
                     if (closeBtnMap) {
-                        closeBtnMap.onclick = function () {
+                        closeBtnMap.onclick = function() {
                             const menu = document.getElementById('nearbyMenuPlaceholder-map');
                             if (menu) menu.classList.remove('active');
                             this.style.display = 'none';
                         };
                     }
-                    // --- FINE LOGICA CLUSTERING --- 
-
+                    // --- FINE LOGICA CLUSTERING ---
                 } catch (error) {
                     console.error("Errore nel caricamento dei dati mappa:", error);
                 }
