@@ -13,6 +13,8 @@
         <p>loading map ...</p>
     </div>
     <button id="close-cluster-btn">CLOSE LIST</button>
+    <div id="nearbyMenuPlaceholder-map"></div>
+
     <div id="app-wrapper">
         <header class="main-header">
             <div class="left-header-group">
@@ -119,32 +121,32 @@
             </div>
         </header>
         <main class="content-body">
-        <div class="header-image-container">
-            <img class="header-image-sfumata" id="headImage" src="public/images/panorama_bologna.jpg" />
-            <h1 class="header-title" id="headerTitle">Map of Places</h1>
-        </div>
-
-        <div class="main-content-area">
-            <p id="mainMapsDesc" style="margin-bottom: 20px; font-style: italic;">
-            </p>
-
-            <div class="map-container"
-                style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-                <div id="map"
-                    style="height: 500px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
-                </div>
+            <div class="header-image-container">
+                <img class="header-image-sfumata" id="headImage" src="public/images/panorama_bologna.jpg" />
+                <h1 class="header-title" id="headerTitle">Map of Places</h1>
             </div>
 
-            <footer class="info-footer">
-                <p>© 2026 - Bologna Quadrilatero - Versione Beta</p>
-            </footer>
-        </div>
+            <div class="main-content-area">
+                <p id="mainMapsDesc" style="margin-bottom: 20px; font-style: italic;">
+                </p>
+
+                <div class="map-container"
+                    style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+                    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+                    <div id="map"
+                        style="height: 500px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+                    </div>
+                </div>
+
+                <footer class="info-footer">
+                    <p>© 2026 - Bologna Quadrilatero - Versione Beta</p>
+                </footer>
+            </div>
         </main>
 
-<script>
+        <script>
             document.addEventListener('DOMContentLoaded', async () => {
                 // 1. Inizializzazione della mappa (Centro Bologna)
                 const map = L.map('map').setView([44.4949, 11.3426], 16);
@@ -205,7 +207,7 @@
                             marker.bindTooltip(title, {
                                 direction: 'top',
                                 sticky: true,
-                                className: 'map-tooltip' 
+                                className: 'map-tooltip'
                             });
 
                             // CLICK: Vai alla pagina specifica (es: carracci-it.html)
@@ -233,10 +235,10 @@
                             clusterMarker.on('click', () => {
                                 const menu = document.getElementById('nearbyMenuPlaceholder');
                                 const closeBtn = document.getElementById('close-cluster-btn');
-                                
+
                                 if (menu) {
                                     menu.innerHTML = ''; // Pulizia menu precedente
-                                    
+
                                     // Popoliamo il menu con i nomi delle pagine raggruppate
                                     group.forEach(poi => {
                                         const title = navTitles[poi.nav_id] || poi.id;
@@ -261,12 +263,13 @@
                     // Gestione del click sul bottone verde "CHIUDI ELENCO"
                     const closeBtn = document.getElementById('close-cluster-btn');
                     if (closeBtn) {
-                        closeBtn.onclick = function() {
+                        closeBtn.onclick = function () {
                             const menu = document.getElementById('nearbyMenuPlaceholder');
                             if (menu) menu.classList.remove('active');
                             this.style.display = 'none';
                         };
                     }
+
 
                     // --- FINE LOGICA CLUSTERING ---
 

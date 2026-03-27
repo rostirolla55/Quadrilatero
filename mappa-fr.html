@@ -14,6 +14,7 @@
     </div>
 
     <button id="close-cluster-btn">FERMER LA LISTE</button>
+    <div id="nearbyMenuPlaceholder-map"></div>
     <div id="app-wrapper">
         <header class="main-header">
             <div class="left-header-group">
@@ -178,6 +179,7 @@
 
                     // --- INIZIO LOGICA CLUSTERING (PIN DI GRUPPO) ---
 
+
                     // Funzione di utilità per calcolare la distanza "visiva" tra due punti
                     function getDistance(lat1, lon1, lat2, lon2) {
                         return Math.sqrt(Math.pow(lat1 - lat2, 2) + Math.pow(lon1 - lon2, 2));
@@ -276,6 +278,7 @@
                             this.style.display = 'none';
                         };
                     }
+
 
                     // --- FINE LOGICA CLUSTERING ---
 
