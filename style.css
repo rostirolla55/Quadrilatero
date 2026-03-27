@@ -429,67 +429,24 @@ body.content-loaded #app-wrapper {
 /* =========================================== */
 /* FINE BLOCCO: OTTIMIZZAZIONE DESKTOP (Tipografia) */
 /* =========================================== */
-
-/* =========================================== */
-/* FIX POSIZIONAMENTO E STILE MENU CLUSTER     */
-/* =========================================== */
-
-/* Il contenitore della lista POI */
-#nearbyMenuPlaceholder {
-    display: none; 
-    position: fixed;
-    top: 130px; /* Sotto il bottone "CHIUDI ELENCO" */
-    right: 15px; /* Margine dal bordo destro */
-    left: 15px;  /* Margine dal bordo sinistro per non farlo uscire su mobile */
-    max-width: 300px; /* Larghezza contenuta */
-    margin-left: auto; /* Lo spinge a destra ma lo tiene nei limiti */
-    background: #000000; /* FONDO NERO */
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    z-index: 2000;
-    flex-direction: column;
-    gap: 8px;
-}
-
-#nearbyMenuPlaceholder.active {
+/* Forza l'allineamento degli elementi nell'header */
+.left-header-group {
     display: flex !important;
+    align-items: center !important;
+    gap: 10px;
 }
 
-/* Le voci della lista (Bottoni dei POI) */
-.cluster-menu-item {
-    background-color: #1a1a1a; /* Grigio molto scuro quasi nero */
-    color: #ffffff; /* Testo bianco */
-    border: 1px solid #333;
-    padding: 12px 15px;
-    border-radius: 5px;
-    text-align: left;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    white-space: normal; /* Permette al testo lungo di andare a capo */
-    word-wrap: break-word;
-    transition: background 0.2s;
+/* Ripristina il PIN della mappa: Rosso, nella riga corretta */
+.map-link svg.pin-icon {
+    fill: #d32f2f !important; /* Torna Rosso */
+    width: 28px;
+    height: 28px;
+    display: block;
 }
 
-.cluster-menu-item:hover {
-    background-color: #333;
-    border-color: #28a745; /* Bordino verde al passaggio */
-}
-
-/* Bottone CHIUDI ELENCO (Rettangolare Verde) */
-#close-cluster-btn {
-    display: none; 
-    position: fixed;
-    top: 80px; 
-    right: 15px;
-    z-index: 2001;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px; /* Taglio rettangolare */
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+/* Evita che il link vada a capo */
+.map-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
