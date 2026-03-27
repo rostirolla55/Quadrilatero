@@ -26,7 +26,8 @@
                 </button>
                 <a href="mappa-it.html" id="mapNavLink" class="map-link">
                     <svg viewBox="0 0 24 24" class="pin-icon">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                        <path
+                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                     </svg>
                     <span id="mapNavText">Mappa</span>
                 </a>
@@ -35,7 +36,8 @@
                 <div id="language-switcher"></div>
                 <button id="nearby-poi-btn" class="nearby-btn">
                     <svg viewBox="0 0 24 24" class="nearby-icon">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                        <path
+                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                     </svg>
                 </button>
             </div>
@@ -103,7 +105,7 @@
 
                 const poisData = await poisRes.json();
                 const textsData = await textsRes.json();
-                
+
                 const allPois = poisData.pois;
                 const navTitles = textsData.nav || {};
 
@@ -174,6 +176,26 @@
                     };
                 }
 
+
+                // --- LOGICA APERTURA MENU LATERALE (HAMBURGER) ---
+                const menuToggle = document.querySelector('.menu-toggle');
+                const sideMenu = document.getElementById('sideMenu');
+
+                if (menuToggle && sideMenu) {
+                    menuToggle.onclick = function (e) {
+                        e.preventDefault();
+                        sideMenu.classList.toggle('active');
+                    };
+                }
+
+                // Chiudi il menu se si clicca fuori (opzionale ma consigliato)
+                document.addEventListener('click', (e) => {
+                    if (sideMenu && sideMenu.classList.contains('active') &&
+                        !sideMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                        sideMenu.classList.remove('active');
+                    }
+                });
+                
                 // Nascondi loader
                 const loader = document.getElementById('loading-message');
                 if (loader) loader.style.display = 'none';
@@ -182,7 +204,12 @@
                 console.error("Errore nel caricamento dei dati mappa:", error);
             }
         });
+        // Forza l'apertura del menu laterale anche dalla mappa
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.getElementById('sideMenu').classList.toggle('active');
+        });
     </script>
     <script type="module" src="main.js"></script>
 </body>
+
 </html>

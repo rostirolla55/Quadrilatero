@@ -29,6 +29,37 @@ body {
     box-sizing: border-box;
 }
 
+.left-header-group {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Spazio tra il menu hamburger e l'icona mappa */
+}
+
+/* Correzione posizione e colore icona mappa nell'header */
+.map-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #28a745 !important; /* Forza il colore verde */
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.pin-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px; /* Spazio tra icona e parola "Mappa" */
+    fill: #28a745 !important; /* Forza il colore del SVG */
+}
+
+/* Assicura che il gruppo di sinistra non collassi */
+.left-header-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 100px; 
+}
+
 .content-body {
     padding: 20px;
     max-width: 800px;
@@ -443,6 +474,18 @@ body.content-loaded #app-wrapper {
     z-index: 1;
 }
 
+/* Forza il colore dell'icona mappa se appare nera */
+.map-link {
+    color: #28a745 !important; /* Verde come lo volevi */
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+.pin-icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor; /* Prende il verde dal map-link */
+}
 /* Pin di Gruppo (Cluster Verde) */
 .cluster-pin {
     background-color: #28a745 !important;
