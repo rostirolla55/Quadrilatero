@@ -204,12 +204,12 @@
                     }
 
 // --- INIZIO LOGICA CLUSTERING (PIN DI GRUPPO) ---
-                    
-                    // 1. Estraiamo i dati necessari (fondamentale!)
-                    const allPois = poisData.pois;
+
+                    // 1. Estrazione pulita dei dati dai JSON caricati
+                    const allPois = poisData.pois; 
                     const navTitles = textsData.nav || {};
 
-                    // 2. Definiamo la funzione di clustering (senza questa i pin non appaiono)
+                    // 2. Definizione della funzione di calcolo dei gruppi (Cluster)
                     function clusterPOI(pois, radius) {
                         const clusters = [];
                         const visited = new Set();
@@ -230,12 +230,13 @@
                         return clusters;
                     }
 
-                    // 3. Eseguiamo il clustering e creiamo i pin
+                    // 3. Esecuzione del clustering
                     const clusters = clusterPOI(allPois, 0.0003);
 
+                    // 4. Disegno dei Pin e dei Cluster sulla mappa
                     clusters.forEach(group => {
                         if (group.length === 1) {
-                            // PIN SINGOLO
+                            // PIN ROSSO SINGOLO
                             const poi = group[0];
                             L.marker([poi.lat, poi.lon], { icon: redPinIcon })
                                 .addTo(map)
@@ -249,7 +250,7 @@
                                     window.location.href = `${poi.base_name}${suffix}.html`;
                                 });
                         } else {
-                            // CLUSTER (PIN DI GRUPPO)
+                            // CERCHIO VERDE (GRUPPO)
                             const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
                             const avgLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
 
@@ -264,6 +265,8 @@
 
                             clusterMarker.on('click', (e) => {
                                 L.DomEvent.stopPropagation(e);
+                                
+                                // Puntiamo ai nuovi ID con suffisso -map
                                 const menu = document.getElementById('nearbyMenuPlaceholder-map');
                                 const closeBtn = document.getElementById('close-cluster-btn-map');
 
@@ -273,12 +276,14 @@
                                         const btn = document.createElement('button');
                                         btn.className = 'cluster-menu-item-map';
                                         btn.textContent = navTitles[poi.nav_id] || poi.id;
+                                        
                                         btn.onclick = () => {
                                             const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
                                             window.location.href = `${poi.base_name}${suffix}.html`;
                                         };
                                         menu.appendChild(btn);
                                     });
+
                                     menu.classList.add('active');
                                     if (closeBtn) closeBtn.style.display = 'block';
                                 }
@@ -286,7 +291,7 @@
                         }
                     });
 
-                    // 4. Gestione chiusura menu
+                    // 5. Gestione chiusura menu della mappa
                     const closeBtnMap = document.getElementById('close-cluster-btn-map');
                     if (closeBtnMap) {
                         closeBtnMap.onclick = function() {
@@ -295,7 +300,9 @@
                             this.style.display = 'none';
                         };
                     }
-                    // --- FINE LOGICA CLUSTERING ---                } catch (error) {
+
+                    // --- FINE LOGICA CLUSTERING ---
+                } catch (error) {
                     console.error("Errore nel caricamento dei dati mappa:", error);
                 }
             });
