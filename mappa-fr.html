@@ -165,25 +165,47 @@
                 }).addTo(map);
 
                 try {
+                try {
                     // 3. Caricamento dati dai JSON (Configurazione POI e Testi)
                     const [poisRes, textsRes] = await Promise.all([
                         fetch('pois_config.json'),
-                        fetch(`texts-${currentLang}.json`)
+                        fetch(`data/translations/${currentLang}/texts.json`)
                     ]);
 
                     const poisData = await poisRes.json();
                     const textsData = await textsRes.json();
 
-                    // Estraiamo i titoli dal blocco "nav" del JSON (come nel tuo script Python)
+                    // --- CORREZIONE: DEFINIAMO ALLPOIS E NAVTITLES ---
+                    const allPois = poisData.pois;
                     const navTitles = textsData.nav || {};
 
+                    // --- FUNZIONE DI CLUSTERING (Indispensabile per far apparire i cerchi) ---
+                    function clusterPOI(pois, radius) {
+                        const clusters = [];
+                        const visited = new Set();
+                        pois.forEach((p1, i) => {
+                            if (visited.has(i)) return;
+                            const group = [p1];
+                            visited.add(i);
+                            pois.forEach((p2, j) => {
+                                if (visited.has(j)) return;
+                                const dist = Math.sqrt(Math.pow(p1.lat - p2.lat, 2) + Math.pow(p1.lon - p2.lon, 2));
+                                if (dist < radius) {
+                                    group.push(p2);
+                                    visited.add(j);
+                                }
+                            });
+                            clusters.push(group);
+                        });
+                        return clusters;
+                    }
+
                     // --- INIZIO LOGICA CLUSTERING (PIN DI GRUPPO) ---
-// --- INIZIO LOGICA CLUSTERING (PIN DI GRUPPO) ---
                     const clusters = clusterPOI(allPois, 0.0003);
 
                     clusters.forEach(group => {
                         if (group.length === 1) {
-                            // PIN SINGOLO
+                            // PIN SINGOLO (Rosso)
                             const poi = group[0];
                             L.marker([poi.lat, poi.lon], { icon: redPinIcon })
                                 .addTo(map)
@@ -197,7 +219,7 @@
                                     window.location.href = `${poi.base_name}${suffix}.html`;
                                 });
                         } else {
-                            // PIN DI GRUPPO (CLUSTER)
+                            // PIN DI GRUPPO (Cerchio Verde)
                             const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
                             const avgLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
 
@@ -212,8 +234,7 @@
 
                             clusterMarker.on('click', (e) => {
                                 L.DomEvent.stopPropagation(e);
-                                
-                                // Riferimento ai nuovi ID separati per la mappa
+
                                 const menu = document.getElementById('nearbyMenuPlaceholder-map');
                                 const closeBtn = document.getElementById('close-cluster-btn-map');
 
@@ -221,12 +242,11 @@
                                     menu.innerHTML = '';
                                     group.forEach(poi => {
                                         const btn = document.createElement('button');
-                                        // Usiamo la nuova classe CSS specifica per la mappa
                                         btn.className = 'cluster-menu-item-map';
-                                        
-                                        const title = (typeof navTitles !== 'undefined' && navTitles[poi.nav_id]) ? navTitles[poi.nav_id] : poi.id;
+
+                                        const title = navTitles[poi.nav_id] || poi.id;
                                         btn.textContent = title;
-                                        
+
                                         btn.onclick = () => {
                                             const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
                                             window.location.href = `${poi.base_name}${suffix}.html`;
@@ -241,16 +261,15 @@
                         }
                     });
 
-                    // Gestione del click sul bottone verde di chiusura specifico per la mappa
+                    // Gestione chiusura specifica per la mappa
                     const closeBtnMap = document.getElementById('close-cluster-btn-map');
                     if (closeBtnMap) {
-                        closeBtnMap.onclick = function() {
+                        closeBtnMap.onclick = function () {
                             const menu = document.getElementById('nearbyMenuPlaceholder-map');
                             if (menu) menu.classList.remove('active');
                             this.style.display = 'none';
                         };
                     }
-                    // --- FINE LOGICA CLUSTERING ---
                     // --- FINE LOGICA CLUSTERING ---
 
                 } catch (error) {
