@@ -451,14 +451,16 @@ body.content-loaded #app-wrapper {
     text-decoration: none;
 }
 
-/* --- IL CERCHIO VERDE DEL CLUSTER --- */
+/* --- FIX DEFINITIVO POSIZIONAMENTO CLUSTER E MENU --- */
+
+/* 1. Il Cerchio Verde (Cluster) */
 .cluster-pin {
-    background-color: #28a745 !important; /* Verde */
+    background-color: #28a745 !important;
     border: 2px solid #ffffff !important;
     border-radius: 50% !important;
     color: #ffffff !important;
     font-weight: bold !important;
-    width: 40px !important;  /* Dimensione fissa */
+    width: 40px !important;
     height: 40px !important;
     display: flex !important;
     align-items: center !important;
@@ -468,25 +470,64 @@ body.content-loaded #app-wrapper {
     z-index: 1000 !important;
 }
 
-/* Assicura che il numero dentro sia leggibile */
 .cluster-pin span {
-    pointer-events: none; /* Il click deve passare al cerchio */
+    pointer-events: none;
     font-size: 16px;
 }
-/* Stile per il Cerchio Verde del Cluster */
-.cluster-pin {
-    background-color: #28a745 !important; /* Verde */
-    border: 2px solid #ffffff !important;
-    border-radius: 50% !important;
-    color: white !important;
-    font-weight: bold !important;
-    width: 40px !important;
-    height: 40px !important;
+
+/* 2. Bottone CHIUDI ELENCO (Rettangolo Verde) */
+#close-cluster-btn {
+    display: none; 
+    position: fixed;
+    top: 75px; 
+    right: 15px; /* Distanza fissa dal bordo destro */
+    z-index: 2001;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    max-width: calc(100vw - 30px); /* Impedisce l'uscita a destra dello schermo */
+}
+
+/* 3. Lista POI (Fondo Nero) */
+#nearbyMenuPlaceholder {
+    display: none; 
+    position: fixed;
+    top: 125px; 
+    right: 15px; /* Allineato a destra */
+    width: 280px;
+    max-width: calc(100vw - 30px); /* Fondamentale per non uscire dallo schermo su mobile */
+    background: #000000 !important;
+    padding: 12px;
+    border-radius: 8px;
+    z-index: 2000;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    box-sizing: border-box; /* Include il padding nella larghezza */
+}
+
+#nearbyMenuPlaceholder.active {
     display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-    cursor: pointer !important;
+}
+
+/* 4. Voci della lista (Bottoni bianchi su nero) */
+.cluster-menu-item {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border: 1px solid #333 !important;
+    padding: 12px;
+    border-radius: 4px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 /* Stile per la Lista POI (Fondo Nero) */
