@@ -115,7 +115,17 @@
 
 // --- INIZIO LOGICA CLUSTERING (PIN DI GRUPPO) ---
 
-                    // 1. Definiamo la funzione di raggruppamento
+                    // 1. DEFINIZIONE ICONE (Senza queste avrai l'errore "not defined")
+                    const redPinIcon = L.icon({
+                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        shadowSize: [41, 41]
+                    });
+
+                    // 2. FUNZIONE CLUSTERING
                     function clusterPOI(pois, radius) {
                         const clusters = [];
                         const visited = new Set();
@@ -136,12 +146,12 @@
                         return clusters;
                     }
 
-                    // 2. Usiamo le variabili allPois e navTitles definite sopra nel tuo script
+                    // 3. ESECUZIONE (allPois e navTitles sono presi dal caricamento dati sopra)
                     const clusters = clusterPOI(allPois, 0.0003);
 
                     clusters.forEach(group => {
                         if (group.length === 1) {
-                            // PIN SINGOLO
+                            // PIN SINGOLO (Usa redPinIcon appena definita)
                             const poi = group[0];
                             L.marker([poi.lat, poi.lon], { icon: redPinIcon })
                                 .addTo(map)
@@ -155,7 +165,7 @@
                                     window.location.href = `${poi.base_name}${suffix}.html`;
                                 });
                         } else {
-                            // PIN DI GRUPPO (CLUSTER)
+                            // PIN DI GRUPPO (CLUSTER VERDE)
                             const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
                             const avgLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
 
@@ -195,7 +205,7 @@
                         }
                     });
 
-                    // 3. Gestione chiusura menu della mappa
+                    // 4. GESTIONE CHIUSURA
                     const closeBtnMap = document.getElementById('close-cluster-btn-map');
                     if (closeBtnMap) {
                         closeBtnMap.onclick = function() {
@@ -205,10 +215,7 @@
                         };
                     }
 
-                    // --- FINE LOGICA CLUSTERING ---
-
-
-                } catch (error) {
+                    // --- FINE LOGICA CLUSTERING ---               } catch (error) {
                     console.error("Errore nel caricamento dei dati mappa:", error);
                 }
             });
