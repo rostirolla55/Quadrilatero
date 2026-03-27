@@ -426,94 +426,46 @@ body.content-loaded #app-wrapper {
     }
 }
 
-/* Allineamento gruppo sinistra */
-.left-header-group {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Spazio tra hamburger e PIN */
-}
-
-/* Stile del PIN */
-.map-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
-
-.pin-icon {
-    width: 32px; 
-    height: 32px;
-    fill: #d32f2f; /* Rosso tipico dei pin */
-    filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));
-    transition: transform 0.2s;
-}
-
-.map-link:hover .pin-icon {
-    transform: scale(1.1);
-}
 /* =========================================== */
 /* FINE BLOCCO: OTTIMIZZAZIONE DESKTOP (Tipografia) */
 /* =========================================== */
-/* Stile per il nome del POI al passaggio del mouse */
-.map-tooltip {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    border: 1px solid #d32f2f;
-    border-radius: 4px;
-    padding: 5px 10px;
-}
 
-/* Assicurati che il contenitore della mappa abbia una dimensione visibile */
-#map {
-    margin: 20px 0;
-    z-index: 1; /* Evita che copra il menu hamburger */
-}
 /* =========================================== */
-/* SEZIONE MAPPA INTERATTIVA (Leaflet)         */
+/* INIZIO BLOCCO: GESTIONE MAPPA E CLUSTERING  */
 /* =========================================== */
 
 #map {
-    height: 500px; /* Altezza della mappa */
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border: 2px solid #ddd;
+    height: 500px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    z-index: 1; /* Fondamentale per non coprire i menu a comparsa */
+    margin-top: 10px;
+    z-index: 1;
 }
 
-/* Stile del fumetto che appare al passaggio del mouse (Tooltip) */
-.map-tooltip {
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #d32f2f; /* Rosso come il tuo PIN */
-    border: 1px solid #9a1b1b;
-    border-radius: 4px;
-    padding: 5px 10px;
+/* --- PIN SINGOLO: Blu con puntino nero al centro --- */
+.custom-pin-single {
+    background-color: #007bff; /* Blu */
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-/* Rimuove la freccetta bianca standard del tooltip di Leaflet */
-.leaflet-tooltip-top:before, 
-.leaflet-tooltip-bottom:before, 
-.leaflet-tooltip-left:before, 
-.leaflet-tooltip-right:before {
-    border-top-color: #d32f2f;
+.custom-pin-single::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: #000000; /* Puntino nero */
+    border-radius: 50%;
 }
 
-/* Rendi la mappa un po' più piccola sui telefoni molto stretti */
-@media (max-width: 480px) {
-    #map {
-        height: 350px;
-    }
-}
-
-/* Pin di Gruppo (Cluster) */
+/* --- PIN CLUSTER: Verde con numero --- */
 .cluster-pin {
-    background-color: #28a745; /* Verde */
+    background-color: #28a745 !important; /* Verde */
     border: 2px solid white;
     border-radius: 50%;
     color: white;
@@ -521,27 +473,57 @@ body.content-loaded #app-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    cursor: pointer;
+    z-index: 1000 !important;
+}
+
+/* --- MENU CLUSTER: In alto a destra sotto il bottone chiudi --- */
+#nearbyMenuPlaceholder {
+    display: none; 
+    position: fixed;
+    top: 130px; /* Sotto il bottone verde di chiusura */
+    right: 15px;
+    width: 250px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: -2px 4px 10px rgba(0,0,0,0.2);
+    z-index: 2000;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#nearbyMenuPlaceholder.active {
+    display: flex !important;
+}
+
+.cluster-menu-item {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 14px;
     cursor: pointer;
 }
 
-/* Bottone di chiusura menu (Verde) */
+/* Bottone Rettangolare Verde per chiusura */
 #close-cluster-btn {
+    display: none; 
     position: fixed;
-    top: 15px;
+    top: 80px; 
     right: 15px;
-    z-index: 2000;
+    z-index: 2001;
     background-color: #28a745;
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: 4px; /* Rettangolare */
     font-weight: bold;
     cursor: pointer;
-    display: none; /* Nascosto di default */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-#close-cluster-btn:hover {
-    background-color: #218838;
-}
+/* =========================================== */
+/* FINE BLOCCO MAPPA                           */
+/* =========================================== */
