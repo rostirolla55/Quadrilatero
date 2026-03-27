@@ -61,7 +61,7 @@
         window.addEventListener('load', async () => {
             try {
                 // 1. Inizializzazione Mappa
-                const map = L.map('map').setView([44.4944, 11.3464], 16);
+                const map = L.map('map').setView([44.498961, 11.3394261], 16);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '© OpenStreetMap contributors'
                 }).addTo(map);
@@ -195,7 +195,7 @@
                         sideMenu.classList.remove('active');
                     }
                 });
-                
+
                 // Nascondi loader
                 const loader = document.getElementById('loading-message');
                 if (loader) loader.style.display = 'none';
