@@ -115,11 +115,7 @@
 
 // --- INIZIO LOGICA CLUSTERING (PIN DI GRUPPO) ---
 
-                    // 1. Estrazione pulita dei dati dai JSON caricati
-                    const allPois = poisData.pois; 
-                    const navTitles = textsData.nav || {};
-
-                    // 2. Definizione della funzione di calcolo dei gruppi (Cluster)
+                    // 1. Definiamo la funzione di raggruppamento
                     function clusterPOI(pois, radius) {
                         const clusters = [];
                         const visited = new Set();
@@ -140,13 +136,12 @@
                         return clusters;
                     }
 
-                    // 3. Esecuzione del clustering
+                    // 2. Usiamo le variabili allPois e navTitles definite sopra nel tuo script
                     const clusters = clusterPOI(allPois, 0.0003);
 
-                    // 4. Disegno dei Pin e dei Cluster sulla mappa
                     clusters.forEach(group => {
                         if (group.length === 1) {
-                            // PIN ROSSO SINGOLO
+                            // PIN SINGOLO
                             const poi = group[0];
                             L.marker([poi.lat, poi.lon], { icon: redPinIcon })
                                 .addTo(map)
@@ -160,7 +155,7 @@
                                     window.location.href = `${poi.base_name}${suffix}.html`;
                                 });
                         } else {
-                            // CERCHIO VERDE (GRUPPO)
+                            // PIN DI GRUPPO (CLUSTER)
                             const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
                             const avgLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
 
@@ -176,7 +171,6 @@
                             clusterMarker.on('click', (e) => {
                                 L.DomEvent.stopPropagation(e);
                                 
-                                // Puntiamo ai nuovi ID con suffisso -map
                                 const menu = document.getElementById('nearbyMenuPlaceholder-map');
                                 const closeBtn = document.getElementById('close-cluster-btn-map');
 
@@ -201,7 +195,7 @@
                         }
                     });
 
-                    // 5. Gestione chiusura menu della mappa
+                    // 3. Gestione chiusura menu della mappa
                     const closeBtnMap = document.getElementById('close-cluster-btn-map');
                     if (closeBtnMap) {
                         closeBtnMap.onclick = function() {
@@ -212,6 +206,7 @@
                     }
 
                     // --- FINE LOGICA CLUSTERING ---
+
 
                 } catch (error) {
                     console.error("Errore nel caricamento dei dati mappa:", error);
