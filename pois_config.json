@@ -6,7 +6,8 @@
       "lon": 11.336683863655372,
       "threshold": 50,
       "nav_id": "navManifattura",
-      "base_name": "manifattura"
+      "base_name": "manifattura",
+      "categoria": "edificio"
     },
     {
       "id": "pittoricarracci",
@@ -14,7 +15,8 @@
       "lon": 11.340329,
       "threshold": 50,
       "nav_id": "navPittoriCarracci",
-      "base_name": "pittoricarracci"
+      "base_name": "pittoricarracci",
+      "categoria": "arte"
     },
     {
       "id": "cavaticcio",
@@ -22,7 +24,8 @@
       "lon": 11.33807,
       "threshold": 50,
       "nav_id": "navCavaticcio",
-      "base_name": "cavaticcio"
+      "base_name": "cavaticcio",
+      "categoria": "edificio"
     },
     {
       "id": "bsmariamaggiore",
@@ -30,7 +33,8 @@
       "lon": 11.34192628931731,
       "threshold": 50,
       "nav_id": "navBSMariaMaggiore",
-      "base_name": "bsmariamaggiore"
+      "base_name": "bsmariamaggiore",
+      "categoria": "edificio"
     },
     {
       "id": "graziaxx",
@@ -38,7 +42,8 @@
       "lon": 11.3407694444444,
       "threshold": 50,
       "nav_id": "navGraziaxx",
-      "base_name": "graziaxx"
+      "base_name": "graziaxx",
+      "categoria": "esterno"
     },
     {
       "id": "pugliole",
@@ -46,7 +51,8 @@
       "lon": 11.3399861111111,
       "threshold": 50,
       "nav_id": "navPugliole",
-      "base_name": "pugliole"
+      "base_name": "pugliole",
+      "categoria": "esterno"
     },
     {
       "id": "carracci",
@@ -54,7 +60,8 @@
       "lon": 11.3403888888889,
       "threshold": 50,
       "nav_id": "navCarracci",
-      "base_name": "carracci"
+      "base_name": "carracci",
+      "categoria": "edificio"
     },
     {
       "id": "lastre",
@@ -62,7 +69,8 @@
       "lon": 11.34074444,
       "threshold": 50,
       "nav_id": "navLastre",
-      "base_name": "lastre"
+      "base_name": "lastre",
+      "categoria": "esterno"
     },
     {
       "id": "chiesasbene",
@@ -70,7 +78,8 @@
       "lon": 11.343557,
       "threshold": 120,
       "nav_id": "navChiesaSBene",
-      "base_name": "chiesasbene"
+      "base_name": "chiesasbene",
+      "categoria": "edificio"
     },
     {
       "id": "santuariopioggia",
@@ -78,7 +87,8 @@
       "lon": 11.342153,
       "threshold": 120,
       "nav_id": "navSantuarioPioggia",
-      "base_name": "santuariopioggia"
+      "base_name": "santuariopioggia",
+      "categoria": "edificio"
     },
     {
       "id": "pioggia1",
@@ -86,7 +96,8 @@
       "lon": 11.342241,
       "threshold": 120,
       "nav_id": "navPioggia1",
-      "base_name": "pioggia1"
+      "base_name": "pioggia1",
+      "categoria": "quadro"
     },
     {
       "id": "pioggia2",
@@ -94,15 +105,17 @@
       "lon": 11.341809,
       "threshold": 120,
       "nav_id": "navPioggia2",
-      "base_name": "pioggia2"
+      "base_name": "pioggia2",
+      "categoria": "statua"
     },
     {
       "id": "pioggia3",
-      "lat": 44.499080,
+      "lat": 44.49908,
       "lon": 11.3422411,
       "threshold": 120,
       "nav_id": "navPioggia3",
-      "base_name": "pioggia3"
+      "base_name": "pioggia3",
+      "categoria": "quadro"
     },
     {
       "id": "chiesasancarlo",
@@ -110,7 +123,8 @@
       "lon": 11.340753666229292,
       "threshold": 120,
       "nav_id": "navChiesaSanCarlo",
-      "base_name": "chiesasancarlo"
+      "base_name": "chiesasancarlo",
+      "categoria": "edificio"
     }
   ]
 }

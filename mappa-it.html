@@ -20,17 +20,17 @@
 
     <div id="app-wrapper">
         <header class="main-header">
-            <div class="left-header-group">
-                <button aria-label="Apri menu" class="menu-toggle">
+            <div class="left-header-group" style="cursor: pointer;" onclick="window.location.href='index.html'">
+                <button aria-label="Esci dalla mappa" class="menu-toggle" style="pointer-events: none;">
                     <span class="bar"></span><span class="bar"></span><span class="bar"></span>
                 </button>
-                <a href="mappa-it.html" id="mapNavLink" class="map-link">
-                    <svg viewBox="0 0 24 24" class="pin-icon">
+                <div id="mapNavLink" class="map-link">
+                    <svg viewBox="0 0 24 24" class="pin-icon" style="fill: green;">
                         <path
                             d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                     </svg>
-                    <span id="mapNavText">Mappa</span>
-                </a>
+                    <span style="color: green; font-weight: bold;">Chiudi mappa</span>
+                </div>
             </div>
             <div class="right-header-group">
                 <div id="language-switcher"></div>
@@ -207,6 +207,34 @@
         // Forza l'apertura del menu laterale anche dalla mappa
         document.querySelector('.menu-toggle').addEventListener('click', () => {
             document.getElementById('sideMenu').classList.toggle('active');
+        });
+    </script>
+    <script>
+        // --- FUNZIONE ICONE (Deve essere presente in tutti i file) ---
+        function getSimboloCategoria(categoria) {
+            if (!categoria) return '📍 ';
+            const cat = categoria.toLowerCase();
+            if (cat.includes('edificio') || cat.includes('stabile') || cat.includes('monumento')) return '🏛️ ';
+            if (cat.includes('esterno') || cat.includes('aperto') || cat.includes('piazza')) return '🌳 ';
+            if (cat.includes('arte') || cat.includes('quadro') || cat.includes('statua')) return '🎨 ';
+            return '📍 ';
+        }
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Qui carichi i dati dei POI
+                // ESEMPIO DI UTILIZZO NELLA LISTA:
+                // const nomeConIcona = getSimboloCategoria(poi.categoria) + poi.titolo;
+
+                // LOGICA PIN ROSSO E HOVER TITOLO (Implementazione 28 Marzo)
+                // marker.bindTooltip(poi.titolo); // Se usi Leaflet
+                // marker.setTitle(poi.titolo);   // Se usi Google Maps
+
+                const loader = document.getElementById('loading-message');
+                if (loader) loader.style.display = 'none';
+            } catch (error) {
+                console.error("Errore mappa:", error);
+            }
         });
     </script>
     <script type="module" src="main.js"></script>
