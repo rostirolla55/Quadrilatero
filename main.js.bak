@@ -190,17 +190,7 @@ function updateNavigation(navData, lang) {
         const el = document.getElementById(l.id);
         if (el) {
             el.href = `${l.base}${langSuffix}.html`;
-            // --- AGGIUNTA LOGICA ICONA ---
-            // 1. Troviamo la categoria corrispondente usando la base (che è l'id del POI)
-            const poiInfo = POIS_LOCATIONS.find(p => p.id === l.base);
-            const categoria = poiInfo ? poiInfo.categoria : '';
-
-            // 2. Otteniamo l'icona (se è la home, l'icona resterà quella di default o nessuna)
-            const icona = l.base === 'index' ? '' : getSimboloCategoria(categoria);
-
-            // 3. Usiamo innerHTML invece di textContent per mostrare l'icona
-            el.innerHTML = icona + (navData[l.key] || l.id);
-            // -----------------------------
+            el.textContent = navData[l.key] || l.id;
         }
     });
 }
@@ -235,18 +225,9 @@ function startGeolocation(allData) {
         POIS_LOCATIONS.forEach(poi => {
             const dist = calculateDistance(lat, lon, poi.lat, poi.lon);
             if (dist <= poi.distanceThreshold) {
-                // Recuperiamo il titolo
                 const title = (allData[poi.id] && allData[poi.id].pageTitle) ? allData[poi.id].pageTitle : poi.id;
                 const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
-
-                // --- AGGIUNTA LOGICA ICONA ---
-                // 1. Otteniamo l'icona usando la categoria del POI
-                const icona = getSimboloCategoria(poi.categoria);
-
-                // 2. Inseriamo l'icona prima del titolo nel link
-                menuHtml += `<li><a href="${poi.id}${suffix}.html">${icona}${title} (${dist.toFixed(0)}m)</a></li>`;
-                // -----------------------------
-
+                menuHtml += `<li><a href="${poi.id}${suffix}.html">${title} (${dist.toFixed(0)}m)</a></li>`;
                 found = true;
             }
         });
