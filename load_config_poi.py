@@ -25,13 +25,13 @@ def update_main_js():
     pois = data.get("pois", [])
 
     # 2. Generazione stringhe JavaScript
-    # Generazione POIS_LOCATIONS
+# Generazione POIS_LOCATIONS corretta con aggiunta di categoria
     pois_locations_js = "const POIS_LOCATIONS = [\n"
     for i, p in enumerate(pois):
         comma = "," if i < len(pois) - 1 else ""
-        pois_locations_js += f"    {{ id: '{p['id']}', lat: {p['lat']}, lon: {p['lon']}, distanceThreshold: {p['threshold']} }}{comma}\n"
+        # AGGIUNTA: p['categoria'] per non perdere il dato nel main.js
+        pois_locations_js += f"    {{ id: '{p['id']}', lat: {p['lat']}, lon: {p['lon']}, distanceThreshold: {p['threshold']}, categoria: '{p.get('categoria', '')}' }}{comma}\n"
     pois_locations_js += "];"
-
     # Generazione navLinksData
     # Aggiungiamo sempre la Home che solitamente è fissa
     nav_links_js = "const navLinksData = [\n"

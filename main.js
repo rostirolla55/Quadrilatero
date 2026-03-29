@@ -24,20 +24,20 @@ let db, auth, currentUserId = null, isAuthReady = false;
 // DATI: POI GPS
 // ===========================================
 const POIS_LOCATIONS = [
-    { id: 'manifattura', lat: 44.49911485308791, lon: 11.336683863655372, distanceThreshold: 50 },
-    { id: 'pittoricarracci', lat: 44.498944, lon: 11.340329, distanceThreshold: 50 },
-    { id: 'cavaticcio', lat: 44.50018, lon: 11.33807, distanceThreshold: 50 },
-    { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50 },
-    { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50 },
-    { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 50 },
-    { id: 'carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50 },
-    { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50 },
-    { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120 },
-    { id: 'santuariopioggia', lat: 44.49892334154816, lon: 11.34191612593817, distanceThreshold: 120 },
-    { id: 'pioggia1', lat: 44.49892334154816, lon: 11.34191612593817, distanceThreshold: 120 },
-    { id: 'pioggia2', lat: 44.49883527160171, lon: 11.341707496591878, distanceThreshold: 120 },
-    { id: 'pioggia3', lat: 44.49883527160171, lon: 11.341707496591878, distanceThreshold: 120 },
-    { id: 'chiesasancarlo', lat: 44.50124875821167, lon: 11.340753666229292, distanceThreshold: 120 }
+    { id: 'manifattura', lat: 44.49911485308791, lon: 11.336683863655372, distanceThreshold: 50, categoria: 'edificio' },
+    { id: 'pittoricarracci', lat: 44.498944, lon: 11.340329, distanceThreshold: 50, categoria: 'arte' },
+    { id: 'cavaticcio', lat: 44.50018, lon: 11.33807, distanceThreshold: 50, categoria: 'edificio' },
+    { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50, categoria: 'edificio' },
+    { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50, categoria: 'esterno' },
+    { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 50, categoria: 'esterno' },
+    { id: 'carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50, categoria: 'edificio' },
+    { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50, categoria: 'esterno' },
+    { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120, categoria: 'edificio' },
+    { id: 'santuariopioggia', lat: 44.49892334154816, lon: 11.34191612593817, distanceThreshold: 120, categoria: 'edificio' },
+    { id: 'pioggia1', lat: 44.49892334154816, lon: 11.34191612593817, distanceThreshold: 120, categoria: 'quadro' },
+    { id: 'pioggia2', lat: 44.49883527160171, lon: 11.341707496591878, distanceThreshold: 120, categoria: 'statua' },
+    { id: 'pioggia3', lat: 44.49883527160171, lon: 11.341707496591878, distanceThreshold: 120, categoria: 'quadro' },
+    { id: 'chiesasancarlo', lat: 44.50124875821167, lon: 11.340753666229292, distanceThreshold: 120, categoria: 'edificio' }
 ];
 
 // Funzione per ottenere l'icona in base alla categoria
@@ -206,7 +206,15 @@ function updateNavigation(navData, lang) {
     { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
     { id: 'navChiesaSanCarlo', key: 'navChiesaSanCarlo', base: 'chiesasancarlo' }
 ];
-
+    // --- CONFIGURAZIONE ICONA PER CORREZIONE SPOSTAMENTO NORD ---
+    const redIcon = L.icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41], // <--- QUESTA RIGA risolve lo spostamento verso l'alto
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
     navLinksData.forEach(l => {
         const el = document.getElementById(l.id);
         if (el) {
@@ -224,7 +232,7 @@ function updateNavigation(navData, lang) {
             // -----------------------------
         }
     });
-}            
+}
 
 // ===========================================
 // GEOLOCALIZZAZIONE
