@@ -144,21 +144,32 @@
                             const menu = document.getElementById('nearbyMenuPlaceholder-map');
                             const closeBtn = document.getElementById('close-cluster-btn-map');
 
-                            if (menu) {
-                                menu.innerHTML = '';
-                                group.forEach(poi => {
-                                    const btn = document.createElement('button');
-                                    btn.className = 'cluster-menu-item-map';
-                                    btn.textContent = navTitles[poi.nav_id] || poi.id;
-                                    btn.onclick = () => {
-                                        const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
-                                        window.location.href = `${poi.base_name}${suffix}.html`;
-                                    };
-                                    menu.appendChild(btn);
-                                });
-                                menu.classList.add('active');
-                                if (closeBtn) closeBtn.style.display = 'block';
-                            }
+if (menu) {
+    menu.innerHTML = '';
+    group.forEach(poi => {
+        const btn = document.createElement('button');
+        btn.className = 'cluster-menu-item-map';
+        
+        // 1. RECUPERA IL SIMBOLO E IL TITOLO
+        const simbolo = getSimboloCategoria(poi.categoria);
+        const titolo = navTitles[poi.nav_id] || poi.id;
+        
+        // 2. IMPOSTA IL TESTO DEL BOTTONE CON L'ICONA
+        btn.textContent = `${simbolo} ${titolo}`;
+
+        btn.onclick = () => {
+            // --- PARTE AUDIO (Miglioramento voce) ---
+            // Prima di cambiare pagina, possiamo dare un feedback vocale se vuoi
+            // parlaPOI(titolo); 
+
+            const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
+            window.location.href = `${poi.base_name}${suffix}.html`;
+        };
+        menu.appendChild(btn);
+    });
+    menu.classList.add('active');
+    if (closeBtn) closeBtn.style.display = 'block';
+}
                         });
                     }
                 });
