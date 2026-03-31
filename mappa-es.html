@@ -144,35 +144,40 @@
                             const menu = document.getElementById('nearbyMenuPlaceholder-map');
                             const closeBtn = document.getElementById('close-cluster-btn-map');
 
-if (menu) {
-    menu.innerHTML = '';
-    group.forEach(poi => {
-        const btn = document.createElement('button');
-        btn.className = 'cluster-menu-item-map';
-        
-        // 1. RECUPERA IL SIMBOLO E IL TITOLO
-        const simbolo = getSimboloCategoria(poi.categoria);
-        const titolo = navTitles[poi.nav_id] || poi.id;
-        
-        // 2. IMPOSTA IL TESTO DEL BOTTONE CON L'ICONA
-        btn.textContent = `${simbolo} ${titolo}`;
+                            if (menu) {
+                                menu.innerHTML = '';
+                                group.forEach(poi => {
+                                    const btn = document.createElement('button');
+                                    btn.className = 'cluster-menu-item-map';
 
-        btn.onclick = () => {
-            // --- PARTE AUDIO (Miglioramento voce) ---
-            // Prima di cambiare pagina, possiamo dare un feedback vocale se vuoi
-            // parlaPOI(titolo); 
+                                    // 1. RECUPERA IL SIMBOLO E IL TITOLO
+                                    const simbolo = getSimboloCategoria(poi.categoria);
+                                    const titolo = navTitles[poi.nav_id] || poi.id;
 
-            const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
-            window.location.href = `${poi.base_name}${suffix}.html`;
-        };
-        menu.appendChild(btn);
-    });
-    menu.classList.add('active');
-    if (closeBtn) closeBtn.style.display = 'block';
-}
+                                    // 2. IMPOSTA IL TESTO DEL BOTTONE CON L'ICONA
+                                    btn.textContent = `${simbolo} ${titolo}`;
+
+                                    btn.onclick = () => {
+                                        // --- PARTE AUDIO (Miglioramento voce) ---
+                                        // Prima di cambiare pagina, possiamo dare un feedback vocale se vuoi
+                                        // parlaPOI(titolo); 
+
+                                        const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
+                                        window.location.href = `${poi.base_name}${suffix}.html`;
+                                    };
+                                    menu.appendChild(btn);
+                                });
+                                menu.classList.add('active');
+                                if (closeBtn) closeBtn.style.display = 'block';
+                            }
                         });
                     }
                 });
+                // Forza il ricalcolo dopo un breve delay per essere sicuri che il CSS sia caricato
+                setTimeout(() => {
+                    map.invalidateSize();
+                    console.log("Mappa ricalcolata");
+                }, 500);
 
                 // 6. Gestione chiusura menu mappa
                 const closeBtnMap = document.getElementById('close-cluster-btn-map');
@@ -221,6 +226,15 @@ if (menu) {
         });
     </script>
     <script>
+        // --- CONFIGURAZIONE ICONA (Corregge lo spostamento a Nord) ---
+        const redIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41], // <--- PUNTA DEL PIN AL CENTRO E IN BASSO
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
         // --- FUNZIONE ICONE (Deve essere presente in tutti i file) ---
         function getSimboloCategoria(categoria) {
             if (!categoria) return '📍 ';
