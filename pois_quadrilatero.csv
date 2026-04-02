@@ -1,0 +1,15 @@
+name,latitude,longitude,category,threshold,nav_id
+manifattura,44.49911485308791,11.336683863655372,edificio,50,navManifattura
+pittoricarracci,44.498944,11.340329,arte,50,navPittoriCarracci
+cavaticcio,44.50018,11.33807,edificio,50,navCavaticcio
+bsmariamaggiore,44.49806368372069,11.34192628931731,edificio,50,navBSMariaMaggiore
+graziaxx,44.5006638888889,11.3407694444444,esterno,50,navGraziaxx
+pugliole,44.5001944444444,11.3399861111111,esterno,50,navPugliole
+carracci,44.4999972222222,11.3403888888889,edificio,50,navCarracci
+lastre,44.49925278,11.34074444,esterno,50,navLastre
+chiesasbene,44.501514,11.343557,edificio,120,navChiesaSBene
+santuariopioggia,44.49892334154816,11.34191612593817,edificio,120,navSantuarioPioggia
+pioggia1,44.49892334154816,11.34191612593817,quadro,120,navPioggia1
+pioggia2,44.49883527160171,11.341707496591878,statua,120,navPioggia2
+pioggia3,44.49883527160171,11.341707496591878,quadro,120,navPioggia3
+chiesasancarlo,44.50124875821167,11.340753666229292,edificio,120,navChiesaSanCarlo
