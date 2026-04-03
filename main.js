@@ -29,7 +29,7 @@ const POIS_LOCATIONS = [
     { id: 'cavaticcio', lat: 44.50018, lon: 11.33807, distanceThreshold: 50, categoria: 'edificio', visual_lat: 44.50018, visual_lon: 11.33807 },
     { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50, categoria: 'edificio', visual_lat: 44.49806368372069, visual_lon: 11.34192628931731 },
     { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50, categoria: 'esterno', visual_lat: 44.5006638888889, visual_lon: 11.3407694444444 },
-    { id: 'pugliole', lat: 44.50018, lon: 11.339986, distanceThreshold: 50, categoria: 'esterno', visual_lat: 44.499, visual_lon: 11.339 },
+    { id: 'pugliole', lat: 44.50018, lon: 11.339986, distanceThreshold: 50, categoria: 'esterno', visual_lat: 44.499, visual_lon: 11.32 },
     { id: 'carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50, categoria: 'edificio', visual_lat: 44.4999972222222, visual_lon: 11.3403888888889 },
     { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50, categoria: 'esterno', visual_lat: 44.49925278, visual_lon: 11.34074444 },
     { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120, categoria: 'edificio', visual_lat: 44.501514, visual_lon: 11.343557 },
