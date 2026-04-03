@@ -14,27 +14,30 @@ def extract_config_from_js():
         content = f.read()
 
     # 1. Estrazione POIS_LOCATIONS
-    # Il pattern ora include: categoria: '...'
-    poi_pattern = r"{\s*id:\s*'([^']*)',\s*lat:\s*([\d\.]+),\s*lon:\s*([\d\.]+),\s*distanceThreshold:\s*(\d+),\s*categoria:\s*'([^']*)'\s*}"
+    # Questa Regex cerca i 5 campi base e rende OPZIONALI i 2 campi visual_lat/lon
+    poi_pattern = r"\{\s*id:\s*'([^']*)',\s*lat:\s*([\d\.]+),\s*lon:\s*([\d\.]+),\s*distanceThreshold:\s*(\d+),\s*categoria:\s*'([^']*)'(?:,\s*visual_lat:\s*([\d\.]+))?(?:,\s*visual_lon:\s*([\d\.]+))?\s*\}"
     poi_matches = re.findall(poi_pattern, content)
     
     locations_dict = {}
 
     for match in poi_matches:
-		# Aggiungi visual_lat e visual_lon (saranno None se non trovati)
+        # match avrà sempre 7 elementi grazie ai gruppi opzionali (?:...)?, 
+        # ma gli ultimi due saranno stringhe vuote se non presenti nel JS
         poi_id, lat, lon, threshold, categoria, v_lat, v_lon = match
+        
         locations_dict[poi_id] = {
-			"id": poi_id,
-			"lat": float(lat),
-			"lon": float(lon),
-			"threshold": int(threshold),
-			"categoria": categoria,
-			"visual_lat": float(v_lat) if v_lat else float(lat),
-			"visual_lon": float(v_lon) if v_lon else float(lon)
-		}
+            "id": poi_id,
+            "lat": float(lat),
+            "lon": float(lon),
+            "threshold": int(threshold),
+            "categoria": categoria,
+            # Se v_lat/v_lon sono vuoti, usa lat/lon originali
+            "visual_lat": float(v_lat) if v_lat else float(lat),
+            "visual_lon": float(v_lon) if v_lon else float(lon)
+        }
 
-    # 2. Estrazione navLinksData
-    nav_pattern = r"{\s*id:\s*'([^']*)',\s*key:\s*'[^']*',\s*base:\s*'([^']*)'\s*}"
+    # 2. Estrazione navLinksData (rimane invariata)
+    nav_pattern = r"\{\s*id:\s*'([^']*)',\s*key:\s*'[^']*',\s*base:\s*'([^']*)'\s*\}"
     nav_matches = re.findall(nav_pattern, content)
     
     nav_dict = {}
@@ -43,7 +46,7 @@ def extract_config_from_js():
         if base_name != 'index':
             nav_dict[base_name] = nav_id
 
-    # 3. Unione dei dati
+    # 3. Unione dei dati e creazione lista finale
     final_pois = []
     for poi_id, data in locations_dict.items():
         nav_id = nav_dict.get(poi_id, f"nav{poi_id.capitalize()}")
@@ -52,22 +55,20 @@ def extract_config_from_js():
             "id": data["id"],
             "lat": data["lat"],
             "lon": data["lon"],
+            "visual_lat": data["visual_lat"],
+            "visual_lon": data["visual_lon"],
             "threshold": data["threshold"],
             "nav_id": nav_id,
             "base_name": poi_id,
-            "categoria": data["categoria"] # Salviamo la categoria nel JSON
+            "categoria": data["categoria"]
         }
         final_pois.append(poi_entry)
 
-    # 4. Scrittura JSON
-    output_data = {"pois": final_pois}
+    # 4. Scrittura del file JSON
     with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(output_data, f, indent=2, ensure_ascii=False)
-
-    print("-" * 74)
-    print(f"File {output_file} generato con successo!")
-    print(f"Estratti {len(final_pois)} punti di interesse.")
-    print("-" * 74)
+        json.dump({"pois": final_pois}, f, indent=2, ensure_ascii=False)
+    
+    print(f"Successo: Estratti {len(final_pois)} POI in {output_file}")
 
 if __name__ == "__main__":
     extract_config_from_js()
