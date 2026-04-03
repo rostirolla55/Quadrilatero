@@ -115,7 +115,11 @@
                 clusters.forEach(group => {
                     if (group.length === 1) {
                         const poi = group[0];
-                        L.marker([poi.lat, poi.lon], { icon: redPinIcon })
+                        // LOGICA DOPPIA COORDINATA: visuale se esiste, altrimenti reale
+                        const displayLat = poi.visual_lat || poi.lat;
+                        const displayLon = poi.visual_lon || poi.lon;
+
+                        L.marker([displayLat, displayLon], { icon: redPinIcon })
                             .addTo(map)
                             .bindTooltip(navTitles[poi.nav_id] || poi.id, {
                                 permanent: false,
@@ -127,8 +131,8 @@
                                 window.location.href = `${poi.base_name}${suffix}.html`;
                             });
                     } else {
-                        const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
-                        const avgLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
+                        const avgLat = group.reduce((sum, p) => sum + (p.visual_lat || p.lat), 0) / group.length;
+                        const avgLon = group.reduce((sum, p) => sum + (p.visual_lon || p.lon), 0) / group.length;
 
                         const clusterIcon = L.divIcon({
                             html: `<div class="cluster-pin"><span>${group.length}</span></div>`,

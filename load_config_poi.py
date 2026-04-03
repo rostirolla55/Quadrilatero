@@ -29,8 +29,15 @@ def update_main_js():
     pois_locations_js = "const POIS_LOCATIONS = [\n"
     for i, p in enumerate(pois):
         comma = "," if i < len(pois) - 1 else ""
+        v_lat = p.get('visual_lat', p['lat'])
+        v_lon = p.get('visual_lon', p['lon'])
+        
         # AGGIUNTA: p['categoria'] per non perdere il dato nel main.js
-        pois_locations_js += f"    {{ id: '{p['id']}', lat: {p['lat']}, lon: {p['lon']}, distanceThreshold: {p['threshold']}, categoria: '{p.get('categoria', '')}' }}{comma}\n"
+        pois_locations_js += (  
+        f"    {{ id: '{p['id']}', lat: {p['lat']}, lon: {p['lon']}, "
+        f"distanceThreshold: {p['threshold']}, categoria: '{p.get('categoria', '')}', "
+        f"visual_lat: {v_lat}, visual_lon: {v_lon} }}{comma}\n"
+    )    
     pois_locations_js += "];"
     # Generazione navLinksData
     # Aggiungiamo sempre la Home che solitamente è fissa

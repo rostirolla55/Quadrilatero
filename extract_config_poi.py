@@ -19,15 +19,19 @@ def extract_config_from_js():
     poi_matches = re.findall(poi_pattern, content)
     
     locations_dict = {}
+
     for match in poi_matches:
-        poi_id, lat, lon, threshold, categoria = match
+		# Aggiungi visual_lat e visual_lon (saranno None se non trovati)
+        poi_id, lat, lon, threshold, categoria, v_lat, v_lon = match
         locations_dict[poi_id] = {
-            "id": poi_id,
-            "lat": float(lat),
-            "lon": float(lon),
-            "threshold": int(threshold),
-            "categoria": categoria
-        }
+			"id": poi_id,
+			"lat": float(lat),
+			"lon": float(lon),
+			"threshold": int(threshold),
+			"categoria": categoria,
+			"visual_lat": float(v_lat) if v_lat else float(lat),
+			"visual_lon": float(v_lon) if v_lon else float(lon)
+		}
 
     # 2. Estrazione navLinksData
     nav_pattern = r"{\s*id:\s*'([^']*)',\s*key:\s*'[^']*',\s*base:\s*'([^']*)'\s*}"
