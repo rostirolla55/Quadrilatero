@@ -24,20 +24,20 @@ let db, auth, currentUserId = null, isAuthReady = false;
 // DATI: POI GPS
 // ===========================================
 const POIS_LOCATIONS = [
-    { id: 'manifattura', lat: 44.49911485308791, lon: 11.336683863655372, distanceThreshold: 50, categoria: 'edificio' },
-    { id: 'pittoricarracci', lat: 44.498944, lon: 11.340329, distanceThreshold: 50, categoria: 'arte' },
-    { id: 'cavaticcio', lat: 44.50018, lon: 11.33807, distanceThreshold: 50, categoria: 'edificio' },
-    { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50, categoria: 'edificio' },
-    { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50, categoria: 'esterno' },
-    { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 50, categoria: 'esterno' },
-    { id: 'carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50, categoria: 'edificio' },
-    { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50, categoria: 'esterno' },
-    { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120, categoria: 'edificio' },
-    { id: 'santuariopioggia', lat: 44.498899, lon: 11.342153, distanceThreshold: 120, categoria: 'edificio' },
-    { id: 'pioggia1', lat: 44.498899, lon: 11.342241, distanceThreshold: 120, categoria: 'quadro' },
-    { id: 'pioggia2', lat: 44.499069, lon: 11.341809, distanceThreshold: 120, categoria: 'statua' },
-    { id: 'pioggia3', lat: 44.49908, lon: 11.3422411, distanceThreshold: 120, categoria: 'quadro' },
-    { id: 'chiesasancarlo', lat: 44.50124875821167, lon: 11.340753666229292, distanceThreshold: 120, categoria: 'edificio' }
+    { id: 'manifattura', lat: 44.49911485308791, lon: 11.336683863655372, distanceThreshold: 50, categoria: 'edificio', visual_lat: 44.49911485308791, visual_lon: 11.336683863655372 },
+    { id: 'pittoricarracci', lat: 44.498944, lon: 11.340329, distanceThreshold: 50, categoria: 'arte', visual_lat: 44.498944, visual_lon: 11.340329 },
+    { id: 'cavaticcio', lat: 44.50018, lon: 11.33807, distanceThreshold: 50, categoria: 'edificio', visual_lat: 44.50018, visual_lon: 11.33807 },
+    { id: 'bsmariamaggiore', lat: 44.49806368372069, lon: 11.34192628931731, distanceThreshold: 50, categoria: 'edificio', visual_lat: 44.49806368372069, visual_lon: 11.34192628931731 },
+    { id: 'graziaxx', lat: 44.5006638888889, lon: 11.3407694444444, distanceThreshold: 50, categoria: 'esterno', visual_lat: 44.5006638888889, visual_lon: 11.3407694444444 },
+    { id: 'pugliole', lat: 44.5001944444444, lon: 11.3399861111111, distanceThreshold: 50, categoria: 'esterno', visual_lat: 44.500182, visual_lon: 11.339975 },
+    { id: 'carracci', lat: 44.4999972222222, lon: 11.3403888888889, distanceThreshold: 50, categoria: 'edificio', visual_lat: 44.4999972222222, visual_lon: 11.3403888888889 },
+    { id: 'lastre', lat: 44.49925278, lon: 11.34074444, distanceThreshold: 50, categoria: 'esterno', visual_lat: 44.49925278, visual_lon: 11.34074444 },
+    { id: 'chiesasbene', lat: 44.501514, lon: 11.343557, distanceThreshold: 120, categoria: 'edificio', visual_lat: 44.501514, visual_lon: 11.343557 },
+    { id: 'santuariopioggia', lat: 44.498899, lon: 11.342153, distanceThreshold: 120, categoria: 'edificio', visual_lat: 44.498899, visual_lon: 11.342153 },
+    { id: 'pioggia1', lat: 44.498899, lon: 11.342241, distanceThreshold: 120, categoria: 'quadro', visual_lat: 44.498899, visual_lon: 11.342241 },
+    { id: 'pioggia2', lat: 44.499069, lon: 11.341809, distanceThreshold: 120, categoria: 'statua', visual_lat: 44.499069, visual_lon: 11.341809 },
+    { id: 'pioggia3', lat: 44.49908, lon: 11.3422411, distanceThreshold: 120, categoria: 'quadro', visual_lat: 44.49908, visual_lon: 11.3422411 },
+    { id: 'chiesasancarlo', lat: 44.50124875821167, lon: 11.340753666229292, distanceThreshold: 120, categoria: 'edificio', visual_lat: 44.50124875821167, visual_lon: 11.340753666229292 }
 ];
 
 // ===========================================
