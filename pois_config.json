@@ -46,10 +46,10 @@
     },
     {
       "id": "graziaxx",
-      "lat": 44.5006638888889,
+      "lat": 44.50065,
       "lon": 11.3407694444444,
-      "visual_lat": 44.5004838888889,
-      "visual_lon": 11.340689444444399,
+      "visual_lat": 44.50047,
+      "visual_lon": 11.3406904444444,
       "threshold": 50,
       "nav_id": "navGraziaxx",
       "base_name": "graziaxx",
