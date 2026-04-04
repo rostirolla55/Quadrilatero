@@ -1,0 +1,6 @@
+Aggiustamento manuale: * 
+Se il pin è troppo a Nord, dovrai diminuire leggermente il valore della latitudine per la visualizzazione.
+Se il pin è troppo a Sud, dovrai aumentare il valore della latitudine.
+
+Se il pin è troppo a Ovest, dovrai diminuire leggermente il valore della longitudine per la visualizzazione.
+Se il pin è troppo a Est, dovrai aumentare il valore della longitudine.
