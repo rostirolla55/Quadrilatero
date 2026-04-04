@@ -1,35 +1,56 @@
-import json
 import pandas as pd
+import json
+import os
 
-def update_json_from_excel(excel_path, json_path):
-    df = pd.read_excel(excel_path)
+def generate_json_from_excel():
+    # 1. Configurazione nomi file
+    excel_input = 'gestione_coordinate_pois.xlsx'
+    json_output = 'pois_config.json'
+
+    # Controllo se l'invio esiste per evitare errori bloccanti
+    if not os.path.exists(excel_input):
+        print(f"Errore: Il file '{excel_input}' non è stato trovato nella cartella corrente.")
+        return
+
+    print(f"Lettura di {excel_input}...")
     
-    with open(json_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    # 2. Caricamento dati
+    # Legge il file Excel (richiede openpyxl installato)
+    df = pd.read_excel(excel_input)
     
-    is_dict = isinstance(data, dict)
-    pois_list = data['pois'] if is_dict else data
+    # Pulizia dati: sostituisce i valori vuoti (NaN) con 0 per i calcoli
+    df['spost_lat'] = df['spost_lat'].fillna(0)
+    df['spost_lon'] = df['spost_lon'].fillna(0)
 
-    # Creiamo il mapping dall'Excel
-    excel_data = df.set_index('id').to_dict('index')
+    pois_list = []
 
-    for poi in pois_list:
-        poi_id = poi.get('id')
-        if poi_id in excel_data:
-            row = excel_data[poi_id]
-            
-            # LOGICA: Visual = Reale (fisso) + Spostamento (modificabile nell'Excel)
-            # Questo permette di modificare 'spost_lat' nell'Excel e aggiornare il JSON
-            new_visual_lat = poi['lat'] + row['spost_lat']
-            new_visual_lon = poi['lon'] + row['spost_lon']
-            
-            poi['visual_lat'] = round(new_visual_lat, 6)
-            poi['visual_lon'] = round(new_visual_lon, 6)
+    # 3. Elaborazione righe
+    for _, row in df.iterrows():
+        # Forza il calcolo delle coordinate visuali sommando i delta
+        # Questo risolve il problema del valore visual che rimaneva uguale al base
+        v_lat = float(row['lat']) + float(row['spost_lat'])
+        v_lon = float(row['lon']) + float(row['spost_lon'])
+        
+        poi = {
+            "id": str(row['id']),
+            "lat": float(row['lat']),
+            "lon": float(row['lon']),
+            "visual_lat": v_lat,
+            "visual_lon": v_lon,
+            "threshold": int(row['threshold']) if 'threshold' in df.columns else 50,
+            "nav_id": str(row['nav_id']) if 'nav_id' in df.columns else f"nav{str(row['id']).capitalize()}",
+            "base_name": str(row['id']),
+            "categoria": str(row['categoria']) if 'categoria' in df.columns else "edificio"
+        }
+        pois_list.append(poi)
 
-    with open(json_path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
+    # 4. Scrittura del file JSON
+    with open(json_output, 'w', encoding='utf-8') as f:
+        json.dump({"pois": pois_list}, f, indent=2, ensure_ascii=False)
     
-    print(f"Aggiornamento completato: visual_lat e visual_lon ricalcolati in {json_path}")
+    print(f"Successo! Il file '{json_output}' è stato generato correttamente.")
+    print(f"Processati {len(pois_list)} punti di interesse.")
 
+# --- QUESTA RIGA È FONDAMENTALE PER FAR PARTIRE LO SCRIPT ---
 if __name__ == "__main__":
-    update_json_from_excel('gestione_coordinate_pois.xlsx', 'pois_config.json')
+    generate_json_from_excel()
