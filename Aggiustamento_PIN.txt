@@ -1,6 +1,6 @@
 Aggiustamento manuale: * 
-Se il pin è troppo a Nord, dovrai diminuire leggermente il valore della latitudine per la visualizzazione.
-Se il pin è troppo a Sud, dovrai aumentare il valore della latitudine.
+Se il pin è troppo a Nord, (aumentare lo spost_lat) dovrai diminuire leggermente il valore della latitudine per la visualizzazione.
+Se il pin è troppo a Sud, (diminuire lo spost_lat) dovrai aumentare il valore della latitudine.
 
-Se il pin è troppo a Ovest, dovrai diminuire leggermente il valore della longitudine per la visualizzazione.
-Se il pin è troppo a Est, dovrai aumentare il valore della longitudine.
+Se il pin è troppo a Ovest, (aumentare lo spost_lon) dovrai diminuire leggermente il valore della longitudine per la visualizzazione.
+Se il pin è troppo a Est, (diminuire lo spost_lon) dovrai aumentare il valore della longitudine.(diminuire lo spost_lat)
