@@ -61,7 +61,7 @@
         window.addEventListener('load', async () => {
             try {
                 // 1. Inizializzazione Mappa
-                const map = L.map('map').setView([44.498961, 11.3394261], 16);
+                const map = L.map('map').setView([44.4949, 11.3426], 15);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '© OpenStreetMap contributors'
                 }).addTo(map);
@@ -115,9 +115,10 @@
                 clusters.forEach(group => {
                     if (group.length === 1) {
                         const poi = group[0];
-                        // LOGICA DOPPIA COORDINATA: visuale se esiste, altrimenti reale
-                        const displayLat = poi.visual_lat || poi.lat;
-                        const displayLon = poi.visual_lon || poi.lon;
+
+                        // --- MODIFICA PRECISA: Usiamo solo lat e lon reali ---
+                        const displayLat = poi.lat;
+                        const displayLon = poi.lon;
 
                         L.marker([displayLat, displayLon], { icon: redPinIcon })
                             .addTo(map)
@@ -131,8 +132,9 @@
                                 window.location.href = `${poi.base_name}${suffix}.html`;
                             });
                     } else {
-                        const avgLat = group.reduce((sum, p) => sum + (p.visual_lat || p.lat), 0) / group.length;
-                        const avgLon = group.reduce((sum, p) => sum + (p.visual_lon || p.lon), 0) / group.length;
+                        // --- MODIFICA PRECISA: Media basata solo su coordinate reali ---
+                        const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
+                        const avgLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
 
                         const clusterIcon = L.divIcon({
                             html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
@@ -154,18 +156,12 @@
                                     const btn = document.createElement('button');
                                     btn.className = 'cluster-menu-item-map';
 
-                                    // 1. RECUPERA IL SIMBOLO E IL TITOLO
                                     const simbolo = getSimboloCategoria(poi.categoria);
                                     const titolo = navTitles[poi.nav_id] || poi.id;
 
-                                    // 2. IMPOSTA IL TESTO DEL BOTTONE CON L'ICONA
                                     btn.textContent = `${simbolo} ${titolo}`;
 
                                     btn.onclick = () => {
-                                        // --- PARTE AUDIO (Miglioramento voce) ---
-                                        // Prima di cambiare pagina, possiamo dare un feedback vocale se vuoi
-                                        // parlaPOI(titolo); 
-
                                         const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
                                         window.location.href = `${poi.base_name}${suffix}.html`;
                                     };
