@@ -70,13 +70,12 @@
                 const redPinIcon = L.icon({
                     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
                     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [32, 32],
-                    iconAnchor: [16, 32],
-                    popupAnchor: [0, -32],
-                    shadowSize: [41, 41],   // Il tuo parametro
-                    shadowAnchor: [12, 41]   // L'ombra deve partire dallo stesso punto del pin
+                    iconSize: [25, 41],    // Dimensioni reali per mantenere la proporzione
+                    iconAnchor: [12, 41],  // [Metà larghezza, Altezza totale] -> Inchioda la punta al suolo
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41],
+                    shadowAnchor: [12, 41]
                 });
-
                 // 3. Funzione Clustering
                 function clusterPOI(pois, radius) {
                     const clusters = [];
@@ -243,22 +242,41 @@
             return '📍 ';
         }
 
-        window.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // Qui carichi i dati dei POI
-                // ESEMPIO DI UTILIZZO NELLA LISTA:
-                // const nomeConIcona = getSimboloCategoria(poi.categoria) + poi.titolo;
+window.addEventListener('DOMContentLoaded', () => {
+    // 1. Inizializza la mappa su Bologna
+    const map = L.map('map').setView([44.4949, 11.3426], 15);
 
-                // LOGICA PIN ROSSO E HOVER TITOLO (Implementazione 28 Marzo)
-                // marker.bindTooltip(poi.titolo); // Se usi Leaflet
-                // marker.setTitle(poi.titolo);   // Se usi Google Maps
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
 
-                const loader = document.getElementById('loading-message');
-                if (loader) loader.style.display = 'none';
-            } catch (error) {
-                console.error("Errore mappa:", error);
-            }
+    // 2. Disegna i POI usando la tabella POIS_LOCATIONS di main.js
+    POIS_LOCATIONS.forEach(poi => {
+        // Creazione Marker con l'icona corretta
+        const marker = L.marker([poi.lat, poi.lon], { icon: redPinIcon }).addTo(map);
+
+        // Aggiunta Tooltip (L'hover del titolo)
+        const simbolo = getSimboloCategoria(poi.categoria);
+        const titoloLabel = navTitles[poi.nav_id] || poi.id;
+
+        marker.bindTooltip(`${simbolo} ${titoloLabel}`, {
+            permanent: false,
+            direction: 'top',
+            offset: [0, -35], // Lo stacca dalla punta del pin
+            className: 'map-tooltip'
         });
+
+        // Click per andare alla pagina del POI
+        marker.on('click', () => {
+            const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
+            window.location.href = `${poi.base_name}${suffix}.html`;
+        });
+    });
+
+    // Nascondi il loader
+    const loader = document.getElementById('loading-message');
+    if (loader) loader.style.display = 'none';
+});
     </script>
     <script type="module" src="main.js"></script>
 </body>
