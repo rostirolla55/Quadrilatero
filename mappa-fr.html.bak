@@ -70,12 +70,12 @@
                 const redPinIcon = L.icon({
                     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
                     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
+                    iconSize: [25, 41],    // Dimensioni reali per mantenere la proporzione
+                    iconAnchor: [12, 41],  // [Metà larghezza, Altezza totale] -> Inchioda la punta al suolo
                     popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
+                    shadowSize: [41, 41],
+                    shadowAnchor: [12, 41]
                 });
-
                 // 3. Funzione Clustering
                 function clusterPOI(pois, radius) {
                     const clusters = [];
@@ -115,16 +115,13 @@
                 clusters.forEach(group => {
                     if (group.length === 1) {
                         const poi = group[0];
-
-                        // --- MODIFICA PRECISA: Usiamo solo lat e lon reali ---
-                        const displayLat = poi.lat;
-                        const displayLon = poi.lon;
-
-                        L.marker([displayLat, displayLon], { icon: redPinIcon })
+                        // Usiamo lat e lon che hai appena inserito da Google Maps
+                        L.marker([poi.lat, poi.lon], { icon: redPinIcon })
                             .addTo(map)
                             .bindTooltip(navTitles[poi.nav_id] || poi.id, {
                                 permanent: false,
                                 direction: 'top',
+                                offset: [0, -30],
                                 className: 'map-tooltip'
                             })
                             .on('click', () => {
@@ -132,18 +129,18 @@
                                 window.location.href = `${poi.base_name}${suffix}.html`;
                             });
                     } else {
-                        // --- MODIFICA PRECISA: Media basata solo su coordinate reali ---
+                        // Media matematica per i cluster
                         const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
                         const avgLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
 
-                        const clusterIcon = L.divIcon({
-                            html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
-                            className: '',
-                            iconSize: [40, 40],
-                            iconAnchor: [20, 20]
-                        });
-
-                        const clusterMarker = L.marker([avgLat, avgLon], { icon: clusterIcon }).addTo(map);
+                        const clusterMarker = L.marker([avgLat, avgLon], {
+                            icon: L.divIcon({
+                                html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
+                                className: 'custom-cluster',
+                                iconSize: [40, 40],
+                                iconAnchor: [20, 20]
+                            })
+                        }).addTo(map);
 
                         clusterMarker.on('click', (e) => {
                             L.DomEvent.stopPropagation(e);
@@ -226,42 +223,102 @@
         });
     </script>
     <script>
-        // --- CONFIGURAZIONE ICONA (Corregge lo spostamento a Nord) ---
-        const redIcon = L.icon({
+        // --- CONFIGURAZIONE ICONA PIN ---
+        const redPinIcon = L.icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
             iconSize: [25, 41],
-            iconAnchor: [12, 41], // <--- PUNTA DEL PIN AL CENTRO E IN BASSO
+            // MODIFICA: Alziamo l'ancora a 48 per "inchiodare" la punta al tetto (correzione Nord)
+            iconAnchor: [12, 48],
             popupAnchor: [1, -34],
-            shadowSize: [41, 41]
+            shadowSize: [41, 41],
+            shadowAnchor: [12, 48]
         });
-        // --- FUNZIONE ICONE (Deve essere presente in tutti i file) ---
-        function getSimboloCategoria(categoria) {
-            if (!categoria) return '📍 ';
-            const cat = categoria.toLowerCase();
-            if (cat.includes('edificio') || cat.includes('stabile') || cat.includes('monumento')) return '🏛️ ';
-            if (cat.includes('esterno') || cat.includes('aperto') || cat.includes('piazza')) return '🌳 ';
-            if (cat.includes('arte') || cat.includes('quadro') || cat.includes('statua')) return '🎨 ';
-            return '📍 ';
-        }
 
-        window.addEventListener('DOMContentLoaded', async () => {
+        window.addEventListener('load', () => {
             try {
-                // Qui carichi i dati dei POI
-                // ESEMPIO DI UTILIZZO NELLA LISTA:
-                // const nomeConIcona = getSimboloCategoria(poi.categoria) + poi.titolo;
+                const map = L.map('map').setView([44.499, 11.338], 16);
 
-                // LOGICA PIN ROSSO E HOVER TITOLO (Implementazione 28 Marzo)
-                // marker.bindTooltip(poi.titolo); // Se usi Leaflet
-                // marker.setTitle(poi.titolo);   // Se usi Google Maps
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+
+                // Recuperiamo i dati globali esportati dal main.js
+                const locations = window.POIS_LOCATIONS;
+
+                if (locations && locations.length > 0) {
+
+                    // --- LOGICA RAGGRUPPAMENTO (CLUSTER) ---
+                    const clusters = [];
+                    locations.forEach(poi => {
+                        let cluster = clusters.find(c => c[0].lat === poi.lat && c[0].lon === poi.lon);
+                        if (cluster) cluster.push(poi);
+                        else clusters.push([poi]);
+                    });
+
+                    clusters.forEach(group => {
+                        if (group.length === 1) {
+                            // PIN SINGOLO
+                            const poi = group[0];
+                            const marker = L.marker([poi.lat, poi.lon], { icon: redPinIcon }).addTo(map);
+
+                            const simbolo = window.getSimboloCategoria(poi.categoria);
+                            const titoloLabel = (typeof navTitles !== 'undefined' && navTitles[poi.nav_id]) ? navTitles[poi.nav_id] : poi.id;
+
+                            marker.bindTooltip(`${simbolo} ${titoloLabel}`, {
+                                direction: 'top',
+                                offset: [0, -41]
+                            });
+
+                            marker.on('click', () => {
+                                const currentLang = document.documentElement.lang || 'it';
+                                const suffix = currentLang === 'it' ? '' : `-${currentLang}`;
+                                window.location.href = `${poi.id}${suffix}.html`;
+                            });
+
+                        } else {
+                            // CERCHIO VERDE (CLUSTER)
+                            const clusterIcon = L.divIcon({
+                                html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
+                                className: '',
+                                iconSize: [40, 40],
+                                iconAnchor: [20, 20]
+                            });
+
+                            const clusterMarker = L.marker([group[0].lat, group[0].lon], { icon: clusterIcon }).addTo(map);
+
+                            clusterMarker.on('click', (e) => {
+                                L.DomEvent.stopPropagation(e);
+                                const menu = document.getElementById('nearbyMenuPlaceholder-map');
+                                if (menu) {
+                                    menu.innerHTML = '';
+                                    group.forEach(p => {
+                                        const btn = document.createElement('button');
+                                        btn.className = 'cluster-menu-item-map';
+                                        const label = (typeof navTitles !== 'undefined' && navTitles[p.nav_id]) ? navTitles[p.nav_id] : p.id;
+                                        btn.textContent = `${window.getSimboloCategoria(p.categoria)} ${label}`;
+                                        btn.onclick = () => {
+                                            const currentLang = document.documentElement.lang || 'it';
+                                            const suffix = currentLang === 'it' ? '' : `-${currentLang}`;
+                                            window.location.href = `${p.id}${suffix}.html`;
+                                        };
+                                        menu.appendChild(btn);
+                                    });
+                                    menu.classList.add('active');
+                                    document.getElementById('close-cluster-btn-map').style.display = 'block';
+                                }
+                            });
+                        }
+                    });
+                }
 
                 const loader = document.getElementById('loading-message');
                 if (loader) loader.style.display = 'none';
+
             } catch (error) {
                 console.error("Errore mappa:", error);
             }
-        });
-    </script>
+        });    </script>
     <script type="module" src="main.js"></script>
 </body>
 

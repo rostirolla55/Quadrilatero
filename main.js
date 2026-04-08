@@ -391,3 +391,5 @@ function getSimboloCategoria(categoria) {
 // Rendiamo tutto disponibile alle altre pagine HTML
 window.getSimboloCategoria = getSimboloCategoria;
 window.POIS_LOCATIONS = POIS_LOCATIONS;
+// Aggiungi questa riga per esportare i titoli tradotti
+window.navTitles = navTitles;
