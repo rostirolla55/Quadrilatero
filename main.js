@@ -377,3 +377,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+// Rende la costante accessibile globalmente agli altri script HTML
+window.POIS_LOCATIONS = POIS_LOCATIONS;

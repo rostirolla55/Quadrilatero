@@ -227,9 +227,9 @@
         const redPinIcon = L.icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            /* MODIFICA: Dimensioni reali del marker GitHub per evitare distorsioni */
+            /* MODIFICA: Dimensioni reali del marker per evitare distorsioni */
             iconSize: [25, 41],
-            /* MODIFICA: iconAnchor impostato a 41 (altezza totale) per fissare la punta al suolo */
+            /* MODIFICA: iconAnchor a 41 (altezza totale) per fissare la punta al suolo */
             iconAnchor: [12, 41], 
             popupAnchor: [1, -34],
             shadowSize: [41, 41],
@@ -237,36 +237,38 @@
             shadowAnchor: [12, 41] 
         });
 
-        // --- FUNZIONE ICONE (Deve essere presente in tutti i file) ---
+        // --- FUNZIONE ICONE ---
         function getSimboloCategoria(categoria) {
             if (!categoria) return '📍 ';
             const cat = categoria.toLowerCase();
-            if (cat.includes('edificio') || cat.includes('stabile') || cat.includes('monumento')) return '🏛️ ';
-            if (cat.includes('esterno') || cat.includes('aperto') || cat.includes('piazza')) return '🌳 ';
-            if (cat.includes('arte') || cat.includes('quadro') || cat.includes('statua')) return '🎨 ';
+            if (cat.includes('edificio')) return '🏛️ ';
+            if (cat.includes('esterno') || cat.includes('piazza')) return '🌳 ';
+            if (cat.includes('arte')) return '🎨 ';
             return '📍 ';
         }
 
-        window.addEventListener('DOMContentLoaded', async () => {
+        window.addEventListener('load', () => { // Usiamo 'load' per essere sicuri che main.js sia pronto
             try {
-                /* MODIFICA: Inizializzazione mappa centrata sulla zona POI (Bologna Cavaticcio) */
+                /* MODIFICA: Inizializzazione mappa su Bologna (Zona Cavaticcio) */
                 const map = L.map('map').setView([44.499, 11.338], 16);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '© OpenStreetMap contributors'
                 }).addTo(map);
 
-                /* MODIFICA: Ciclo di disegno basato sulla tabella POIS_LOCATIONS di main.js */
-                if (typeof POIS_LOCATIONS !== 'undefined') {
-                    POIS_LOCATIONS.forEach(poi => {
-                        /* MODIFICA: Posizionamento marker con le coordinate REALI di Google Maps */
+                /* MODIFICA: Accesso alla variabile globale POIS_LOCATIONS */
+                const locations = window.POIS_LOCATIONS || POIS_LOCATIONS;
+
+                if (typeof locations !== 'undefined') {
+                    locations.forEach(poi => {
+                        /* MODIFICA: Posizionamento marker con coordinate REALI */
                         const marker = L.marker([poi.lat, poi.lon], { icon: redPinIcon }).addTo(map);
 
                         const simbolo = getSimboloCategoria(poi.categoria);
                         const titoloLabel = (typeof navTitles !== 'undefined' && navTitles[poi.nav_id]) ? navTitles[poi.nav_id] : poi.id;
 
                         // LOGICA PIN ROSSO E HOVER TITOLO (Implementazione 28 Marzo)
-                        /* MODIFICA: Attivazione reale della funzione bindTooltip con offset per precisione visiva */
+                        /* MODIFICA: Attivazione reale bindTooltip con offset per precisione visiva */
                         marker.bindTooltip(`${simbolo} ${titoloLabel}`, {
                             permanent: false,
                             direction: 'top',
@@ -281,10 +283,6 @@
                     });
                 }
 
-                // Qui carichi i dati dei POI
-                // ESEMPIO DI UTILIZZO NELLA LISTA:
-                // const nomeConIcona = getSimboloCategoria(poi.categoria) + poi.titolo;
-
                 // LOGICA PIN ROSSO E HOVER TITOLO (Implementazione 28 Marzo)
                 // marker.bindTooltip(poi.titolo); // Se usi Leaflet
                 // marker.setTitle(poi.titolo);   // Se usi Google Maps
@@ -294,6 +292,7 @@
             } catch (error) {
                 console.error("Errore mappa:", error);
             }
+        });
         });    </script>
     <script type="module" src="main.js"></script>
 </body>
