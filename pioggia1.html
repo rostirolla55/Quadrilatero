@@ -175,41 +175,7 @@
   <!-- <script src="config.js"> -->
   <!-- </script> -->
   <!-- Carica poi il motore dell'applicazione che userà quei dati -->
-  <script>
-    // --- BLOCCO LOGICO CATEGORIE (Step 1) ---
-    function getSimboloCategoria(categoria) {
-        if (!categoria) return '📍 ';
-        const cat = categoria.toLowerCase();
-        
-        // Edifici storici o beni culturali
-        if (cat.includes('edificio') || cat.includes('stabile') || cat.includes('monumento')) {
-            return '🏛️ ';
-        }
-        // Luoghi all'aperto o spazi esterni
-        if (cat.includes('esterno') || cat.includes('aperto') || cat.includes('piazza')) {
-            return '🌳 ';
-        }
-        // Arte (quadri e statue)
-        if (cat.includes('arte') || cat.includes('quadro') || cat.includes('statua')) {
-            return '🎨 ';
-        }
-        
-        return '📍 '; 
-    }
 
-    // Esempio di integrazione nel caricamento dati
-    window.addEventListener('DOMContentLoaded', async () => {
-        try {
-            // Supponendo che 'currentData' sia l'oggetto caricato per la pagina
-            // const simbolo = getSimboloCategoria(currentData.categoria);
-            // document.getElementById('mainTitleWithIcon').innerHTML = simbolo + currentData.titolo;
-            
-            // Logica esistente per menu e caricamento...
-        } catch (error) {
-            console.error("Errore:", error);
-        }
-    });
-  </script>
   <script src="main.js" type="module">
   </script>
  </body>
