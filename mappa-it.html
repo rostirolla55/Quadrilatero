@@ -70,10 +70,11 @@
                 const redPinIcon = L.icon({
                     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
                     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32],
+                    popupAnchor: [0, -32],
+                    shadowSize: [41, 41],   // Il tuo parametro
+                    shadowAnchor: [12, 41]   // L'ombra deve partire dallo stesso punto del pin
                 });
 
                 // 3. Funzione Clustering
@@ -115,16 +116,13 @@
                 clusters.forEach(group => {
                     if (group.length === 1) {
                         const poi = group[0];
-
-                        // --- MODIFICA PRECISA: Usiamo solo lat e lon reali ---
-                        const displayLat = poi.lat;
-                        const displayLon = poi.lon;
-
-                        L.marker([displayLat, displayLon], { icon: redPinIcon })
+                        // Usiamo lat e lon che hai appena inserito da Google Maps
+                        L.marker([poi.lat, poi.lon], { icon: redPinIcon })
                             .addTo(map)
                             .bindTooltip(navTitles[poi.nav_id] || poi.id, {
                                 permanent: false,
                                 direction: 'top',
+                                offset: [0, -30],
                                 className: 'map-tooltip'
                             })
                             .on('click', () => {
@@ -132,18 +130,18 @@
                                 window.location.href = `${poi.base_name}${suffix}.html`;
                             });
                     } else {
-                        // --- MODIFICA PRECISA: Media basata solo su coordinate reali ---
+                        // Media matematica per i cluster
                         const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
                         const avgLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
 
-                        const clusterIcon = L.divIcon({
-                            html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
-                            className: '',
-                            iconSize: [40, 40],
-                            iconAnchor: [20, 20]
-                        });
-
-                        const clusterMarker = L.marker([avgLat, avgLon], { icon: clusterIcon }).addTo(map);
+                        const clusterMarker = L.marker([avgLat, avgLon], {
+                            icon: L.divIcon({
+                                html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
+                                className: 'custom-cluster',
+                                iconSize: [40, 40],
+                                iconAnchor: [20, 20]
+                            })
+                        }).addTo(map);
 
                         clusterMarker.on('click', (e) => {
                             L.DomEvent.stopPropagation(e);
