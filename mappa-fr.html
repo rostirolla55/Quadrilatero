@@ -239,11 +239,12 @@
         function getSimboloCategoria(categoria) {
             if (!categoria) return '📍 ';
             const cat = categoria.toLowerCase();
-            if (cat.includes('edificio')) return '🏛️ ';
-            if (cat.includes('esterno')) return '🌳 ';
-            if (cat.includes('arte')) return '🎨 ';
+            if (cat.includes('edificio') || cat.includes('stabile') || cat.includes('monumento')) return '🏛️ ';
+            if (cat.includes('esterno') || cat.includes('aperto') || cat.includes('piazza')) return '🌳 ';
+            if (cat.includes('arte') || cat.includes('quadro') || cat.includes('statua')) return '🎨 ';
             return '📍 ';
         }
+
 
         window.addEventListener('load', () => {
             try {
