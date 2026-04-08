@@ -223,28 +223,17 @@
         });
     </script>
     <script>
-// --- CONFIGURAZIONE ICONE ---
+        // --- CONFIGURAZIONE ICONA PIN ---
         const redPinIcon = L.icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
             iconSize: [25, 41],
-            /* MODIFICA: Aumentiamo l'ancora a 45 per spingere il pin più a Sud se 41 non basta */
-            iconAnchor: [12, 45], 
+            // MODIFICA: Alziamo l'ancora a 48 per "inchiodare" la punta al tetto (correzione Nord)
+            iconAnchor: [12, 48],
             popupAnchor: [1, -34],
             shadowSize: [41, 41],
-            shadowAnchor: [12, 45] 
+            shadowAnchor: [12, 48]
         });
-
-        // --- FUNZIONE ICONE ---
-        function getSimboloCategoria(categoria) {
-            if (!categoria) return '📍 ';
-            const cat = categoria.toLowerCase();
-            if (cat.includes('edificio') || cat.includes('stabile') || cat.includes('monumento')) return '🏛️ ';
-            if (cat.includes('esterno') || cat.includes('aperto') || cat.includes('piazza')) return '🌳 ';
-            if (cat.includes('arte') || cat.includes('quadro') || cat.includes('statua')) return '🎨 ';
-            return '📍 ';
-        }
-
 
         window.addEventListener('load', () => {
             try {
@@ -254,11 +243,12 @@
                     attribution: '© OpenStreetMap contributors'
                 }).addTo(map);
 
+                // Recuperiamo i dati globali esportati dal main.js
                 const locations = window.POIS_LOCATIONS;
 
                 if (locations && locations.length > 0) {
-                    // --- REINTEGRO LOGICA CLUSTER ---
-                    // Raggruppiamo i POI per posizione identica
+
+                    // --- LOGICA RAGGRUPPAMENTO (CLUSTER) ---
                     const clusters = [];
                     locations.forEach(poi => {
                         let cluster = clusters.find(c => c[0].lat === poi.lat && c[0].lon === poi.lon);
@@ -268,15 +258,16 @@
 
                     clusters.forEach(group => {
                         if (group.length === 1) {
+                            // PIN SINGOLO
                             const poi = group[0];
                             const marker = L.marker([poi.lat, poi.lon], { icon: redPinIcon }).addTo(map);
 
-                            const simbolo = getSimboloCategoria(poi.categoria);
+                            const simbolo = window.getSimboloCategoria(poi.categoria);
                             const titoloLabel = (typeof navTitles !== 'undefined' && navTitles[poi.nav_id]) ? navTitles[poi.nav_id] : poi.id;
 
                             marker.bindTooltip(`${simbolo} ${titoloLabel}`, {
                                 direction: 'top',
-                                offset: [0, -41] 
+                                offset: [0, -41]
                             });
 
                             marker.on('click', () => {
@@ -284,11 +275,9 @@
                                 const suffix = currentLang === 'it' ? '' : `-${currentLang}`;
                                 window.location.href = `${poi.id}${suffix}.html`;
                             });
-                        } else {
-                            // --- LOGICA CERCHIO VERDE (CLUSTER) ---
-                            const avgLat = group[0].lat;
-                            const avgLon = group[0].lon;
 
+                        } else {
+                            // CERCHIO VERDE (CLUSTER)
                             const clusterIcon = L.divIcon({
                                 html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
                                 className: '',
@@ -296,7 +285,7 @@
                                 iconAnchor: [20, 20]
                             });
 
-                            const clusterMarker = L.marker([avgLat, avgLon], { icon: clusterIcon }).addTo(map);
+                            const clusterMarker = L.marker([group[0].lat, group[0].lon], { icon: clusterIcon }).addTo(map);
 
                             clusterMarker.on('click', (e) => {
                                 L.DomEvent.stopPropagation(e);
@@ -306,7 +295,8 @@
                                     group.forEach(p => {
                                         const btn = document.createElement('button');
                                         btn.className = 'cluster-menu-item-map';
-                                        btn.textContent = `${getSimboloCategoria(p.categoria)} ${(typeof navTitles !== 'undefined' && navTitles[p.nav_id]) ? navTitles[p.nav_id] : p.id}`;
+                                        const label = (typeof navTitles !== 'undefined' && navTitles[p.nav_id]) ? navTitles[p.nav_id] : p.id;
+                                        btn.textContent = `${window.getSimboloCategoria(p.categoria)} ${label}`;
                                         btn.onclick = () => {
                                             const currentLang = document.documentElement.lang || 'it';
                                             const suffix = currentLang === 'it' ? '' : `-${currentLang}`;
@@ -322,15 +312,13 @@
                     });
                 }
 
-                // LOGICA PIN ROSSO E HOVER TITOLO (Implementazione 28 Marzo)
-                // marker.bindTooltip(poi.titolo); // Se usi Leaflet
-
                 const loader = document.getElementById('loading-message');
                 if (loader) loader.style.display = 'none';
+
             } catch (error) {
                 console.error("Errore mappa:", error);
             }
-        });
+        });    
     </script>
     <script type="module" src="main.js"></script>
 </body>

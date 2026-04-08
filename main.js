@@ -377,5 +377,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-// Rende la costante accessibile globalmente agli altri script HTML
+// --- ESPORTAZIONE GLOBALE ---
+// Questa funzione deve stare qui per essere vista da tutte le pagine (Carracci, Mappa, ecc.)
+function getSimboloCategoria(categoria) {
+    if (!categoria) return '📍 ';
+    const cat = categoria.toLowerCase();
+    if (cat.includes('edificio') || cat.includes('stabile') || cat.includes('monumento')) return '🏛️ ';
+    if (cat.includes('esterno') || cat.includes('aperto') || cat.includes('piazza')) return '🌳 ';
+    if (cat.includes('arte') || cat.includes('quadro') || cat.includes('statua')) return '🎨 ';
+    return '📍 ';
+}
+
+// Rendiamo tutto disponibile alle altre pagine HTML
+window.getSimboloCategoria = getSimboloCategoria;
 window.POIS_LOCATIONS = POIS_LOCATIONS;
