@@ -401,4 +401,5 @@ function getSimboloCategoria(categoria) {
 window.getSimboloCategoria = getSimboloCategoria;
 window.POIS_LOCATIONS = POIS_LOCATIONS;
 // Aggiungi questa riga per esportare i titoli tradotti
-window.navTitles = navTitles;
+// Inizializziamo l'oggetto se non esiste ancora
+if (!window.navTitles) window.navTitles = {};

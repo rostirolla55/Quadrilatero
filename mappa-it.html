@@ -100,47 +100,27 @@
         });
 
         async function init() {
-            // Aspetta che main.js popoli window.navTitles (max 5 secondi)
-            let check = 0;
-            while (!window.navTitles && check < 50) {
-                await new Promise(r => setTimeout(r, 100));
-                check++;
-            }
-
             try {
-
+                // Carichiamo i dati necessari per la mappa
                 const [poisRes, textsRes] = await Promise.all([
                     fetch('pois_config.json'),
                     fetch(`data/translations/${currentLang}/texts.json`)
                 ]);
-                // Trasformiamo le risposte in oggetti JS
-                const poisData = await poisRes.json();
+
+                const poisConfig = await poisRes.json();
                 const translations = await textsRes.json();
 
-                // Popoliamo le variabili globali usate dal resto del codice
-                window.POIS_LOCATIONS = poisData.locations; // Assicurati che la struttura coincida
+                // Popoliamo le variabili globali in modo che siano disponibili ovunque
                 window.allData = translations;
-
-                // Se usi navTitles per i menu, popolalo qui
-                window.navTitles = translations.navTitles || {};
-
-                console.log("Dati caricati correttamente: icone e titoli pronti.");
-
-                // ORA puoi chiamare la funzione che disegna la mappa o i menu
-                // renderMap();
-
-
-
-
+                window.navTitles = translations.nav || {}; // Nota: in main.js i titoli sono sotto 'nav'
 
                 const map = L.map('map').setView([44.4949, 11.3426], 16);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-                const res = await fetch('pois_config.json');
-                const data = await res.json();
-
+                // Raggruppiamo i POI per posizione (clustering)
                 const clusters = {};
-                data.pois.forEach(p => {
+                // Usiamo i POI dal file config appena caricato
+                poisConfig.pois.forEach(p => {
                     const k = `${p.lat}_${p.lon}`;
                     if (!clusters[k]) clusters[k] = [];
                     clusters[k].push(p);
@@ -152,15 +132,21 @@
 
                     if (group.length === 1) {
                         const marker = L.marker(latLng, { icon: redPinIcon }).addTo(map);
-                        const label = (window.navTitles && window.navTitles[first.nav_id]) ? window.navTitles[first.nav_id] : first.id;
+
+                        // Recupero Titolo: Cerca prima nel nav tradotto, poi nel pageTitle, infine ID
+                        const label = (window.navTitles && window.navTitles[first.nav_id])
+                            ? window.navTitles[first.nav_id]
+                            : (translations[first.id] && translations[first.id].pageTitle)
+                                ? translations[first.id].pageTitle
+                                : first.id;
 
                         marker.bindTooltip(label, { direction: 'top', offset: [0, -35] });
                         marker.on('click', () => window.location.href = `${first.id}${suffix}.html`);
 
-                        // TEST OFFSET: Se la punta copre il cerchio blu, è perfetto
                         L.circleMarker(latLng, { radius: 2, color: 'blue', fillOpacity: 1 }).addTo(map);
 
                     } else {
+                        // Logica Cluster...
                         const clusterIcon = L.divIcon({
                             html: `<div class="cluster-pin">${group.length}</div>`,
                             className: 'custom-cluster',
@@ -176,8 +162,16 @@
                             group.forEach(poi => {
                                 const btn = document.createElement('button');
                                 btn.className = 'cluster-menu-item-map';
-                                const t = (window.navTitles && window.navTitles[poi.nav_id]) ? window.navTitles[poi.nav_id] : poi.id;
+
+                                // Titolo e Icona per il menu del cluster
+                                const t = (window.navTitles && window.navTitles[poi.nav_id])
+                                    ? window.navTitles[poi.nav_id]
+                                    : (translations[poi.id] && translations[poi.id].pageTitle)
+                                        ? translations[poi.id].pageTitle
+                                        : poi.id;
+
                                 const s = window.getSimboloCategoria ? window.getSimboloCategoria(poi.categoria) : '📍';
+
                                 btn.innerHTML = `<span>${s} ${t}</span>`;
                                 btn.onclick = () => window.location.href = `${poi.id}${suffix}.html`;
                                 menu.appendChild(btn);
@@ -195,7 +189,6 @@
                 document.getElementById('loading-message').innerHTML = "Errore caricamento dati.";
             }
         }
-
         document.getElementById('close-cluster-btn-map').onclick = () => {
             const menu = document.getElementById('nearbyMenuPlaceholder-map');
             menu.classList.remove('active');
