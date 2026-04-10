@@ -197,7 +197,6 @@ function updateNavigation(navData, lang) {
             const simbolo = (poiInfo && window.getSimboloCategoria) 
                             ? window.getSimboloCategoria(poiInfo.categoria) 
                             : '📍';
-            
             // Usiamo innerHTML per inserire l'icona davanti al testo
             el.innerHTML = `<span>${simbolo}</span> ${navData[l.key] || l.id}`;
             // ---------------------
