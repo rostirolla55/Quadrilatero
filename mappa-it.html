@@ -7,17 +7,47 @@
     
     <link href="style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <style>
-        /* Forza la visibilità della mappa */
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-        #app-wrapper { display: flex; flex-direction: column; height: 100vh; }
-        #map { flex: 1; width: 100%; background: #e5e3df; }
+        /* FIX VISIBILITÀ HEADER E MAPPA */
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; background: white; }
         
+        #app-wrapper { 
+            display: flex; 
+            flex-direction: column; 
+            height: 100vh; 
+            position: relative;
+        }
+
+        .main-header {
+            background-color: white !important;
+            border-bottom: 2px solid #ddd;
+            z-index: 2000 !important; /* Più alto della mappa */
+            display: flex;
+            align-items: center;
+            height: 60px;
+            padding: 0 15px;
+        }
+
+        #map { 
+            flex-grow: 1; 
+            width: 100%; 
+            z-index: 1; 
+        }
+
+        /* Testo Chiudi Mappa forzato visibile */
+        .map-link span {
+            color: #28a745 !important; 
+            font-weight: bold !important;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
         #loading-message {
             position: fixed; top: 0; left: 0; width: 100%;
-            background: #ffeb3b; padding: 10px; text-align: center;
-            z-index: 10001; font-weight: bold;
+            background: #ffeb3b; text-align: center; padding: 15px;
+            z-index: 3000; font-weight: bold; font-family: sans-serif;
         }
 
         .cluster-pin {
@@ -31,150 +61,125 @@
 </head>
 <body>
 
-    <div id="loading-message">Caricamento mappa e monumenti...</div>
+    <div id="loading-message">Caricamento Mappa...</div>
 
     <div id="app-wrapper">
         <header class="main-header">
-            <div class="left-header-group" style="cursor: pointer;" onclick="window.location.href='index.html'">
+            <div class="left-header-group" style="cursor: pointer; display: flex; align-items: center;" onclick="window.location.href='index.html'">
+                <div style="display: flex; flex-direction: column; gap: 4px; margin-right: 10px;">
+                    <div style="width: 20px; height: 3px; background: black;"></div>
+                    <div style="width: 20px; height: 3px; background: black;"></div>
+                    <div style="width: 20px; height: 3px; background: black;"></div>
+                </div>
                 <div class="map-link">
-                    <span style="color: #d9534f; font-weight: bold; font-size: 1.1rem;">✖ CHIUDI MAPPA</span>
+                    <span>Chiudi la mappa</span>
                 </div>
             </div>
         </header>
-
+        
         <main id="map"></main>
     </div>
 
     <div id="nearbyMenuPlaceholder-map"></div>
     <button id="close-cluster-btn-map">CHIUDI ELENCO</button>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="main.js"></script>
 
-    <script>
-        // --- CONFIGURAZIONE ---
+    <script type="module">
         const currentLang = 'it';
-        const suffix = currentLang === 'it' ? '' : `-${currentLang}`;
+        const suffix = ''; 
 
-        // Funzione Simboli Categoria (Portata qui per evitare dipendenze da main.js)
-        function getSimbolo(categoria) {
-            if (!categoria) return '📍 ';
-            const cat = categoria.toLowerCase();
-            if (cat.includes('edificio') || cat.includes('stabile') || cat.includes('monumento')) return '🏛️ ';
-            if (cat.includes('esterno') || cat.includes('aperto') || cat.includes('piazza')) return '🌳 ';
-            if (cat.includes('arte') || cat.includes('quadro') || cat.includes('statua')) return '🎨 ';
-            return '📍 ';
-        }
-
-        // --- ICONA ROSSA (FIX OFFSET NORD) ---
+        // Icona Rossa con FIX ANCORA (Punta al suolo per coordinate Google Maps)
         const redPinIcon = L.icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
             iconSize: [25, 41],
-            iconAnchor: [12, 41], // La punta è esattamente al centro base
+            iconAnchor: [12, 41], // LA PUNTA: Metà larghezza, altezza totale
             popupAnchor: [1, -34],
             shadowSize: [41, 41],
             shadowAnchor: [12, 41]
         });
 
-        async function initMap() {
+        async function startMap() {
+            // ATTESA DEI DATI DAL MAIN.JS
+            let attempts = 0;
+            while ((!window.navTitles || !window.getSimboloCategoria) && attempts < 50) {
+                await new Promise(r => setTimeout(r, 100));
+                attempts++;
+            }
+
             try {
-                // 1. Inizializza Mappa
                 const map = L.map('map').setView([44.4949, 11.3426], 16);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap'
-                }).addTo(map);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-                // 2. Caricamento Dati (JSON)
-                const [poisRes, textsRes] = await Promise.all([
-                    fetch('pois_config.json'),
-                    fetch(`data/translations/${currentLang}/texts.json`)
-                ]).catch(err => { throw new Error("Errore nel caricamento dei file JSON"); });
+                const response = await fetch('pois_config.json');
+                const data = await response.json();
 
-                const poisData = await poisRes.json();
-                const textsData = await textsRes.json();
-                const navTitles = textsData.nav || {};
-
-                // 3. Raggruppamento Cluster (Coordinate identiche)
                 const clusters = {};
-                poisData.pois.forEach(p => {
-                    const key = `${p.lat}_${p.lon}`;
-                    if (!clusters[key]) clusters[key] = [];
-                    clusters[key].push(p);
+                data.pois.forEach(p => {
+                    const k = `${p.lat}_${p.lon}`;
+                    if (!clusters[k]) clusters[k] = [];
+                    clusters[k].push(p);
                 });
 
-                // 4. Creazione Marker
                 Object.values(clusters).forEach(group => {
-                    const first = group[0];
-                    const pos = [first.lat, first.lon];
+                    const poi = group[0];
+                    const latLng = [poi.lat, poi.lon];
 
                     if (group.length === 1) {
-                        // PIN SINGOLO
-                        const marker = L.marker(pos, { icon: redPinIcon }).addTo(map);
-                        const titolo = navTitles[first.nav_id] || first.id;
+                        const marker = L.marker(latLng, { icon: redPinIcon }).addTo(map);
+                        const nome = (window.navTitles && window.navTitles[poi.nav_id]) ? window.navTitles[poi.nav_id] : poi.id;
                         
-                        marker.bindTooltip(titolo, { direction: 'top', offset: [0, -35] });
-                        marker.on('click', () => {
-                            window.location.href = `${first.id}${suffix}.html`;
-                        });
+                        marker.bindTooltip(nome, { direction: 'top', offset: [0, -35] });
+                        marker.on('click', () => window.location.href = `${poi.id}${suffix}.html`);
                         
-                        // DEBUG: Cerchietto blu per verificare l'ancora
-                        L.circleMarker(pos, {radius: 2, color: 'blue'}).addTo(map);
+                        // CERCHIETTO BLU DI TEST (Rimuovilo dopo aver verificato l'ancora)
+                        L.circleMarker(latLng, {radius: 2, color: 'blue', fillOpacity: 1}).addTo(map);
 
                     } else {
-                        // CLUSTER (PIÙ MONUMENTI)
                         const clusterIcon = L.divIcon({
                             html: `<div class="cluster-pin">${group.length}</div>`,
                             className: 'custom-cluster',
                             iconSize: [35, 35],
                             iconAnchor: [17, 17]
                         });
-
-                        const cMarker = L.marker(pos, { icon: clusterIcon }).addTo(map);
+                        const cMarker = L.marker(latLng, { icon: clusterIcon }).addTo(map);
                         
                         cMarker.on('click', (e) => {
                             L.DomEvent.stopPropagation(e);
                             const menu = document.getElementById('nearbyMenuPlaceholder-map');
-                            const closeBtn = document.getElementById('close-cluster-btn-map');
-                            
+                            if (!menu) return;
                             menu.innerHTML = '';
-                            group.forEach(poi => {
+                            group.forEach(p => {
                                 const btn = document.createElement('button');
                                 btn.className = 'cluster-menu-item-map';
-                                const icona = getSimbolo(poi.categoria);
-                                const titolo = navTitles[poi.nav_id] || poi.id;
-                                btn.innerHTML = `<span>${icona} ${titolo}</span>`;
-                                btn.onclick = () => {
-                                    window.location.href = `${poi.id}${suffix}.html`;
-                                };
+                                const label = (window.navTitles && window.navTitles[p.nav_id]) ? window.navTitles[p.nav_id] : p.id;
+                                const icona = window.getSimboloCategoria ? window.getSimboloCategoria(p.categoria) : '📍';
+                                btn.innerHTML = `<span>${icona} ${label}</span>`;
+                                btn.onclick = () => window.location.href = `${p.id}${suffix}.html`;
                                 menu.appendChild(btn);
                             });
-                            
-                            menu.style.display = 'block';
                             menu.classList.add('active');
-                            closeBtn.style.display = 'block';
+                            menu.style.display = 'block';
+                            document.getElementById('close-cluster-btn-map').style.display = 'block';
                         });
                     }
                 });
 
                 document.getElementById('loading-message').style.display = 'none';
-
-            } catch (error) {
-                console.error(error);
-                const msg = document.getElementById('loading-message');
-                msg.style.background = "red";
-                msg.innerHTML = "ERRORE: " + error.message;
+            } catch (err) {
+                console.error("Errore:", err);
+                document.getElementById('loading-message').innerHTML = "Errore caricamento dati.";
             }
         }
 
-        // Chiusura menu cluster
-        document.getElementById('close-cluster-btn-map').onclick = function() {
-            const menu = document.getElementById('nearbyMenuPlaceholder-map');
-            menu.classList.remove('active');
-            menu.style.display = 'none';
-            this.style.display = 'none';
+        document.getElementById('close-cluster-btn-map').onclick = () => {
+            document.getElementById('nearbyMenuPlaceholder-map').classList.remove('active');
+            document.getElementById('nearbyMenuPlaceholder-map').style.display = 'none';
+            document.getElementById('close-cluster-btn-map').style.display = 'none';
         };
 
-        window.onload = initMap;
+        startMap();
     </script>
 </body>
 </html>
