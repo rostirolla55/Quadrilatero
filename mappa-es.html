@@ -3,48 +3,32 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Mapa - Quadrilatero</title>
+    <title>Mappa - Quadrilatero</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-    <div id="loading-message"><p>Caricamento mappa...</p></div>
-    <button id="close-cluster-btn-map" style="display:none;">Cerrar mapa</button>
+    <div id="loading-message"><p>Cargando mapa</p></div>
+    <button id="close-cluster-btn-map" style="display:none;">CERRAR LISTA</button>
     <div id="nearbyMenuPlaceholder-map"></div>
 
     <div id="app-wrapper">
         <header class="main-header">
-            <div class="left-header-group" style="cursor: pointer;" onclick="window.location.href='index-en.html'">
-                <button aria-label="Cerrar mapa" class="menu-toggle" style="pointer-events: none;">
-                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-                </button>
-                <div id="mapNavLink" class="map-link">
-                    <svg viewBox="0 0 24 24" class="pin-icon" style="fill: green;">
-                        <path
-                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                    </svg>
-                    <span style="color: green; font-weight: bold;">Chiudi mappa</span>
+            <div class="left-header-group" style="cursor: pointer;" onclick="window.location.href='index.html'">
+                <div class="map-link">
+                    <span style="color: green; font-weight: bold;">Cerrar mapa</span>
                 </div>
-            </div>
-            <div class="right-header-group">
-                <div id="language-switcher"></div>
-                <button id="nearby-poi-btn" class="nearby-btn">
-                    <svg viewBox="0 0 24 24" class="nearby-icon">
-                        <path
-                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                    </svg>
-                </button>
             </div>
         </header>
         <main class="content-body">
-            <h1 id="mainTitle">Mappa dei Monumenti</h1>
+            <h1 id="mainTitle">Mapa de monumentos</h1>
             <div id="map" style="height: 500px;"></div>
         </main>
     </div>
 
     <script>
-        const currentLang = 'it';
+        const currentLang = 'es';
 
         // 1. Definizione Unica Icona (Correzione offset Nord)
         const redPinIcon = L.icon({
