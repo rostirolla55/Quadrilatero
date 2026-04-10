@@ -3,76 +3,53 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Mappa Monumenti - Quadrilatero</title>
-    
+    <title>Mappa - Quadrilatero</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
     <style>
-        /* Assicuriamo che la mappa sia visibile e occupi lo spazio corretto */
-        #map { 
-            height: calc(100vh - 120px); 
-            width: 100%; 
-            background-color: #f8f9fa; 
-        }
+        /* CSS critico per evitare il bianco */
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; }
+        #app-wrapper { display: flex; flex-direction: column; height: 100vh; }
+        #map { flex-grow: 1; width: 100%; min-height: 500px; background: #e5e3df; }
+        
         #loading-message {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
-            background: rgba(255,255,0,0.9);
-            text-align: center;
-            padding: 10px;
-            z-index: 10001;
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: #ffeb3b; color: #000; text-align: center;
+            padding: 10px; z-index: 10001; font-family: sans-serif;
         }
-        /* Stile per i Cluster numerati */
-        .custom-cluster {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+
+        /* Stile Cluster */
         .cluster-pin {
-            background-color: #27ae60;
-            color: white;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3px solid white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            background-color: #27ae60; color: white; border-radius: 50%;
+            width: 35px; height: 35px; display: flex;
+            align-items: center; justify-content: center;
+            border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.4);
             font-weight: bold;
-            font-size: 16px;
         }
     </style>
 </head>
 <body>
 
-    <div id="loading-message">Caricamento dati in corso...</div>
+    <div id="loading-message">Inizializzazione mappa...</div>
 
     <div id="app-wrapper">
-        <header class="main-header">
-            <div class="left-header-group" style="cursor: pointer;" onclick="window.location.href='index.html'">
-                <span style="color: #e74c3c; font-weight: bold; font-size: 1.2rem;">✖ Chiudi Mappa</span>
+        <header class="main-header" style="padding: 10px; background: #fff; border-bottom: 1px solid #ddd;">
+            <div onclick="window.location.href='index.html'" style="cursor: pointer; color: green; font-weight: bold;">
+                ✖ CHIUDI MAPPA
             </div>
         </header>
-
-        <main class="content-body">
-            <h1 id="mainTitle">Mappa dei Monumenti</h1>
-            <div id="map"></div>
-        </main>
+        <main id="map"></main>
     </div>
 
     <div id="nearbyMenuPlaceholder-map"></div>
-    <button id="close-cluster-btn-map" style="display:none;">CHIUDI ELENCO</button>
+    <button id="close-cluster-btn-map" style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:10000; padding:10px 20px; background:black; color:white; border-radius:20px;">CHIUDI ELENCO</button>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
-        // 1. CONFIGURAZIONE AMBIENTE
         const currentLang = 'it';
         const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
 
-        // Funzione Simboli (integrata localmente per sicurezza)
         function getSimboloCategoria(categoria) {
             if (!categoria) return '📍 ';
             const cat = categoria.toLowerCase();
@@ -82,122 +59,103 @@
             return '📍 ';
         }
 
-        // 2. DEFINIZIONE ICONA ROSSA (Risoluzione offset Nord)
         const redPinIcon = L.icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
             iconSize: [25, 41],
-            iconAnchor: [12, 41], // La punta del pin ora tocca esattamente la coordinata
+            iconAnchor: [12, 41],
             popupAnchor: [1, -34],
             shadowSize: [41, 41],
             shadowAnchor: [12, 41]
         });
 
-        // 3. INIZIALIZZAZIONE LOGICA
-        async function startApp() {
+        async function caricaMappa() {
+            const loader = document.getElementById('loading-message');
             try {
-                // Inizializza mappa su Bologna
+                // Inizializzazione Mappa
                 const map = L.map('map').setView([44.4949, 11.3426], 16);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; OpenStreetMap'
+                    attribution: '© OpenStreetMap'
                 }).addTo(map);
 
-                // Caricamento contemporaneo JSON configurazione e traduzioni
-                const [poisRes, textsRes] = await Promise.all([
-                    fetch('pois_config.json'),
-                    fetch(`data/translations/${currentLang}/texts.json`)
-                ]);
+                // Caricamento POI
+                const poisResponse = await fetch('pois_config.json');
+                if (!poisResponse.ok) throw new Error("File pois_config.json non trovato");
+                const poisData = await poisResponse.json();
 
-                if (!poisRes.ok || !textsRes.ok) throw new Error("Errore nel caricamento dei file JSON");
+                // Tentativo caricamento traduzioni (se fallisce usiamo fallback)
+                let navTitles = {};
+                try {
+                    const textsResponse = await fetch(`data/translations/${currentLang}/texts.json`);
+                    if (textsResponse.ok) {
+                        const textsData = await textsResponse.json();
+                        navTitles = textsData.nav || {};
+                    }
+                } catch (e) { console.warn("Traduzioni non caricate, uso ID di backup."); }
 
-                const poisData = await poisRes.json();
-                const textsData = await textsRes.json();
-                const navTitles = textsData.nav || {};
-
-                // 4. LOGICA DI CLUSTERING (Raggruppa POI con stesse coordinate)
+                // Raggruppamento per coordinate
                 const clusters = {};
-                poisData.pois.forEach(poi => {
-                    const coordKey = `${poi.lat}_${poi.lon}`;
-                    if (!clusters[coordKey]) clusters[coordKey] = [];
-                    clusters[coordKey].push(poi);
+                poisData.pois.forEach(p => {
+                    const k = `${p.lat}_${p.lon}`;
+                    if (!clusters[k]) clusters[k] = [];
+                    clusters[k].push(p);
                 });
 
-                // 5. RENDERING DEI PIN SULLA MAPPA
+                // Posizionamento Marker
                 Object.values(clusters).forEach(group => {
-                    const firstPoi = group[0];
-                    const latLng = [firstPoi.lat, firstPoi.lon];
+                    const first = group[0];
+                    const pos = [first.lat, first.lon];
 
                     if (group.length === 1) {
-                        // --- CASO PIN SINGOLO ---
-                        const marker = L.marker(latLng, { icon: redPinIcon }).addTo(map);
-                        const titolo = navTitles[firstPoi.nav_id] || firstPoi.id;
-
-                        marker.bindTooltip(titolo, {
-                            direction: 'top',
-                            offset: [0, -35]
-                        });
-
+                        const marker = L.marker(pos, { icon: redPinIcon }).addTo(map);
+                        const label = navTitles[first.nav_id] || first.id;
+                        marker.bindTooltip(label, { direction: 'top', offset: [0, -35] });
                         marker.on('click', () => {
-                            window.location.href = `${firstPoi.base_name}${suffix}.html`;
+                            window.location.href = `${first.base_name}${suffix}.html`;
                         });
-
                     } else {
-                        // --- CASO CLUSTER (PIÙ POI NELLO STESSO PUNTO) ---
                         const clusterIcon = L.divIcon({
-                            html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
+                            html: `<div class="cluster-pin">${group.length}</div>`,
                             className: 'custom-cluster',
-                            iconSize: [40, 40],
-                            iconAnchor: [20, 20]
+                            iconSize: [35, 35],
+                            iconAnchor: [17, 17]
                         });
-
-                        const clusterMarker = L.marker(latLng, { icon: clusterIcon }).addTo(map);
-
-                        clusterMarker.on('click', (e) => {
+                        const cMarker = L.marker(pos, { icon: clusterIcon }).addTo(map);
+                        
+                        cMarker.on('click', (e) => {
                             L.DomEvent.stopPropagation(e);
                             const menu = document.getElementById('nearbyMenuPlaceholder-map');
-                            const closeBtn = document.getElementById('close-cluster-btn-map');
-
-                            if (menu) {
-                                menu.innerHTML = ''; // Pulisce menu precedente
-                                group.forEach(poi => {
-                                    const btn = document.createElement('button');
-                                    btn.className = 'cluster-menu-item-map';
-                                    
-                                    const simbolo = getSimboloCategoria(poi.categoria);
-                                    const titolo = navTitles[poi.nav_id] || poi.id;
-                                    
-                                    btn.innerHTML = `<span class="icon">${simbolo}</span> <span class="text">${titolo}</span>`;
-                                    
-                                    btn.onclick = () => {
-                                        window.location.href = `${poi.base_name}${suffix}.html`;
-                                    };
-                                    menu.appendChild(btn);
-                                });
-                                menu.classList.add('active');
-                                if (closeBtn) closeBtn.style.display = 'block';
-                            }
+                            menu.innerHTML = '';
+                            group.forEach(poi => {
+                                const btn = document.createElement('button');
+                                btn.className = 'cluster-menu-item-map';
+                                const icona = getSimboloCategoria(poi.categoria);
+                                const tito = navTitles[poi.nav_id] || poi.id;
+                                btn.innerHTML = `<span>${icona} ${tito}</span>`;
+                                btn.onclick = () => window.location.href = `${poi.base_name}${suffix}.html`;
+                                menu.appendChild(btn);
+                            });
+                            menu.classList.add('active');
+                            document.getElementById('close-cluster-btn-map').style.display = 'block';
                         });
                     }
                 });
 
-                // Rimuovi messaggio caricamento
-                document.getElementById('loading-message').style.display = 'none';
+                loader.style.display = 'none';
 
-            } catch (error) {
-                console.error("Errore fatale:", error);
-                document.getElementById('loading-message').style.background = "red";
-                document.getElementById('loading-message').innerHTML = "Errore nel caricamento della mappa. Controlla la console.";
+            } catch (err) {
+                console.error(err);
+                loader.style.background = "red";
+                loader.innerHTML = "ERRORE CRITICO: " + err.message;
             }
         }
 
-        // 6. GESTIONE CHIUSURA MENU CLUSTER
         document.getElementById('close-cluster-btn-map').onclick = function() {
             document.getElementById('nearbyMenuPlaceholder-map').classList.remove('active');
             this.style.display = 'none';
         };
 
-        // Avvio
-        window.onload = startApp;
+        window.onload = caricaMappa;
     </script>
 </body>
 </html>
