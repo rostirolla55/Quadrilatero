@@ -471,12 +471,10 @@ body.content-loaded #app-wrapper {
 
 /* Il contenitore della mappa */
 #map {
-    border-radius: 8px;
-    margin-top: 10px;
-    flex-grow: 1;
-    width: 100%;
-    height: 100%; /* Forza l'occupazione totale dello spazio rimanente */
-    z-index: 1;
+    width: 100%;       /* Occupa tutta la larghezza disponibile */
+    height: 100vh;      /* Occupa l'80% dell'altezza dello schermo */
+    margin: 0 auto;    /* Lo centra se la larghezza non è al 100% */
+    border: 2px solid #ccc; /* Un bordo leggero per definirne i confini */
 }
 
 /* Forza il colore dell'icona mappa se appare nera */
