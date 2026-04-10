@@ -97,6 +97,7 @@ async function loadContent(lang) {
     try {
         const response = await fetch(`data/translations/${lang}/texts.json`);
         const data = await response.json();
+        window.allData = data; // <--- AGGIUNGI QUESTA RIGA per aggiornare i titoli globali
         const pageData = data[pageId];
 
         if (!pageData) {
@@ -193,12 +194,20 @@ function updateNavigation(navData, lang) {
         const el = document.getElementById(l.id);
         if (el) {
             el.href = `${l.base}${langSuffix}.html`;
-            const poiInfo = POIS_LOCATIONS.find(p => p.id === l.base);
+            // const poiInfo = POIS_LOCATIONS.find(p => p.id === l.base);
+            const poiInfo = POIS_LOCATIONS.find(p => p.id.toLowerCase() === l.base.toLowerCase());
             const simbolo = (poiInfo && window.getSimboloCategoria) 
                             ? window.getSimboloCategoria(poiInfo.categoria) 
                             : '📍';
-            // Usiamo innerHTML per inserire l'icona davanti al testo
-            el.innerHTML = `<span>${simbolo}</span> ${navData[l.key] || l.id}`;
+            // CERCA TITOLO: 
+            // 1. Prova nel navData (es. navManifattura)
+            // 2. Prova nel titolo della pagina (pageTitle)
+            // 3. Fallback sull'ID pulito
+            const titoloTradotto = navData[l.key] || 
+                                   (window.allData[l.base] && window.allData[l.base].pageTitle) || 
+                                   l.base;
+
+            el.innerHTML = `<span class="menu-icon">${simbolo}</span> ${titoloTradotto}`;
             // ---------------------
         }
     });

@@ -405,7 +405,11 @@ body.content-loaded #loading-message {
     transition: opacity 0.3s ease-in;
     /* Mettiamo subito display: block per non interferire con l'opacità, 
        dato che è il #loading-message a nascondere *tutto* all'inizio. */
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw; /* Forza la larghezza intera dello schermo */
+    overflow: hidden;
 }
 
 /* 4. Mostra il contenuto principale (fade-in) quando il JS è pronto */
@@ -467,10 +471,11 @@ body.content-loaded #app-wrapper {
 
 /* Il contenitore della mappa */
 #map {
-    width: 100%;
-    height: 500px;
     border-radius: 8px;
     margin-top: 10px;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%; /* Forza l'occupazione totale dello spazio rimanente */
     z-index: 1;
 }
 
