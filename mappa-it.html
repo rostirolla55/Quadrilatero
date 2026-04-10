@@ -81,6 +81,8 @@
                     fetch(`data/translations/${currentLang}/texts.json`)
                 ]);
 
+
+                
             try {
                 const map = L.map('map').setView([44.4949, 11.3426], 16);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);

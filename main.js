@@ -11,6 +11,9 @@ const LAST_LANG_KEY = 'Quadrilatero_lastLang';
 let currentLang = 'it';
 console.log(`Version : ${APP_VERSION}`);
 
+window.navTitles = {};
+window.allData = {};
+
 // Elementi DOM Globali
 let nearbyPoiButton;
 let nearbyMenuPlaceholder;
