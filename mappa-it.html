@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -9,35 +10,64 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         /* FIX: Forza l'altezza e la visibilità */
-        #app-wrapper { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-        #map { flex-grow: 1; width: 100%; z-index: 1; }
-        
+        #app-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #map {
+            flex-grow: 1;
+            width: 100%;
+            z-index: 1;
+        }
+
         /* HEADER: deve stare sopra la mappa */
-        .main-header { 
-            z-index: 2000 !important; 
-            background: white !important; 
-            display: flex !important; 
+        .main-header {
+            z-index: 2000 !important;
+            background: white !important;
+            display: flex !important;
             align-items: center !important;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         #loading-message {
-            position: fixed; top: 0; left: 0; width: 100%;
-            background: #ffeb3b; text-align: center; padding: 10px; z-index: 3000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #ffeb3b;
+            text-align: center;
+            padding: 10px;
+            z-index: 3000;
         }
 
         /* Stile Hamburger manuale per sicurezza visiva */
-        .manual-hamburger { display: flex; flex-direction: column; gap: 4px; margin-right: 12px; }
-        .manual-hamburger span { width: 22px; height: 3px; background: black; border-radius: 2px; }
+        .manual-hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-right: 12px;
+        }
+
+        .manual-hamburger span {
+            width: 22px;
+            height: 3px;
+            background: black;
+            border-radius: 2px;
+        }
     </style>
 </head>
+
 <body>
 
     <div id="loading-message">Caricamento in corso...</div>
 
     <div id="app-wrapper">
         <header class="main-header">
-            <div class="left-header-group" style="cursor: pointer; display: flex; align-items: center;" onclick="window.location.href='index.html'">
+            <div class="left-header-group" style="cursor: pointer; display: flex; align-items: center;"
+                onclick="window.location.href='index.html'">
                 <div class="manual-hamburger">
                     <span></span><span></span><span></span>
                 </div>
@@ -56,7 +86,7 @@
 
     <script type="module">
         const currentLang = 'it';
-        const suffix = ''; 
+        const suffix = '';
 
         // Definiamo l'icona con la punta "inchiodata" alle coordinate [12, 41]
         const redPinIcon = L.icon({
@@ -76,14 +106,33 @@
                 await new Promise(r => setTimeout(r, 100));
                 check++;
             }
-            const [poisRes, textsRes] = await Promise.all([
+
+            try {
+
+                const [poisRes, textsRes] = await Promise.all([
                     fetch('pois_config.json'),
                     fetch(`data/translations/${currentLang}/texts.json`)
                 ]);
+                // Trasformiamo le risposte in oggetti JS
+                const poisData = await poisRes.json();
+                const translations = await textsRes.json();
+
+                // Popoliamo le variabili globali usate dal resto del codice
+                window.POIS_LOCATIONS = poisData.locations; // Assicurati che la struttura coincida
+                window.allData = translations;
+
+                // Se usi navTitles per i menu, popolalo qui
+                window.navTitles = translations.navTitles || {};
+
+                console.log("Dati caricati correttamente: icone e titoli pronti.");
+
+                // ORA puoi chiamare la funzione che disegna la mappa o i menu
+                // renderMap();
 
 
-                
-            try {
+
+
+
                 const map = L.map('map').setView([44.4949, 11.3426], 16);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
@@ -104,12 +153,12 @@
                     if (group.length === 1) {
                         const marker = L.marker(latLng, { icon: redPinIcon }).addTo(map);
                         const label = (window.navTitles && window.navTitles[first.nav_id]) ? window.navTitles[first.nav_id] : first.id;
-                        
+
                         marker.bindTooltip(label, { direction: 'top', offset: [0, -35] });
                         marker.on('click', () => window.location.href = `${first.id}${suffix}.html`);
-                        
+
                         // TEST OFFSET: Se la punta copre il cerchio blu, è perfetto
-                        L.circleMarker(latLng, {radius: 2, color: 'blue', fillOpacity: 1}).addTo(map);
+                        L.circleMarker(latLng, { radius: 2, color: 'blue', fillOpacity: 1 }).addTo(map);
 
                     } else {
                         const clusterIcon = L.divIcon({
@@ -119,7 +168,7 @@
                             iconAnchor: [17, 17]
                         });
                         const cMarker = L.marker(latLng, { icon: clusterIcon }).addTo(map);
-                        
+
                         cMarker.on('click', (e) => {
                             L.DomEvent.stopPropagation(e);
                             const menu = document.getElementById('nearbyMenuPlaceholder-map');
@@ -157,4 +206,5 @@
         init();
     </script>
 </body>
+
 </html>
