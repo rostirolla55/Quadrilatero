@@ -117,22 +117,32 @@ const redPinIcon = L.icon({
 
 clusters.forEach(group => {
     if (group.length === 1) {
-        const poi = group[0];
-        
-        // CORREZIONE: Crea il marker, aggiungilo alla mappa e concatena tooltip e click
-        L.marker([poi.lat, poi.lon], { icon: redPinIcon })
-            .addTo(map)
-            .bindTooltip(navTitles[poi.nav_id] || poi.id, {
-                permanent: false,
-                direction: 'top',
-                offset: [0, -30],
-                className: 'map-tooltip'
-            })
-            .on('click', () => {
-                const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
-                window.location.href = `${poi.base_name}${suffix}.html`;
-            }); // <-- Il punto e virgola va solo QUI, alla fine della catena
+const poi = group[0];
 
+// 1. Creiamo il marker e salviamolo in una variabile per evitare errori di concatenazione
+const marker = L.marker([poi.lat, poi.lon], { icon: redPinIcon });
+
+// 2. Aggiungiamo le proprietà al marker una per una (più sicuro per il debug)
+marker.addTo(map);
+
+marker.bindTooltip(navTitles[poi.nav_id] || poi.id, {
+    permanent: false,
+    direction: 'top',
+    offset: [0, -30],
+    className: 'map-tooltip'
+});
+
+marker.on('click', () => {
+    const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
+    window.location.href = `${poi.base_name}${suffix}.html`;
+});
+
+// 3. Cerchietto di controllo (rimuovilo quando hai finito il test)
+L.circleMarker([poi.lat, poi.lon], { 
+    radius: 3, 
+    color: 'blue', 
+    fillOpacity: 1 
+}).addTo(map);
                     } else {
                         // Media matematica per i cluster
                         const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
