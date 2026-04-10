@@ -169,22 +169,22 @@ function updateNavigation(navData, lang) {
     const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
 
     const navLinksData = [
-    { id: 'navHome', key: 'navHome', base: 'index' },
-    { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
-    { id: 'navPittoricarracci', key: 'navPittoricarracci', base: 'pittoricarracci' },
-    { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' },
-    { id: 'navBsmariamaggiore', key: 'navBsmariamaggiore', base: 'bsmariamaggiore' },
-    { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
-    { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
-    { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
-    { id: 'navLastre', key: 'navLastre', base: 'lastre' },
-    { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene' },
-    { id: 'navSantuariopioggia', key: 'navSantuariopioggia', base: 'santuariopioggia' },
-    { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
-    { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
-    { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
-    { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo' }
-];
+        { id: 'navHome', key: 'navHome', base: 'index' },
+        { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
+        { id: 'navPittoricarracci', key: 'navPittoricarracci', base: 'pittoricarracci' },
+        { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' },
+        { id: 'navBsmariamaggiore', key: 'navBsmariamaggiore', base: 'bsmariamaggiore' },
+        { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
+        { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
+        { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
+        { id: 'navLastre', key: 'navLastre', base: 'lastre' },
+        { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene' },
+        { id: 'navSantuariopioggia', key: 'navSantuariopioggia', base: 'santuariopioggia' },
+        { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
+        { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
+        { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
+        { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo' }
+    ];
 
     navLinksData.forEach(l => {
         const el = document.getElementById(l.id);
@@ -226,8 +226,14 @@ function startGeolocation(allData) {
             const dist = calculateDistance(lat, lon, poi.lat, poi.lon);
             if (dist <= poi.distanceThreshold) {
                 const title = (allData[poi.id] && allData[poi.id].pageTitle) ? allData[poi.id].pageTitle : poi.id;
+                const simbolo = (typeof window.getSimboloCategoria === 'function') ? window.getSimboloCategoria(poi.categoria) : '📍';
                 const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
-                menuHtml += `<li><a href="${poi.id}${suffix}.html">${title} (${dist.toFixed(0)}m)</a></li>`;
+                menuHtml += `<li>
+                    <a href="${poi.id}${suffix}.html">
+                        <span>${simbolo}</span> ${title} (${dist.toFixed(0)}m)
+                    </a>
+                </li>`; 
+                
                 found = true;
             }
         });
@@ -242,10 +248,10 @@ function startGeolocation(allData) {
                 case 'it':
                 default: noPoiMessage = `Nessun Punto di Interesse trovato entro 50 m.<br><br> Premere di nuovo il bottone verde per chiudere la lista.`; break;
             }
-        // Uso colore rosso per i test
-        menuHtml = `<div style="color:red; padding: 20px; text-align: center; font-size: 1em;">${noPoiMessage}</div>`;
+            // Uso colore rosso per i test
+            menuHtml = `<div style="color:red; padding: 20px; text-align: center; font-size: 1em;">${noPoiMessage}</div>`;
 
-//      menuHtml = '<div style="padding:20px;text-align:center;">Nessun punto vicino</div>'
+            //      menuHtml = '<div style="padding:20px;text-align:center;">Nessun punto vicino</div>'
 
         };
         if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.innerHTML = menuHtml;
@@ -316,33 +322,33 @@ function initEvents() {
                 playBtn.classList.replace('pause-style', 'play-style');
             }
         };
-        player.onended = () => { 
-            playBtn.textContent = playBtn.dataset.playText; 
+        player.onended = () => {
+            playBtn.textContent = playBtn.dataset.playText;
             playBtn.classList.replace('pause-style', 'play-style');
         };
     }
 
 
-// Lingue (Supporta button, img e tag 'a' anche nidificati)
+    // Lingue (Supporta button, img e tag 'a' anche nidificati)
     document.querySelectorAll('.language-selector button, .language-selector img, .language-selector a').forEach(el => {
         el.onclick = (e) => {
             // Cerca data-lang sull'elemento cliccato o sul genitore più vicino
             // (Fondamentale se clicchi sull'<img> dentro un <a>)
             const target = e.target.closest('[data-lang]');
             const lang = target ? target.dataset.lang : null;
-            
+
             if (!lang) return;
-            
+
             // Blocca il link HTML per gestire il cambio via JS
             e.preventDefault();
-            e.stopPropagation(); 
-            
+            e.stopPropagation();
+
             console.log("Cambio lingua forzato a:", lang);
-            
+
             localStorage.setItem(LAST_LANG_KEY, lang);
             const pageId = getCurrentPageId();
             const base = (pageId === 'home' || pageId === 'index') ? 'index' : pageId;
-            
+
             // Reindirizzamento esplicito
             window.location.href = `${base}-${lang}.html`;
         };

@@ -556,3 +556,9 @@ body.content-loaded #app-wrapper {
     white-space: normal;
     word-wrap: break-word;
 }
+#menu-vicini li a {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Crea lo spazio corretto tra icona e testo */
+    text-decoration: none;
+}
