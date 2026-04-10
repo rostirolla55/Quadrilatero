@@ -42,10 +42,9 @@
                 </button>
             </div>
         </header>
-
         <main class="content-body">
             <h1 id="mainTitle">Mappa dei Monumenti</h1>
-            <div id="map"></div>
+            <div id="map" style="height: 500px;"></div>
         </main>
     </div>
 
@@ -58,268 +57,106 @@
     <script>
         const currentLang = 'it';
 
-        window.addEventListener('load', async () => {
-            try {
-                // 1. Inizializzazione Mappa
-                const map = L.map('map').setView([44.4949, 11.3426], 15);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(map);
-
-                // 2. Definizione Icona Rossa
-                const redPinIcon = L.icon({
-                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],    // Dimensioni reali per mantenere la proporzione
-                    iconAnchor: [12, 41],  // [Metà larghezza, Altezza totale] -> Inchioda la punta al suolo
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41],
-                    shadowAnchor: [12, 41]
-                });
-                // 3. Funzione Clustering
-                function clusterPOI(pois, radius) {
-                    const clusters = [];
-                    const visited = new Set();
-                    pois.forEach((p1, i) => {
-                        if (visited.has(i)) return;
-                        const group = [p1];
-                        visited.add(i);
-                        pois.forEach((p2, j) => {
-                            if (visited.has(j)) return;
-                            const dist = Math.sqrt(Math.pow(p1.lat - p2.lat, 2) + Math.pow(p1.lon - p2.lon, 2));
-                            if (dist < radius) {
-                                group.push(p2);
-                                visited.add(j);
-                            }
-                        });
-                        clusters.push(group);
-                    });
-                    return clusters;
-                }
-
-                // 4. Caricamento dati JSON
-                const [poisRes, textsRes] = await Promise.all([
-                    fetch('pois_config.json'),
-                    fetch(`data/translations/${currentLang}/texts.json`)
-                ]);
-
-                const poisData = await poisRes.json();
-                const textsData = await textsRes.json();
-
-                const allPois = poisData.pois;
-                const navTitles = textsData.nav || {};
-
-                // 5. Generazione Cluster e Pin sulla mappa
-                const clusters = clusterPOI(allPois, 0.0003);
-
-                clusters.forEach(group => {
-                    if (group.length === 1) {
-                        const poi = group[0];
-                        // Usiamo lat e lon che hai appena inserito da Google Maps
-                        L.marker([poi.lat, poi.lon], { icon: redPinIcon })
-                            .addTo(map)
-                            .bindTooltip(navTitles[poi.nav_id] || poi.id, {
-                                permanent: false,
-                                direction: 'top',
-                                offset: [0, -30],
-                                className: 'map-tooltip'
-                            })
-                            .on('click', () => {
-                                const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
-                                window.location.href = `${poi.base_name}${suffix}.html`;
-                            });
-                    } else {
-                        // Media matematica per i cluster
-                        const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
-                        const avgLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
-
-                        const clusterMarker = L.marker([avgLat, avgLon], {
-                            icon: L.divIcon({
-                                html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
-                                className: 'custom-cluster',
-                                iconSize: [40, 40],
-                                iconAnchor: [20, 20]
-                            })
-                        }).addTo(map);
-
-                        clusterMarker.on('click', (e) => {
-                            L.DomEvent.stopPropagation(e);
-                            const menu = document.getElementById('nearbyMenuPlaceholder-map');
-                            const closeBtn = document.getElementById('close-cluster-btn-map');
-
-                            if (menu) {
-                                menu.innerHTML = '';
-                                group.forEach(poi => {
-                                    const btn = document.createElement('button');
-                                    btn.className = 'cluster-menu-item-map';
-
-                                    const simbolo = getSimboloCategoria(poi.categoria);
-                                    const titolo = navTitles[poi.nav_id] || poi.id;
-
-                                    btn.textContent = `${simbolo} ${titolo}`;
-
-                                    btn.onclick = () => {
-                                        const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
-                                        window.location.href = `${poi.base_name}${suffix}.html`;
-                                    };
-                                    menu.appendChild(btn);
-                                });
-                                menu.classList.add('active');
-                                if (closeBtn) closeBtn.style.display = 'block';
-                            }
-                        });
-                    }
-                });
-                // Forza il ricalcolo dopo un breve delay per essere sicuri che il CSS sia caricato
-                setTimeout(() => {
-                    map.invalidateSize();
-                    console.log("Mappa ricalcolata");
-                }, 500);
-
-                // 6. Gestione chiusura menu mappa
-                const closeBtnMap = document.getElementById('close-cluster-btn-map');
-                if (closeBtnMap) {
-                    closeBtnMap.onclick = function () {
-                        const menu = document.getElementById('nearbyMenuPlaceholder-map');
-                        if (menu) {
-                            menu.classList.remove('active');
-                            // Piccola pulizia extra per sicurezza
-                        }
-                        this.style.display = 'none';
-                    };
-                }
-
-
-                // --- LOGICA APERTURA MENU LATERALE (HAMBURGER) ---
-                const menuToggle = document.querySelector('.menu-toggle');
-                const sideMenu = document.getElementById('sideMenu');
-
-                if (menuToggle && sideMenu) {
-                    menuToggle.onclick = function (e) {
-                        e.preventDefault();
-                        sideMenu.classList.toggle('active');
-                    };
-                }
-
-                // Chiudi il menu se si clicca fuori (opzionale ma consigliato)
-                document.addEventListener('click', (e) => {
-                    if (sideMenu && sideMenu.classList.contains('active') &&
-                        !sideMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                        sideMenu.classList.remove('active');
-                    }
-                });
-
-                // Nascondi loader
-                const loader = document.getElementById('loading-message');
-                if (loader) loader.style.display = 'none';
-
-            } catch (error) {
-                console.error("Errore nel caricamento dei dati mappa:", error);
-            }
-        });
-        // Forza l'apertura del menu laterale anche dalla mappa
-        document.querySelector('.menu-toggle').addEventListener('click', () => {
-            document.getElementById('sideMenu').classList.toggle('active');
-        });
-    </script>
-    <script>
-        // --- CONFIGURAZIONE ICONA PIN ---
+        // 1. Definizione Unica Icona (Correzione offset Nord)
         const redPinIcon = L.icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
             iconSize: [25, 41],
-            // MODIFICA: Alziamo l'ancora a 48 per "inchiodare" la punta al tetto (correzione Nord)
-            iconAnchor: [12, 48],
+            iconAnchor: [12, 41], // Punto di partenza standard, modificheremo se necessario
             popupAnchor: [1, -34],
             shadowSize: [41, 41],
-            shadowAnchor: [12, 48]
+            shadowAnchor: [12, 41]
         });
 
-        window.addEventListener('load', () => {
+        window.addEventListener('load', async () => {
             try {
-                const map = L.map('map').setView([44.499, 11.338], 16);
+                // 2. Inizializzazione Mappa
+                const map = L.map('map').setView([44.4949, 11.3426], 15);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(map);
+                // 3. Caricamento dati
+                const [poisRes, textsRes] = await Promise.all([
+                    fetch('pois_config.json'),
+                    fetch(`data/translations/${currentLang}/texts.json`)
+                ]);
+                const poisData = await poisRes.json();
+                const textsData = await textsRes.json();
+                const navTitles = textsData.nav || {};
 
-                // Recuperiamo i dati globali esportati dal main.js
-                const locations = window.POIS_LOCATIONS;
+                // 4. Clustering Semplice
+                const clusters = [];
+                poisData.pois.forEach(poi => {
+                    let cluster = clusters.find(c => c[0].lat === poi.lat && c[0].lon === poi.lon);
+                    if (cluster) cluster.push(poi);
+                    else clusters.push([poi]);
+                });
 
-                if (locations && locations.length > 0) {
+                // 5. Rendering
+                clusters.forEach(group => {
+                    if (group.length === 1) {
+                        const poi = group[0];
+                        
+                        // Marker Rosso
+                        const marker = L.marker([poi.lat, poi.lon], { icon: redPinIcon }).addTo(map);
+                        
+                        marker.bindTooltip(navTitles[poi.nav_id] || poi.id, {
+                            direction: 'top',
+                            offset: [0, -30]
+                        });
 
-                    // --- LOGICA RAGGRUPPAMENTO (CLUSTER) ---
-                    const clusters = [];
-                    locations.forEach(poi => {
-                        let cluster = clusters.find(c => c[0].lat === poi.lat && c[0].lon === poi.lon);
-                        if (cluster) cluster.push(poi);
-                        else clusters.push([poi]);
-                    });
+                        marker.on('click', () => {
+                            const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
+                            window.location.href = `${poi.base_name}${suffix}.html`;
+                        });
 
-                    clusters.forEach(group => {
-                        if (group.length === 1) {
-                            // PIN SINGOLO
-                            const poi = group[0];
-                            const marker = L.marker([poi.lat, poi.lon], { icon: redPinIcon }).addTo(map);
+                        // Cerchietto Blu di Test (Elimina dopo verifica)
+                        L.circleMarker([poi.lat, poi.lon], { radius: 3, color: 'blue' }).addTo(map);
 
-                            const simbolo = window.getSimboloCategoria(poi.categoria);
-                            const titoloLabel = (typeof navTitles !== 'undefined' && navTitles[poi.nav_id]) ? navTitles[poi.nav_id] : poi.id;
+                    } else {
+                        // Logica Cluster (Cerchio con numero)
+                        const clusterIcon = L.divIcon({
+                            html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
+                            className: 'custom-cluster',
+                            iconSize: [40, 40],
+                            iconAnchor: [20, 20]
+                        });
 
-                            marker.bindTooltip(`${simbolo} ${titoloLabel}`, {
-                                direction: 'top',
-                                offset: [0, -41]
-                            });
+                        const clusterMarker = L.marker([group[0].lat, group[0].lon], { icon: clusterIcon }).addTo(map);
+                        
+                        clusterMarker.on('click', (e) => {
+                            L.DomEvent.stopPropagation(e);
+                            const menu = document.getElementById('nearbyMenuPlaceholder-map');
+                            if (menu) {
+                                menu.innerHTML = '';
+                                group.forEach(p => {
+                                    const btn = document.createElement('button');
+                                    btn.className = 'cluster-menu-item-map';
+                                    btn.textContent = navTitles[p.nav_id] || p.id;
+                                    btn.onclick = () => {
+                                        const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
+                                        window.location.href = `${p.base_name}${suffix}.html`;
+                                    };
+                                    menu.appendChild(btn);
+                                });
+                                menu.classList.add('active');
+                                document.getElementById('close-cluster-btn-map').style.display = 'block';
+                            }
+                        });
+                    }
+                });
 
-                            marker.on('click', () => {
-                                const currentLang = document.documentElement.lang || 'it';
-                                const suffix = currentLang === 'it' ? '' : `-${currentLang}`;
-                                window.location.href = `${poi.id}${suffix}.html`;
-                            });
-
-                        } else {
-                            // CERCHIO VERDE (CLUSTER)
-                            const clusterIcon = L.divIcon({
-                                html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
-                                className: '',
-                                iconSize: [40, 40],
-                                iconAnchor: [20, 20]
-                            });
-
-                            const clusterMarker = L.marker([group[0].lat, group[0].lon], { icon: clusterIcon }).addTo(map);
-
-                            clusterMarker.on('click', (e) => {
-                                L.DomEvent.stopPropagation(e);
-                                const menu = document.getElementById('nearbyMenuPlaceholder-map');
-                                if (menu) {
-                                    menu.innerHTML = '';
-                                    group.forEach(p => {
-                                        const btn = document.createElement('button');
-                                        btn.className = 'cluster-menu-item-map';
-                                        const label = (typeof navTitles !== 'undefined' && navTitles[p.nav_id]) ? navTitles[p.nav_id] : p.id;
-                                        btn.textContent = `${window.getSimboloCategoria(p.categoria)} ${label}`;
-                                        btn.onclick = () => {
-                                            const currentLang = document.documentElement.lang || 'it';
-                                            const suffix = currentLang === 'it' ? '' : `-${currentLang}`;
-                                            window.location.href = `${p.id}${suffix}.html`;
-                                        };
-                                        menu.appendChild(btn);
-                                    });
-                                    menu.classList.add('active');
-                                    document.getElementById('close-cluster-btn-map').style.display = 'block';
-                                }
-                            });
-                        }
-                    });
-                }
-
-                const loader = document.getElementById('loading-message');
-                if (loader) loader.style.display = 'none';
+                document.getElementById('loading-message').style.display = 'none';
 
             } catch (error) {
-                console.error("Errore mappa:", error);
+                console.error("Errore:", error);
             }
-        });    </script>
-    <script type="module" src="main.js"></script>
-</body>
+        });
 
+        // Gestione chiusura menu cluster
+        document.getElementById('close-cluster-btn-map').onclick = function() {
+            document.getElementById('nearbyMenuPlaceholder-map').classList.remove('active');
+            this.style.display = 'none';
+        };
+    </script>
+</body>
 </html>
