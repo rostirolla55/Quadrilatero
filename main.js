@@ -193,7 +193,14 @@ function updateNavigation(navData, lang) {
         const el = document.getElementById(l.id);
         if (el) {
             el.href = `${l.base}${langSuffix}.html`;
-            el.textContent = navData[l.key] || l.id;
+            const poiInfo = POIS_LOCATIONS.find(p => p.id === l.base);
+            const simbolo = (poiInfo && window.getSimboloCategoria) 
+                            ? window.getSimboloCategoria(poiInfo.categoria) 
+                            : '📍';
+            
+            // Usiamo innerHTML per inserire l'icona davanti al testo
+            el.innerHTML = `<span>${simbolo}</span> ${navData[l.key] || l.id}`;
+            // ---------------------
         }
     });
 }
