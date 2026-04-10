@@ -3,90 +3,146 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Mappa - Quadrilatero</title>
+    <title>Mappa Monumenti - Quadrilatero</title>
+    
     <link href="style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <style>
+        /* Assicuriamo che la mappa sia visibile e occupi lo spazio corretto */
+        #map { 
+            height: calc(100vh - 120px); 
+            width: 100%; 
+            background-color: #f8f9fa; 
+        }
+        #loading-message {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: rgba(255,255,0,0.9);
+            text-align: center;
+            padding: 10px;
+            z-index: 10001;
+        }
+        /* Stile per i Cluster numerati */
+        .custom-cluster {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cluster-pin {
+            background-color: #27ae60;
+            color: white;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <div id="loading-message"><p>Caricamento mappa...</p></div>
-    <button id="close-cluster-btn-map" style="display:none;">CHIUDI ELENCO</button>
-    <div id="nearbyMenuPlaceholder-map"></div>
+
+    <div id="loading-message">Caricamento dati in corso...</div>
 
     <div id="app-wrapper">
         <header class="main-header">
             <div class="left-header-group" style="cursor: pointer;" onclick="window.location.href='index.html'">
-                <div class="map-link">
-                    <span style="color: green; font-weight: bold;">Chiudi mappa</span>
-                </div>
+                <span style="color: #e74c3c; font-weight: bold; font-size: 1.2rem;">✖ Chiudi Mappa</span>
             </div>
         </header>
+
         <main class="content-body">
             <h1 id="mainTitle">Mappa dei Monumenti</h1>
-            <div id="map" style="height: 500px;"></div>
+            <div id="map"></div>
         </main>
     </div>
 
-    <script>
-        const currentLang = 'it';
+    <div id="nearbyMenuPlaceholder-map"></div>
+    <button id="close-cluster-btn-map" style="display:none;">CHIUDI ELENCO</button>
 
-        // 1. Definizione Unica Icona (Correzione offset Nord)
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // 1. CONFIGURAZIONE AMBIENTE
+        const currentLang = 'it';
+        const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
+
+        // Funzione Simboli (integrata localmente per sicurezza)
+        function getSimboloCategoria(categoria) {
+            if (!categoria) return '📍 ';
+            const cat = categoria.toLowerCase();
+            if (cat.includes('edificio') || cat.includes('stabile') || cat.includes('monumento')) return '🏛️ ';
+            if (cat.includes('esterno') || cat.includes('aperto') || cat.includes('piazza')) return '🌳 ';
+            if (cat.includes('arte') || cat.includes('quadro') || cat.includes('statua')) return '🎨 ';
+            return '📍 ';
+        }
+
+        // 2. DEFINIZIONE ICONA ROSSA (Risoluzione offset Nord)
         const redPinIcon = L.icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
             iconSize: [25, 41],
-            iconAnchor: [12, 41], // Punto di partenza standard, modificheremo se necessario
+            iconAnchor: [12, 41], // La punta del pin ora tocca esattamente la coordinata
             popupAnchor: [1, -34],
             shadowSize: [41, 41],
             shadowAnchor: [12, 41]
         });
 
-        window.addEventListener('load', async () => {
+        // 3. INIZIALIZZAZIONE LOGICA
+        async function startApp() {
             try {
-                // 2. Inizializzazione Mappa
-                const map = L.map('map').setView([44.4949, 11.3426], 15);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+                // Inizializza mappa su Bologna
+                const map = L.map('map').setView([44.4949, 11.3426], 16);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap'
+                }).addTo(map);
 
-                // 3. Caricamento dati
+                // Caricamento contemporaneo JSON configurazione e traduzioni
                 const [poisRes, textsRes] = await Promise.all([
                     fetch('pois_config.json'),
                     fetch(`data/translations/${currentLang}/texts.json`)
                 ]);
+
+                if (!poisRes.ok || !textsRes.ok) throw new Error("Errore nel caricamento dei file JSON");
+
                 const poisData = await poisRes.json();
                 const textsData = await textsRes.json();
                 const navTitles = textsData.nav || {};
 
-                // 4. Clustering Semplice
-                const clusters = [];
+                // 4. LOGICA DI CLUSTERING (Raggruppa POI con stesse coordinate)
+                const clusters = {};
                 poisData.pois.forEach(poi => {
-                    let cluster = clusters.find(c => c[0].lat === poi.lat && c[0].lon === poi.lon);
-                    if (cluster) cluster.push(poi);
-                    else clusters.push([poi]);
+                    const coordKey = `${poi.lat}_${poi.lon}`;
+                    if (!clusters[coordKey]) clusters[coordKey] = [];
+                    clusters[coordKey].push(poi);
                 });
 
-                // 5. Rendering
-                clusters.forEach(group => {
+                // 5. RENDERING DEI PIN SULLA MAPPA
+                Object.values(clusters).forEach(group => {
+                    const firstPoi = group[0];
+                    const latLng = [firstPoi.lat, firstPoi.lon];
+
                     if (group.length === 1) {
-                        const poi = group[0];
-                        
-                        // Marker Rosso
-                        const marker = L.marker([poi.lat, poi.lon], { icon: redPinIcon }).addTo(map);
-                        
-                        marker.bindTooltip(navTitles[poi.nav_id] || poi.id, {
+                        // --- CASO PIN SINGOLO ---
+                        const marker = L.marker(latLng, { icon: redPinIcon }).addTo(map);
+                        const titolo = navTitles[firstPoi.nav_id] || firstPoi.id;
+
+                        marker.bindTooltip(titolo, {
                             direction: 'top',
-                            offset: [0, -30]
+                            offset: [0, -35]
                         });
 
                         marker.on('click', () => {
-                            const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
-                            window.location.href = `${poi.base_name}${suffix}.html`;
+                            window.location.href = `${firstPoi.base_name}${suffix}.html`;
                         });
 
-                        // Cerchietto Blu di Test (Elimina dopo verifica)
-                        L.circleMarker([poi.lat, poi.lon], { radius: 3, color: 'blue' }).addTo(map);
-
                     } else {
-                        // Logica Cluster (Cerchio con numero)
+                        // --- CASO CLUSTER (PIÙ POI NELLO STESSO PUNTO) ---
                         const clusterIcon = L.divIcon({
                             html: `<div class="cluster-pin"><span>${group.length}</span></div>`,
                             className: 'custom-cluster',
@@ -94,42 +150,54 @@
                             iconAnchor: [20, 20]
                         });
 
-                        const clusterMarker = L.marker([group[0].lat, group[0].lon], { icon: clusterIcon }).addTo(map);
-                        
+                        const clusterMarker = L.marker(latLng, { icon: clusterIcon }).addTo(map);
+
                         clusterMarker.on('click', (e) => {
                             L.DomEvent.stopPropagation(e);
                             const menu = document.getElementById('nearbyMenuPlaceholder-map');
+                            const closeBtn = document.getElementById('close-cluster-btn-map');
+
                             if (menu) {
-                                menu.innerHTML = '';
-                                group.forEach(p => {
+                                menu.innerHTML = ''; // Pulisce menu precedente
+                                group.forEach(poi => {
                                     const btn = document.createElement('button');
                                     btn.className = 'cluster-menu-item-map';
-                                    btn.textContent = navTitles[p.nav_id] || p.id;
+                                    
+                                    const simbolo = getSimboloCategoria(poi.categoria);
+                                    const titolo = navTitles[poi.nav_id] || poi.id;
+                                    
+                                    btn.innerHTML = `<span class="icon">${simbolo}</span> <span class="text">${titolo}</span>`;
+                                    
                                     btn.onclick = () => {
-                                        const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
-                                        window.location.href = `${p.base_name}${suffix}.html`;
+                                        window.location.href = `${poi.base_name}${suffix}.html`;
                                     };
                                     menu.appendChild(btn);
                                 });
                                 menu.classList.add('active');
-                                document.getElementById('close-cluster-btn-map').style.display = 'block';
+                                if (closeBtn) closeBtn.style.display = 'block';
                             }
                         });
                     }
                 });
 
+                // Rimuovi messaggio caricamento
                 document.getElementById('loading-message').style.display = 'none';
 
             } catch (error) {
-                console.error("Errore:", error);
+                console.error("Errore fatale:", error);
+                document.getElementById('loading-message').style.background = "red";
+                document.getElementById('loading-message').innerHTML = "Errore nel caricamento della mappa. Controlla la console.";
             }
-        });
+        }
 
-        // Gestione chiusura menu cluster
+        // 6. GESTIONE CHIUSURA MENU CLUSTER
         document.getElementById('close-cluster-btn-map').onclick = function() {
             document.getElementById('nearbyMenuPlaceholder-map').classList.remove('active');
             this.style.display = 'none';
         };
+
+        // Avvio
+        window.onload = startApp;
     </script>
 </body>
 </html>
