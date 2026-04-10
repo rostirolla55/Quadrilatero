@@ -120,6 +120,7 @@ const redPinIcon = L.icon({
                         const poi = group[0];
                         // Usiamo lat e lon che hai appena inserito da Google Maps
                         L.marker([poi.lat, poi.lon], { icon: redPinIcon })
+                        L.circleMarker([poi.lat, poi.lon], { radius: 2, color: 'blue' }).addTo(map);
                             .addTo(map)
                             .bindTooltip(navTitles[poi.nav_id] || poi.id, {
                                 permanent: false,
