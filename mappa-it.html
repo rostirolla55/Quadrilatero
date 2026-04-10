@@ -115,23 +115,24 @@ const redPinIcon = L.icon({
                 // 5. Generazione Cluster e Pin sulla mappa
                 const clusters = clusterPOI(allPois, 0.0003);
 
-                clusters.forEach(group => {
-                    if (group.length === 1) {
-                        const poi = group[0];
-                        // Usiamo lat e lon che hai appena inserito da Google Maps
-                        L.marker([poi.lat, poi.lon], { icon: redPinIcon })
-                        L.circleMarker([poi.lat, poi.lon], { radius: 2, color: 'blue' }).addTo(map)
-                            .addTo(map)
-                            .bindTooltip(navTitles[poi.nav_id] || poi.id, {
-                                permanent: false,
-                                direction: 'top',
-                                offset: [0, -30],
-                                className: 'map-tooltip'
-                            })
-                            .on('click', () => {
-                                const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
-                                window.location.href = `${poi.base_name}${suffix}.html`;
-                            });
+clusters.forEach(group => {
+    if (group.length === 1) {
+        const poi = group[0];
+        
+        // CORREZIONE: Crea il marker, aggiungilo alla mappa e concatena tooltip e click
+        L.marker([poi.lat, poi.lon], { icon: redPinIcon })
+            .addTo(map)
+            .bindTooltip(navTitles[poi.nav_id] || poi.id, {
+                permanent: false,
+                direction: 'top',
+                offset: [0, -30],
+                className: 'map-tooltip'
+            })
+            .on('click', () => {
+                const suffix = currentLang === 'it' ? '-it' : `-${currentLang}`;
+                window.location.href = `${poi.base_name}${suffix}.html`;
+            }); // <-- Il punto e virgola va solo QUI, alla fine della catena
+
                     } else {
                         // Media matematica per i cluster
                         const avgLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
