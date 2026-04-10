@@ -76,6 +76,10 @@
                 await new Promise(r => setTimeout(r, 100));
                 check++;
             }
+            const [poisRes, textsRes] = await Promise.all([
+                    fetch('pois_config.json'),
+                    fetch(`data/translations/${currentLang}/texts.json`)
+                ]);
 
             try {
                 const map = L.map('map').setView([44.4949, 11.3426], 16);
