@@ -1,0 +1,49 @@
+versione precedente
+#app-wrapper {
+    /* Nascosto e pronto per la transizione di fade-in */
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+    /* Mettiamo subito display: block per non interferire con l'opacità, 
+       dato che è il #loading-message a nascondere *tutto* all'inizio. */
+    display: block;
+}
+
+/* Il contenitore della mappa */
+#map {
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
+    margin-top: 10px;
+    z-index: 1;
+
+}
+
+versione Attuale
+#app-wrapper {
+    /* Nascosto e pronto per la transizione di fade-in */
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+    /* Mettiamo subito display: block per non interferire con l'opacità, 
+       dato che è il #loading-message a nascondere *tutto* all'inizio. */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw; /* Forza la larghezza intera dello schermo */
+    overflow: hidden;
+}
+
+/* Il contenitore della mappa */
+#map {
+    width: 100%;       /* Occupa tutta la larghezza disponibile */
+    height: 100vh;      /* Occupa l'80% dell'altezza dello schermo */
+    margin: 0 auto;    /* Lo centra se la larghezza non è al 100% */
+    border: 2px solid #ccc; /* Un bordo leggero per definirne i confini */
+}
+
+#menu-vicini li a {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Crea lo spazio corretto tra icona e testo */
+    text-decoration: none;
+}
+
