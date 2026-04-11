@@ -571,3 +571,13 @@ body.content-loaded #app-wrapper {
     gap: 10px; /* Crea lo spazio corretto tra icona e testo */
     text-decoration: none;
 }
+
+/* Impedisce alle icone del menu di sparire o rimpicciolirsi */
+#menu-vicini li a img, 
+.left-header-group svg, 
+.map-link img {
+    width: 24px !important;
+    height: 24px !important;
+    flex-shrink: 0 !important; /* Questo è il comando chiave */
+    display: inline-block;
+}

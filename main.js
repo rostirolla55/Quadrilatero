@@ -30,17 +30,17 @@ const POIS_LOCATIONS = [
     { id: 'manifattura', lat: 44.4989321, lon: 11.336618, distanceThreshold: 50, categoria: 'edificio' },
     { id: 'pittoricarracci', lat: 44.49909, lon: 11.340316, distanceThreshold: 50, categoria: 'arte' },
     { id: 'cavaticcio', lat: 44.500207, lon: 11.338076, distanceThreshold: 50, categoria: 'edificio' },
-    { id: 'bsmariamaggiore', lat: 44.498118, lon: 11.341923, distanceThreshold: 50, categoria: 'edificio' },
+    { id: 'bsmariamaggiore', lat: 44.498118, lon: 11.341923, distanceThreshold: 50, categoria: 'chiesa' },
     { id: 'graziaxx', lat: 44.500594, lon: 11.340758, distanceThreshold: 50, categoria: 'esterno' },
     { id: 'pugliole', lat: 44.500071, lon: 11.339805, distanceThreshold: 50, categoria: 'esterno' },
     { id: 'carracci', lat: 44.499912, lon: 11.34041, distanceThreshold: 50, categoria: 'edificio' },
     { id: 'lastre', lat: 44.499312, lon: 11.340714, distanceThreshold: 50, categoria: 'esterno' },
-    { id: 'chiesasbene', lat: 44.5019, lon: 11.343843, distanceThreshold: 120, categoria: 'edificio' },
-    { id: 'santuariopioggia', lat: 44.498891, lon: 11.342148, distanceThreshold: 120, categoria: 'edificio' },
+    { id: 'chiesasbene', lat: 44.5019, lon: 11.343843, distanceThreshold: 120, categoria: 'chiesa' },
+    { id: 'santuariopioggia', lat: 44.498891, lon: 11.342148, distanceThreshold: 120, categoria: 'chiesa' },
     { id: 'pioggia1', lat: 44.498921, lon: 11.341923, distanceThreshold: 120, categoria: 'quadro' },
     { id: 'pioggia2', lat: 44.499023, lon: 11.34176, distanceThreshold: 120, categoria: 'statua' },
     { id: 'pioggia3', lat: 44.499023, lon: 11.34176, distanceThreshold: 120, categoria: 'quadro' },
-    { id: 'chiesasancarlo', lat: 44.501295, lon: 11.34085, distanceThreshold: 120, categoria: 'edificio' }
+    { id: 'chiesasancarlo', lat: 44.501295, lon: 11.34085, distanceThreshold: 120, categoria: 'chiesa' }
 ];
 
 // ===========================================
@@ -403,17 +403,31 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // --- ESPORTAZIONE GLOBALE ---
 // Questa funzione deve stare qui per essere vista da tutte le pagine (Carracci, Mappa, ecc.)
-function getSimboloCategoria(categoria) {
-    if (!categoria) return '📍 ';
-    const cat = categoria.toLowerCase();
-    if (cat.includes('edificio') || cat.includes('stabile') || cat.includes('monumento')) return '🏛️ ';
-    if (cat.includes('esterno') || cat.includes('aperto') || cat.includes('piazza')) return '🌳 ';
-    if (cat.includes('arte') || cat.includes('quadro') || cat.includes('statua')) return '🎨 ';
-    return '📍 ';
-}
+window.getSimboloCategoria = function(categoria) {
+    // Se la categoria è nulla, indefinita o vuota (come nel Benvenuto)
+    if (!categoria || categoria === "") {
+        return 'ℹ️'; // Oppure un'altra icona a tua scelta come '🏠'
+    }
 
-// Rendiamo tutto disponibile alle altre pagine HTML
-window.getSimboloCategoria = getSimboloCategoria;
+    const simboli = {
+        'edificio': '🏛', 
+        'stabile': '🏛', 
+        'museo': '🏛️',
+        'monumento': '🗿',
+        'esterno': '🌳', 
+        'aperto': '🌳', 
+        'piazza': '🌳', 
+        'chiesa': '⛪',
+		'arte': '🎨',
+		'quadro': '🎨',
+		'statua': '🎨',
+        'default': '📍'
+    };
+
+    return simboli[categoria.toLowerCase()] || '📍'; 
+    // Se la categoria esiste ma non è in lista, restituisce il pin rosso invece dell'errore
+};
+
 window.POIS_LOCATIONS = POIS_LOCATIONS;
 // Aggiungi questa riga per esportare i titoli tradotti
 // Inizializziamo l'oggetto se non esiste ancora
