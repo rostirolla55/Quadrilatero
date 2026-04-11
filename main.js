@@ -410,18 +410,18 @@ window.getSimboloCategoria = function(categoria) {
 
     // Mappa aggiornata basata sui tuoi POIS_LOCATIONS reali
     const simboli = {
-        'edificio': '🏛', 
-        'stabile': '🏛', 
-        'museo': '🏛️',
-        'monumento': '🗿',
-        'esterno': '🌳', 
         'aperto': '🌳', 
-        'piazza': '🌳', 
-        'chiesa': '⛪',
         'arte': '🎨',
+        'chiesa': '⛪',
+        'default': '📍',
+        'edificio': '🏛', 
+        'esterno': '🌳', 
+        'monumento': '🗿',
+        'museo': '🏛️',
+        'piazza': '🌳', 
         'quadro': '🎨',
-        'statua': '🎨',
-        'default': '📍'
+        'stabile': '🏛', 
+        'statua': '🎨'
     };
 
     // Converte in minuscolo per sicurezza
