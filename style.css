@@ -581,3 +581,19 @@ body.content-loaded #app-wrapper {
     flex-shrink: 0 !important; /* Questo è il comando chiave */
     display: inline-block;
 }
+
+#menu-vicini li a, 
+.cluster-menu-item-map {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important; /* Spazio tra icona e testo [cite: 13] */
+    text-align: left;
+}
+
+/* Protezione per le icone/emoji */
+#menu-vicini li a span:first-child,
+.cluster-menu-item-map span:first-child {
+    flex-shrink: 0 !important; /* IMPEDISCE all'icona di sparire */
+    min-width: 25px;
+    display: inline-block;
+}
