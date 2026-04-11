@@ -10,29 +10,31 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         /* FIX: Forza l'altezza e la visibilità */
-/* FIX: Permetti lo scorrimento della pagina */
+        /* FIX: Permetti lo scorrimento della pagina */
 #app-wrapper {
-    display: block; /* Cambia da flex a block */
-    height: auto;   /* Rimuovi 100vh */
-    overflow: visible; /* Fondamentale per far scorrere la pagina */
-}
+            display: block; /* Ripristina lo scorrimento verticale */
+            opacity: 1;     /* Assicurati che sia visibile */
+            overflow: visible;
+        }
 
-#map {
-    width: 100%;
-    height: 70vh; /* Altezza per mobile (senza bordi) */
-    z-index: 1;
-} 
+        #map {
+            width: 100%;
+            height: 500px; /* Come nella versione precedente */
+            z-index: 1;
+        }
 
-/* DESKTOP: Applica i bordi e l'altezza fissa */
-@media (min-width: 992px) {
-    #map {
-        height: 600px;
-        border-radius: 8px;
-        border: 2px solid #ccc;
-        width: 95%;
-        margin: 20px auto;
-    }
-}
+        @media (min-width: 992px) {
+            #map {
+                height: 600px;
+                border-radius: 8px;
+                border: 2px solid #ccc;
+                margin-top: 10px;
+            }
+        }
+
+        /* DESKTOP: Applica i bordi e l'altezza fissa */
+
+        }
 
         /* HEADER: deve stare sopra la mappa */
         .main-header {
@@ -68,6 +70,15 @@
             background: black;
             border-radius: 2px;
         }
+
+		/* Impedisce a regole CSS esterne di spostare i marker della mappa */
+		.leaflet-marker-icon, 
+		.leaflet-marker-shadow {
+			margin: 0 !important;
+			padding: 0 !important;
+			max-width: none !important;
+			max-height: none !important;
+		}
     </style>
 </head>
 
@@ -184,12 +195,12 @@
                                         ? translations[poi.id].pageTitle
                                         : poi.id;
 
-// Verifica se la categoria esiste, altrimenti assegna 'default' o un'icona info
-const categoriaValida = poi.categoria && poi.categoria !== "" ? poi.categoria : 'info';
+                                // Verifica se la categoria esiste, altrimenti assegna 'default' o un'icona info
+                                const categoriaValida = poi.categoria && poi.categoria !== "" ? poi.categoria : 'info';
 
-const s = window.getSimboloCategoria 
-          ? window.getSimboloCategoria(categoriaValida) 
-          : '📍';
+                                const s = window.getSimboloCategoria
+                                    ? window.getSimboloCategoria(categoriaValida)
+                                    : '📍';
                                 btn.innerHTML = `<span>${s} ${t}</span>`;
                                 btn.onclick = () => window.location.href = `${poi.id}${suffix}.html`;
                                 menu.appendChild(btn);
@@ -201,13 +212,20 @@ const s = window.getSimboloCategoria
                     }
                 });
 
-                  document.getElementById('loading-message').style.display = 'none';
-                // AGGIUNGI QUI IL FIX PER I PIN
+ // Nascondiamo il caricamento
+                document.getElementById('loading-message').style.display = 'none';
+
+                // FIX DEFINITIVO PIN:
+                // Eseguiamo il ricalcolo solo quando tutto è visibile
                 setTimeout(function () {
-                    map.invalidateSize();
-                    // Se i pin sono ancora leggermente sfalsati, forza un refresh del centro
-                    map.panBy([0, 0]);
-                }, 500);
+                    if (typeof map !== 'undefined') {
+                        map.invalidateSize();
+                        // Un piccolo trucco: muoviamo la mappa di 1 pixel e torniamo indietro
+                        // per forzare Leaflet a ridisegnare i layer dei marker
+                        map.panBy([1, 1]);
+                        map.panBy([-1, -1]);
+                    }
+                }, 600);
             } catch (e) {
                 console.error("Errore inizializzazione:", e);
                 document.getElementById('loading-message').innerHTML = "Errore caricamento dati.";
