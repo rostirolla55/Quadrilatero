@@ -10,18 +10,29 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         /* FIX: Forza l'altezza e la visibilità */
-        #app-wrapper {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-        }
+/* FIX: Permetti lo scorrimento della pagina */
+#app-wrapper {
+    display: block; /* Cambia da flex a block */
+    height: auto;   /* Rimuovi 100vh */
+    overflow: visible; /* Fondamentale per far scorrere la pagina */
+}
 
-        #map {
-            flex-grow: 1;
-            width: 100%;
-            z-index: 1;
-        }
+#map {
+    width: 100%;
+    height: 70vh; /* Altezza per mobile (senza bordi) */
+    z-index: 1;
+} 
+
+/* DESKTOP: Applica i bordi e l'altezza fissa */
+@media (min-width: 992px) {
+    #map {
+        height: 600px;
+        border-radius: 8px;
+        border: 2px solid #ccc;
+        width: 95%;
+        margin: 20px auto;
+    }
+}
 
         /* HEADER: deve stare sopra la mappa */
         .main-header {
@@ -118,6 +129,10 @@
                 window.navTitles = translations.nav || {}; // Nota: in main.js i titoli sono sotto 'nav'
 
                 const map = L.map('map').setView([44.4949, 11.3426], 16);
+                setTimeout(function () {
+                    map.invalidateSize();
+                }, 400);
+
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
                 // Raggruppiamo i POI per posizione (clustering)
@@ -173,8 +188,12 @@
                                         ? translations[poi.id].pageTitle
                                         : poi.id;
 
-                                const s = window.getSimboloCategoria ? window.getSimboloCategoria(poi.categoria) : '📍';
+// Verifica se la categoria esiste, altrimenti assegna 'default' o un'icona info
+const categoriaValida = poi.categoria && poi.categoria !== "" ? poi.categoria : 'info';
 
+const s = window.getSimboloCategoria 
+          ? window.getSimboloCategoria(categoriaValida) 
+          : '📍';
                                 btn.innerHTML = `<span>${s} ${t}</span>`;
                                 btn.onclick = () => window.location.href = `${poi.id}${suffix}.html`;
                                 menu.appendChild(btn);
@@ -186,7 +205,13 @@
                     }
                 });
 
-                document.getElementById('loading-message').style.display = 'none';
+                  document.getElementById('loading-message').style.display = 'none';
+                // AGGIUNGI QUI IL FIX PER I PIN
+                setTimeout(function () {
+                    map.invalidateSize();
+                    // Se i pin sono ancora leggermente sfalsati, forza un refresh del centro
+                    map.panBy([0, 0]);
+                }, 500);
             } catch (e) {
                 console.error("Errore inizializzazione:", e);
                 document.getElementById('loading-message').innerHTML = "Errore caricamento dati.";

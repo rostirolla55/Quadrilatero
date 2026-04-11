@@ -455,6 +455,14 @@ body.content-loaded #app-wrapper {
     .info-footer {
         font-size: 0.9em; /* Mantienilo piccolo, ma aumentalo leggermente per leggibilità */
     }
+
+    #map {
+        height: 600px; /* Altezza fissa generosa per desktop */
+        border-radius: 8px; /* Arrotondata come piace a te */
+        margin-top: 10px;
+        width: 100%;
+    }
+
 }
 
 /* =========================================== */
@@ -466,11 +474,12 @@ body.content-loaded #app-wrapper {
 /* ============================================================ */
 
 /* Il contenitore della mappa */
+/* BASE: Mobile (Sotto i 992px) */
 #map {
     width: 100%;
-    height: 500px;
-    border-radius: 8px;
-    margin-top: 10px;
+    height: 70vh; /* Più alta su mobile per facilitare il tocco */
+    border-radius: 0; /* Estesa ai bordi */
+    margin: 0;
     z-index: 1;
 }
 
