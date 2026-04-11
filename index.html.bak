@@ -3,22 +3,10 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title id="pageTitle">
-   Caricamento...
+  <title>
+   Quartiere Porto
   </title>
   <link href="style.css" rel="stylesheet"/>
-  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E57BP15BBX">
-  </script>
-  <script>
-   window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        // CONFIGURAZIONE: Associa 'dimension1' al nome parametro 'lingua_pagina'
-        gtag('config', 'G-E57BP15BBX', {
-            'custom_map': { 'dimension1': 'lingua_pagina' }
-        });
-  </script>
  </head>
  <body>
   <div id="loading-message">
@@ -66,77 +54,77 @@
      <ul>
       <li>
        <a href="index-it.html" id="navHome">
-        Benvenuto
+        Home
        </a>
       </li>
       <li>
        <a href="manifattura-it.html" id="navManifattura">
-        Ex Manifattura Tabacchi
+        Link
        </a>
       </li>
       <li>
        <a href="pittoricarracci-it.html" id="navPittoriCarracci">
-        I Pittori Carracci
+        Link
        </a>
       </li>
       <li>
        <a href="cavaticcio-it.html" id="navCavaticcio">
-        La Centrale Idroelettrica del Cavaticcio
+        Link
        </a>
       </li>
       <li>
        <a href="bsmariamaggiore-it.html" id="navBSMariaMaggiore">
-        Basilica Santa Maria Maggiore
+        Link
        </a>
       </li>
       <li>
        <a href="graziaxx-it.html" id="navGraziaxx">
-        Lapide votiva Grazia
+        Link
        </a>
       </li>
       <li>
        <a href="pugliole-it.html" id="navPugliole">
-        Le pugliole
+        Link
        </a>
       </li>
       <li>
        <a href="carracci-it.html" id="navCarracci">
-        Casa di Ludovico Carracci 
+        Link
        </a>
       </li>
       <li>
        <a href="lastre-it.html" id="navLastre">
-        Numeri civici su lastre in arenaria
+        Link
        </a>
       </li>
       <li>
        <a href="chiesasbene-it.html" id="navChiesaSBene">
-        Chiesa San Benedetto
+        Link
        </a>
       </li>
       <li>
        <a href="santuariopioggia-it.html" id="navSantuarioPioggia">
-        Santuario della Pioggia
+        Link
        </a>
       </li>
       <li>
        <a href="pioggia1-it.html" id="navPioggia1">
-        Paesaggio con San Bartolomeo Alfonso Lombardi
+        Link
        </a>
       </li>
       <li>
        <a href="pioggia2-it.html" id="navPioggia2">
-        Scultura San Bartolomeo Ludovico Mattioli
+        Link
        </a>
       </li>
       <li>
        <a href="pioggia3-it.html" id="navPioggia3">
-        Adorazione dei pastori Agostino Carracci
+        Link
        </a>
       </li>
       <li>
        <a href="chiesasancarlo-it.html" id="navChiesaSanCarlo">
-        Chiesa San Carlo Borromeo al Porto
+        Chiesa di San Carlo Borromeo al porto
        </a>
       </li>
      </ul>
