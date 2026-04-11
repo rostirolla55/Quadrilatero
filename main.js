@@ -403,34 +403,27 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // --- ESPORTAZIONE GLOBALE ---
 window.getSimboloCategoria = function(categoria) {
-    // LOG DI DEBUG: Vediamo cosa arriva alla funzione
-    console.log("DEBUG: Chiamata getSimboloCategoria con valore:", categoria);
-    // Caso A: Gestione Benvenuto (categoria assente o indefinita)
+    // Gestione Benvenuto e casi non definiti [cite: 48, 49]
     if (!categoria || categoria === "" || categoria === "undefined") {
-        return '📍'; // Usa il pin standard per il Benvenuto
+        return '📍'; // Ritorna il pin standard per il Benvenuto [cite: 14]
     }
 
-    // Mappa aggiornata basata sui tuoi POIS_LOCATIONS reali
     const simboli = {
-        'aperto': '🌳', 
-        'arte': '🎨',
+        'edificio': '🏛️',
+        'esterno': '🌳',
         'chiesa': '⛪',
-        'default': '📍',
-        'edificio': '🏛', 
-        'esterno': '🌳', 
-        'monumento': '🗿',
-        'museo': '🏛️',
-        'piazza': '🌳', 
         'quadro': '🎨',
-        'stabile': '🏛', 
-        'statua': '🎨'
+        'statua': '🎨', // Nota: hai assegnato la tavolozza anche alle statue [cite: 63]
+        'arte': '🎨',
+        'monumento': '🗿',
+        'parco': '🌳'
     };
 
-    // Converte in minuscolo per sicurezza
-    const catLower = categoria.toLowerCase().trim();
-
-    // Ritorna il simbolo specifico oppure il pin standard se la categoria non è in lista
-    return simboli[catLower] || '📍';
+    // Pulizia del valore ricevuto (rimozione spazi e conversione in minuscolo)
+    const catClean = categoria.toLowerCase().trim();
+    
+    // Se la categoria non è in lista, usa il pin standard come fallback 
+    return simboli[catClean] || '📍';
 };
 
 window.POIS_LOCATIONS = POIS_LOCATIONS;
