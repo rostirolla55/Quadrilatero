@@ -403,6 +403,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // --- ESPORTAZIONE GLOBALE ---
 window.getSimboloCategoria = function(categoria) {
+    // LOG DI DEBUG: Vediamo cosa arriva alla funzione
+    console.log("DEBUG: Chiamata getSimboloCategoria con valore:", categoria);
     // Caso A: Gestione Benvenuto (categoria assente o indefinita)
     if (!categoria || categoria === "" || categoria === "undefined") {
         return '📍'; // Usa il pin standard per il Benvenuto
