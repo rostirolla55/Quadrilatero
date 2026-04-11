@@ -403,26 +403,27 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // --- ESPORTAZIONE GLOBALE ---
 window.getSimboloCategoria = function(categoria) {
-    // Gestione Benvenuto e casi non definiti [cite: 48, 49]
+    // 1. Gestione Benvenuto o valori nulli [cite: 49-51]
     if (!categoria || categoria === "" || categoria === "undefined") {
-        return '📍'; // Ritorna il pin standard per il Benvenuto [cite: 14]
+        return '📍'; 
     }
 
+    // 2. Pulizia assoluta del valore ricevuto
+    const catClean = categoria.toString().toLowerCase().trim();
+
+    // 3. Mappatura completa basata sui tuoi POIS_LOCATIONS [cite: 30-43]
     const simboli = {
         'edificio': '🏛️',
         'esterno': '🌳',
         'chiesa': '⛪',
         'quadro': '🎨',
-        'statua': '🎨', // Nota: hai assegnato la tavolozza anche alle statue [cite: 63]
+        'statua': '🗿',
         'arte': '🎨',
-        'monumento': '🗿',
-        'parco': '🌳'
+        'monumento': '🏛️'
     };
 
-    // Pulizia del valore ricevuto (rimozione spazi e conversione in minuscolo)
-    const catClean = categoria.toLowerCase().trim();
-    
-    // Se la categoria non è in lista, usa il pin standard come fallback 
+    // 4. Fallback: se la categoria non è in lista, usa il pin rosso 
+    // Invece di restituire nulla (vuoto), restituiamo sempre un carattere visibile.
     return simboli[catClean] || '📍';
 };
 
