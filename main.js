@@ -402,13 +402,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 // --- ESPORTAZIONE GLOBALE ---
-// Questa funzione deve stare qui per essere vista da tutte le pagine (Carracci, Mappa, ecc.)
 window.getSimboloCategoria = function(categoria) {
-    // Se la categoria è nulla, indefinita o vuota (come nel Benvenuto)
-    if (!categoria || categoria === "") {
-        return 'ℹ️'; // Oppure un'altra icona a tua scelta come '🏠'
+    // Caso A: Gestione Benvenuto (categoria assente o indefinita)
+    if (!categoria || categoria === "" || categoria === "undefined") {
+        return '📍'; // Usa il pin standard per il Benvenuto
     }
 
+    // Mappa aggiornata basata sui tuoi POIS_LOCATIONS reali
     const simboli = {
         'edificio': '🏛', 
         'stabile': '🏛', 
@@ -418,14 +418,17 @@ window.getSimboloCategoria = function(categoria) {
         'aperto': '🌳', 
         'piazza': '🌳', 
         'chiesa': '⛪',
-		'arte': '🎨',
-		'quadro': '🎨',
-		'statua': '🎨',
+        'arte': '🎨',
+        'quadro': '🎨',
+        'statua': '🎨',
         'default': '📍'
     };
 
-    return simboli[categoria.toLowerCase()] || '📍'; 
-    // Se la categoria esiste ma non è in lista, restituisce il pin rosso invece dell'errore
+    // Converte in minuscolo per sicurezza
+    const catLower = categoria.toLowerCase().trim();
+
+    // Ritorna il simbolo specifico oppure il pin standard se la categoria non è in lista
+    return simboli[catLower] || '📍';
 };
 
 window.POIS_LOCATIONS = POIS_LOCATIONS;
