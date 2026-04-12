@@ -251,7 +251,7 @@ function startGeolocation(allData) {
                         <span>${simbolo}</span> ${title} (${dist.toFixed(0)}m)
                     </a>
                 </li>`; 
-                
+                console.log(`DEBUG : ${simbolo} ${title} `);
                 found = true;
             }
         });
@@ -425,7 +425,7 @@ window.getSimboloCategoria = function(categoria) {
     // 4. Fallback: se la categoria non è in lista, usa il pin rosso 
     // Invece di restituire nulla (vuoto), restituiamo sempre un carattere visibile.
     return simboli[catClean] || '📍';
-};
+};  
 
 window.POIS_LOCATIONS = POIS_LOCATIONS;
 // Aggiungi questa riga per esportare i titoli tradotti
