@@ -14,7 +14,7 @@
       "lat": 44.499090,
       "lon": 11.340316,
       "threshold": 50,
-      "nav_id": "navPittoriCarracci",
+      "nav_id": "navPittoricarracci",
       "base_name": "pittoricarracci",
       "categoria": "arte"
     },
@@ -32,7 +32,7 @@
       "lat": 44.498118,
       "lon": 11.341923,
       "threshold": 50,
-      "nav_id": "navBSMariaMaggiore",
+      "nav_id": "navBsmariamaggiore",
       "base_name": "bsmariamaggiore",
       "categoria": "edificio"
     },
@@ -77,7 +77,7 @@
       "lat": 44.501900,
       "lon": 11.343843,
       "threshold": 120,
-      "nav_id": "navChiesaSBene",
+      "nav_id": "navChiesasbene",
       "base_name": "chiesasbene",
       "categoria": "edificio"
     },
@@ -86,7 +86,7 @@
       "lat": 44.498891,
       "lon": 11.342148,
       "threshold": 120,
-      "nav_id": "navSantuarioPioggia",
+      "nav_id": "navSantuariopioggia",
       "base_name": "santuariopioggia",
       "categoria": "edificio"
     },
@@ -122,7 +122,7 @@
       "lat": 44.501295,
       "lon": 11.340850,
       "threshold": 120,
-      "nav_id": "navChiesaSanCarlo",
+      "nav_id": "navChiesasancarlo",
       "base_name": "chiesasancarlo",
       "categoria": "edificio"
     }
