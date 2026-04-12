@@ -208,7 +208,7 @@ function updateNavigation(navData, lang) {
                                    l.base;
 
             el.innerHTML = `<span class="menu-icon">${simbolo}</span> ${titoloTradotto}`;
-            console.log(`DEBUG : <span>${simbolo}</span> ${titoloTradotto} `);
+            // console.log(`DEBUG : <span>${simbolo}</span> ${titoloTradotto} `);
             // ---------------------
         }
     });
