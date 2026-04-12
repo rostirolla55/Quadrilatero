@@ -251,7 +251,7 @@ function startGeolocation(allData) {
                         <span>${simbolo}</span> ${title} (${dist.toFixed(0)}m)
                     </a>
                 </li>`; 
-                console.log(`DEBUG : ${simbolo} ${title} `);
+                console.log(`DEBUG : <span>${simbolo}</span> ${title} `);
                 found = true;
             }
         });
