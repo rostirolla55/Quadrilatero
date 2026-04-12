@@ -11,7 +11,7 @@
             "text": "Ancienne Manufacture de Tabac"
         },
         {
-            "id": "navPittoriCarracci",
+            "id": "navPittoricarracci",
             "href": "pittoricarracci-fr.html",
             "text": "Les Peintres Carrache"
         },
@@ -21,7 +21,7 @@
             "text": "Centrale hydroélectrique de Cavaticcio"
         },
         {
-            "id": "navBSMariaMaggiore",
+            "id": "navBsmariamaggiore",
             "href": "bsmariamaggiore-fr.html",
             "text": "Basilique Saint Marie Majeure"
         },
@@ -46,12 +46,12 @@
             "text": "Numéros de maison sur dalles de grès"
         },
         {
-            "id": "navChiesaSBene",
+            "id": "navChiesasbene",
             "href": "chiesasbene-fr.html",
             "text": "Église San Benedetto"
         },
         {
-            "id": "navSantuarioPioggia",
+            "id": "navSantuariopioggia",
             "href": "santuariopioggia-fr.html",
             "text": "Sanctuaire de la pluie"
         },
@@ -71,7 +71,7 @@
             "text": "L'Adoration des bergersAgostino Carracci"
         },
         {
-            "id": "navChiesaSanCarlo",
+            "id": "navChiesasancarlo",
             "href": "chiesasancarlo-fr.html",
             "text": "Église San Carlo Borromeo al Porto"
         }

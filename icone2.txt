@@ -1,0 +1,12 @@
+        'aperto': '🌳', 
+        'arte': '🎨',
+        'chiesa': '⛪',
+        'default': '📍'
+        'edificio': '🏛', 
+        'esterno': '🌳', 
+        'monumento': '🗿',
+        'museo': '🏛️',
+        'piazza': '🌳', 
+        'quadro': '🎨',
+        'stabile': '🏛', 
+        'statua': '🎨',

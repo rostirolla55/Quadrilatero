@@ -1,0 +1,30 @@
+window.getSimboloCategoria = function(categoria) {
+    // LOG DI DEBUG: Vediamo cosa arriva alla funzione
+    console.log("DEBUG: Chiamata getSimboloCategoria con valore:", categoria);
+    // Caso A: Gestione Benvenuto (categoria assente o indefinita)
+    if (!categoria || categoria === "" || categoria === "undefined") {
+        return '📍'; // Usa il pin standard per il Benvenuto
+    }
+
+    // Mappa aggiornata basata sui tuoi POIS_LOCATIONS reali
+    const simboli = {
+        'aperto': '🌳', 
+        'arte': '🎨',
+        'chiesa': '⛪',
+        'default': '📍',
+        'edificio': '🏛', 
+        'esterno': '🌳', 
+        'monumento': '🗿',
+        'museo': '🏛️',
+        'piazza': '🌳', 
+        'quadro': '🎨',
+        'stabile': '🏛', 
+        'statua': '🎨'
+    };
+
+    // Converte in minuscolo per sicurezza
+    const catLower = categoria.toLowerCase().trim();
+
+    // Ritorna il simbolo specifico oppure il pin standard se la categoria non è in lista
+    return simboli[catLower] || '📍';
+};

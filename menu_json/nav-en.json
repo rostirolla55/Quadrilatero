@@ -11,7 +11,7 @@
             "text": "Ex Tobacco Factory"
         },
         {
-            "id": "navPittoriCarracci",
+            "id": "navPittoricarracci",
             "href": "pittoricarracci-en.html",
             "text": "The Carracci Painters"
         },
@@ -21,7 +21,7 @@
             "text": "Cavaticcio hydroelectric power plant"
         },
         {
-            "id": "navBSMariaMaggiore",
+            "id": "navBsmariamaggiore",
             "href": "bsmariamaggiore-en.html",
             "text": "Basilica Saint Mary Major"
         },
@@ -46,12 +46,12 @@
             "text": "House numbers on sandstone slabs"
         },
         {
-            "id": "navChiesaSBene",
+            "id": "navChiesasbene",
             "href": "chiesasbene-en.html",
             "text": "Church of San Benedetto"
         },
         {
-            "id": "navSantuarioPioggia",
+            "id": "navSantuariopioggia",
             "href": "santuariopioggia-en.html",
             "text": "Sanctuary of the Rain"
         },
@@ -71,7 +71,7 @@
             "text": "The Adoration of the Shepherds Agostino Carracci"
         },
         {
-            "id": "navChiesaSanCarlo",
+            "id": "navChiesasancarlo",
             "href": "chiesasancarlo-en.html",
             "text": "Church San Carlo Borromeo al Porto"
         }

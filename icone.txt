@@ -1,0 +1,33 @@
+function getSimboloCategoria(categoria) {
+    if (!categoria) return '📍 ';
+    const cat = categoria.toLowerCase();
+    if (cat.includes('edificio') || cat.includes('stabile') || cat.includes('monumento')) return '🏛️ ';
+    if (cat.includes('esterno') || cat.includes('aperto') || cat.includes('piazza')) return '🌳 ';
+    if (cat.includes('arte') || cat.includes('quadro') || cat.includes('statua')) return '🎨 ';
+    return '📍 ';
+}
+
+window.getSimboloCategoria = function(categoria) {
+    // Se la categoria è nulla, indefinita o vuota (come nel Benvenuto)
+    if (!categoria || categoria === "") {
+        return 'ℹ️'; // Oppure un'altra icona a tua scelta come '🏠'
+    }
+
+    const simboli = {
+        'edificio': '🏛', 
+        'stabile': '🏛', 
+        'museo': '🏛️',
+        'monumento': '🗿',
+        'esterno': '🌳', 
+        'aperto': '🌳', 
+        'piazza': '🌳', 
+        'chiesa': '⛪',
+		'arte': '🎨'
+		'quadro': '🎨'
+		'statua': '🎨'
+        'default': '📍'
+    };
+
+    return simboli[categoria.toLowerCase()] || '📍'; 
+    // Se la categoria esiste ma non è in lista, restituisce il pin rosso invece dell'errore
+};

@@ -20,7 +20,7 @@ def go_dimissione(page_name):
     images_base = os.path.join(root, "Assets", "images")
     audio_base = os.path.join(root, "Assets", "audio")
     
-    # ID Menu (es. navChiesaSanCarlo)
+    # ID Menu (es. navChiesasancarlo)
     nav_id_to_remove = f"nav{page_name[0].upper()}{page_name[1:]}"
     
     print(f"--- AVVIO DISMISSIONE TOTALE: {page_name} ---")
