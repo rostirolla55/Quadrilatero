@@ -310,7 +310,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>La statua si trova al civico 124 di via Riva Reno. Visitabile in occasioni di certe manifestazioni con la presenza di una guida</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "it/pioggia2.mp3"
         },
         "es": {
@@ -320,7 +320,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>La estatua se encuentra en el número 124 de Via Riva Reno. Se puede visitar con un guía durante ciertos eventos.</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "es/pioggia2.mp3"
         },
         "fr": {
@@ -330,7 +330,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>La statue se trouve au numéro 124 de la Via Riva Reno. Elle peut être visitée lors de certains événements en compagnie d'un guide.</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "fr/pioggia2.mp3"
         },
         "en": {
@@ -340,7 +340,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>The statue is located at number 124 Via Riva Reno. It can be visited during certain events with a guide.</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "en/pioggia2.mp3"
         }
     },
@@ -352,7 +352,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>Il quadro si trova al civico 124 di via Riva Reno. Visitabile in occasioni di certe manifestazioni con la presenza di una guida</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "it/pioggia3.mp3"
         },
         "es": {
@@ -362,7 +362,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>El cuadro se encuentra en el número 124 de Via Riva Reno. Se puede visitar con un guía durante ciertos eventos.</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "es/pioggia3.mp3"
         },
         "fr": {
@@ -372,7 +372,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>Le tableau se trouve au numéro 124 de la Via Riva Reno. Elle peut être visitée lors de certains événements en compagnie d'un guide.</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "fr/pioggia3.mp3"
         },
         "en": {
@@ -382,7 +382,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>The painting is located at number 124 Via Riva Reno. It can be visited during certain events with a guide.</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "en/pioggia3.mp3"
         }
     },
