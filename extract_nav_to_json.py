@@ -4,27 +4,15 @@ import json
 from bs4 import BeautifulSoup
 
 def extract_nav_to_json(root_directory, output_directory="menu_json"):
-    """
-    Scansiona i file HTML, estrae il menu navBarMain e genera file JSON per lingua.
-    """
-    # Pattern per identificare la lingua dal nome del file (es. "-en", "-fr")
-    # Se non trova suffissi, assume "it"
     lang_pattern = re.compile(r'-([a-z]{2})\.html$')
-    
-    # Dizionario per raggruppare i menu per lingua { 'en': [...items...], 'it': [...] }
     translations = {}
 
-    # Crea la cartella di output se non esiste
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
-
-    print(f"Inizio scansione nella cartella: {root_directory}")
 
     for filename in os.listdir(root_directory):
         if filename.endswith(".html"):
             file_path = os.path.join(root_directory, filename)
-            
-            # Determina la lingua
             match = lang_pattern.search(filename)
             lang_code = match.group(1) if match else "it"
 
@@ -32,42 +20,38 @@ def extract_nav_to_json(root_directory, output_directory="menu_json"):
                 with open(file_path, 'r', encoding='utf-8') as f:
                     soup = BeautifulSoup(f, 'html.parser')
 
-                # Cerca il tag nav con l'ID specifico
-                nav_tag = soup.find('nav', id='navBarMain')
+                # CERCA IL MENU: Prova prima per ID, poi per Classe
+                nav_tag = soup.find('nav', id='navBarMain') or soup.find('nav', class_='nav-bar-main')
                 
                 if nav_tag:
                     items = []
-                    # Trova tutti i link dentro i list item
                     links = nav_tag.find_all('a')
                     
                     for link in links:
+                        # Estrae il testo e lo pulisce da spazi e ritorni a capo
+                        testo_pulito = link.get_text(separator=" ", strip=True)
+                        
                         item = {
                             "id": link.get('id', ''),
                             "href": link.get('href', '#'),
-                            "text": link.get_text(strip=True)
+                            "text": testo_pulito
                         }
                         items.append(item)
 
-                    # Se abbiamo trovato dei link e non abbiamo ancora salvato questa lingua
-                    # (o vogliamo sovrascrivere con l'ultima versione trovata)
+                    # Salviamo i dati per questa lingua (usiamo l'ultimo file trovato per lingua)
                     if items:
                         translations[lang_code] = {"items": items}
-                        print(f"Estratto menu ({lang_code}) da: {filename}")
                 
             except Exception as e:
-                print(f"Errore durante l'elaborazione di {filename}: {e}")
+                print(f"Errore in {filename}: {e}")
 
-    # Generazione dei file JSON
+    # Scrittura dei file JSON
     for lang, data in translations.items():
         output_file = os.path.join(output_directory, f"nav-{lang}.json")
-        try:
-            with open(output_file, 'w', encoding='utf-8') as jf:
-                json.dump(data, jf, ensure_ascii=False, indent=4)
-            print(f"File generato con successo: {output_file}")
-        except Exception as e:
-            print(f"Errore nel salvataggio del JSON per {lang}: {e}")
+        with open(output_file, 'w', encoding='utf-8') as jf:
+            json.dump(data, jf, ensure_ascii=False, indent=4)
+        print(f"Generato: {output_file}")
 
 if __name__ == "__main__":
-    # Assicurati di aver installato beautifulsoup4: pip install beautifulsoup4
-    # Esegue lo script nella cartella corrente
-    extract_nav_to_json(".")
+    # Esegui nella cartella corrente
+    extract_nav_to_json(".", "menu_json")

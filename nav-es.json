@@ -1,0 +1,79 @@
+{
+    "items": [
+        {
+            "id": "navHome",
+            "href": "index-es.html",
+            "text": "Bienvenido"
+        },
+        {
+            "id": "navManifattura",
+            "href": "manifattura-es.html",
+            "text": "Ex Fabrica de Tabaco"
+        },
+        {
+            "id": "navPittoricarracci",
+            "href": "pittoricarracci-es.html",
+            "text": "Los Pintores Carracci"
+        },
+        {
+            "id": "navCavaticcio",
+            "href": "cavaticcio-es.html",
+            "text": "Central hidroelectrica de Cavaticcio"
+        },
+        {
+            "id": "navBsmariamaggiore",
+            "href": "bsmariamaggiore-es.html",
+            "text": "Basílica San María Mayor"
+        },
+        {
+            "id": "navGraziaxx",
+            "href": "graziaxx-es.html",
+            "text": "Placa votiva de Grazia"
+        },
+        {
+            "id": "navPugliole",
+            "href": "pugliole-es.html",
+            "text": "Las Pugliole"
+        },
+        {
+            "id": "navCarracci",
+            "href": "carracci-es.html",
+            "text": "Casa de Ludovico Carracci"
+        },
+        {
+            "id": "navLastre",
+            "href": "lastre-es.html",
+            "text": "Números de casas en losas de arenisca"
+        },
+        {
+            "id": "navChiesasbene",
+            "href": "chiesasbene-es.html",
+            "text": "Iglesia de San Benedetto"
+        },
+        {
+            "id": "navSantuariopioggia",
+            "href": "santuariopioggia-es.html",
+            "text": "Santuario de la Lluvia"
+        },
+        {
+            "id": "navPioggia1",
+            "href": "pioggia1-es.html",
+            "text": "Paisaje con San Bartolomé Alfonso Lombardi"
+        },
+        {
+            "id": "navPioggia2",
+            "href": "pioggia2-es.html",
+            "text": "Escultura de San Bartolomé Ludovico Mattioli"
+        },
+        {
+            "id": "navPioggia3",
+            "href": "pioggia3-es.html",
+            "text": "La Adoración de los Pastores Agostino Carracci"
+        },
+        {
+            "id": "navChiesasancarlo",
+            "href": "chiesasancarlo-es.html",
+            "text": "Iglesia San Carlo Borromeo al Porto"
+        }
+    ]
+}
