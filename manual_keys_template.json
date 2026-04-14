@@ -64,7 +64,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>Se entri in chiesa, usa gli auricolari per ascoltare l'audio </b></font> </p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "it/chiesapioggia.mp3"
         },
         "es": {
@@ -74,7 +74,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>Si entra en la iglesia, use auriculares para escuchar el audio.</b></font> </p><p><font color=\"#3465a4\">Para conocer el horario de apertura, visite la página https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": " ",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "es/chiesapioggia.mp3"
         },
         "fr": {
@@ -84,7 +84,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>Si vous entrez dans l'église, utilisez des écouteurs pour écouter l'audio.</b></font> </p><p><font color=\"#3465a4\">Pour connaître les horaires d'ouverture, veuillez consulter la page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "fr/chiesapioggia.mp3"
         },
         "en": {
@@ -94,7 +94,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "en/chiesapioggia.mp3"
         }
     },    
@@ -268,7 +268,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>Se entri in chiesa, usa gli auricolari per ascoltare l'audio </b></font> </p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "it/pioggia1.mp3"
         },
         "es": {
@@ -278,7 +278,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>Si entra en la iglesia, use auriculares para escuchar el audio.</b></font> </p><p><font color=\"#3465a4\">Para conocer el horario de apertura, visite la página https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "es/pioggia1.mp3"
         },
         "fr": {
@@ -288,7 +288,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>Si vous entrez dans l'église, utilisez des écouteurs pour écouter l'audio.</b></font> </p><p><font color=\"#3465a4\">Pour connaître les horaires d'ouverture, veuillez consulter la page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "fr/pioggia1.mp3"
         },
         "en": {
@@ -298,7 +298,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "en/pioggia1.mp3"
         }
     },
@@ -310,7 +310,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>La statua si trova al civico 124 di via Riva Reno. Visitabile in occasioni di certe manifestazioni con la presenza di una guida</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "it/pioggia2.mp3"
         },
         "es": {
@@ -320,7 +320,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>La estatua se encuentra en el número 124 de Via Riva Reno. Se puede visitar con un guía durante ciertos eventos.</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "es/pioggia2.mp3"
         },
         "fr": {
@@ -330,7 +330,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>La statue se trouve au numéro 124 de la Via Riva Reno. Elle peut être visitée lors de certains événements en compagnie d'un guide.</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "fr/pioggia2.mp3"
         },
         "en": {
@@ -340,7 +340,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>The statue is located at number 124 Via Riva Reno. It can be visited during certain events with a guide.</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "en/pioggia2.mp3"
         }
     },
@@ -352,7 +352,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>Il quadro si trova al civico 124 di via Riva Reno. Visitabile in occasioni di certe manifestazioni con la presenza di una guida</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "it/pioggia3.mp3"
         },
         "es": {
@@ -362,7 +362,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>El cuadro se encuentra en el número 124 de Via Riva Reno. Se puede visitar con un guía durante ciertos eventos.</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "es/pioggia3.mp3"
         },
         "fr": {
@@ -372,7 +372,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>Le tableau se trouve au numéro 124 de la Via Riva Reno. Elle peut être visitée lors de certains événements en compagnie d'un guide.</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "fr/pioggia3.mp3"
         },
         "en": {
@@ -382,7 +382,7 @@
             "mainText": "<p><font color=\"#ff0000\"><b>The painting is located at number 124 Via Riva Reno. It can be visited during certain events with a guide.</b></font> </p><p>",
             "sourceText": "",
             "lastUpdate": "2025-12-19",
-            "headImage": "chiesapioggia.jpg",
+            "headImage": "santuariopioggia.jpg",
             "audioSource": "en/pioggia3.mp3"
         }
     },
