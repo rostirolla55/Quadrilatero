@@ -339,5 +339,15 @@
         "pauseAudioButton": "Pause",
         "mainText": "",
         "sourceText": ""
+    },
+    "stabile-legno-vandini": {
+        "pageTitle": "Titolo per stabile-legno-vandini",
+        "headerTitle": "Titolo per stabile-legno-vandini",
+        "mainText": "Benvenuti a Titolo per stabile-legno-vandini...",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": ""
     }
 }

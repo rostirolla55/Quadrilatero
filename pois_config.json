@@ -125,17 +125,15 @@
             "nav_id": "navChiesasancarlo",
             "base_name": "chiesasancarlo",
             "categoria": "edificio"
+        },
+        {
+            "id": "stabile-legno-vandini",
+            "lat": 44.502054,
+            "lon": 11.338546,
+            "threshold": 120,
+            "nav_id": "navStabilevandini",
+            "base_name": "stabilevandini",
+            "categoria": "edificio"
         }
-    ],
-    "stabile-legno-vandini": {
-        "id": "stabile-legno-vandini",
-        "coords": [
-            44.502053912703,
-            11.338545952738006
-        ],
-        "image": "/images/stabile-legno-vandini.jpg",
-        "audio": {
-            "it": "/audio/stabile-legno-vandini/it.mp3"
-        }
-    }
+    ]
 }

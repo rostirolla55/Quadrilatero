@@ -74,6 +74,11 @@
             "id": "navChiesasancarlo",
             "href": "chiesasancarlo-fr.html",
             "text": "Église San Carlo Borromeo al Porto"
+        },
+        {
+            "id": "navStabilevandini",
+            "href": "stabile-legno-vandini-fr.html",
+            "text": "Bâtiment en bois Vandini"
         }
     ]
 }
