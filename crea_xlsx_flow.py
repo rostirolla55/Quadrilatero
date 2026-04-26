@@ -65,4 +65,4 @@ for i, width in enumerate(column_widths):
 
 # Salvataggio
 file_path = "piano_operativo_paginaxy.xlsx"
-wb.save(file_path)
+wb.save(file_path)cd

@@ -8,33 +8,32 @@ def load_json(path):
             return json.load(f)
     return None
 
-def update_all_html_menus(root_path="."):
+def update_all_html_menus(root_path):
     languages = ['it', 'en', 'es', 'fr']
-    menu_html_by_lang = {}
-
-    print("--- Inizio aggiornamento menu Nav ---")
-
-    # 1. Pre-generiamo i blocchi HTML del menu per ogni lingua
+    
     for lang in languages:
+        # 1. Carichiamo la sorgente della verità (texts.json)
         texts_path = os.path.join(root_path, 'data', 'translations', lang, 'texts.json')
-        nav_json_path = os.path.join(root_path, 'menu_json', f'nav-{lang}.json')
-        
         texts_data = load_json(texts_path)
-        nav_structure = load_json(nav_json_path)
+        if not texts_data or 'nav' not in texts_data:
+            print(f" [!] Salto {lang}: texts.json non trovato o senza sezione 'nav'")
+            continue
+            
+        nav_translations = texts_data['nav']
 
-        if not texts_data or not nav_structure:
-            print(f" [!] Salto lingua {lang.upper()}: file JSON mancanti.")
+        # 2. Carichiamo la struttura del menu (nav-*.json)
+        nav_json_path = os.path.join(root_path, 'menu_json', f'nav-{lang}.json')
+        nav_structure = load_json(nav_json_path)
+        if not nav_structure:
             continue
 
-        nav_translations = texts_data.get('nav', {})
+        # Costruiamo il nuovo blocco HTML del menu basandoci sui testi corretti
         items = nav_structure.get('items', [])
-
-        # Costruiamo il blocco HTML
         new_menu_html = '     <ul>\n'
         for item in items:
             nav_id = item.get('id', '')
             href = item.get('href', '#')
-            # Prende la traduzione da texts.json, se manca usa il testo nel nav.json
+            # Cerchiamo il testo in texts.json usando l'ID, altrimenti fallback
             text = nav_translations.get(nav_id, item.get('text', 'Link'))
             
             new_menu_html += f'      <li>\n'
@@ -43,52 +42,27 @@ def update_all_html_menus(root_path="."):
             new_menu_html += f'       </a>\n'
             new_menu_html += f'      </li>\n'
         new_menu_html += '     </ul>'
-        
-        menu_html_by_lang[lang] = new_menu_html
 
-    # 2. Iteriamo su TUTTI i file HTML nella cartella
-    for filename in os.listdir(root_path):
-        if not filename.endswith('.html'):
-            continue
+        # 3. Aggiorniamo tutti i file HTML di quella lingua
+        suffix = f"-{lang}.html"
+        for filename in os.listdir(root_path):
+            if filename.endswith(suffix):
+                filepath = os.path.join(root_path, filename)
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    content = f.read()
 
-        filepath = os.path.join(root_path, filename)
-        
-        # DETERMINA LA LINGUA DEL FILE
-        # Se il file contiene il suffisso lo usiamo, altrimenti DEFAULT = IT
-        file_lang = 'it' 
-        if filename.endswith('-en.html'): file_lang = 'en'
-        elif filename.endswith('-es.html'): file_lang = 'es'
-        elif filename.endswith('-fr.html'): file_lang = 'fr'
-        elif filename.endswith('-it.html'): file_lang = 'it'
-        # Nota: se il file è 'manifattura.html' o 'index.html', file_lang resta 'it'
-
-        if file_lang not in menu_html_by_lang:
-            continue
-
-        with open(filepath, 'r', encoding='utf-8') as f:
-            content = f.read()
-
-        # 3. SOSTITUZIONE DEL BLOCCO NAV
-        # Cerchiamo l'ul dentro il div con classe nav-bar-content
-        # Il pattern è studiato per essere molto tollerante agli spazi
-        pattern = r'(<div class="nav-bar-content"[^>]*>\s*)<ul>.*?</ul>'
-        replacement = r'\1' + menu_html_by_lang[file_lang]
-        
-        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-        
-        if new_content != content:
-            with open(filepath, 'w', encoding='utf-8') as f:
-                f.write(new_content)
-            print(f" [OK] Aggiornato: {filename} (Lingua: {file_lang})")
-        else:
-            # Se il file non ha il blocco nav (es. un redirect puro), lo saltiamo senza errori
-            if 'nav-bar-content' in content:
-                print(f" [!] Blocco trovato ma identico in: {filename}")
-            else:
-                pass # File senza menu, ignorato silenziosamente
-
-    print("--- Operazione completata ---")
+                # Regex per trovare il blocco <ul>...</ul> dentro il navBarMain
+                # Cerca l'ul all'interno della div nav-bar-content
+                pattern = r'(<div class="nav-bar-content"[^>]*>\s*)<ul>.*?</ul>'
+                replacement = r'\1' + new_menu_html
+                
+                new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+                
+                if new_content != content:
+                    with open(filepath, 'w', encoding='utf-8') as f:
+                        f.write(new_content)
+                    print(f" [+] Aggiornato menu in: {filename} ({lang})")
 
 if __name__ == "__main__":
-    # Assicurati di essere nella root corretta
-    update_all_html_menus(".")
+    # Assumiamo che lo script sia nella root del progetto
+    update_all_html_menus(os.getcwd())

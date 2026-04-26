@@ -457,43 +457,5 @@
             "headImage": "panorama_bologna.jpg",
             "audioSource": "en/chiesasancarlo.mp3"
         }
-    },
-    "stabile-legno-vandini": {
-        "it": {
-            "pageTitle": "Edificio in legno Vandini",
-            "playAudioButton": "Ascolta la storia",
-            "pauseAudioButton": "Ferma la riproduzione",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "it/stabile-legno-vandini.mp3"
-        },
-        "es": {
-            "pageTitle": "Edificio de madera Vandini",
-            "playAudioButton": "Escuchar la historia",
-            "pauseAudioButton": "Detener la reproducción",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-           "audioSource": "es/stabile-legno-vandini.mp3"
-        },
-        "fr": {
-            "pageTitle": "Bâtiment en bois Vandini",
-            "playAudioButton": "Écouter le récit",
-            "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-           "audioSource": "fr/stabile-legno-vandini.mp3"
-        },
-        "en": {
-            "pageTitle": "Vandini wooden stable",
-            "playAudioButton": "Listen with headphones",
-            "pauseAudioButton": "Pause",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "en/stabile-legno-vandini.mp3"
-        }
     }
 }

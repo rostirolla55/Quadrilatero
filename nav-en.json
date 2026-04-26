@@ -1,0 +1,79 @@
+{
+    "items": [
+        {
+            "id": "navHome",
+            "href": "index-en.html",
+            "text": "Welcome"
+        },
+        {
+            "id": "navManifattura",
+            "href": "manifattura-en.html",
+            "text": "Ex Tobacco Factory"
+        },
+        {
+            "id": "navPittoricarracci",
+            "href": "pittoricarracci-en.html",
+            "text": "The Carracci Painters"
+        },
+        {
+            "id": "navCavaticcio",
+            "href": "cavaticcio-en.html",
+            "text": "Cavaticcio hydroelectric power plant"
+        },
+        {
+            "id": "navBsmariamaggiore",
+            "href": "bsmariamaggiore-en.html",
+            "text": "Basilica Saint Mary Major"
+        },
+        {
+            "id": "navGraziaxx",
+            "href": "graziaxx-en.html",
+            "text": "Grazia votive plaque"
+        },
+        {
+            "id": "navPugliole",
+            "href": "pugliole-en.html",
+            "text": "The pugliole"
+        },
+        {
+            "id": "navCarracci",
+            "href": "carracci-en.html",
+            "text": "House of Ludovico Carracci"
+        },
+        {
+            "id": "navLastre",
+            "href": "lastre-en.html",
+            "text": "House numbers on sandstone slabs"
+        },
+        {
+            "id": "navChiesasbene",
+            "href": "chiesasbene-en.html",
+            "text": "Church of San Benedetto"
+        },
+        {
+            "id": "navSantuariopioggia",
+            "href": "santuariopioggia-en.html",
+            "text": "Sanctuary of the Rain"
+        },
+        {
+            "id": "navPioggia1",
+            "href": "pioggia1-en.html",
+            "text": "Landscape with Saint Bartholomew Alfonso Lombardi"
+        },
+        {
+            "id": "navPioggia2",
+            "href": "pioggia2-en.html",
+            "text": "Sculpture of Saint Bartholomew Ludovico Mattioli"
+        },
+        {
+            "id": "navPioggia3",
+            "href": "pioggia3-en.html",
+            "text": "The Adoration of the Shepherds Agostino Carracci"
+        },
+        {
+            "id": "navChiesasancarlo",
+            "href": "chiesasancarlo-en.html",
+            "text": "Church San Carlo Borromeo al Porto"
+        }
+    ]
+}
