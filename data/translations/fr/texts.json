@@ -330,13 +330,18 @@
         "sourceText": ""
     },
     "stabile-legno-vandini": {
-        "pageTitle": "Titolo per stabile-legno-vandini",
+        "pageTitle": "Bâtiment en bois Vandini",
         "headerTitle": "Titolo per stabile-legno-vandini",
-        "mainText": "Benvenuti a Titolo per stabile-legno-vandini...",
+        "mainText": "",
         "mainText1": "",
         "mainText2": "",
         "mainText3": "",
         "mainText4": "",
-        "mainText5": ""
+        "mainText5": "",
+        "playAudioButton": "Écouter le récit",
+        "pauseAudioButton": "Arrêter la lecture",
+        "sourceText": "",
+        "headImage": "panorama_bologna.jpg",
+        "audioSource": "fr/stabile-legno-vandini.mp3"
     }
 }

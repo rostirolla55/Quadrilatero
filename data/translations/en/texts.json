@@ -341,13 +341,18 @@
         "sourceText": ""
     },
     "stabile-legno-vandini": {
-        "pageTitle": "Titolo per stabile-legno-vandini",
+        "pageTitle": "Vandini wooden stable",
         "headerTitle": "Titolo per stabile-legno-vandini",
-        "mainText": "Benvenuti a Titolo per stabile-legno-vandini...",
+        "mainText": "",
         "mainText1": "",
         "mainText2": "",
         "mainText3": "",
         "mainText4": "",
-        "mainText5": ""
+        "mainText5": "",
+        "playAudioButton": "Listen with headphones",
+        "pauseAudioButton": "Pause",
+        "sourceText": "",
+        "headImage": "panorama_bologna.jpg",
+        "audioSource": "en/stabile-legno-vandini.mp3"
     }
 }
