@@ -1,0 +1,42 @@
+    "stabile_legno_vandini": {
+        "it": {
+            "pageTitle": "Edificio Aldo Vandini in legno",
+            "headerTitle": "Edificio Aldo Vandini in legno",
+            "playAudioButton": "Ascolta la storia",
+            "pauseAudioButton": "Ferma la riproduzione",
+            "mainText": "",
+            "sourceText": "",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "it/stabile_legno_vandini.mp3"
+        },
+        "es": {
+            "pageTitle": "Edificio de madera de Aldo Vandini",
+            "headerTitle": "Edificio de madera de Aldo Vandini",
+            "playAudioButton": "Escuchar la historia",
+            "pauseAudioButton": "Detener la reproducción",
+            "mainText": "",
+            "sourceText": "",
+            "headImage": "panorama_bologna.jpg",
+           "audioSource": "es/stabile_legno_vandini.mp3"
+        },
+        "fr": {
+            "pageTitle": "Bâtiment en bois d'Aldo Vandini",
+            "headerTitle": "Bâtiment en bois d'Aldo Vandini",
+            "playAudioButton": "Écouter le récit",
+            "pauseAudioButton": "Arrêter la lecture",
+            "mainText": "",
+            "sourceText": "",
+            "headImage": "panorama_bologna.jpg",
+           "audioSource": "fr/stabile_legno_vandini.mp3"
+        },
+        "en": {
+            "pageTitle": "Aldo Vandini wooden building",
+            "headerTitle": "Aldo Vandini wooden building",
+            "playAudioButton": "Listen with headphones",
+            "pauseAudioButton": "Pause",
+            "mainText": "",
+            "sourceText": "",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "en/stabile_legno_vandini.mp3"
+        }
+    }

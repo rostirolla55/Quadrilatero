@@ -341,18 +341,21 @@
         "sourceText": ""
     },
     "stabile_legno_vandini": {
-        "pageTitle": "Vandini wooden stable",
-        "headerTitle": "Titolo per stabile_legno_vandini",
+        "pageTitle": "Aldo Vandini wooden building",
+        "headerTitle": "Aldo Vandini wooden building",
         "mainText": "",
-        "mainText1": "",
-        "mainText2": "",
-        "mainText3": "",
-        "mainText4": "",
+        "mainText1": "en_stabile_legno_vandini_maintext1.html",
+        "mainText2": "en_stabile_legno_vandini_maintext2.html",
+        "mainText3": "en_stabile_legno_vandini_maintext3.html",
+        "mainText4": "en_stabile_legno_vandini_maintext4.html",
         "mainText5": "",
         "playAudioButton": "Listen with headphones",
         "pauseAudioButton": "Pause",
         "sourceText": "",
         "headImage": "panorama_bologna.jpg",
-        "audioSource": "en/stabile_legno_vandini.mp3"
+        "audioSource": "en/stabile_legno_vandini.mp3",
+        "imageSource1": "stabile_legno_vandini/stabile_legno_vandini-uno.jpg",
+        "imageSource2": "stabile_legno_vandini/stabile_legno_vandini-due.jpg",
+        "imageSource3": "stabile_legno_vandini/tecnologia_x-lam.jpg"
     }
 }
