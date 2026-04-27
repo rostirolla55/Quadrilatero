@@ -13,5 +13,5 @@ pioggia3_it.docx
 pittoricarracci_it.docx
 pugliole_it.docx
 santuariopioggia_it.docx
-stabile-legno-vandini_it.docx
+stabile_legno_vandini_it.docx
 template_it.docx

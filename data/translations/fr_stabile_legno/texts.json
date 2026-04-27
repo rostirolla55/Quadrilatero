@@ -1,0 +1,13 @@
+{
+    "vandini": {
+        "headImage": "public/images/panorama_bologna.jpg",
+        "audioSource": "fr_stabile_legno/vandini.mp3",
+        "mainText1": "fr_stabile_legno_vandini_maintext1.html",
+        "imageSource1": "stabile_legno_vandini/stabile_legno_vandini-uno.jpg",
+        "mainText2": "fr_stabile_legno_vandini_maintext2.html",
+        "imageSource2": "stabile_legno_vandini/stabile_legno_vandini-due.jpg",
+        "mainText3": "fr_stabile_legno_vandini_maintext3.html",
+        "imageSource3": "stabile_legno_vandini/tecnologia_x-lam.jpg",
+        "mainText4": "fr_stabile_legno_vandini_maintext4.html"
+    }
+}

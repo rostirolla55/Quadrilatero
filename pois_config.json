@@ -127,7 +127,7 @@
             "categoria": "edificio"
         },
         {
-            "id": "stabile-legno-vandini",
+            "id": "stabile_legno_vandini",
             "lat": 44.502054,
             "lon": 11.338546,
             "threshold": 120,

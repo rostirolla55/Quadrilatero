@@ -329,9 +329,9 @@
         "mainText": "",
         "sourceText": ""
     },
-    "stabile-legno-vandini": {
+    "stabile_legno_vandini": {
         "pageTitle": "Edificio in legno Vandini",
-        "headerTitle": "Titolo per stabile-legno-vandini",
+        "headerTitle": "Titolo per stabile_legno_vandini",
         "mainText": "",
         "mainText1": "",
         "mainText2": "",
@@ -342,6 +342,6 @@
         "pauseAudioButton": "Ferma la riproduzione",
         "sourceText": "",
         "headImage": "panorama_bologna.jpg",
-        "audioSource": "it/stabile-legno-vandini.mp3"
+        "audioSource": "it/stabile_legno_vandini.mp3"
     }
 }

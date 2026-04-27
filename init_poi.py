@@ -34,7 +34,7 @@ def generate_audio_free(text, output_path):
         print(f"❌ Errore generazione audio: {e}")
 
 def run():
-    poi_id = "stabile-legno-vandini"
+    poi_id = "stabile_legno_vandini"
     print(f"=== Automazione POI: {poi_id} ===")
     
     # 1. Coordinate
