@@ -21,7 +21,10 @@ PAGE_ID_MAPPING_EXCEPTIONS = {
 
 # Regex per estrarre la lingua (lang) e l'ID della pagina (page_id) 
 # dalla struttura del file fragment, es: "it_manifattura_maintext1.html"
-FILENAME_PATTERN = re.compile(r'(\w+)_(\w+)_maintext\d+\.html', re.IGNORECASE)
+# FILENAME_PATTERN = re.compile(r'(\w+)_(\w+)_maintext\d+\.html', re.IGNORECASE)
+# ^([^_]+) -> Cattura tutto fino al PRIMO underscore (la lingua)
+# _(.+)    -> Cattura tutto il resto fino a _maintext (l'ID pagina)
+FILENAME_PATTERN = re.compile(r'^([^_]+)_(.+)_maintext\d+\.html', re.IGNORECASE)
 
 # Chiavi da sincronizzare/pulire (quelle che possono variare in numero)
 DYNAMIC_KEYS_PREFIXES = ("mainText", "imageSource")
