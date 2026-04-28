@@ -189,7 +189,7 @@ function updateNavigation(navData, lang) {
     { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
     { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
     { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo' },
-    { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabilevandini' }
+    { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini' }
 ];
 
     navLinksData.forEach(l => {
