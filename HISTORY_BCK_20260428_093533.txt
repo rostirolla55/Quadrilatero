@@ -1,0 +1,18 @@
+goquad
+vedi_log
+dir /s /b *audio*.bat
+cat C:\Users\User\Documents\GitHub\Quadrilatero\copia_audio_IA.bat
+logger edit notebookLM crea fonti da stabile_legno_vandini_it.docx
+logger edit notebookLM salva nota
+logger edit notebookLM exporta in google documents
+logger edit attiva collegamento smartphone con Avvia_Audio_Gemini.bat
+logger edit avvia OBS Studio
+logger edit su smartphone carica il testo di sintesi creato da notebookLM
+logger edit su smartphone scrivi che il testo caricato sarà usato da geminni live
+logger edit in gemini live dici recita il testo nella versione italiana
+logger edit in gemini live dici recita il testo nella versione inglese
+logger edit in gemini live dici recita il testo nella versione francese
+logger edit in gemini live dici recita il testo nella versione spagnolo
+logger copia_audio_IA.bat
+logger copia_audio_IA.bat stabile_legno_vandini
+esci
