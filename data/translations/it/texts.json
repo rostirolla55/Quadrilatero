@@ -345,5 +345,14 @@
         "imageSource1": "stabile_legno_vandini/stabile-legno-vandini-uno.jpg",
         "imageSource2": "stabile_legno_vandini/stabile-legno-vandini-due.jpg",
         "imageSource3": "stabile_legno_vandini/tecnologia_x-lam.jpg"
+    },
+    "edicola_votiva": {
+        "headImage": "public/images/panorama_bologna.jpg",
+        "audioSource": "it/edicola_votiva.mp3",
+        "mainText1": "it_edicola_votiva_maintext1.html",
+        "imageSource1": "edicola_votiva/angolo_tanari_avesella.jpg",
+        "mainText2": "it_edicola_votiva_maintext2.html",
+        "imageSource2": "edicola_votiva/edicola_san_antonio.jpg",
+        "mainText3": "it_edicola_votiva_maintext3.html"
     }
 }

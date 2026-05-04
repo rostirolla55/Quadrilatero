@@ -41,7 +41,8 @@ const POIS_LOCATIONS = [
     { id: 'pioggia2', lat: 44.499023, lon: 11.34176, distanceThreshold: 120, categoria: 'statua' },
     { id: 'pioggia3', lat: 44.499023, lon: 11.34176, distanceThreshold: 120, categoria: 'quadro' },
     { id: 'chiesasancarlo', lat: 44.501295, lon: 11.34085, distanceThreshold: 120, categoria: 'edificio' },
-    { id: 'stabile_legno_vandini', lat: 44.502054, lon: 11.338546, distanceThreshold: 120, categoria: 'edificio' }
+    { id: 'stabile_legno_vandini', lat: 44.502054, lon: 11.338546, distanceThreshold: 120, categoria: 'edificio' },
+    { id: 'edicola_votiva', lat: 44.499137, lon: 11.341797, distanceThreshold: 120, categoria: 'edificio' }
 ];
 
 // ===========================================
@@ -189,7 +190,8 @@ function updateNavigation(navData, lang) {
     { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
     { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
     { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo' },
-    { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini' }
+    { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini' },
+    { id: 'navEdicolaVotiva', key: 'navEdicolaVotiva', base: 'edicola_votiva' }
 ];
 
     navLinksData.forEach(l => {

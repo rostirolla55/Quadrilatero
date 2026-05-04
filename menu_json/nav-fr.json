@@ -79,6 +79,11 @@
             "id": "navStabilevandini",
             "href": "stabile_legno_vandini-fr.html",
             "text": "Bâtiment en bois Vandini"
+        },
+        {
+            "id": "navEdicolaVotiva",
+            "href": "edicola_votiva-fr.html",
+            "text": "Titolo per edicola_votiva"
         }
     ]
 }

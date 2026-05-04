@@ -501,5 +501,48 @@
             "audioSource": "en/stabile_legno_vandini.mp3"
         }
     }
+,
+    "edicola_votiva": {
+        "it": {
+            "pageTitle": "Edicola votiva Madonna con Bambino",
+            "headerTitle": "Votiva Madonna con Bambino",
+            "playAudioButton": "Ascolta la storia",
+            "pauseAudioButton": "Ferma la riproduzione",
+            "mainText": "",
+            "sourceText": "",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "it/edicola_votiva.mp3"
+        },
+        "es": {
+            "pageTitle": "Santuario votivo de la Virgen y el Niño",
+            "headerTitle": "Santuario votivo de la Virgen y el Niño",
+            "playAudioButton": "Escuchar la historia",
+            "pauseAudioButton": "Detener la reproducción",
+            "mainText": "",
+            "sourceText": "",
+            "headImage": "panorama_bologna.jpg",
+           "audioSource": "es/edicola_votiva.mp3"
+        },
+        "fr": {
+            "pageTitle": "Littoral votif de la Vierge à l'Enfant",
+            "headerTitle": "Littoral votif de la Vierge à l'Enfant",
+            "playAudioButton": "Écouter l'histoire",
+            "pauseAudioButton": "Arrêter la lecture",
+            "mainText": "",
+            "sourceText": "",
+            "headImage": "panorama_bologna.jpg",
+           "audioSource": "fr/edicola_votiva.mp3"
+        },
+        "en": {
+            "pageTitle": "Votive Shrine of the Madonna and Child",
+            "headerTitle": "Votive Shrine of the Madonna and Child",
+            "playAudioButton": "Listen to the story",
+            "pauseAudioButton": "Stop playback",
+            "mainText": "",
+            "sourceText": "",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "en/edicola_votiva.mp3"
+        }
+    }
 
 }

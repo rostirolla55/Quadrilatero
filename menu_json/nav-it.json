@@ -79,6 +79,11 @@
             "id": "navStabilevandini",
             "href": "stabile_legno_vandini-it.html",
             "text": "Edificio Vandini in legno"
+        },
+        {
+            "id": "navEdicolaVotiva",
+            "href": "edicola_votiva-it.html",
+            "text": "Titolo per edicola_votiva"
         }
     ]
 }
