@@ -140,7 +140,7 @@
             "lat": 44.499137,
             "lon": 11.341797,
             "threshold": 120,
-            "nav_id": "navEdicolaVotiva",
+            "nav_id": "navEdicolavotiva",
             "base_name": "edicola_votiva",
             "categoria": "edificio"
         }
