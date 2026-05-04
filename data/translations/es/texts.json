@@ -349,12 +349,18 @@
         "imageSource3": "stabile_legno_vandini/tecnologia_x-lam.jpg"
     },
     "edicola_votiva": {
-        "headImage": "public/images/panorama_bologna.jpg",
+        "headImage": "panorama_bologna.jpg",
         "audioSource": "es/edicola_votiva.mp3",
         "mainText1": "es_edicola_votiva_maintext1.html",
         "imageSource1": "edicola_votiva/angolo_tanari_avesella.jpg",
         "mainText2": "es_edicola_votiva_maintext2.html",
         "imageSource2": "edicola_votiva/edicola_san_antonio.jpg",
-        "mainText3": "es_edicola_votiva_maintext3.html"
+        "mainText3": "es_edicola_votiva_maintext3.html",
+        "pageTitle": "Santuario votivo de la Virgen y el Niño",
+        "headerTitle": "Santuario votivo de la Virgen y el Niño",
+        "playAudioButton": "Escuchar la historia",
+        "pauseAudioButton": "Detener la reproducción",
+        "mainText": "",
+        "sourceText": ""
     }
 }
