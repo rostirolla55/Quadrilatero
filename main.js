@@ -28,7 +28,7 @@ let db, auth, currentUserId = null, isAuthReady = false;
 // ===========================================
 const POIS_LOCATIONS = [
     { id: 'manifattura', lat: 44.4989321, lon: 11.336618, distanceThreshold: 50, categoria: 'edificio' },
-    { id: 'pittoricarracci', lat: 44.49909, lon: 11.340316, distanceThreshold: 50, categoria: 'arte' },
+    { id: 'pittoricarracci', lat: 44.498485, lon: 11.332663, distanceThreshold: 50, categoria: 'arte' },
     { id: 'cavaticcio', lat: 44.500207, lon: 11.338076, distanceThreshold: 50, categoria: 'edificio' },
     { id: 'bsmariamaggiore', lat: 44.498118, lon: 11.341923, distanceThreshold: 50, categoria: 'edificio' },
     { id: 'graziaxx', lat: 44.500594, lon: 11.340758, distanceThreshold: 50, categoria: 'esterno' },

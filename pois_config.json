@@ -11,8 +11,8 @@
         },
         {
             "id": "pittoricarracci",
-            "lat": 44.49909,
-            "lon": 11.340316,
+            "lat": 44.498485,
+            "lon": 11.332663,
             "threshold": 50,
             "nav_id": "navPittoricarracci",
             "base_name": "pittoricarracci",
