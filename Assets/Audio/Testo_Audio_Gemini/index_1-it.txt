@@ -1,0 +1,1 @@
+A fianco c’è un simbolo del “pin” verde che selezionando vi porta alla mappa di tutti i punti di interesse rappresentati da pin rossi, mentre i cerchi verdi con un numero al suo interno rappresenta un gruppo di punti di interesse molto vicini fra loro, e se selezionato presenta a destra una lista delle pagine relative.

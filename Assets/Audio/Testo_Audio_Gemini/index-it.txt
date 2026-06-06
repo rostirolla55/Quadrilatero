@@ -1,0 +1,15 @@
+Benvenuto sul sito che parla di Bologna.
+
+Vi accompagno con l'audio e per maggiori dettagli potete leggere il testo e le immagini nella pagina.
+
+Vi porto indietro nel tempo basandomi sul luogo dove vi fermate.
+
+Attivando il GPS del vostro smartphone,... in alto a destra comparirà un bottone rettangolare verde se esistono nelle vicinanze dei punti di interesse che sono presenti nelle pagine del sito. 
+
+Selezionato il bottone verde, comparirà la lista dei posti nelle vicinanze che sono di interesse.
+
+Selezionando una voce della lista vi si aprirà la pagina corrispondente a quel luogo.
+ 
+In alto a sinistra c'é un menu con tre lineette orizzontali che vi dà la lista completa dei luoghi che sono documentati nel sito.
+ 
+A fianco c’è un simbolo del “pin” verde che selezionando vi porta alla mappa di tutti i punti di interesse rappresentati da pin rossi, mentre i cerchi verdi con un numero al suo interno rappresenta un gruppo di punti di interesse molto vicini fra loro, e se selezionato presenta a destra una lista delle pagine relative.

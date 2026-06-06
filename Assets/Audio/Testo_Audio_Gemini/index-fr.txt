@@ -1,0 +1,15 @@
+Bienvenue sur le site consacré à Bologne.
+
+Je vous accompagnerai avec des commentaires audio, et pour plus de détails, vous pouvez consulter les textes et les images de cette page.
+
+Je vous ferai voyager dans le temps en fonction de votre position.
+
+En activant le GPS de votre smartphone, un bouton rectangulaire vert apparaîtra en haut à droite si des points d'intérêt répertoriés sur le site se trouvent à proximité.
+
+En cliquant sur ce bouton vert, une liste des points d'intérêt à proximité s'affichera.
+
+Sélectionner un élément de la liste ouvrira la page correspondante.
+
+En haut à gauche, un menu à trois lignes horizontales vous donne accès à la liste complète des lieux répertoriés sur le site.
+
+À côté, une épingle verte vous permet d'accéder à une carte affichant tous les points d'intérêt, représentés par des épingles rouges. Des cercles verts numérotés indiquent un groupe de points d'intérêt proches. En les sélectionnant, vous afficherez une liste de pages associées à droite.
