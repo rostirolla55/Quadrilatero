@@ -1,10 +1,10 @@
- ChiesaSanCarlo_it.docx
- bsmariamaggiore_it.docx
- index_it.docx
+chiesaSanCarlo_it.docx
+bsmariamaggiore_it.docx
 carracci_it.docx
 cavaticcio_it.docx
 chiesasbene_it.docx
 graziaxx_it.docx
+index_it.docx
 lastre_it.docx
 manifattura_it.docx
 pioggia1_it.docx
@@ -15,3 +15,6 @@ pugliole_it.docx
 santuariopioggia_it.docx
 stabile_legno_vandini_it.docx
 template_it.docx
+
+fatte
+carracci_it.docx
