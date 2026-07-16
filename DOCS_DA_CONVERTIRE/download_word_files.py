@@ -1,5 +1,6 @@
 import os
 import io
+import sys  # Importato per leggere i parametri passati dal file .bat
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -35,8 +36,18 @@ def get_gdrive_service():
 def download_word_files():
     service = get_gdrive_service()
 
-    # Inserisci qui la stringa che vuoi cercare nel nome del file
-    filtro_nome = "_analysis_"
+    # CONTROLLO DEI PARAMETRI INPUT
+    # Se viene passato un parametro (es. chiesasbene), filtriamo per quel nome specifico
+    if len(sys.argv) > 1:
+        id_pagina = sys.argv[1]
+        print(f"[PARAMETRO RILEVATO] Filtro impostato per la pagina: '{id_pagina}'")
+        # Cercherà i file che contengono il nome della pagina (es. 'carracci' o 'sanbenedetto')
+        # NOTA: Assicurati che il nome della pagina sia contenuto nel titolo del file su Drive
+        filtro_nome = id_pagina
+    else:
+        # Comportamento standard se eseguito senza parametri
+        filtro_nome = "_analysis_"
+        print(f"[DEFAULT] Nessun parametro fornito. Ricerca generica dei file che contengono '{filtro_nome}'")
 
     # Query aggiornata: esclude l'archivio, filtra per tipo di file E pretende il testo nel nome
     query = (
@@ -46,7 +57,7 @@ def download_word_files():
         "mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')"
     )
     
-    print(f"Ricerca dei file che contengono '{filtro_nome}' nel nome...")
+    print(f"Esecuzione query di ricerca su Drive...")
     results = service.files().list(
         q=query, 
         pageSize=20, 
@@ -78,7 +89,7 @@ def download_word_files():
                 mimeType='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             )
         
-        # Caso 2: È già un file Word (.docx) -> Download diretto del file binario
+        # Caso 2: È già un file Word (.docx) -> Download directo del file binario
         else:
             request = service.files().get_media(fileId=file_id)
 
@@ -111,5 +122,6 @@ def download_word_files():
             print(f"Errore durante lo spostamento del file su Drive: {e}")
             
     print("\nProcedura terminata!")
+
 if __name__ == '__main__':
     download_word_files()
