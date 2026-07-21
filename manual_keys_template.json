@@ -147,15 +147,19 @@
     },   
     "carracci": {
         "it": {
+            "lastUpdate": "2026-07-21",
             "audioSource": "it/carracci.mp3"
         },
         "en": {
+            "lastUpdate": "2026-07-21",
             "audioSource": "en/carracci.mp3"
         },
         "es": {
+            "lastUpdate": "2026-07-21",
             "audioSource": "es/carracci.mp3"
         },
         "fr": {
+            "lastUpdate": "2026-07-21",
             "audioSource": "fr/carracci.mp3"
         }
     },   

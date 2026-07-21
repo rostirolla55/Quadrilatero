@@ -10,5 +10,11 @@ data/translations/**/*.pdf
 .gitkeep
 sessione
 # Credenziali e Token di autenticazione Google
+token.json
+credentials.json
 DOCS_DA_CONVERTIRE/token.json
 DOCS_DA_CONVERTIRE/credentials.json
+.tmp.driveupload/
+*.~lock.*
+~$*.docx
+*.tmp
