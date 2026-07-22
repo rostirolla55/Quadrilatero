@@ -147,18 +147,22 @@
     },   
     "carracci": {
         "it": {
+            "pageTitle": "Casa di Ludovico Carracci",
             "lastUpdate": "2026-07-21",
             "audioSource": "it/carracci.mp3"
         },
         "en": {
+            "pageTitle": "Ludovico Carracci's house",
             "lastUpdate": "2026-07-21",
             "audioSource": "en/carracci.mp3"
         },
         "es": {
+            "pageTitle": "La casa de Ludovico Carracciw",
             "lastUpdate": "2026-07-21",
             "audioSource": "es/carracci.mp3"
         },
         "fr": {
+            "pageTitle": "Maison de Ludovico Carracci",
             "lastUpdate": "2026-07-21",
             "audioSource": "fr/carracci.mp3"
         }
