@@ -1,5 +1,0 @@
-edicola_votiva_tanari:
-[SPLIT_BLOCK:angolo_tanari_avesella.jpg]
-[SPLIT_BLOCK:edicola_san_antonio.jpg]
-manifattura:
-[SPLIT_BLOCK:manifattura_facciata.jpg]

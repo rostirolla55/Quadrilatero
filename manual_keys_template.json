@@ -1,103 +1,47 @@
 {
     "description": "<font color=\"#ff0000\">rosso</font>, <font color=\"#3465a4\">blu</font> Questo file contiene gli override manuali per le chiavi in texts.json. Le modifiche qui definite verranno applicate allo specifico PAGE_ID (es. 'manifattura') solo quando il manual_key_updater.py viene eseguito per quella pagina. le chiavi statiche  cono 'audioSource' 'headImage' 'pageTitle' 'pauseAudioButton' 'playAudioButton' 'sourceText' 'creationDate' 'lastUpdate' 'mainText'",
-    "nav": {
-        "it": {
-        "navChiesasancarlo": "Chiesa San Carlo Borromeo al Porto"
-        },
-        "en": {
-        "navChiesasancarlo": "Church San Carlo Borromeo al Porto"
-        },
-        "es": {
-        "navChiesasancarlo": "Iglesia San Carlo Borromeo al Porto"
-        },
-        "fr": {
-        "navChiesasancarlo": "Église San Carlo Borromeo al Porto"
-        }
-    },    
-    "bsmariamaggiore": {
-        "it": {
-            "pageTitle": "Basilica di Santa Maria Maggiore",
-            "playAudioButton": "Ascolta la storia",
-            "pauseAudioButton": "Ferma la riproduzione",
-            "mainText": "<p><font color=\"#ff0000\"><b>Se entri in chiesa, usa gli auricolari per ascoltare l'audio </b></font> </p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
-            "sourceText": "",
-            "lastUpdate": "2025-12-26",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "it/bsmariamaggiore.mp3"
-        },
-        "es": {
-            "pageTitle": "Basílica de Santa María la Mayor",
-            "playAudioButton": "Escuchar la historia",
-            "pauseAudioButton": "Detener la reproducción",
-            "mainText": "<p><font color=\"#ff0000\"><b>Si entra en la iglesia, use auriculares para escuchar el audio.</b></font> </p><p><font color=\"#3465a4\">Para conocer el horario de apertura, visite la página https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
-            "sourceText": "",
-            "lastUpdate": "2025-12-26",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "es/bsmariamaggiore.mp3"
-        },
-        "fr": {
-            "pageTitle": "Basilique de Santa Maria Maggiore",
-            "playAudioButton": "Écouter le récit",
-            "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "<p><font color=\"#ff0000\"><b>Si vous entrez dans l'église, utilisez des écouteurs pour écouter l'audio.</b></font> </p><p><font color=\"#3465a4\">Pour connaître les horaires d'ouverture, veuillez consulter la page https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
-            "sourceText": "",
-            "lastUpdate": "2025-12-26",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "fr/bsmariamaggiore.mp3"
-        },
-        "en": {
-            "pageTitle": "Basilica of Santa Maria Maggiore",
-            "playAudioButton": "Listen with headphones",
-            "pauseAudioButton": "Pause",
-            "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/Santa-Maria-Maggiore-Bologna-54DB1 </font> </p>",
-            "sourceText": "",
-            "lastUpdate": "2025-12-26",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "en/bsmariamaggiore.mp3"
-        }
-    },
     "chiesapioggia": {
         "it": {
-            "pageTitle": "Chiesa della Pioggia",
+            "pageTitle": "Santuario della Pioggia",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
-            "mainText": "<p><font color=\"#ff0000\"><b>Se entri in chiesa, usa gli auricolari per ascoltare l'audio </b></font> </p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
+            "mainText": "<p><font color=\"#ff0000\"><b>Se entri nel santuario, usa gli auricolari per ascoltare l'audio </b></font> </p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "it/chiesapioggia.mp3"
         },
         "es": {
-            "pageTitle": "Iglesia de Pioggia",
+            "pageTitle": "Santuario de la Lluvia",
             "playAudioButton": "Escuchar la historia",
             "pauseAudioButton": "Detener la reproducción",
-            "mainText": "<p><font color=\"#ff0000\"><b>Si entra en la iglesia, use auriculares para escuchar el audio.</b></font> </p><p><font color=\"#3465a4\">Para conocer el horario de apertura, visite la página https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
+            "mainText": "<p><font color=\"#ff0000\"><b>Si ingresa al santuario, utilice auriculares para escuchar el audio.</b></font> </p><p><font color=\"#3465a4\">Para conocer el horario de apertura, visite la página https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": " ",
-            "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "es/chiesapioggia.mp3"
         },
         "fr": {
-            "pageTitle": "Église de la Pluie",
+            "pageTitle": "Sanctuaire de la pluie",
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "<p><font color=\"#ff0000\"><b>Si vous entrez dans l'église, utilisez des écouteurs pour écouter l'audio.</b></font> </p><p><font color=\"#3465a4\">Pour connaître les horaires d'ouverture, veuillez consulter la page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
+            "mainText": "<p><font color=\"#ff0000\"><b>Si vous entrez dans le sanctuaire, utilisez des écouteurs pour écouter l'audio.</b></font> </p><p><font color=\"#3465a4\">Pour connaître les horaires d'ouverture, veuillez consulter la page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "fr/chiesapioggia.mp3"
         },
         "en": {
-            "pageTitle": "Church of the Rain",
+            "pageTitle": "Sanctuary of the Rain",
             "playAudioButton": "Listen with headphones",
             "pauseAudioButton": "Pause",
-            "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
+            "mainText": "<p><font color=\"#ff0000\"><b>If you enter the sanctuary, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "en/chiesapioggia.mp3"
         }
-    },    
+    },
     "chiesasbene": {
         "it": {
             "pageTitle": "Chiesa di San Benedetto",
@@ -105,7 +49,7 @@
             "pauseAudioButton": "Ferma la riproduzione",
             "mainText": "<p><font color=\"#ff0000\"><b>Se entri in chiesa, usa gli auricolari per ascoltare l'audio </b></font> </p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina https://dindondan.app/orarimesse/San-Benedetto-Bologna-602DC </font> </p>",
             "sourceText": "",
-            "lastUpdate": "2026-07-18",
+            "lastUpdate": "2025-12-19",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "it/chiesasbene.mp3"
         },
@@ -115,7 +59,7 @@
             "pauseAudioButton": "Detener la reproducción",
             "mainText": "<p><font color=\"#ff0000\"><b>Si entra en la iglesia, use auriculares para escuchar el audio.</b></font> </p><p><font color=\"#3465a4\">Para conocer el horario de apertura, visite la página https://dindondan.app/orarimesse/San-Benedetto-Bologna-602DC </font> </p>",
             "sourceText": " ",
-            "lastUpdate": "2026-07-18",
+            "lastUpdate": "2025-12-19",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "es/chiesasbene.mp3"
         },
@@ -125,7 +69,7 @@
             "pauseAudioButton": "Arrêter la lecture",
             "mainText": "<p><font color=\"#ff0000\"><b>Si vous entrez dans l'église, utilisez des écouteurs pour écouter l'audio.</b></font> </p><p><font color=\"#3465a4\">Pour connaître les horaires d'ouverture, veuillez consulter la page https://dindondan.app/orarimesse/San-Benedetto-Bologna-602DC </font> </p>",
             "sourceText": "",
-            "lastUpdate": "2026-07-18",
+            "lastUpdate": "2025-12-19",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "fr/chiesasbene.mp3"
         },
@@ -135,30 +79,101 @@
             "pauseAudioButton": "Pause",
             "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/San-Benedetto-Bologna-602DC </font> </p>",
             "sourceText": "",
-            "lastUpdate": "2026-07-18",
+            "lastUpdate": "2025-12-19",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "en/chiesasbene.mp3"
         }
     },
+    "bsmariamaggiore": {
+        "it": {
+            "pageTitle": "Basilica  di Santa Maria Maggiore",
+            "playAudioButton": "Ascolta la storia",
+            "pauseAudioButton": "Ferma la riproduzione",
+            "mainText": "<p><font color=\"#ff0000\"><b>Se entri in chiesa, usa gli auricolari per ascoltare l'audio </b></font> <br> </p>",
+            "sourceText": "",
+            "lastUpdate": "2025-12-23",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "it/bsmariamaggiore.mp3"
+        },
+        "es": {
+            "pageTitle": "Basílica de Santa María la Mayor",
+            "playAudioButton": "Escuchar la historia",
+            "pauseAudioButton": "Detener la reproducción",
+            "mainText": "<p><font color=\"#ff0000\"><b>Si entra en la iglesia, use auriculares para escuchar el audio.</b></font> </p>",
+            "sourceText": " ",
+            "lastUpdate": "2025-12-23",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "es/bsmariamaggiore.mp3"
+        },
+        "fr": {
+            "pageTitle": "Basilique de Santa Maria Maggiore",
+            "headImage": "panorama_bologna.jpg",
+            "playAudioButton": "Écouter le récit",
+            "pauseAudioButton": "Arrêter la lecture",
+            "mainText": "<p><font color=\"#ff0000\"><b>Si vous entrez dans l'église, utilisez des écouteurs pour écouter l'audio.</b></font> </p>",
+            "sourceText": "",
+            "lastUpdate": "2025-12-23",
+            "audioSource": "fr/bsmariamaggiore.mp3"
+        },
+        "en": {
+            "pageTitle": "Basilica of Santa Maria Maggiore",
+            "playAudioButton": "Listen with headphones",
+            "pauseAudioButton": "Pause",
+            "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p>",
+            "sourceText": "",
+            "lastUpdate": "2025-12-23",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "en/bsmariamaggiore.mp3"
+        }
+    },
+    "chiesasancarlo": {
+        "it": {
+            "pageTitle": "Basilica  di Santa Maria Maggiore",
+            "playAudioButton": "Ascolta la storia",
+            "pauseAudioButton": "Ferma la riproduzione",
+            "mainText": "<p><font color=\"#ff0000\"><b>Se entri in chiesa, usa gli auricolari per ascoltare l'audio </b></font> <br> </p>",
+            "sourceText": "",
+            "lastUpdate": "2025-12-23",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "it/chiesasancarlo.mp3"
+        },
+        "es": {
+            "pageTitle": "Basílica de Santa María la Mayor",
+            "playAudioButton": "Escuchar la historia",
+            "pauseAudioButton": "Detener la reproducción",
+            "mainText": "<p><font color=\"#ff0000\"><b>Si entra en la iglesia, use auriculares para escuchar el audio.</b></font> </p>",
+            "sourceText": " ",
+            "lastUpdate": "2025-12-23",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "es/chiesasancarlo.mp3"
+        },
+        "fr": {
+            "pageTitle": "Basilique de Santa Maria Maggiore",
+            "headImage": "panorama_bologna.jpg",
+            "playAudioButton": "Écouter le récit",
+            "pauseAudioButton": "Arrêter la lecture",
+            "mainText": "<p><font color=\"#ff0000\"><b>Si vous entrez dans l'église, utilisez des écouteurs pour écouter l'audio.</b></font> </p>",
+            "sourceText": "",
+            "lastUpdate": "2025-12-23",
+            "audioSource": "fr/chiesasancarlo.mp3"
+        },
+        "en": {
+            "pageTitle": "Basilica of Santa Maria Maggiore",
+            "playAudioButton": "Listen with headphones",
+            "pauseAudioButton": "Pause",
+            "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p>",
+            "sourceText": "",
+            "lastUpdate": "2025-12-23",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "en/chiesasancarlo.mp3"
+        }
+    }
+,
     "lastre": {
         "it": {
             "audioSource": "it/lastre.mp3"
         }
-    },   
-    "carracci": {
-        "it": {
-            "audioSource": "it/carracci.mp3"
-        },
-        "en": {
-            "audioSource": "en/carracci.mp3"
-        },
-        "es": {
-            "audioSource": "es/carracci.mp3"
-        },
-        "fr": {
-            "audioSource": "fr/carracci.mp3"
-        }
-    },   
+    },
     "cavaticcio": {
         "it": {
             "pageTitle": "Centrale Idroelettrica del Cavaticcio",
@@ -166,7 +181,6 @@
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
             "mainText": "",
-            "imageSource1": "cavaticcio/turbina_centrale_cavaticcio.jpg",
             "lastUpdate": "2025-12-19",
             "sourceText": "Archivio Storico del Quartiere Porto",
             "audioSource": "it/centraleidroelettricacavaticcio.mp3"
@@ -176,7 +190,6 @@
             "playAudioButton": "Escuchar la historia",
             "pauseAudioButton": "Detener la reproducción",
             "mainText": "",
-            "imageSource1": "cavaticcio/turbina_centrale_cavaticcio.jpg",
             "sourceText": "Archivo Histórico del Distrito de Oporto",
             "lastUpdate": "2025-12-19",
             "headImage": "panorama_bologna.jpg",
@@ -187,7 +200,6 @@
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
             "mainText": "",
-            "imageSource1": "cavaticcio/turbina_centrale_cavaticcio.jpg",
             "sourceText": "Archives historiques du quartier de Porto",
             "lastUpdate": "2025-12-19",
             "headImage": "panorama_bologna.jpg",
@@ -197,14 +209,13 @@
             "pageTitle": "Cavaticcio hydroelectric power plant",
             "lastUpdate": "2025-12-19",
             "sourceText": "Porto District Historical Archive",
-            "imageSource1": "cavaticcio/turbina_centrale_cavaticcio.jpg",
             "headImage": "panorama_bologna.jpg",
             "playAudioButton": "Listen with headphones",
             "pauseAudioButton": "Pause",
             "mainText": "",
             "audioSource": "en/centraleidroelettricacavaticcio.mp3"
         }
-    },    
+    },
     "manifattura": {
         "it": {
             "pageTitle": "Ex Manifattura Tabacchi",
@@ -245,7 +256,7 @@
             "mainText": "",
             "audioSource": "en/manifattura.mp3"
         }
-    },    
+    },
     "graziaxx": {
         "it": {
             "audioSource": "it/graziaxx.mp3"
@@ -265,40 +276,40 @@
             "pageTitle": "Paesaggio con San Bartolomeo",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
-            "mainText": "<p><font color=\"#ff0000\"><b>Se entri in chiesa, usa gli auricolari per ascoltare l'audio </b></font> </p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
+            "mainText": "",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "it/pioggia1.mp3"
         },
         "es": {
             "pageTitle": "Landscape with St. Bartholomew",
             "playAudioButton": "Escuchar la historia",
             "pauseAudioButton": "Detener la reproducción",
-            "mainText": "<p><font color=\"#ff0000\"><b>Si entra en la iglesia, use auriculares para escuchar el audio.</b></font> </p><p><font color=\"#3465a4\">Para conocer el horario de apertura, visite la página https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
+            "mainText": "",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "es/pioggia1.mp3"
         },
         "fr": {
             "pageTitle": "Paysage avec Saint-Barthélemy",
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "<p><font color=\"#ff0000\"><b>Si vous entrez dans l'église, utilisez des écouteurs pour écouter l'audio.</b></font> </p><p><font color=\"#3465a4\">Pour connaître les horaires d'ouverture, veuillez consulter la page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
+            "mainText": "",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "fr/pioggia1.mp3"
         },
         "en": {
             "pageTitle": "Landscape with St. Bartholomew",
             "playAudioButton": "Listen with headphones",
             "pauseAudioButton": "Pause",
-            "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
+            "mainText": "",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "santuariopioggia.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "en/pioggia1.mp3"
         }
     },
@@ -307,40 +318,40 @@
             "pageTitle": "Scultura San Bartolomeo",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
-            "mainText": "<p><font color=\"#ff0000\"><b>La statua si trova al civico 124 di via Riva Reno. Visitabile in occasioni di certe manifestazioni con la presenza di una guida</b></font> </p><p>",
+            "mainText": "",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "panorama_bologna.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "it/pioggia2.mp3"
         },
         "es": {
             "pageTitle": "Escultura de San Bartolomé",
             "playAudioButton": "Escuchar la historia",
             "pauseAudioButton": "Detener la reproducción",
-            "mainText": "<p><font color=\"#ff0000\"><b>La estatua se encuentra en el número 124 de Via Riva Reno. Se puede visitar con un guía durante ciertos eventos.</b></font> </p><p>",
+            "mainText": "",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "panorama_bologna.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "es/pioggia2.mp3"
         },
         "fr": {
             "pageTitle": "Sculpture de Saint Barthélemy",
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "<p><font color=\"#ff0000\"><b>La statue se trouve au numéro 124 de la Via Riva Reno. Elle peut être visitée lors de certains événements en compagnie d'un guide.</b></font> </p><p>",
+            "mainText": "",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "panorama_bologna.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "fr/pioggia2.mp3"
         },
         "en": {
             "pageTitle": "Saint Bartholomew Sculpture",
             "playAudioButton": "Listen with headphones",
             "pauseAudioButton": "Pause",
-            "mainText": "<p><font color=\"#ff0000\"><b>The statue is located at number 124 Via Riva Reno. It can be visited during certain events with a guide.</b></font> </p><p>",
+            "mainText": "",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "panorama_bologna.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "en/pioggia2.mp3"
         }
     },
@@ -349,45 +360,60 @@
             "pageTitle": "Adorazione dei pastori",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
-            "mainText": "<p><font color=\"#ff0000\"><b>Il quadro si trova al civico 124 di via Riva Reno. Visitabile in occasioni di certe manifestazioni con la presenza di una guida</b></font> </p><p>",
+            "mainText": "",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "panorama_bologna.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "it/pioggia3.mp3"
         },
         "es": {
             "pageTitle": "Adoración de los pastores",
             "playAudioButton": "Escuchar la historia",
             "pauseAudioButton": "Detener la reproducción",
-            "mainText": "<p><font color=\"#ff0000\"><b>El cuadro se encuentra en el número 124 de Via Riva Reno. Se puede visitar con un guía durante ciertos eventos.</b></font> </p><p>",
+            "mainText": "",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "panorama_bologna.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "es/pioggia3.mp3"
         },
         "fr": {
             "pageTitle": "Adoration des bergers",
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "<p><font color=\"#ff0000\"><b>Le tableau se trouve au numéro 124 de la Via Riva Reno. Elle peut être visitée lors de certains événements en compagnie d'un guide.</b></font> </p><p>",
+            "mainText": "",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "panorama_bologna.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "fr/pioggia3.mp3"
         },
         "en": {
             "pageTitle": "Adoration of the Shepherds",
             "playAudioButton": "Listen with headphones",
             "pauseAudioButton": "Pause",
-            "mainText": "<p><font color=\"#ff0000\"><b>The painting is located at number 124 Via Riva Reno. It can be visited during certain events with a guide.</b></font> </p><p>",
+            "mainText": "",
             "sourceText": "",
-            "lastUpdate": "2025-12-19",
-            "headImage": "panorama_bologna.jpg",
+            "lastUpdate": "2026-02-03",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "en/pioggia3.mp3"
+        }
+    },
+    "carracci": {
+        "it": {
+            "audioSource": "it/carracci.mp3"
+        },
+        "en": {
+            "audioSource": "en/carracci.mp3"
+        },
+        "es": {
+            "audioSource": "es/carracci.mp3"
+        },
+        "fr": {
+            "audioSource": "fr/carracci.mp3"
         }
     },
     "pugliole": {
         "it": {
+            "pageTitle": "Le Pugliole",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
             "mainText": "",
@@ -396,6 +422,7 @@
             "audioSource": "it/pugliole.mp3"
         },
         "es": {
+            "pageTitle": "El Pugliole",
             "playAudioButton": "Escuchar la historia",
             "pauseAudioButton": "Detener la reproducción",
             "mainText": "",
@@ -404,6 +431,7 @@
             "audioSource": "es/pugliole.mp3"
         },
         "fr": {
+            "pageTitle": "Les Pugliole",
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
             "mainText": "",
@@ -412,6 +440,7 @@
             "audioSource": "fr/pugliole.mp3"
         },
         "en": {
+            "pageTitle": "The Pugliole",
             "playAudioButton": "Listen with headphones",
             "pauseAudioButton": "Pause",
             "mainText": "",
@@ -419,130 +448,5 @@
             "headImage": "panorama_bologna.jpg",
             "audioSource": "en/pugliole.mp3"
         }
-    },
-    "chiesasancarlo": {
-        "it": {
-            "pageTitle": "Chiesa San Carlo Borromeo al Porto",
-            "headerTitle": "Chiesa San Carlo Borromeo al Porto",
-            "playAudioButton": "Ascolta la storia",
-            "pauseAudioButton": "Ferma la riproduzione",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "it/chiesasancarlo.mp3"
-        },
-        "es": {
-            "pageTitle": "Iglesia de San Carlo Borromeo",
-            "playAudioButton": "Escuchar la historia",
-            "pauseAudioButton": "Detener la reproducción",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-           "audioSource": "es/chiesasancarlo.mp3"
-        },
-        "fr": {
-            "pageTitle": "Église San Carlo Borromeo al Porto",
-            "playAudioButton": "Écouter le récit",
-            "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-           "audioSource": "fr/chiesasancarlo.mp3"
-        },
-        "en": {
-            "pageTitle": "Church San Carlo Borromeo al Porto",
-            "playAudioButton": "Listen with headphones",
-            "pauseAudioButton": "Pause",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "en/chiesasancarlo.mp3"
-        }
-    },
-    "stabile_legno_vandini": {
-        "it": {
-            "pageTitle": "Edificio Aldo Vandini in legno",
-            "headerTitle": "Edificio Aldo Vandini in legno",
-            "playAudioButton": "Ascolta la storia",
-            "pauseAudioButton": "Ferma la riproduzione",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "it/stabile_legno_vandini.mp3"
-        },
-        "es": {
-            "pageTitle": "Edificio de madera de Aldo Vandini",
-            "headerTitle": "Edificio de madera de Aldo Vandini",
-            "playAudioButton": "Escuchar la historia",
-            "pauseAudioButton": "Detener la reproducción",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-           "audioSource": "es/stabile_legno_vandini.mp3"
-        },
-        "fr": {
-            "pageTitle": "Bâtiment en bois d'Aldo Vandini",
-            "headerTitle": "Bâtiment en bois d'Aldo Vandini",
-            "playAudioButton": "Écouter le récit",
-            "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-           "audioSource": "fr/stabile_legno_vandini.mp3"
-        },
-        "en": {
-            "pageTitle": "Aldo Vandini wooden building",
-            "headerTitle": "Aldo Vandini wooden building",
-            "playAudioButton": "Listen with headphones",
-            "pauseAudioButton": "Pause",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "en/stabile_legno_vandini.mp3"
-        }
     }
-,
-    "edicola_votiva": {
-        "it": {
-            "pageTitle": "Edicola votiva Madonna con Bambino",
-            "headerTitle": "Votiva Madonna con Bambino",
-            "playAudioButton": "Ascolta la storia",
-            "pauseAudioButton": "Ferma la riproduzione",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "it/edicola_votiva.mp3"
-        },
-        "es": {
-            "pageTitle": "Santuario votivo de la Virgen y el Niño",
-            "headerTitle": "Santuario votivo de la Virgen y el Niño",
-            "playAudioButton": "Escuchar la historia",
-            "pauseAudioButton": "Detener la reproducción",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-           "audioSource": "es/edicola_votiva.mp3"
-        },
-        "fr": {
-            "pageTitle": "Littoral votif de la Vierge à l'Enfant",
-            "headerTitle": "Littoral votif de la Vierge à l'Enfant",
-            "playAudioButton": "Écouter l'histoire",
-            "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-           "audioSource": "fr/edicola_votiva.mp3"
-        },
-        "en": {
-            "pageTitle": "Votive Shrine of the Madonna and Child",
-            "headerTitle": "Votive Shrine of the Madonna and Child",
-            "playAudioButton": "Listen to the story",
-            "pauseAudioButton": "Stop playback",
-            "mainText": "",
-            "sourceText": "",
-            "headImage": "panorama_bologna.jpg",
-            "audioSource": "en/edicola_votiva.mp3"
-        }
-    }
-
 }

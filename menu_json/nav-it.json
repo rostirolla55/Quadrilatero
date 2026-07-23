@@ -6,34 +6,14 @@
             "text": "Benvenuto"
         },
         {
-            "id": "navManifattura",
-            "href": "manifattura-it.html",
-            "text": "Ex Manifattura Tabacchi"
-        },
-        {
-            "id": "navPittoricarracci",
-            "href": "pittoricarracci-it.html",
-            "text": "I Pittori Carracci"
-        },
-        {
-            "id": "navCavaticcio",
-            "href": "cavaticcio-it.html",
-            "text": "La Centrale Idroelettrica del Cavaticcio"
-        },
-        {
-            "id": "navBsmariamaggiore",
-            "href": "bsmariamaggiore-it.html",
-            "text": "Basilica Santa Maria Maggiore"
-        },
-        {
-            "id": "navGraziaxx",
-            "href": "graziaxx-it.html",
-            "text": "Lapide votiva Grazia"
-        },
-        {
             "id": "navPugliole",
             "href": "pugliole-it.html",
-            "text": "Le pugliole"
+            "text": "Le Pugliole"
+        },
+        {
+            "id": "navLastre",
+            "href": "lastre-it.html",
+            "text": "Le Lastre"
         },
         {
             "id": "navCarracci",
@@ -41,49 +21,54 @@
             "text": "Casa di Ludovico Carracci"
         },
         {
-            "id": "navLastre",
-            "href": "lastre-it.html",
-            "text": "Numeri civici su lastre in arenaria"
+            "id": "navGraziaxx",
+            "href": "graziaxx-it.html",
+            "text": "Grazia Mariana"
         },
         {
-            "id": "navChiesasbene",
+            "id": "navChiesaSBene",
             "href": "chiesasbene-it.html",
             "text": "Chiesa San Benedetto"
         },
         {
-            "id": "navSantuariopioggia",
-            "href": "santuariopioggia-it.html",
+            "id": "navChiesaPioggia",
+            "href": "chiesapioggia-it.html",
             "text": "Santuario della Pioggia"
         },
         {
             "id": "navPioggia1",
             "href": "pioggia1-it.html",
-            "text": "Paesaggio con San Bartolomeo Alfonso Lombardi"
+            "text": "Paesaggio con San Bartolomeo"
         },
         {
             "id": "navPioggia2",
             "href": "pioggia2-it.html",
-            "text": "Scultura San Bartolomeo Ludovico Mattioli"
+            "text": "Scultura San Bartolomeo"
         },
         {
             "id": "navPioggia3",
             "href": "pioggia3-it.html",
-            "text": "Adorazione dei pastori Agostino Carracci"
+            "text": "Adorazione dei pastori"
         },
         {
-            "id": "navChiesasancarlo",
-            "href": "chiesasancarlo-it.html",
-            "text": "Chiesa San Carlo Borromeo al Porto"
+            "id": "navManifattura",
+            "href": "manifattura-it.html",
+            "text": "Ex Manifattura Tabacchi"
         },
         {
-            "id": "navStabilevandini",
-            "href": "stabile_legno_vandini-it.html",
-            "text": "Edificio Vandini in legno"
+            "id": "navPittoriCarracci",
+            "href": "pittoricarracci-it.html",
+            "text": "I pittori Carracci a Bologna"
         },
         {
-            "id": "navEdicolavotiva",
-            "href": "edicola_votiva-it.html",
-            "text": "Edicola votiva con Madonna col Bambino"
+            "id": "navCavaticcio",
+            "href": "cavaticcio-it.html",
+            "text": "Centrale idroelettrica del Cavaticcio"
+        },
+        {
+            "id": "navBSMariaMaggiore",
+            "href": "bsmariamaggiore-it.html",
+            "text": "Basilica di Santa Maria Maggiore"
         }
     ]
 }

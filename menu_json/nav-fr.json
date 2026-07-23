@@ -6,34 +6,14 @@
             "text": "Bienvenue"
         },
         {
-            "id": "navManifattura",
-            "href": "manifattura-fr.html",
-            "text": "Ancienne Manufacture de Tabac"
-        },
-        {
-            "id": "navPittoricarracci",
-            "href": "pittoricarracci-fr.html",
-            "text": "Les Peintres Carrache"
-        },
-        {
-            "id": "navCavaticcio",
-            "href": "cavaticcio-fr.html",
-            "text": "Centrale hydroélectrique de Cavaticcio"
-        },
-        {
-            "id": "navBsmariamaggiore",
-            "href": "bsmariamaggiore-fr.html",
-            "text": "Basilique Saint Marie Majeure"
-        },
-        {
-            "id": "navGraziaxx",
-            "href": "graziaxx-fr.html",
-            "text": "Plaque votive Grazia"
-        },
-        {
             "id": "navPugliole",
             "href": "pugliole-fr.html",
-            "text": "Le pugliole"
+            "text": "Les Pouilles"
+        },
+        {
+            "id": "navLastre",
+            "href": "lastre-fr.html",
+            "text": "Le Lastre"
         },
         {
             "id": "navCarracci",
@@ -41,49 +21,54 @@
             "text": "Maison de Ludovico Carracci"
         },
         {
-            "id": "navLastre",
-            "href": "lastre-fr.html",
-            "text": "Numéros de maison sur dalles de grès"
+            "id": "navGraziaxx",
+            "href": "graziaxx-fr.html",
+            "text": "Grazia Mariana"
         },
         {
-            "id": "navChiesasbene",
+            "id": "navChiesaSBene",
             "href": "chiesasbene-fr.html",
-            "text": "Église San Benedetto"
+            "text": "Église de San Benedetto"
         },
         {
-            "id": "navSantuariopioggia",
-            "href": "santuariopioggia-fr.html",
-            "text": "Sanctuaire de la pluie"
+            "id": "navChiesaPioggia",
+            "href": "chiesapioggia-fr.html",
+            "text": "Sanctuaire de la Pluie"
         },
         {
             "id": "navPioggia1",
             "href": "pioggia1-fr.html",
-            "text": "Paysage avec saint Barthélemy Alfonso Lombardi"
+            "text": "Paysage avec saint Barthélemy"
         },
         {
             "id": "navPioggia2",
             "href": "pioggia2-fr.html",
-            "text": "Sculpture de saint Barthélemy Ludovico Mattioli"
+            "text": "Sculpture de saint Barthélemy"
         },
         {
             "id": "navPioggia3",
             "href": "pioggia3-fr.html",
-            "text": "L'Adoration des bergersAgostino Carracci"
+            "text": "Adoration des bergers"
         },
         {
-            "id": "navChiesasancarlo",
-            "href": "chiesasancarlo-fr.html",
-            "text": "Église San Carlo Borromeo al Porto"
+            "id": "navManifattura",
+            "href": "manifattura-fr.html",
+            "text": "Ancienne Manufacture de Tabac"
         },
         {
-            "id": "navStabilevandini",
-            "href": "stabile_legno_vandini-fr.html",
-            "text": "Bâtiment en bois Vandini"
+            "id": "navPittoriCarracci",
+            "href": "pittoricarracci-fr.html",
+            "text": "Les Peintres Carrache"
         },
         {
-            "id": "navEdicolavotiva",
-            "href": "edicola_votiva-fr.html",
-            "text": "reliquaire votif représentant la Vierge à l'Enfant"
+            "id": "navCavaticcio",
+            "href": "cavaticcio-fr.html",
+            "text": "centrale hydroélectrique de Cavaticcio"
+        },
+        {
+            "id": "navbsmariamaggiore",
+            "href": "bsmariamaggiore-fr.html",
+            "text": "Basilique Saint Marie Majeure"
         }
     ]
 }

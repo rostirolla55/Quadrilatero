@@ -6,12 +6,57 @@
             "text": "Welcome"
         },
         {
+            "id": "navPugliole",
+            "href": "pugliole-en.html",
+            "text": "The Pugliole"
+        },
+        {
+            "id": "navLastre",
+            "href": "lastre-en.html",
+            "text": "The Lastre"
+        },
+        {
+            "id": "navCarracci",
+            "href": "carracci-en.html",
+            "text": "House of Ludovico Carracci"
+        },
+        {
+            "id": "navGraziaxx",
+            "href": "graziaxx-en.html",
+            "text": "Grazia Mariana"
+        },
+        {
+            "id": "navChiesaSBene",
+            "href": "chiesasbene-en.html",
+            "text": "Church of San Benedetto"
+        },
+        {
+            "id": "navChiesaPioggia",
+            "href": "chiesapioggia-en.html",
+            "text": "Sanctuary of the Rain"
+        },
+        {
+            "id": "navPioggia1",
+            "href": "pioggia1-en.html",
+            "text": "Landscape with Saint Bartholomew"
+        },
+        {
+            "id": "navPioggia2",
+            "href": "pioggia2-en.html",
+            "text": "Sculpture of Saint Bartholomew"
+        },
+        {
+            "id": "navPioggia3",
+            "href": "pioggia3-en.html",
+            "text": "Adoration of the Shepherds"
+        },
+        {
             "id": "navManifattura",
             "href": "manifattura-en.html",
             "text": "Ex Tobacco Factory"
         },
         {
-            "id": "navPittoricarracci",
+            "id": "navPittoriCarracci",
             "href": "pittoricarracci-en.html",
             "text": "The Carracci Painters"
         },
@@ -21,69 +66,9 @@
             "text": "Cavaticcio hydroelectric power plant"
         },
         {
-            "id": "navBsmariamaggiore",
+            "id": "navbsmariamaggiore",
             "href": "bsmariamaggiore-en.html",
-            "text": "Basilica Saint Mary Major"
-        },
-        {
-            "id": "navGraziaxx",
-            "href": "graziaxx-en.html",
-            "text": "Grazia votive plaque"
-        },
-        {
-            "id": "navPugliole",
-            "href": "pugliole-en.html",
-            "text": "The pugliole"
-        },
-        {
-            "id": "navCarracci",
-            "href": "carracci-en.html",
-            "text": "House of Ludovico Carracci"
-        },
-        {
-            "id": "navLastre",
-            "href": "lastre-en.html",
-            "text": "House numbers on sandstone slabs"
-        },
-        {
-            "id": "navChiesasbene",
-            "href": "chiesasbene-en.html",
-            "text": "Church of San Benedetto"
-        },
-        {
-            "id": "navSantuariopioggia",
-            "href": "santuariopioggia-en.html",
-            "text": "Sanctuary of the Rain"
-        },
-        {
-            "id": "navPioggia1",
-            "href": "pioggia1-en.html",
-            "text": "Landscape with Saint Bartholomew Alfonso Lombardi"
-        },
-        {
-            "id": "navPioggia2",
-            "href": "pioggia2-en.html",
-            "text": "Sculpture of Saint Bartholomew Ludovico Mattioli"
-        },
-        {
-            "id": "navPioggia3",
-            "href": "pioggia3-en.html",
-            "text": "The Adoration of the Shepherds Agostino Carracci"
-        },
-        {
-            "id": "navChiesasancarlo",
-            "href": "chiesasancarlo-en.html",
-            "text": "Church San Carlo Borromeo al Porto"
-        },
-        {
-            "id": "navStabilevandini",
-            "href": "stabile_legno_vandini-en.html",
-            "text": "Vandini wooden stable"
-        },
-        {
-            "id": "navEdicolavotiva",
-            "href": "edicola_votiva-en.html",
-            "text": "Votive shrine with Madonna and Child"
+            "text": "Basilica Saint Mary Major\""
         }
     ]
 }
