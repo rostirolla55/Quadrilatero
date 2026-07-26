@@ -16,3 +16,4 @@ token.json
 credentials.json
 # file temporanei per google drive
 .tmp.driveupload*
+.tmp.drivedownload*
