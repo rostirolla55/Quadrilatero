@@ -612,3 +612,24 @@ body.content-loaded #app-wrapper {
     min-width: 25px;
     display: inline-block;
 }
+
+/* --- OTTIMIZZAZIONE TABELLE FONTI PER MOBILE --- */
+
+/* 1. Permette lo scorrimento orizzontale su schermi stretti */
+.table, table {
+    display: block;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch; /* Rende il trascinamento fluido su smartphone */
+}
+
+/* 2. Evita che le colonne si schiaccino e tagliato i testi */
+.table th, .table td, table th, table td {
+    min-width: 120px; /* Garantisce che le colonne abbiano uno spazio minimo visibile */
+}
+
+/* 3. Permette al testo lungo della colonna di destra di andare a capo pulito */
+.table td:last-child, table td:last-child {
+    white-space: normal;
+    min-width: 220px; /* Dà ampio respiro alla descrizione/certificazione di destra */
+}
