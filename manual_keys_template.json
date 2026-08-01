@@ -151,7 +151,7 @@
             "headImage": "manifattura.jpg",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
-            "lastUpdate": "2025-11-07",
+            "lastUpdate": "2026-08-01",
             "sourceText": "Archivio Storico del Quartiere Porto",
             "audioSource": "it/manifattura.mp3"
         },
@@ -161,7 +161,7 @@
             "pauseAudioButton": "Detener la reproducción",
             "mainText": "",
             "sourceText": "Archivo Histórico del Distrito de Oporto",
-            "lastUpdate": "2025-11-07",
+            "lastUpdate": "2026-08-01",
             "headImage": "manifattura.jpg",
             "audioSource": "es/manifattura.mp3"
         },
@@ -171,13 +171,13 @@
             "pauseAudioButton": "Arrêter la lecture",
             "mainText": "",
             "sourceText": "Archives historiques du quartier de Porto",
-            "lastUpdate": "2025-11-07",
+            "lastUpdate": "2026-08-01",
             "headImage": "manifattura.jpg",
             "audioSource": "fr/manifattura.mp3"
         },
         "en": {
             "pageTitle": "Ex Tobacco Factory - Fixed Title",
-            "lastUpdate": "2025-11-07",
+            "lastUpdate": "2026-08-01",
             "sourceText": "Porto District Historical Archive",
             "headImage": "manifattura.jpg",
             "playAudioButton": "Listen with headphones",
