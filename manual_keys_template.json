@@ -91,15 +91,19 @@
     },   
     "carracci": {
         "it": {
+            "lastUpdate": "2026-08-01",
             "audioSource": "it/carracci.mp3"
         },
         "en": {
+            "lastUpdate": "2026-08-01",
             "audioSource": "en/carracci.mp3"
         },
         "es": {
+            "lastUpdate": "2026-08-01",
             "audioSource": "es/carracci.mp3"
         },
         "fr": {
+            "lastUpdate": "2026-08-01",
             "audioSource": "fr/carracci.mp3"
         }
     },
@@ -324,20 +328,6 @@
             "lastUpdate": "2026-02-03",
             "headImage": "chiesapioggia.jpg",
             "audioSource": "en/pioggia3.mp3"
-        }
-    },
-    "carracci": {
-        "it": {
-            "audioSource": "it/carracci.mp3"
-        },
-        "en": {
-            "audioSource": "en/carracci.mp3"
-        },
-        "es": {
-            "audioSource": "es/carracci.mp3"
-        },
-        "fr": {
-            "audioSource": "fr/carracci.mp3"
         }
     },
     "pugliole": {
