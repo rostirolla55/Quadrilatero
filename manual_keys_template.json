@@ -86,7 +86,33 @@
     },
     "bsmariamaggiore": {
         "it": {
-            "audioSource": "it/lastre.mp3"
+            "mainText": "<p><font color=\"#ff0000\"><b>Attualmente nella chiesa non vengono più svolte funzioni religiose.</b></font> </p><p><font color=\"#3465a4\">Per poter visitare la basilica contattare ...</font> </p>",
+            "sourceText": "",
+            "lastUpdate": "2026-08-21",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "it/bsmariamaggiore.mp3"
+       },
+        "en": {
+            "mainText": "<p><font color=\"#ff0000\"><b>Currently, religious services are no longer held in the church.</b></font> </p><p><font color=\"#3465a4\">To visit the basilica, contact ...</font> </p>",
+            "sourceText": "",
+            "lastUpdate": "2026-08-21",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "en/bsmariamaggiore.mp3"
+       },
+        "es": {
+            "mainText": "<p><font color=\"#ff0000\"><b>Actualmente, ya no se celebran servicios religiosos en la iglesia.</b></font> </p><p><font color=\"#3465a4\">Para visitar la basílica, contacte con...</font> </p>",
+            "sourceText": "",
+            "lastUpdate": "2026-08-21",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "es/bsmariamaggiore.mp3"
+       },
+        "fr": {
+            "mainText": "<p><font color=\"#ff0000\"><b>Actuellement, aucun office religieux n'est plus célébré dans l'église.</b></font> </p><p><font color=\"#3465a4\">Pour visiter la basilique, contactez…</font> </p>",
+            "sourceText": "",
+            "lastUpdate": "2026-08-21",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "fr/bsmariamaggiore.mp3"
+      
         }
     },   
     "carracci": {
