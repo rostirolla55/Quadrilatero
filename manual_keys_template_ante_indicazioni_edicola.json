@@ -1,53 +1,11 @@
 {
     "description": "<font color=\"#ff0000\">rosso</font>, <font color=\"#3465a4\">blu</font> Questo file contiene gli override manuali per le chiavi in texts.json. Le modifiche qui definite verranno applicate allo specifico PAGE_ID (es. 'manifattura') solo quando il manual_key_updater.py viene eseguito per quella pagina. le chiavi statiche  cono 'audioSource' 'headImage' 'pageTitle' 'pauseAudioButton' 'playAudioButton' 'sourceText' 'creationDate' 'lastUpdate' 'mainText'",
-    "edicola_votiva": {
-        "it": {
-            "pageTitle": "Edicola votiva Madonna con Bambino",
-            "playAudioButton": "Ascolta la storia",
-            "pauseAudioButton": "Ferma la riproduzione",
-			"mainText": "<p><font color=\"#ff0000\"><b>Se entri nel santuario, usa gli auricolari per ascoltare l'audio </b></font></p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina <a href=\"https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2\" target=\"_blank\" rel=\"noopener noreferrer\">dindondan.app</a></font></p><p><a href=\"indicazioni_edicola_votiva_it.html\" style=\"color: #0056b3; font-weight: bold; text-decoration: underline;\">Come raggiungere l'edicola votiva della Madonna con il Bambino</a></p>",
-            "sourceText": "",
-            "lastUpdate": "2026-08-24",
-            "headImage": "edicola_votiva.jpg",
-            "audioSource": "it/edicola_votiva.mp3"
-        },
-        "es": {
-            "pageTitle": "Santuario votivo de la Virgen y el Niño",
-            "playAudioButton": "Escuchar la historia",
-            "pauseAudioButton": "Detener la reproducción",
-            "mainText": "",
-            "sourceText": "",
-            "lastUpdate": "2026-08-24",
-            "headImage": "edicola_votiva.jpg",
-            "audioSource": "es/edicola_votiva.mp3"
-        },
-        "fr": {
-            "pageTitle": "Littoral votif de la Vierge à l'Enfant",
-            "playAudioButton": "Écouter le récit",
-            "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "",
-            "sourceText": "",
-            "lastUpdate": "2026-08-24",
-            "headImage": "edicola_votiva.jpg",
-            "audioSource": "fr/edicola_votiva.mp3"
-        },
-        "en": {
-            "pageTitle": "Votive Shrine of the Madonna and Child",
-            "playAudioButton": "Listen with headphones",
-            "pauseAudioButton": "Pause",
-            "mainText": "",
-            "sourceText": "",
-            "lastUpdate": "2026-08-24",
-            "headImage": "edicola_votiva.jpg",
-            "audioSource": "en/edicola_votiva.mp3"
-        }
-    },
     "chiesapioggia": {
         "it": {
             "pageTitle": "Santuario della Pioggia",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
-            "mainText": "<p><font color=\"#ff0000\"><b>Se entri nel santuario, usa gli auricolari per ascoltare l'audio </b></font></p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina <a href=\"https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2\" target=\"_blank\" rel=\"noopener noreferrer\">dindondan.app</a></font></p><p><a href=\"indicazioni_edicola_votiva.html\" style=\"color: #0056b3; font-weight: bold; text-decoration: underline;\">Come raggiungere l'edicola votiva della Madonna con il Bambino</a></p>",
+            "mainText": "<p><font color=\"#ff0000\"><b>Se entri nel santuario, usa gli auricolari per ascoltare l'audio </b></font> </p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2 </font> </p>",
             "sourceText": "",
             "lastUpdate": "2026-02-03",
             "headImage": "chiesapioggia.jpg",

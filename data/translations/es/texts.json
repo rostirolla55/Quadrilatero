@@ -349,7 +349,7 @@
         "imageSource3": "stabile_legno_vandini/tecnologia_x-lam.jpg"
     },
     "edicola_votiva": {
-        "headImage": "panorama_bologna.jpg",
+        "headImage": "edicola_votiva.jpg",
         "audioSource": "es/edicola_votiva.mp3",
         "mainText1": "es_edicola_votiva_maintext1.html",
         "imageSource1": "edicola_votiva/edicola_madonna_con_bambino.jpg",
@@ -363,7 +363,8 @@
         "mainText": "",
         "sourceText": "",
         "imageSource3": "edicola_votiva/edicola_san_antonio.jpg",
-        "mainText4": "es_edicola_votiva_maintext4.html"
+        "mainText4": "es_edicola_votiva_maintext4.html",
+        "lastUpdate": "2026-08-24"
     },
     "chiesapioggia": {
         "headImage": "public/images/panorama_bologna.jpg",

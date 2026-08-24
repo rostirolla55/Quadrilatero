@@ -347,7 +347,7 @@
         "imageSource3": "stabile_legno_vandini/tecnologia_x-lam.jpg"
     },
     "edicola_votiva": {
-        "headImage": "panorama_bologna.jpg",
+        "headImage": "edicola_votiva.jpg",
         "audioSource": "it/edicola_votiva.mp3",
         "mainText1": "it_edicola_votiva_maintext1.html",
         "imageSource1": "edicola_votiva/edicola_madonna_con_bambino.jpg",
@@ -358,10 +358,11 @@
         "headerTitle": "Votiva Madonna con Bambino",
         "playAudioButton": "Ascolta la storia",
         "pauseAudioButton": "Ferma la riproduzione",
-        "mainText": "",
+        "mainText": "<p><font color=\"#ff0000\"><b>Se entri nel santuario, usa gli auricolari per ascoltare l'audio </b></font></p><p><font color=\"#3465a4\">Per conoscere gli orari di apertura consultare la pagina <a href=\"https://dindondan.app/orarimesse/Santa-Maria-della-Pioggia-Bologna-06BE2\" target=\"_blank\" rel=\"noopener noreferrer\">dindondan.app</a></font></p><p><a href=\"indicazioni_edicola_votiva_it.html\" style=\"color: #0056b3; font-weight: bold; text-decoration: underline;\">Come raggiungere l'edicola votiva della Madonna con il Bambino</a></p>",
         "sourceText": "",
         "imageSource3": "edicola_votiva/edicola_san_antonio.jpg",
-        "mainText4": "it_edicola_votiva_maintext4.html"
+        "mainText4": "it_edicola_votiva_maintext4.html",
+        "lastUpdate": "2026-08-24"
     },
     "chiesapioggia": {
         "headImage": "public/images/panorama_bologna.jpg",
