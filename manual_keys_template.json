@@ -8,7 +8,7 @@
 			"mainText": "<p><font color=\"#ff0000\"><b>Se ti trovi nella piazzetta del Santuario della Pioggia vedi </b></font><a href=\"indicazioni_edicola_votiva_it.html\" style=\"color: #0056b3; font-weight: bold; text-decoration: underline;\">Come raggiungere l'edicola votiva della Madonna con il Bambino</a></p>",
             "sourceText": "",
             "lastUpdate": "2026-08-24",
-            "headImage": "edicola_votiva.jpg",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "it/edicola_votiva.mp3"
         },
         "es": {
@@ -18,7 +18,7 @@
             "mainText": "",
             "sourceText": "",
             "lastUpdate": "2026-08-24",
-            "headImage": "edicola_votiva.jpg",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "es/edicola_votiva.mp3"
         },
         "fr": {
@@ -28,7 +28,7 @@
             "mainText": "",
             "sourceText": "",
             "lastUpdate": "2026-08-24",
-            "headImage": "edicola_votiva.jpg",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "fr/edicola_votiva.mp3"
         },
         "en": {
@@ -38,7 +38,7 @@
             "mainText": "",
             "sourceText": "",
             "lastUpdate": "2026-08-24",
-            "headImage": "edicola_votiva.jpg",
+            "headImage": "chiesapioggia.jpg",
             "audioSource": "en/edicola_votiva.mp3"
         }
     },
