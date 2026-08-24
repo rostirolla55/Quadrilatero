@@ -370,7 +370,7 @@
         "headerTitle": "Votive Shrine of the Madonna and Child",
         "playAudioButton": "Listen with headphones",
         "pauseAudioButton": "Pause",
-        "mainText": "",
+        "mainText": "<p><font color=\"#ff0000\"><b>If you are in the square of the Sanctuary of the Pioggia, see </b></font><a href=\"indicazioni_edicola_votiva_en.html\" style=\"color: #0056b3; font-weight: bold; text-decoration: underline;\">How to reach the votive shrine of the Madonna and Child</a></p>",
         "sourceText": "",
         "imageSource3": "edicola_votiva/edicola_san_antonio.jpg",
         "mainText4": "en_edicola_votiva_maintext4.html",

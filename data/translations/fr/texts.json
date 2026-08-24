@@ -359,7 +359,7 @@
         "headerTitle": "Littoral votif de la Vierge à l'Enfant",
         "playAudioButton": "Écouter le récit",
         "pauseAudioButton": "Arrêter la lecture",
-        "mainText": "",
+        "mainText": "<p><font color=\"#ff0000\"><b>Si vous vous trouvez sur la place du Sanctuaire de la Pioggia, consultez </b></font><a href=\"indicazioni_edicola_votiva_fr.html\" style=\"color: #0056b3; font-weight: bold; text-decoration: underline;\">Comment se rendre à l'édicule votif de la Vierge à l'Enfant</a></p>",
         "sourceText": "",
         "imageSource3": "edicola_votiva/edicola_san_antonio.jpg",
         "mainText4": "fr_edicola_votiva_maintext4.html",
