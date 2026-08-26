@@ -260,15 +260,19 @@
     },
     "graziaxx": {
         "it": {
+            "lastUpdate": "2026-08-26",
             "audioSource": "it/graziaxx.mp3"
         },
         "es": {
+            "lastUpdate": "2026-08-26",
             "audioSource": "es/graziaxx.mp3"
         },
         "fr": {
+            "lastUpdate": "2026-08-26",
             "audioSource": "fr/graziaxx.mp3"
         },
         "en": {
+            "lastUpdate": "2026-08-26",
             "audioSource": "en/graziaxx.mp3"
         }
     },
