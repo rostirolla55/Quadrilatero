@@ -157,7 +157,7 @@
         "mainText5": "",
         "playAudioButton": "Écouter le récit",
         "pauseAudioButton": "Arrêter la lecture",
-        "headImage": "santuariopioggia.jpg",
+        "headImage": "chiesapioggia.jpg",
         "imageSource1": "santuariopioggia/ovale_santuario_pioggia.jpg",
         "imageSource2": "",
         "imageSource3": "",
@@ -165,8 +165,8 @@
         "imageSource5": "",
         "sourceText": "",
         "creationDate": "30/08/2025",
-        "lastUpdate": "2026-01-27",
-        "audioSource": "fr/santuariopioggia.mp3"
+        "lastUpdate": "2026-08-24",
+        "audioSource": "fr/chiesapioggia.mp3"
     },
     "pioggia1": {
         "pageTitle": "Paysage avec Saint-Barthélemy",

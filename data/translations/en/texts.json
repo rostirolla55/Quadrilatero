@@ -157,7 +157,7 @@
         "mainText5": "",
         "playAudioButton": "Listen with headphones",
         "pauseAudioButton": "Pause",
-        "headImage": "santuariopioggia.jpg",
+        "headImage": "chiesapioggia.jpg",
         "imageSource1": "santuariopioggia/ovale_santuario_pioggia.jpg",
         "imageSource2": "",
         "imageSource3": "",
@@ -165,8 +165,8 @@
         "imageSource5": "",
         "sourceText": "",
         "creationDate": "2025-08-30",
-        "lastUpdate": "2025-12-19",
-        "audioSource": "en/santuariopioggia.mp3"
+        "lastUpdate": "2026-08-24",
+        "audioSource": "en/chiesapioggia.mp3"
     },
     "pioggia1": {
         "pageTitle": "Landscape with St. Bartholomew",
