@@ -170,7 +170,7 @@
     },
     "pioggia1": {
         "pageTitle": "Landscape with St. Bartholomew",
-        "mainText": "<p><font color=\"#ff0000\"><b>The fresco is located along the steps, not in the sanctuary.</b></font></p><p><font color=\"#3465a4\">The site is not accessible to the public. During certain events, access to the steps is possible.</b></font></p>",
+        "mainText": "<p><font color=\"#ff0000\"><b>The fresco can be seen along the steps at Via Riva Reno 124, not in the sanctuary!</b></font></p><p><font color=\"#3465a4\">The site is not accessible to the public. During certain events, access to the steps is possible.</b></font></p>",
         "mainText1": "en_pioggia1_maintext1.html",
         "mainText2": "en_pioggia1_maintext2.html",
         "mainText3": "",
@@ -191,7 +191,7 @@
     },
     "pioggia2": {
         "pageTitle": "Saint Bartholomew Sculpture",
-        "mainText": "<p><font color=\"#ff0000\"><b> </b></font></p><p><font color=\"#3465a4\"> </b></font></p>",
+        "mainText": "<p><font color=\"#ff0000\"><b>The statue can be seen on the upper floor of Via Riva Reno 124, not in the sanctuary!</b></font></p><p><font color=\"#3465a4\">The site is not accessible to the public, but only during certain events.</b></font></p>",
         "mainText1": "en_pioggia2_maintext1.html",
         "mainText2": "en_pioggia2_maintext2.html",
         "mainText3": "",
@@ -207,7 +207,7 @@
         "imageSource5": "",
         "sourceText": "",
         "creationDate": "2025-10-26",
-        "lastUpdate": "2026-02-03",
+        "lastUpdate": "2026-08-27",
         "audioSource": "en/pioggia2.mp3"
     },
     "pioggia3": {

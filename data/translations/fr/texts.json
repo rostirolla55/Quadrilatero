@@ -170,7 +170,7 @@
     },
     "pioggia1": {
         "pageTitle": "Paysage avec Saint-Barthélemy",
-        "mainText": "<p><font color=\"#ff0000\"><b>La fresque se trouve le long des marches, et non dans le sanctuaire.</b></font></p><p><font color=\"#3465a4\">Le site n'est pas accessible au public. L'accès aux marches est toutefois possible lors de certains événements.</b></font></p>",
+        "mainText": "<p><font color=\"#ff0000\"><b>La fresque est visible le long des marches au 124, Via Riva Reno, et non dans le sanctuaire!</b></font></p><p><font color=\"#3465a4\">Le site n'est pas accessible au public. L'accès aux marches est toutefois possible lors de certains événements.</b></font></p>",
         "mainText1": "fr_pioggia1_maintext1.html",
         "mainText2": "fr_pioggia1_maintext2.html",
         "mainText3": "",
@@ -191,7 +191,7 @@
     },
     "pioggia2": {
         "pageTitle": "Sculpture de Saint Barthélemy",
-        "mainText": "<p><font color=\"#ff0000\"><b> </b></font></p><p><font color=\"#3465a4\"> </b></font></p>",
+        "mainText": "<p><font color=\"#ff0000\"><b>La statue se trouve à l'étage du 124, Via Riva Reno, et non dans le sanctuaire !</b></font></p><p><font color=\"#3465a4\"> <b>Le site n'est pas accessible au public, sauf lors de certains événements.</b></font></p>",
         "mainText1": "fr_pioggia2_maintext1.html",
         "mainText2": "fr_pioggia2_maintext2.html",
         "mainText3": "",
@@ -207,7 +207,7 @@
         "imageSource5": "",
         "sourceText": "",
         "creationDate": "2025-10-26",
-        "lastUpdate": "2026-02-03",
+        "lastUpdate": "2026-08-27",
         "audioSource": "fr/pioggia2.mp3"
     },
     "pioggia3": {
