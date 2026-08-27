@@ -276,6 +276,20 @@
             "audioSource": "en/graziaxx.mp3"
         }
     },
+    "stabile_legno_vandini": {
+        "it": {
+            "lastUpdate": "2026-08-27"
+        },
+        "es": {
+            "lastUpdate": "2026-08-27"
+        },
+        "fr": {
+            "lastUpdate": "2026-08-27"
+        },
+        "en": {
+            "lastUpdate": "2026-08-27"
+        }
+    },
     "pioggia1": {
         "it": {
             "pageTitle": "Paesaggio con San Bartolomeo",
