@@ -42,7 +42,7 @@
             "audioSource": "en/edicola_votiva.mp3"
         }
     },
-    "chiesapioggia": {
+    "santuariopioggia": {
         "it": {
             "pageTitle": "Santuario della Pioggia",
             "playAudioButton": "Ascolta la storia",
@@ -281,9 +281,9 @@
             "pageTitle": "Paesaggio con San Bartolomeo",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
-            "mainText": "",
+            "mainText": "<p><font color=\"#ff0000\"><b>L'affresco lungo la scalinata e non nel santuario</b></font></p><p><font color=\"#3465a4\">Il luogo non accessibile al pubblico. In corrispondenza di certe manifestazioni, è possibile accedere alla scalinata</b></font></p>",
             "sourceText": "",
-            "lastUpdate": "2026-02-03",
+            "lastUpdate": "2026-08-27",
             "headImage": "chiesapioggia.jpg",
             "audioSource": "it/pioggia1.mp3"
         },
@@ -291,9 +291,9 @@
             "pageTitle": "Landscape with St. Bartholomew",
             "playAudioButton": "Escuchar la historia",
             "pauseAudioButton": "Detener la reproducción",
-            "mainText": "",
+            "mainText": "<p><font color=\"#ff0000\"><b>El fresco se encuentra junto a la escalinata, no en el santuario.</b></font></p><p>El sitio no es accesible al público. Durante ciertos eventos, se puede acceder a la escalinata.</p>",
             "sourceText": "",
-            "lastUpdate": "2026-02-03",
+            "lastUpdate": "2026-08-27",
             "headImage": "chiesapioggia.jpg",
             "audioSource": "es/pioggia1.mp3"
         },
@@ -301,9 +301,9 @@
             "pageTitle": "Paysage avec Saint-Barthélemy",
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "",
-            "sourceText": "",
-            "lastUpdate": "2026-02-03",
+            "mainText": "<p><font color=\"#ff0000\"><b>La fresque se trouve le long des marches, et non dans le sanctuaire.</b></font></p><p>Le site n'est pas accessible au public. L'accès aux marches est toutefois possible lors de certains événements.</p>",
+             "sourceText": "",
+            "lastUpdate": "2026-08-27",
             "headImage": "chiesapioggia.jpg",
             "audioSource": "fr/pioggia1.mp3"
         },
@@ -311,9 +311,9 @@
             "pageTitle": "Landscape with St. Bartholomew",
             "playAudioButton": "Listen with headphones",
             "pauseAudioButton": "Pause",
-            "mainText": "",
+            "mainText": "<p><font color=\"#ff0000\"><b>The fresco is located along the steps, not in the sanctuary.</b></font></p><p>The site is not accessible to the public. During certain events, access to the steps is possible.</p>",
             "sourceText": "",
-            "lastUpdate": "2026-02-03",
+            "lastUpdate": "2026-08-27",
             "headImage": "chiesapioggia.jpg",
             "audioSource": "en/pioggia1.mp3"
         }
