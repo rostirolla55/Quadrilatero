@@ -1,0 +1,6 @@
+file chiesasbene_1-it.wav
+file chiesasbene_2-it.wav
+file chiesasbene_3-it.wav
+file chiesasbene_4-it.wav
+file chiesasbene_5-it.wav
+file chiesasbene_6-it.wav
