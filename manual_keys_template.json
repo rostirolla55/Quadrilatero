@@ -175,6 +175,28 @@
             "audioSource": "fr/carracci.mp3"
         }
     },
+    "intervista_ludovico": {
+        "it": {
+            "headImage": "panorama_bologna.jpg",
+            "lastUpdate": "2026-09-10",
+            "audioSource": "it/intervista_ludovico.mp3"
+        },
+        "en": {
+            "headImage": "panorama_bologna.jpg",
+            "lastUpdate": "2026-09-10",
+            "audioSource": "en/intervista_ludovico.mp3"
+        },
+        "es": {
+            "headImage": "panorama_bologna.jpg",
+           "lastUpdate": "2026-09-10",
+            "audioSource": "es/intervista_ludovico.mp3"
+        },
+        "fr": {
+            "headImage": "panorama_bologna.jpg",
+            "lastUpdate": "2026-09-10",
+            "audioSource": "fr/intervista_ludovico.mp3"
+        }
+    },
     "cavaticcio": {
         "it": {
             "pageTitle": "Centrale Idroelettrica del Cavaticcio",

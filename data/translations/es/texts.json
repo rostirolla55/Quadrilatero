@@ -376,10 +376,16 @@
         "pageTitle": "Titolo per intervista_ludovico",
         "headerTitle": "Titolo per intervista_ludovico",
         "mainText": "Benvenuti a Titolo per intervista_ludovico...",
-        "mainText1": "",
-        "mainText2": "",
-        "mainText3": "",
-        "mainText4": "",
-        "mainText5": ""
+        "mainText1": "es_intervista_ludovico_maintext1.html",
+        "mainText2": "es_intervista_ludovico_maintext2.html",
+        "mainText3": "es_intervista_ludovico_maintext3.html",
+        "mainText4": "es_intervista_ludovico_maintext4.html",
+        "mainText5": "",
+        "headImage": "panorama_bologna.jpg",
+        "audioSource": "es/intervista_ludovico.mp3",
+        "imageSource1": "intervista_ludovico/oratorio_volta.jpg",
+        "imageSource2": "intervista_ludovico/volto_Intervistatrice.jpg",
+        "imageSource3": "intervista_ludovico/mappa_bologna_1600.jpg",
+        "lastUpdate": "2026-09-10"
     }
 }
