@@ -57,6 +57,14 @@
       "base_name": "carracci"
     },
     {
+      "id": "intervista_ludovico",
+      "lat": 44.499993,
+      "lon": 11.340385,
+      "threshold": 50,
+      "nav_id": "navIntervista_ludovico",
+      "base_name": "intervista_ludovico"
+    },
+    {
       "id": "lastre",
       "lat": 44.49925278,
       "lon": 11.34074444,

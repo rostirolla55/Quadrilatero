@@ -69,6 +69,11 @@
             "id": "navbsmariamaggiore",
             "href": "bsmariamaggiore-en.html",
             "text": "Basilica Saint Mary Major\""
+        },
+        {
+            "id": "navIntervista_ludovico",
+            "href": "intervista_ludovico-en.html",
+            "text": "Titolo per intervista_ludovico"
         }
     ]
 }

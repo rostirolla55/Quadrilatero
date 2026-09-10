@@ -69,6 +69,11 @@
             "id": "navbsmariamaggiore",
             "href": "bsmariamaggiore-es.html",
             "text": "Basílica San María Mayor"
+        },
+        {
+            "id": "navIntervista_ludovico",
+            "href": "intervista_ludovico-es.html",
+            "text": "Titolo per intervista_ludovico"
         }
     ]
 }

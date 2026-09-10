@@ -69,6 +69,11 @@
             "id": "navbsmariamaggiore",
             "href": "bsmariamaggiore-fr.html",
             "text": "Basilique Saint Marie Majeure"
+        },
+        {
+            "id": "navIntervista_ludovico",
+            "href": "intervista_ludovico-fr.html",
+            "text": "Titolo per intervista_ludovico"
         }
     ]
 }
