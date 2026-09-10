@@ -177,6 +177,7 @@
     },
     "intervista_ludovico": {
         "it": {
+            "pageTitle": "Intervista a Ludovico Carracci",
             "playAudioButton": "Ascolta l'intervista",
             "pauseAudioButton": "Ferma la riproduzione",
             "headImage": "panorama_bologna.jpg",
@@ -184,6 +185,7 @@
             "audioSource": "it/intervista_ludovico.mp3"
         },
         "en": {
+            "pageTitle": "Interview with Ludovico Carracci",
             "playAudioButton": "Listen to the interview",
             "pauseAudioButton": "Pause",
             "headImage": "panorama_bologna.jpg",
@@ -191,6 +193,7 @@
             "audioSource": "en/intervista_ludovico.mp3"
         },
         "es": {
+            "pageTitle": "Entrevista con Ludovico Carracci",
             "playAudioButton": "Escuchar la entrevista",
             "pauseAudioButton": "Detener la reproducción",
             "headImage": "panorama_bologna.jpg",
@@ -198,6 +201,7 @@
             "audioSource": "es/intervista_ludovico.mp3"
         },
         "fr": {
+            "pageTitle": "Entretien avec Ludovico Carracci",
             "playAudioButton": "Écoutez l'interview",
             "pauseAudioButton": "Arrêter la lecture",
             "headImage": "panorama_bologna.jpg",
