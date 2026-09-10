@@ -180,6 +180,7 @@
             "pageTitle": "Intervista a Ludovico Carracci",
             "playAudioButton": "Ascolta l'intervista",
             "pauseAudioButton": "Ferma la riproduzione",
+            "mainText": "",
             "headImage": "panorama_bologna.jpg",
             "lastUpdate": "2026-09-10",
             "audioSource": "it/intervista_ludovico.mp3"
@@ -188,6 +189,7 @@
             "pageTitle": "Interview with Ludovico Carracci",
             "playAudioButton": "Listen to the interview",
             "pauseAudioButton": "Pause",
+            "mainText": "",
             "headImage": "panorama_bologna.jpg",
             "lastUpdate": "2026-09-10",
             "audioSource": "en/intervista_ludovico.mp3"
@@ -196,6 +198,7 @@
             "pageTitle": "Entrevista con Ludovico Carracci",
             "playAudioButton": "Escuchar la entrevista",
             "pauseAudioButton": "Detener la reproducción",
+            "mainText": "",
             "headImage": "panorama_bologna.jpg",
            "lastUpdate": "2026-09-10",
             "audioSource": "es/intervista_ludovico.mp3"
@@ -204,6 +207,7 @@
             "pageTitle": "Entretien avec Ludovico Carracci",
             "playAudioButton": "Écoutez l'interview",
             "pauseAudioButton": "Arrêter la lecture",
+            "mainText": "",
             "headImage": "panorama_bologna.jpg",
             "lastUpdate": "2026-09-10",
             "audioSource": "fr/intervista_ludovico.mp3"
