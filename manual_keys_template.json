@@ -177,21 +177,29 @@
     },
     "intervista_ludovico": {
         "it": {
+            "playAudioButton": "Ascolta l'intervista",
+            "pauseAudioButton": "Ferma la riproduzione",
             "headImage": "panorama_bologna.jpg",
             "lastUpdate": "2026-09-10",
             "audioSource": "it/intervista_ludovico.mp3"
         },
         "en": {
+            "playAudioButton": "Listen to the interview",
+            "pauseAudioButton": "Pause",
             "headImage": "panorama_bologna.jpg",
             "lastUpdate": "2026-09-10",
             "audioSource": "en/intervista_ludovico.mp3"
         },
         "es": {
+            "playAudioButton": "Escuchar la entrevista",
+            "pauseAudioButton": "Detener la reproducción",
             "headImage": "panorama_bologna.jpg",
            "lastUpdate": "2026-09-10",
             "audioSource": "es/intervista_ludovico.mp3"
         },
         "fr": {
+            "playAudioButton": "Écoutez l'interview",
+            "pauseAudioButton": "Arrêter la lecture",
             "headImage": "panorama_bologna.jpg",
             "lastUpdate": "2026-09-10",
             "audioSource": "fr/intervista_ludovico.mp3"
