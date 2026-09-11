@@ -212,47 +212,48 @@ function updateNavigation(navData, lang) {
     if (!navData) return;
     const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
 
+    // Mappatura esplicita tra l'ID HTML del menu e l'ID corrispondente in POIS_LOCATIONS
     const navLinksData = [
-    { id: 'navHome', key: 'navHome', base: 'index' },
-    { id: 'navManifattura', key: 'navManifattura', base: 'manifattura' },
-    { id: 'navPittoricarracci', key: 'navPittoricarracci', base: 'pittoricarracci' },
-    { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio' },
-    { id: 'navBsmariamaggiore', key: 'navBsmariamaggiore', base: 'bsmariamaggiore' },
-    { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx' },
-    { id: 'navPugliole', key: 'navPugliole', base: 'pugliole' },
-    { id: 'navCarracci', key: 'navCarracci', base: 'carracci' },
-    { id: 'navIntervista_ludovico', key: 'navIntervista_ludovico', base: 'intervista_ludovico' },
-    { id: 'navLastre', key: 'navLastre', base: 'lastre' },
-    { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene' },
-    { id: 'navSantuariopioggia', key: 'navSantuariopioggia', base: 'santuariopioggia' },
-    { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1' },
-    { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
-    { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
-    { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo' },
-    { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini' },
-    { id: 'navEdicolavotiva', key: 'navEdicolavotiva', base: 'edicola_votiva' }
-];
+        { id: 'navHome', key: 'navHome', base: 'index', poiId: 'home' },
+        { id: 'navManifattura', key: 'navManifattura', base: 'manifattura', poiId: 'manifattura' },
+        { id: 'navPittoricarracci', key: 'navPittoricarracci', base: 'pittoricarracci', poiId: 'pittoricarracci' },
+        { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio', poiId: 'cavaticcio' },
+        { id: 'navBsmariamaggiore', key: 'navBSMariaMaggiore', base: 'bsmariamaggiore', poiId: 'bsmariamaggiore' },
+        { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx', poiId: 'graziaxx' },
+        { id: 'navPugliole', key: 'navPugliole', base: 'pugliole', poiId: 'pugliole' },
+        { id: 'navCarracci', key: 'navCarracci', base: 'carracci', poiId: 'carracci' },
+        { id: 'navIntervista_ludovico', key: 'navIntervista_ludovico', base: 'intervista_ludovico', poiId: 'intervista_ludovico' },
+        { id: 'navLastre', key: 'navLastre', base: 'lastre', poiId: 'lastre' },
+        { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene', poiId: 'chiesasbene' },
+        { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene', poiId: 'chiesasbene' },
+        { id: 'navSantuariopioggia', key: 'navSantuariopioggia', base: 'santuariopioggia', poiId: 'santuariopioggia' },
+        { id: 'navChiesaPioggia', key: 'navChiesaPioggia', base: 'chiesapioggia', poiId: 'santuariopioggia' }, // FIX: Collega chiesapioggia a santuariopioggia
+        { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1', poiId: 'pioggia1' },
+        { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2', poiId: 'pioggia2' },
+        { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3', poiId: 'pioggia3' },
+        { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo', poiId: 'chiesasancarlo' },
+        { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini', poiId: 'stabile_legno_vandini' }
+    ];
 
     navLinksData.forEach(l => {
         const el = document.getElementById(l.id);
         if (el) {
             el.href = `${l.base}${langSuffix}.html`;
-            // const poiInfo = POIS_LOCATIONS.find(p => p.id === l.base);
-            const poiInfo = POIS_LOCATIONS.find(p => p.id.toLowerCase() === l.base.toLowerCase());
+            
+            // Cerca il POI usando la chiave poiId (o fallback su base)
+            const targetPoiId = (l.poiId || l.base).toLowerCase();
+            const poiInfo = POIS_LOCATIONS.find(p => p.id.toLowerCase() === targetPoiId);
+            
             const simbolo = (poiInfo && window.getSimboloCategoria) 
                             ? window.getSimboloCategoria(poiInfo.categoria) 
                             : '📍';
-            // CERCA TITOLO: 
-            // 1. Prova nel navData (es. navManifattura)
-            // 2. Prova nel titolo della pagina (pageTitle)
-            // 3. Fallback sull'ID pulito
+
+            // Titolo della voce
             const titoloTradotto = navData[l.key] || 
                                    (window.allData[l.base] && window.allData[l.base].pageTitle) || 
                                    l.base;
 
             el.innerHTML = `<span class="menu-icon">${simbolo}</span> ${titoloTradotto}`;
-            // console.log(`DEBUG : <span>${simbolo}</span> ${titoloTradotto} `);
-            // ---------------------
         }
     });
 }
