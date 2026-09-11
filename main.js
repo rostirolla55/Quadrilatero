@@ -227,7 +227,6 @@ function updateNavigation(navData, lang) {
         { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene', poiId: 'chiesasbene' },
         { id: 'navChiesaSBene', key: 'navChiesaSBene', base: 'chiesasbene', poiId: 'chiesasbene' },
         { id: 'navSantuariopioggia', key: 'navSantuariopioggia', base: 'santuariopioggia', poiId: 'santuariopioggia' },
-        { id: 'navChiesaPioggia', key: 'navChiesaPioggia', base: 'chiesapioggia', poiId: 'santuariopioggia' }, // FIX: Collega chiesapioggia a santuariopioggia
         { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1', poiId: 'pioggia1' },
         { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2', poiId: 'pioggia2' },
         { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3', poiId: 'pioggia3' },
