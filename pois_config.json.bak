@@ -13,7 +13,7 @@
       "lat": 44.50085,
       "lon": 11.3361,
       "threshold": 50,
-      "nav_id": "navPittoriCarracci",
+      "nav_id": "navPittoricarracci",
       "base_name": "pittoricarracci"
     },
     {
@@ -29,7 +29,7 @@
       "lat": 44.49806368372069,
       "lon": 11.34192628931731,
       "threshold": 50,
-      "nav_id": "navbsmariamaggiore",
+      "nav_id": "navBsmariamaggiore",
       "base_name": "bsmariamaggiore"
     },
     {
@@ -78,7 +78,7 @@
       "lat": 44.501514,
       "lon": 11.343557,
       "threshold": 120,
-      "nav_id": "navChiesaSBene",
+      "nav_id": "navChiesasbene",
       "base_name": "chiesasbene"
     },
     {

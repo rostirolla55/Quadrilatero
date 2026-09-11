@@ -26,7 +26,7 @@
             "text": "Grazia Mariana"
         },
         {
-            "id": "navChiesaSBene",
+            "id": "navChiesasbene",
             "href": "chiesasbene-es.html",
             "text": "Iglesia de San Benedetto"
         },
@@ -56,7 +56,7 @@
             "text": "Ex Fabrica de Tabaco"
         },
         {
-            "id": "navPittoriCarracci",
+            "id": "navPittoricarracci",
             "href": "pittoricarracci-es.html",
             "text": "Los Pintores Carracci"
         },
@@ -66,12 +66,12 @@
             "text": "Central hidroelctrica de Cavaticcio"
         },
         {
-            "id": "navbsmariamaggiore",
+            "id": "navBsmariamaggiore",
             "href": "bsmariamaggiore-es.html",
             "text": "Basílica San María Mayor"
         },
         {
-            "id": "navstabile_legno_vandini",
+            "id": "navStabile_legno_vandini",
             "href": "stabile_legno_vandini-es.html",
             "text": "Edificio de madera de Aldo Vandini"
         },

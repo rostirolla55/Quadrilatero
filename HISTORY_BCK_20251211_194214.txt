@@ -11,10 +11,10 @@ dir /b it-*.docx
 it-index.docx
 cd ..
 dir /s /b *bologna.mp3
-trova navPittoriCarracci
+trova navPittoricarracci
 del *.bak
 mv main_v3.js codice
-trova navPittoriCarracci
+trova navPittoricarracci
 dir /s /b pittoricarracci*.html
 dir /s /b *pittoricarracci*.html
 dir /s /b *-it.html

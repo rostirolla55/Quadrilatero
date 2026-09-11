@@ -18,7 +18,7 @@ window.APP_DATA = {
         { "id": "navManifattura", "key": "navManifattura", "base": "manifattura" },
         { "id": "navPittoricarracci", "key": "navPittoricarracci", "base": "pittoricarracci" },
         { "id": "navCavaticcio", "key": "navCavaticcio", "base": "cavaticcio" },
-        { "id": "navbsmariamaggiore", "key": "navbsmariamaggiore", "base": "bsmariamaggiore" }
+        { "id": "navBsmariamaggiore", "key": "navBsmariamaggiore", "base": "bsmariamaggiore" }
     ],
     "poisLocations": [
         { "id": "bsmariamaggiore", "lat": 44.49806368372069, "lon": 11.34192628931731, "range": 50 },
