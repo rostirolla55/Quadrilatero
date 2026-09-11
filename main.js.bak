@@ -28,7 +28,7 @@ let db, auth, currentUserId = null, isAuthReady = false;
 // ===========================================
 const POIS_LOCATIONS = [
     { id: 'manifattura', lat: 44.4989321, lon: 11.336618, distanceThreshold: 50, categoria: 'edificio' },
-    { id: 'pittoricarracci', lat: 44.498485, lon: 11.332663, distanceThreshold: 50, categoria: 'arte' },
+    { id: 'pittoricarracci', lat: 44.49909, lon: 11.340316, distanceThreshold: 50, categoria: 'arte' },
     { id: 'cavaticcio', lat: 44.500207, lon: 11.338076, distanceThreshold: 50, categoria: 'edificio' },
     { id: 'bsmariamaggiore', lat: 44.498118, lon: 11.341923, distanceThreshold: 50, categoria: 'edificio' },
     { id: 'graziaxx', lat: 44.500594, lon: 11.340758, distanceThreshold: 50, categoria: 'esterno' },
@@ -42,8 +42,7 @@ const POIS_LOCATIONS = [
     { id: 'pioggia2', lat: 44.499023, lon: 11.34176, distanceThreshold: 120, categoria: 'statua' },
     { id: 'pioggia3', lat: 44.499023, lon: 11.34176, distanceThreshold: 120, categoria: 'quadro' },
     { id: 'chiesasancarlo', lat: 44.501295, lon: 11.34085, distanceThreshold: 120, categoria: 'edificio' },
-    { id: 'stabile_legno_vandini', lat: 44.502054, lon: 11.338546, distanceThreshold: 120, categoria: 'edificio' },
-    { id: 'edicola_votiva', lat: 44.499137, lon: 11.341797, distanceThreshold: 120, categoria: 'edificio' }
+    { id: 'stabile_legno_vandini', lat: 44.502054, lon: 11.338546, distanceThreshold: 120, categoria: 'edificio' }
 ];
 
 // ===========================================
@@ -229,8 +228,7 @@ function updateNavigation(navData, lang) {
     { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2' },
     { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3' },
     { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo' },
-    { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini' },
-    { id: 'navEdicolavotiva', key: 'navEdicolavotiva', base: 'edicola_votiva' }
+    { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini' }
 ];
 
     navLinksData.forEach(l => {
