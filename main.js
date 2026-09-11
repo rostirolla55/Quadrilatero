@@ -218,7 +218,7 @@ function updateNavigation(navData, lang) {
         { id: 'navManifattura', key: 'navManifattura', base: 'manifattura', poiId: 'manifattura' },
         { id: 'navPittoricarracci', key: 'navPittoricarracci', base: 'pittoricarracci', poiId: 'pittoricarracci' },
         { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio', poiId: 'cavaticcio' },
-        { id: 'navBsmariamaggiore', key: 'navBSMariaMaggiore', base: 'bsmariamaggiore', poiId: 'bsmariamaggiore' },
+        { id: 'navBsmariamaggiore', key: 'navbsmariamaggiore', base: 'bsmariamaggiore', poiId: 'bsmariamaggiore' },
         { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx', poiId: 'graziaxx' },
         { id: 'navPugliole', key: 'navPugliole', base: 'pugliole', poiId: 'pugliole' },
         { id: 'navCarracci', key: 'navCarracci', base: 'carracci', poiId: 'carracci' },
