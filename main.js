@@ -46,6 +46,42 @@ const POIS_LOCATIONS = [
 ];
 
 // ===========================================
+// CONFIGURAZIONE GOOGLE MAPS PER POI CORRENTE
+// ===========================================
+function setupGoogleMapsButton(lang) {
+    const pageId = getCurrentPageId();
+    const gmapsBtn = document.getElementById('gmapsLink');
+    if (!gmapsBtn) return;
+
+    // Cerca il POI corrispondente alla pagina corrente
+    const currentPoi = POIS_LOCATIONS.find(p => p.id.toLowerCase() === pageId.toLowerCase());
+
+    if (currentPoi && currentPoi.lat && currentPoi.lon) {
+        // Costruisci l'URL di Google Maps per la navigazione a piedi
+        const gmapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${currentPoi.lat},${currentPoi.lon}&travelmode=walking`;
+        gmapsBtn.href = gmapsUrl;
+
+        // Testo del bottone tradotto nelle varie lingue
+        const labels = {
+            'it': '🧭 Portami qui',
+            'en': '🧭 Navigate here',
+            'fr': '🧭 Y aller',
+            'es': '🧭 Llevarme aquí'
+        };
+
+        const btnText = gmapsBtn.querySelector('.gmaps-btn');
+        if (btnText) {
+            btnText.textContent = labels[lang] || labels['it'];
+        }
+
+        gmapsBtn.style.display = 'inline-flex';
+    } else {
+        // Se siamo nella Home/Index o in una pagina senza coordinate GPS, nascondiamo il pulsante
+        gmapsBtn.style.display = 'none';
+    }
+}
+
+// ===========================================
 // UTILITY
 // ===========================================
 const getCurrentPageId = () => {
@@ -160,6 +196,7 @@ async function loadContent(lang) {
         }
 
         updateNavigation(data.nav, lang);
+        setupGoogleMapsButton(lang);
         startGeolocation(data);
         document.body.classList.add('content-loaded');
         if (isAuthReady) logAccess(pageId, lang);

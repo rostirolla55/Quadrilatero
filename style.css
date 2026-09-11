@@ -645,3 +645,38 @@ table th:first-child, table td:first-child {
 table td:last-child {
     min-width: 280px; /* Garantisce ampio spazio leggibile alla colonna di destra */
 }
+
+/* -------------------- BOTTONE GOOGLE MAPS (PORTAMI QUI) -------------------- */
+.gmaps-link {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.gmaps-btn {
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    white-space: nowrap;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.gmaps-link:hover .gmaps-btn {
+    background-color: #0056b3;
+    transform: scale(1.03);
+}
+
+/* Regolazione spaziamento su schermi piccoli */
+@media (max-width: 360px) {
+    .gmaps-btn {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+    .left-header-group {
+        gap: 8px;
+    }
+}
