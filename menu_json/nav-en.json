@@ -71,9 +71,19 @@
             "text": "Basilica Saint Mary Major\""
         },
         {
+            "id": "navStabile_legno_vandini",
+            "href": "stabile_legno_vandini-en.html",
+            "text": "Aldo Vandini wooden building"
+        },
+        {
+            "id": "navChiesasancarlo",
+            "href": "chiesasancarlo-en.html",
+            "text": "Church San Carlo Borromeo"
+        },
+        {
             "id": "navIntervista_ludovico",
             "href": "intervista_ludovico-en.html",
-            "text": "Titolo per intervista_ludovico"
+            "text": "Interview with Ludovico Carracci"
         }
     ]
 }

@@ -71,9 +71,18 @@
             "text": "Basilique Saint Marie Majeure"
         },
         {
+            "id": "navStabile_legno_vandini",
+            "href": "stabile_legno_vandini-fr.html",
+            "text": "Bâtiment en bois d'Aldo Vandini"
+        },
+        {
+            "id": "navChiesasancarlo",
+            "href": "chiesasancarlo-fr.html",
+            "text": "Église de San Carlo"
+        },        {
             "id": "navIntervista_ludovico",
             "href": "intervista_ludovico-fr.html",
-            "text": "Titolo per intervista_ludovico"
+            "text": "Entretien avec Ludovico Carracci"
         }
     ]
 }

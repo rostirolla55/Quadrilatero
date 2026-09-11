@@ -31,8 +31,8 @@
             "text": "Chiesa San Benedetto"
         },
         {
-            "id": "navChiesaPioggia",
-            "href": "chiesapioggia-it.html",
+            "id": "navSantuarioPioggia",
+            "href": "santuariopioggia-it.html",
             "text": "Santuario della Pioggia"
         },
         {
@@ -69,6 +69,16 @@
             "id": "navBSMariaMaggiore",
             "href": "bsmariamaggiore-it.html",
             "text": "Basilica di Santa Maria Maggiore"
+        },
+        {
+            "id": "navStabile_legno_vandini",
+            "href": "stabile_legno_vandini-it.html",
+            "text": "Edificio Aldo Vandini in legno"
+        },
+        {
+            "id": "navChiesasancarlo",
+            "href": "chiesasancarlo-it.html",
+            "text": "Chiesa San Carlo Borromeo al Porto"
         },
         {
             "id": "navIntervista_ludovico",

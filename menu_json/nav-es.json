@@ -71,9 +71,18 @@
             "text": "Basílica San María Mayor"
         },
         {
+            "id": "navStabile_legno_vandini",
+            "href": "stabile_legno_vandini-es.html",
+            "text": "Edificio de madera de Aldo Vandini"
+        },
+        {
+            "id": "navChiesasancarlo",
+            "href": "chiesasancarlo-es.html",
+            "text": "Iglesia de San Carlo"
+        },        {
             "id": "navIntervista_ludovico",
             "href": "intervista_ludovico-es.html",
-            "text": "Titolo per intervista_ludovico"
+            "text": "Entrevista con Ludovico Carracci"
         }
     ]
 }
