@@ -20,9 +20,17 @@ let nearbyMenuPlaceholder;
 
 // Configurazione Firebase
 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-let db, auth, currentUserId = null, isAuthReady = false;
+const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+    apiKey: "AIzaSyBDl1XOHCkARszY5g2A_j4XamL38qsmqOY",
+    authDomain: "sito-turistico-quadrilatero.firebaseapp.com",
+    databaseURL: "https://sito-turistico-quadrilatero-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "sito-turistico-quadrilatero",
+    storageBucket: "sito-turistico-quadrilatero.firebasestorage.app",
+    messagingSenderId: "217504750698",
+    appId: "1:217504750698:web:e02c49cb43d57f2a307e13"
+};
 
+let db, auth, rtdb, currentUserId = null, isAuthReady = false;
 // ===========================================
 // DATI: POI GPS
 // ===========================================
@@ -238,19 +246,19 @@ function updateNavigation(navData, lang) {
         const el = document.getElementById(l.id);
         if (el) {
             el.href = `${l.base}${langSuffix}.html`;
-            
+
             // Cerca il POI usando la chiave poiId (o fallback su base)
             const targetPoiId = (l.poiId || l.base).toLowerCase();
             const poiInfo = POIS_LOCATIONS.find(p => p.id.toLowerCase() === targetPoiId);
-            
-            const simbolo = (poiInfo && window.getSimboloCategoria) 
-                            ? window.getSimboloCategoria(poiInfo.categoria) 
-                            : '📍';
+
+            const simbolo = (poiInfo && window.getSimboloCategoria)
+                ? window.getSimboloCategoria(poiInfo.categoria)
+                : '📍';
 
             // Titolo della voce
-            const titoloTradotto = navData[l.key] || 
-                                   (window.allData[l.base] && window.allData[l.base].pageTitle) || 
-                                   l.base;
+            const titoloTradotto = navData[l.key] ||
+                (window.allData[l.base] && window.allData[l.base].pageTitle) ||
+                l.base;
 
             el.innerHTML = `<span class="menu-icon">${simbolo}</span> ${titoloTradotto}`;
         }
@@ -294,7 +302,7 @@ function startGeolocation(allData) {
                     <a href="${poi.id}${suffix}.html">
                         <span>${simbolo}</span> ${title} (${dist.toFixed(0)}m)
                     </a>
-                </li>`; 
+                </li>`;
                 found = true;
             }
         });
@@ -321,6 +329,40 @@ function startGeolocation(allData) {
         console.warn("Geolocation error:", err.message);
     }, geoOptions);
 }
+
+// ===========================================
+// SINCRONIZZAZIONE ASCOLTI (CRONOLOGIA SMARTPHONE)
+// ===========================================
+function gestisciSincronizzazioneToken() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get('pair');
+
+    if (tokenFromUrl) {
+        localStorage.setItem('site_pair_token', tokenFromUrl);
+        return tokenFromUrl;
+    }
+    return localStorage.getItem('site_pair_token');
+}
+
+// Salva subito il token se presente nell'URL dal QR Code
+gestisciSincronizzazioneToken();
+
+// FUNZIONE 3: Registrazione dell'ascolto audio
+function registraAscoltoAudio(pageId, pageTitle) {
+    const token = localStorage.getItem('site_pair_token');
+    if (!token || !rtdb) return;
+
+    const timestamp = new Date().toISOString();
+    const currentUrl = window.location.href;
+
+    set(ref(rtdb, `cronologia/${token}/${pageId}`), {
+        pageId: pageId,
+        title: pageTitle,
+        url: currentUrl,
+        timestamp: timestamp
+    }).catch(err => console.error("Errore salvataggio ascolto:", err));
+}
+
 
 // ===========================================
 // INIZIALIZZAZIONE EVENTI (CON FIX CHIUSURA MENU)
@@ -427,28 +469,35 @@ document.addEventListener('DOMContentLoaded', () => {
     initEvents();
     loadContent(currentLang);
 
+    // Inizializzazione unica Firebase v11
     if (firebaseConfig.apiKey) {
-        const app = initializeApp(firebaseConfig);
-        db = getFirestore(app);
-        auth = getAuth(app);
+        try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            rtdb = getDatabase(app); // Realtime Database inizializzato dallo stesso app
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUserId = user.uid;
-                isAuthReady = true;
-                setupDrinListener();
-                logAccess(getCurrentPageId(), currentLang);
-            } else {
-                signInAnonymously(auth);
-            }
-        });
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    currentUserId = user.uid;
+                    isAuthReady = true;
+                    setupDrinListener();
+                    logAccess(getCurrentPageId(), currentLang);
+                } else {
+                    signInAnonymously(auth);
+                }
+            });
+        } catch (e) {
+            console.error("Errore inizializzazione Firebase:", e);
+        }
     }
 });
+
 // --- ESPORTAZIONE GLOBALE ---
-window.getSimboloCategoria = function(categoria) {
+window.getSimboloCategoria = function (categoria) {
     // 1. Gestione Benvenuto o valori nulli [cite: 49-51]
     if (!categoria || categoria === "" || categoria === "undefined") {
-        return '📍'; 
+        return '📍';
     }
 
     // 2. Pulizia assoluta del valore ricevuto
@@ -468,7 +517,7 @@ window.getSimboloCategoria = function(categoria) {
     // 4. Fallback: se la categoria non è in lista, usa il pin rosso 
     // Invece di restituire nulla (vuoto), restituiamo sempre un carattere visibile.
     return simboli[catClean] || '📍';
-};  
+};
 
 window.POIS_LOCATIONS = POIS_LOCATIONS;
 // Aggiungi questa riga per esportare i titoli tradotti
