@@ -680,3 +680,28 @@ table td:last-child {
         gap: 8px;
     }
 }
+/* -------------------- BOTTONE CRONOLOGIA ASCOLTI (DESKTOP ONLY) -------------------- */
+.btn-cronologia-red {
+  display: none; /* Nascosto di default (es. su smartphone) */
+  background-color: #dc3545;
+  color: #ffffff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9em;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: background-color 0.2s;
+}
+
+.btn-cronologia-red:hover {
+  background-color: #c82333;
+}
+
+/* Mostra il pulsante solo da 1024px in su (Desktop/Laptop) */
+@media screen and (min-width: 1024px) {
+  .btn-cronologia-red {
+    display: inline-block;
+  }
+}
