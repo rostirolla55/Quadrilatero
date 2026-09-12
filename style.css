@@ -681,28 +681,29 @@ table td:last-child {
     }
 }
 /* -------------------- BOTTONE CRONOLOGIA ASCOLTI (DESKTOP ONLY) -------------------- */
+/* 1. NASCONDE IL BOTTONE DI DEFAULT (per smartphone e schermi piccoli) */
 .btn-cronologia-red {
-  display: none !important; /* Forza la scomparsa del bottone su smartphone e tablet piccoli */
-  background-color: #dc3545;
-  color: #ffffff;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 0.85em;
-  margin-left: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  white-space: nowrap;
+    display: none !important;
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.85em;
+    margin-left: 8px;
+    white-space: nowrap;
 }
 
 .btn-cronologia-red:hover {
-  background-color: #c82333;
+    background-color: #c82333 !important;
 }
 
-/* Mostra il pulsante ESCLUSIVAMENTE da 1024px in su (Desktop e Laptop) */
+/* 2. MOSTRA IL BOTTONE SOLO SE LO SCHERMO È ALMENO 1024px (PC / Laptop) */
 @media screen and (min-width: 1024px) {
-  .btn-cronologia-red {
-    display: inline-block !important;
-  }
+    header .btn-cronologia-red,
+    .right-header-group .btn-cronologia-red {
+        display: inline-block !important;
+    }
 }

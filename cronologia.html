@@ -83,18 +83,18 @@
       ascoltaCambiamentiDatabase();
     });
 
-    // Punto A: Generazione QR Code
-    function mostraQRCode() {
-	// RIGA CORRETTA: inserisci l'indirizzo reale del tuo sito web
-		const baseUrl = "http://192.168.1.3:8000/index.html"; 
-		const syncUrl = `${baseUrl}?pair=${pairToken}`;      
-		new QRCode(document.getElementById('qrcode'), {
-        text: syncUrl,
-        width: 180,
-        height: 180
-      });
-    }
-
+	function mostraQRCode() {
+	  // Sostituisci l'IP locale con l'URL effettivo del tuo sito GitHub Pages
+	  const baseUrl = "https://rostirolla55.github.io/Quadrilatero/index-it.html"; 
+	  const syncUrl = `${baseUrl}?pair=${pairToken}`;
+	  
+	  document.getElementById('qrcode').innerHTML = '';
+	  new QRCode(document.getElementById('qrcode'), {
+		text: syncUrl,
+		width: 180,
+		height: 180
+	  });
+	}
     // Ascolto in tempo reale dei dati da Firebase
     function ascoltaCambiamentiDatabase() {
       database.ref(`cronologia/${pairToken}`).on('value', (snapshot) => {
