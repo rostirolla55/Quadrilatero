@@ -337,18 +337,51 @@ function gestisciSincronizzazioneToken() {
     const tokenFromUrl = urlParams.get('pair');
 
     if (tokenFromUrl) {
+        // Se arriviamo da un QR Code, salviamo il token del PC
+        const oldToken = localStorage.getItem('site_pair_token');
         localStorage.setItem('site_pair_token', tokenFromUrl);
+        
+        // Se c'era un token locale con ascolti precedenti, uniamo i dati su Firebase
+        if (oldToken && oldToken !== tokenFromUrl && rtdb) {
+            unisciAscoltiPrecedenti(oldToken, tokenFromUrl);
+        }
         return tokenFromUrl;
     }
-    return localStorage.getItem('site_pair_token');
+
+    // Se non c'è token nell'URL nè in locale, ne generiamo uno unico per lo smartphone
+    let localToken = localStorage.getItem('site_pair_token');
+    if (!localToken) {
+        localToken = 'session_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now();
+        localStorage.setItem('site_pair_token', localToken);
+    }
+    return localToken;
 }
 
-// Salva subito il token se presente nell'URL dal QR Code
+// Funzione per trasferire gli ascolti fatti "offline/prima del QR code" al token del PC
+function unisciAscoltiPrecedenti(oldToken, newToken) {
+    if (!rtdb) return;
+    const oldRef = ref(rtdb, `cronologia/${oldToken}`);
+    
+    // Leggiamo i dati del vecchio token e li copiamo sul nuovo token
+    import("https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js").then(({ get, child }) => {
+        get(oldRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                Object.keys(data).forEach(pageId => {
+                    set(ref(rtdb, `cronologia/${newToken}/${pageId}`), data[pageId]);
+                });
+            }
+        }).catch(err => console.error("Errore unione ascolti:", err));
+    });
+}
+
+// Salva subito il token all'avvio
 gestisciSincronizzazioneToken();
 
 // Registrazione dell'ascolto audio su Realtime Database
 function registraAscoltoAudio(pageId, pageTitle) {
-    const token = localStorage.getItem('site_pair_token');
+    // Garantisce che ci sia sempre un token valido prima di inviare
+    const token = gestisciSincronizzazioneToken();
     if (!token || !rtdb) return;
 
     const timestamp = new Date().toISOString();
