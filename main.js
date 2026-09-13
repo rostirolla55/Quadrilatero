@@ -32,6 +32,7 @@ const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__f
 };
 
 let db, auth, rtdb, currentUserId = null, isAuthReady = false;
+
 // ===========================================
 // DATI: POI GPS
 // ===========================================
@@ -63,15 +64,12 @@ function setupGoogleMapsButton(lang) {
     const gmapsBtn = document.getElementById('gmapsLink');
     if (!gmapsBtn) return;
 
-    // Cerca il POI corrispondente alla pagina corrente
     const currentPoi = POIS_LOCATIONS.find(p => p.id.toLowerCase() === pageId.toLowerCase());
 
     if (currentPoi && currentPoi.lat && currentPoi.lon) {
-        // Costruisci l'URL di Google Maps per la navigazione a piedi
         const gmapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${currentPoi.lat},${currentPoi.lon}&travelmode=walking`;
         gmapsBtn.href = gmapsUrl;
 
-        // Testo del bottone tradotto nelle varie lingue
         const labels = {
             'it': '🧭 Portami qui',
             'en': '🧭 Navigate here',
@@ -86,7 +84,6 @@ function setupGoogleMapsButton(lang) {
 
         gmapsBtn.style.display = 'inline-flex';
     } else {
-        // Se siamo nella Home/Index o in una pagina senza coordinate GPS, nascondiamo il pulsante
         gmapsBtn.style.display = 'none';
     }
 }
@@ -145,7 +142,7 @@ async function loadContent(lang) {
     try {
         const response = await fetch(`data/translations/${lang}/texts.json`);
         const data = await response.json();
-        window.allData = data; // <--- AGGIUNGI QUESTA RIGA per aggiornare i titoli globali
+        window.allData = data;
         const pageData = data[pageId];
 
         if (!pageData) {
@@ -184,7 +181,7 @@ async function loadContent(lang) {
                 }
             }
         }
-        // AGGIORNAMENTO INFORMAZIONI SULLA FONTE E DATA
+
         if (pageData.sourceText) {
             updateHTML('infoSource', `Fonte: ${pageData.sourceText}`);
         }
@@ -208,6 +205,16 @@ async function loadContent(lang) {
         updateNavigation(data.nav, lang);
         setupGoogleMapsButton(lang);
         startGeolocation(data);
+
+        // Tracciamento automatico se si usa il tag <audio controls> standard
+        if (audioPlayer) {
+            audioPlayer.onplay = () => {
+                const pageId = getCurrentPageId();
+                const pageTitle = document.getElementById('pageTitle')?.textContent || pageId;
+                registraAscoltoAudio(pageId, pageTitle);
+            };
+        }
+
         document.body.classList.add('content-loaded');
         if (isAuthReady) logAccess(pageId, lang);
 
@@ -221,7 +228,6 @@ function updateNavigation(navData, lang) {
     if (!navData) return;
     const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
 
-    // Mappatura esplicita tra l'ID HTML del menu e l'ID corrispondente in POIS_LOCATIONS
     const navLinksData = [
         { id: 'navHome', key: 'navHome', base: 'index', poiId: 'home' },
         { id: 'navManifattura', key: 'navManifattura', base: 'manifattura', poiId: 'manifattura' },
@@ -233,7 +239,6 @@ function updateNavigation(navData, lang) {
         { id: 'navCarracci', key: 'navCarracci', base: 'carracci', poiId: 'carracci' },
         { id: 'navIntervista_ludovico', key: 'navIntervista_ludovico', base: 'intervista_ludovico', poiId: 'intervista_ludovico' },
         { id: 'navLastre', key: 'navLastre', base: 'lastre', poiId: 'lastre' },
-        { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene', poiId: 'chiesasbene' },
         { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene', poiId: 'chiesasbene' },
         { id: 'navSantuariopioggia', key: 'navSantuariopioggia', base: 'santuariopioggia', poiId: 'santuariopioggia' },
         { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1', poiId: 'pioggia1' },
@@ -247,8 +252,6 @@ function updateNavigation(navData, lang) {
         const el = document.getElementById(l.id);
         if (el) {
             el.href = `${l.base}${langSuffix}.html`;
-
-            // Cerca il POI usando la chiave poiId (o fallback su base)
             const targetPoiId = (l.poiId || l.base).toLowerCase();
             const poiInfo = POIS_LOCATIONS.find(p => p.id.toLowerCase() === targetPoiId);
 
@@ -256,7 +259,6 @@ function updateNavigation(navData, lang) {
                 ? window.getSimboloCategoria(poiInfo.categoria)
                 : '📍';
 
-            // Titolo della voce
             const titoloTradotto = navData[l.key] ||
                 (window.allData[l.base] && window.allData[l.base].pageTitle) ||
                 l.base;
@@ -312,18 +314,14 @@ function startGeolocation(allData) {
         if (!found) {
             let noPoiMessage;
             switch (currentLang) {
-                case 'es': noPoiMessage = `No se encontraron puntos de interés dentro 50 m. <br><br>   Pulse de nuevo el botón verde para cerrar el menú.`; break;
-                case 'en': noPoiMessage = `No Points of Interest found within 50 m. <br><br>   Press the green button again to close the menu.`; break;
-                case 'fr': noPoiMessage = `Aucun point d'interet trouve dans les environs 50 m. <br><br>  Appuyez à nouveau sur le bouton vert pour fermer le menu.`; break;
+                case 'es': noPoiMessage = `No se encontraron puntos de interés dentro 50 m. <br><br> Pulse de nuevo el botón verde para cerrar el menú.`; break;
+                case 'en': noPoiMessage = `No Points of Interest found within 50 m. <br><br> Press the green button again to close the menu.`; break;
+                case 'fr': noPoiMessage = `Aucun point d'interet trouve dans les environs 50 m. <br><br> Appuyez à nouveau sur le bouton vert pour fermer le menu.`; break;
                 case 'it':
                 default: noPoiMessage = `Nessun Punto di Interesse trovato entro 50 m.<br><br> Premere di nuovo il bottone verde per chiudere la lista.`; break;
             }
-            // Uso colore rosso per i test
             menuHtml = `<div style="color:red; padding: 20px; text-align: center; font-size: 1em;">${noPoiMessage}</div>`;
-
-            //      menuHtml = '<div style="padding:20px;text-align:center;">Nessun punto vicino</div>'
-
-        };
+        }
         if (nearbyMenuPlaceholder) nearbyMenuPlaceholder.innerHTML = menuHtml;
 
     }, (err) => {
@@ -348,7 +346,7 @@ function gestisciSincronizzazioneToken() {
 // Salva subito il token se presente nell'URL dal QR Code
 gestisciSincronizzazioneToken();
 
-// FUNZIONE 3: Registrazione dell'ascolto audio
+// Registrazione dell'ascolto audio su Realtime Database
 function registraAscoltoAudio(pageId, pageTitle) {
     const token = localStorage.getItem('site_pair_token');
     if (!token || !rtdb) return;
@@ -364,15 +362,13 @@ function registraAscoltoAudio(pageId, pageTitle) {
     }).catch(err => console.error("Errore salvataggio ascolto:", err));
 }
 
-
 // ===========================================
-// INIZIALIZZAZIONE EVENTI (CON FIX CHIUSURA MENU)
+// INIZIALIZZAZIONE EVENTI
 // ===========================================
 function initEvents() {
     const toggle = document.querySelector('.menu-toggle');
     const nav = document.getElementById('navBarMain');
 
-    // Funzioni helper per la chiusura
     const closeMainMenu = () => {
         if (toggle && nav) {
             toggle.classList.remove('active');
@@ -391,9 +387,7 @@ function initEvents() {
     if (toggle && nav) {
         toggle.onclick = (e) => {
             e.stopPropagation();
-            // Se apro il menu principale, chiudo quello dei POI
             closePoiMenu();
-
             toggle.classList.toggle('active');
             nav.classList.toggle('active');
             document.body.classList.toggle('menu-open');
@@ -403,15 +397,13 @@ function initEvents() {
     if (nearbyPoiButton && nearbyMenuPlaceholder) {
         nearbyPoiButton.onclick = (e) => {
             e.stopPropagation();
-            // Se apro il menu dei POI, chiudo quello principale
             closeMainMenu();
-
             nearbyMenuPlaceholder.classList.toggle('poi-active');
             document.body.classList.toggle('menu-open');
         };
     }
 
-    // Audio
+    // Gestione Pulsante Audio
     const playBtn = document.getElementById('playAudio');
     const player = document.getElementById('audioPlayer');
     if (playBtn && player) {
@@ -420,6 +412,12 @@ function initEvents() {
                 player.play();
                 playBtn.textContent = playBtn.dataset.pauseText;
                 playBtn.classList.replace('play-style', 'pause-style');
+
+                // Invio ascolto a Firebase Realtime Database
+                const pageId = getCurrentPageId();
+                const pageTitle = document.getElementById('pageTitle')?.textContent || pageId;
+                registraAscoltoAudio(pageId, pageTitle);
+
             } else {
                 player.pause();
                 playBtn.textContent = playBtn.dataset.playText;
@@ -432,28 +430,21 @@ function initEvents() {
         };
     }
 
-
-    // Lingue (Supporta button, img e tag 'a' anche nidificati)
+    // Selettore Lingue
     document.querySelectorAll('.language-selector button, .language-selector img, .language-selector a').forEach(el => {
         el.onclick = (e) => {
-            // Cerca data-lang sull'elemento cliccato o sul genitore più vicino
-            // (Fondamentale se clicchi sull'<img> dentro un <a>)
             const target = e.target.closest('[data-lang]');
             const lang = target ? target.dataset.lang : null;
 
             if (!lang) return;
 
-            // Blocca il link HTML per gestire il cambio via JS
             e.preventDefault();
             e.stopPropagation();
-
-            console.log("Cambio lingua forzato a:", lang);
 
             localStorage.setItem(LAST_LANG_KEY, lang);
             const pageId = getCurrentPageId();
             const base = (pageId === 'home' || pageId === 'index') ? 'index' : pageId;
 
-            // Reindirizzamento esplicito
             window.location.href = `${base}-${lang}.html`;
         };
     });
@@ -470,13 +461,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initEvents();
     loadContent(currentLang);
 
-    // Inizializzazione unica Firebase v11
     if (firebaseConfig.apiKey) {
         try {
             const app = initializeApp(firebaseConfig);
             db = getFirestore(app);
             auth = getAuth(app);
-            rtdb = getDatabase(app); // Realtime Database inizializzato dallo stesso app
+            rtdb = getDatabase(app);
 
             onAuthStateChanged(auth, (user) => {
                 if (user) {
@@ -494,17 +484,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- ESPORTAZIONE GLOBALE ---
+// ESPORTAZIONE GLOBALE
 window.getSimboloCategoria = function (categoria) {
-    // 1. Gestione Benvenuto o valori nulli [cite: 49-51]
     if (!categoria || categoria === "" || categoria === "undefined") {
         return '📍';
     }
-
-    // 2. Pulizia assoluta del valore ricevuto
     const catClean = categoria.toString().toLowerCase().trim();
-
-    // 3. Mappatura completa basata sui tuoi POIS_LOCATIONS [cite: 30-43]
     const simboli = {
         'edificio': '🏛️',
         'esterno': '🌳',
@@ -514,13 +499,8 @@ window.getSimboloCategoria = function (categoria) {
         'arte': '🎨',
         'monumento': '🏛️'
     };
-
-    // 4. Fallback: se la categoria non è in lista, usa il pin rosso 
-    // Invece di restituire nulla (vuoto), restituiamo sempre un carattere visibile.
     return simboli[catClean] || '📍';
 };
 
 window.POIS_LOCATIONS = POIS_LOCATIONS;
-// Aggiungi questa riga per esportare i titoli tradotti
-// Inizializziamo l'oggetto se non esiste ancora
 if (!window.navTitles) window.navTitles = {};
