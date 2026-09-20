@@ -33,6 +33,25 @@ const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__f
 
 let db, auth, rtdb, currentUserId = null, isAuthReady = false;
 
+const navLinksData = [
+    { id: 'navHome', key: 'navHome', base: 'index', poiId: 'home' },
+    { id: 'navManifattura', key: 'navManifattura', base: 'manifattura', poiId: 'manifattura' },
+    { id: 'navPittoricarracci', key: 'navPittoricarracci', base: 'pittoricarracci', poiId: 'pittoricarracci' },
+    { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio', poiId: 'cavaticcio' },
+    { id: 'navBsmariamaggiore', key: 'navBsmariamaggiore', base: 'bsmariamaggiore', poiId: 'bsmariamaggiore' },
+    { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx', poiId: 'graziaxx' },
+    { id: 'navPugliole', key: 'navPugliole', base: 'pugliole', poiId: 'pugliole' },
+    { id: 'navCarracci', key: 'navCarracci', base: 'carracci', poiId: 'carracci' },
+    { id: 'navIntervista_ludovico', key: 'navIntervista_ludovico', base: 'intervista_ludovico', poiId: 'intervista_ludovico' },
+    { id: 'navLastre', key: 'navLastre', base: 'lastre', poiId: 'lastre' },
+    { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene', poiId: 'chiesasbene' },
+    { id: 'navSantuariopioggia', key: 'navSantuariopioggia', base: 'santuariopioggia', poiId: 'santuariopioggia' },
+    { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1', poiId: 'pioggia1' },
+    { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2', poiId: 'pioggia2' },
+    { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3', poiId: 'pioggia3' },
+    { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo', poiId: 'chiesasancarlo' },
+    { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini', poiId: 'stabile_legno_vandini' }
+];
 
 // ===========================================
 // CONFIGURAZIONE TITOLI CATEGORIE MULTILINGUA
