@@ -6,7 +6,7 @@ import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged }
 import { getFirestore, doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 
-const APP_VERSION = '1.2.36 - Lingue (Supporta button, img e tag a)';
+const APP_VERSION = '1.3.0 - Nuova versione dei menu e della geolocalizzazione';
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quadrilatero_lastLang';
 let currentLang = 'it';
