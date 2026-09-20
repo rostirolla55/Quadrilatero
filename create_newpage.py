@@ -17,6 +17,9 @@ def generate_bat_from_config(target_page_id):
         print(f"Errore: Pagina '{target_page_id}' non trovata nel JSON.")
         return
 
+    # Estrae la categoria dal JSON (default 'edificio' se non presente)
+    categoria = page_data.get('categoria', 'edificio')
+
     bat_content = f"""@echo off
 ECHO =========================================================
 ECHO AGGIUNTA NUOVA PAGINA: {page_data['id']}
@@ -32,13 +35,14 @@ SET "PAGE_TITLE_IT=Titolo per {page_data['id']}"
 SET "LAT={page_data['lat']}"
 SET "LON={page_data['lon']}"
 SET "DISTANCE={page_data['threshold']}"
+SET "CATEGORIA={categoria}"
 
 ECHO 1. Backup file...
 CALL "%UTILITIES%\\salvag.bat" "%REPO_ROOT%\\main.js"
 CALL "%UTILITIES%\\salvag.bat" "%REPO_ROOT%\\data\\translations\\it\\texts.json"
 
-ECHO 2. Esecuzione add_page.py...
-python "%REPO_ROOT%\\add_page.py" %PAGE_ID% %NAV_KEY_ID% "%PAGE_TITLE_IT%" %LAT% %LON% %DISTANCE% "%REPO_ROOT%"
+ECHO 2. Esecuzione add_page.py con Categoria...
+python "%REPO_ROOT%\\add_page.py" %PAGE_ID% %NAV_KEY_ID% "%PAGE_TITLE_IT%" %LAT% %LON% %DISTANCE% "%REPO_ROOT%" %CATEGORIA%
 IF ERRORLEVEL 1 (
     ECHO.
     ECHO [ERRORE] Lo script add_page.py e' fallito. Interruzione procedura.
@@ -46,9 +50,10 @@ IF ERRORLEVEL 1 (
     EXIT /B 1
 )
 
-ECHO 3. Aggiornamento main.js e HTML...
+ECHO 3. Aggiornamento main.js, HTML e Pulizia Menu Nav...
 python "%REPO_ROOT%\\load_config_poi.py"
 python "%REPO_ROOT%\\update_html_from_json.py"
+python "%REPO_ROOT%\\pulisci_menu_html.py"
 
 ECHO Procedura completata con successo.
 PAUSE
@@ -57,7 +62,7 @@ PAUSE
     output_filename = f"add_{target_page_id}.bat"
     with open(output_filename, 'w', encoding='latin-1') as f:
         f.write(bat_content)
-    print(f"Creato '{output_filename}' con gestione errori.")
+    print(f"Creato '{output_filename}' con gestione della Categoria e Pulizia Nav.")
 
 if __name__ == "__main__":
     import sys

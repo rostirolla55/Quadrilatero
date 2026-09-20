@@ -707,3 +707,116 @@ table td:last-child {
         display: inline-block !important;
     }
 }
+
+/* ===========================================
+   STILI MENU A CATEGORIE (ACCORDION)
+   =========================================== */
+
+/* Rimuove i pallini dalle liste del menu */
+.nav-bar-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Voce fissa Home / Benvenuto */
+.menu-item-home a {
+    display: block;
+    padding: 14px 18px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #111111;
+    border-bottom: 1px solid #333333;
+    transition: background-color 0.2s ease;
+}
+
+.menu-item-home a:hover {
+    background-color: #222222;
+}
+
+/* Gruppo Categoria e Tag Details */
+.menu-categoria-group {
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.category-accordion {
+    width: 100%;
+}
+
+/* Header della Categoria (Elemento Cliccabile) */
+.category-header {
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    user-select: none;
+    list-style: none; /* Rimuove la freccetta standard nei browser moderni */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Rimuove la freccetta nativa su Safari/Chrome vecchi */
+.category-header::-webkit-details-marker {
+    display: none;
+}
+
+/* Indicatore dinamico di apertura/chiusura (+) / (-) */
+.category-header::after {
+    content: '➕';
+    font-size: 0.75rem;
+    opacity: 0.7;
+    transition: transform 0.2s ease;
+}
+
+.category-accordion[open] .category-header::after {
+    content: '➖';
+}
+
+.category-header:hover {
+    background-color: #282828;
+    color: #ffffff;
+}
+
+.category-accordion[open] .category-header {
+    background-color: #222222;
+    color: #38ef7d; /* Colore d'evidenza quando la categoria è aperta */
+}
+
+/* Lista dei POI all'interno del Sottomenu */
+.submenu-poi {
+    background-color: #0d0d0d;
+    padding-left: 10px !important;
+}
+
+.submenu-poi li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px 12px 25px;
+    font-size: 0.9rem;
+    color: #cccccc;
+    text-decoration: none;
+    border-bottom: 1px solid #1a1a1a;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.submenu-poi li a:hover {
+    background-color: #1f242d;
+    color: #ffffff;
+}
+
+.submenu-poi li:last-child a {
+    border-bottom: none;
+}
+
+/* Icona del simbolo POI */
+.menu-icon {
+    font-size: 1.1rem;
+    display: inline-block;
+    min-width: 24px;
+}

@@ -33,6 +33,19 @@ const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__f
 
 let db, auth, rtdb, currentUserId = null, isAuthReady = false;
 
+
+// ===========================================
+// CONFIGURAZIONE TITOLI CATEGORIE MULTILINGUA
+// ===========================================
+const CATEGORIE_TITOLI = {
+    'chiesa':   { it: '⛪ Chiese & Luoghi di Culto', en: '⛪ Churches & Places of Worship', es: '⛪ Iglesias y Culto', fr: '⛪ Églises et Lieux de Culte' },
+    'edificio': { it: '🏛️ Architettura & Palazzi', en: '🏛️ Architecture & Buildings', es: '🏛️ Arquitectura y Edificios', fr: '🏛️ Architecture et Bâtiments' },
+    'arte':     { it: '🎨 Opere d’Arte & Quadri', en: '🎨 Artworks & Paintings', es: '🎨 Obras de Arte', fr: '🎨 Œuvres d’Art' },
+    'statua':   { it: '🗿 Sculture e Monumenti', en: '🗿 Sculptures & Monuments', es: '🗿 Esculturas y Monumentos', fr: '🗿 Sculptures et Monuments' },
+    'esterno':  { it: '🌳 Esterni e Luoghi', en: '🌳 Outdoors & Places', es: '🌳 Exteriores y Lugares', fr: '🌳 Extérieurs et Lieux' },
+    'altro':    { it: '📍 Altri Punti di Interesse', en: '📍 Other Points of Interest', es: '📍 Otros Puntos de Interés', fr: '📍 Autres Points d’Intérêt' }
+};
+
 // ===========================================
 // DATI: POI GPS
 // ===========================================
@@ -226,46 +239,75 @@ async function loadContent(lang) {
 
 function updateNavigation(navData, lang) {
     if (!navData) return;
+    const navContent = document.querySelector('#navBarMain .nav-bar-content');
+    if (!navContent) return;
+
     const langSuffix = lang === 'it' ? '-it' : `-${lang}`;
 
-    const navLinksData = [
-        { id: 'navHome', key: 'navHome', base: 'index', poiId: 'home' },
-        { id: 'navManifattura', key: 'navManifattura', base: 'manifattura', poiId: 'manifattura' },
-        { id: 'navPittoricarracci', key: 'navPittoricarracci', base: 'pittoricarracci', poiId: 'pittoricarracci' },
-        { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio', poiId: 'cavaticcio' },
-        { id: 'navBsmariamaggiore', key: 'navBsmariamaggiore', base: 'bsmariamaggiore', poiId: 'bsmariamaggiore' },
-        { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx', poiId: 'graziaxx' },
-        { id: 'navPugliole', key: 'navPugliole', base: 'pugliole', poiId: 'pugliole' },
-        { id: 'navCarracci', key: 'navCarracci', base: 'carracci', poiId: 'carracci' },
-        { id: 'navIntervista_ludovico', key: 'navIntervista_ludovico', base: 'intervista_ludovico', poiId: 'intervista_ludovico' },
-        { id: 'navLastre', key: 'navLastre', base: 'lastre', poiId: 'lastre' },
-        { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene', poiId: 'chiesasbene' },
-        { id: 'navSantuariopioggia', key: 'navSantuariopioggia', base: 'santuariopioggia', poiId: 'santuariopioggia' },
-        { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1', poiId: 'pioggia1' },
-        { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2', poiId: 'pioggia2' },
-        { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3', poiId: 'pioggia3' },
-        { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo', poiId: 'chiesasancarlo' },
-        { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini', poiId: 'stabile_legno_vandini' }
-    ];
+    // 1. Inserimento voce fissa Home / Benvenuto in alto
+    let menuHtml = `<ul class="menu-principale">
+        <li class="menu-item-home">
+            <a href="index${langSuffix}.html">📍 ${navData['navHome'] || 'Benvenuto'}</a>
+        </li>`;
 
-    navLinksData.forEach(l => {
-        const el = document.getElementById(l.id);
-        if (el) {
-            el.href = `${l.base}${langSuffix}.html`;
-            const targetPoiId = (l.poiId || l.base).toLowerCase();
-            const poiInfo = POIS_LOCATIONS.find(p => p.id.toLowerCase() === targetPoiId);
+    // 2. Raggruppamento dei POI per categoria
+    const poiPerCategoria = {};
 
-            const simbolo = (poiInfo && window.getSimboloCategoria)
-                ? window.getSimboloCategoria(poiInfo.categoria)
-                : '📍';
+    navLinksData.forEach(item => {
+        if (item.base === 'index') return; // Salta la Home
 
-            const titoloTradotto = navData[l.key] ||
-                (window.allData[l.base] && window.allData[l.base].pageTitle) ||
-                l.base;
+        const targetPoiId = (item.poiId || item.base).toLowerCase();
+        const poiInfo = POIS_LOCATIONS.find(p => p.id.toLowerCase() === targetPoiId);
+        const catKey = poiInfo ? (poiInfo.categoria || 'altro') : 'altro';
 
-            el.innerHTML = `<span class="menu-icon">${simbolo}</span> ${titoloTradotto}`;
+        const titoloTradotto = navData[item.key] ||
+            (window.allData[item.base] && window.allData[item.base].pageTitle) ||
+            item.base;
+
+        const simbolo = window.getSimboloCategoria(catKey);
+
+        if (!poiPerCategoria[catKey]) {
+            poiPerCategoria[catKey] = [];
         }
+
+        poiPerCategoria[catKey].push({
+            href: `${item.base}${langSuffix}.html`,
+            titolo: titoloTradotto,
+            simbolo: simbolo
+        });
     });
+
+    // 3. Costruzione sottomenu e ordinamento alfabetico multilingua
+    Object.keys(poiPerCategoria).forEach(catKey => {
+        // Ordinamento alfabetico specifico per la lingua (gestisce correttamente le lettere accentate)
+        poiPerCategoria[catKey].sort((a, b) => 
+            a.titolo.localeCompare(b.titolo, lang, { sensitivity: 'base' })
+        );
+
+        const titoloCategoria = (CATEGORIE_TITOLI[catKey] && CATEGORIE_TITOLI[catKey][lang]) 
+            || (CATEGORIE_TITOLI['altro'][lang] || 'ALTRO');
+
+        menuHtml += `
+        <li class="menu-categoria-group">
+            <details class="category-accordion">
+                <summary class="category-header">${titoloCategoria} (${poiPerCategoria[catKey].length})</summary>
+                <ul class="submenu-poi">`;
+        
+        poiPerCategoria[catKey].forEach(poi => {
+            menuHtml += `
+                    <li>
+                        <a href="${poi.href}"><span class="menu-icon">${poi.simbolo}</span> ${poi.titolo}</a>
+                    </li>`;
+        });
+
+        menuHtml += `
+                </ul>
+            </details>
+        </li>`;
+    });
+
+    menuHtml += `</ul>`;
+    navContent.innerHTML = menuHtml;
 }
 
 // ===========================================

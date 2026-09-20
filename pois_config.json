@@ -34,7 +34,7 @@
             "threshold": 50,
             "nav_id": "navBsmariamaggiore",
             "base_name": "bsmariamaggiore",
-            "categoria": "edificio"
+            "categoria": "chiesa"
         },
         {
             "id": "graziaxx",
@@ -46,7 +46,7 @@
             "categoria": "esterno"
         },
         {
-            "id":"pugliole",
+            "id": "pugliole",
             "lat": 44.500071,
             "lon": 11.339805,
             "threshold": 50,
@@ -88,7 +88,7 @@
             "threshold": 120,
             "nav_id": "navChiesasbene",
             "base_name": "chiesasbene",
-            "categoria": "edificio"
+            "categoria": "chiesa"
         },
         {
             "id": "santuariopioggia",
@@ -97,7 +97,7 @@
             "threshold": 120,
             "nav_id": "navSantuariopioggia",
             "base_name": "santuariopioggia",
-            "categoria": "edificio"
+            "categoria": "chiesa"
         },
         {
             "id": "pioggia1",
@@ -106,7 +106,7 @@
             "threshold": 120,
             "nav_id": "navPioggia1",
             "base_name": "pioggia1",
-            "categoria": "quadro"
+            "categoria": "arte"
         },
         {
             "id": "pioggia2",
@@ -124,7 +124,7 @@
             "threshold": 120,
             "nav_id": "navPioggia3",
             "base_name": "pioggia3",
-            "categoria": "quadro"
+            "categoria": "arte"
         },
         {
             "id": "chiesasancarlo",
@@ -133,7 +133,7 @@
             "threshold": 120,
             "nav_id": "navChiesasancarlo",
             "base_name": "chiesasancarlo",
-            "categoria": "edificio"
+            "categoria": "chiesa"
         },
         {
             "id": "stabile_legno_vandini",
