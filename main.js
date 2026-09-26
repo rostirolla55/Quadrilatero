@@ -50,6 +50,7 @@ const navLinksData = [
     { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2', poiId: 'pioggia2' },
     { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3', poiId: 'pioggia3' },
     { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo', poiId: 'chiesasancarlo' },
+    { id: 'navPsontuoso', key: 'navPsontuoso', base: 'psontuoso', poiId: 'psontuoso' },
     { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini', poiId: 'stabile_legno_vandini' }
 ];
 
@@ -86,6 +87,7 @@ const POIS_LOCATIONS = [
     { id: 'pioggia2', lat: 44.499023, lon: 11.34176, distanceThreshold: 120, categoria: 'statua' },
     { id: 'pioggia3', lat: 44.499023, lon: 11.34176, distanceThreshold: 120, categoria: 'arte' },
     { id: 'chiesasancarlo', lat: 44.501295, lon: 11.34085, distanceThreshold: 120, categoria: 'chiesa' },
+    { id: 'psontuoso', lat: 44.49046395468894, lon: 11.329397374392755, distanceThreshold: 15, categoria: 'portici' },
     { id: 'stabile_legno_vandini', lat: 44.502054, lon: 11.338546, distanceThreshold: 120, categoria: 'edificio' }
 ];
 

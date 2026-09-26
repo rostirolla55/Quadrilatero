@@ -136,6 +136,15 @@
             "categoria": "chiesa"
         },
         {
+            "id": "psontuoso",
+            "lat": 44.49046395468894,
+            "lon": 11.329397374392755,
+            "threshold": 15,
+            "nav_id": "navPsontuoso",
+            "base_name": "psontuoso",
+            "categoria": "portici"
+        },
+        {
             "id": "stabile_legno_vandini",
             "lat": 44.502054,
             "lon": 11.338546,

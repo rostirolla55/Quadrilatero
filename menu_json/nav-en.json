@@ -84,6 +84,11 @@
             "id": "navIntervista_ludovico",
             "href": "intervista_ludovico-en.html",
             "text": "Interview with Ludovico Carracci"
+        },
+        {
+            "id": "navPsontuoso",
+            "href": "psontuoso-en.html",
+            "text": "Titolo per psontuoso"
         }
     ]
 }

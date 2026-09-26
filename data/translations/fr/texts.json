@@ -388,5 +388,14 @@
         "lastUpdate": "2026-09-10",
         "playAudioButton": "Écoutez l'interview",
         "pauseAudioButton": "Arrêter la lecture"
+    },
+    "psontuoso": {
+        "headImage": "public/images/panorama_bologna.jpg",
+        "audioSource": "fr/psontuoso.mp3",
+        "mainText1": "fr_psontuoso_maintext1.html",
+        "imageSource1": "psontuoso/Portone_Sontuoso.jpg",
+        "mainText2": "fr_psontuoso_maintext2.html",
+        "imageSource2": "psontuoso/Disegno_Bonaccorsi.jpg",
+        "mainText3": "fr_psontuoso_maintext3.html"
     }
 }

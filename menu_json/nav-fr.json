@@ -79,10 +79,16 @@
             "id": "navChiesasancarlo",
             "href": "chiesasancarlo-fr.html",
             "text": "Église de San Carlo"
-        },        {
+        },
+        {
             "id": "navIntervista_ludovico",
             "href": "intervista_ludovico-fr.html",
             "text": "Entretien avec Ludovico Carracci"
+        },
+        {
+            "id": "navPsontuoso",
+            "href": "psontuoso-fr.html",
+            "text": "Titolo per psontuoso"
         }
     ]
 }
