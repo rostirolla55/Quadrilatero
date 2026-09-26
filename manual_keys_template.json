@@ -84,6 +84,44 @@
             "audioSource": "en/chiesapioggia.mp3"
         }
     },
+    "psontuoso": {
+        "it": {
+            "pageTitle": "Portone Sontuoso",
+            "playAudioButton": "Ascolta la storia",
+            "pauseAudioButton": "Ferma la riproduzione",
+            "sourceText": "Vaticano.com Santuari e Dintorni",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "it/psontuoso.mp3",
+            "mainText": ""
+        },
+        "es": {
+            "pageTitle": "Puerta suntuoso",
+            "playAudioButton": "Escuchar la historia",
+            "pauseAudioButton": "Detener la reproducción",
+            "sourceText": "Vaticano.com Santuarios y alrededores",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "es/psontuoso.mp3",
+            "mainText": ""
+        },
+        "fr": {
+            "pageTitle": "Porte somptueux",
+            "playAudioButton": "Écouter le récit",
+            "pauseAudioButton": "Arrêter la lecture",
+            "sourceText": "Vaticano.com Sanctuaires et environs",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "fr/psontuoso.mp3",
+            "mainText": ""
+        },
+        "en": {
+            "pageTitle": "sumptuous gate",
+            "playAudioButton": "Listen with headphones",
+            "pauseAudioButton": "Pause",
+            "sourceText": "Vaticano.com Santuari e Dintorni",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "en/psontuoso.mp3",
+            "mainText": ""
+        }
+    },    
     "chiesasbene": {
         "it": {
             "pageTitle": "Chiesa di San Benedetto",
