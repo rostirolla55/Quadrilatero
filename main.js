@@ -57,12 +57,14 @@ const navLinksData = [
 // CONFIGURAZIONE TITOLI CATEGORIE MULTILINGUA
 // ===========================================
 const CATEGORIE_TITOLI = {
-    'chiesa':   { it: '⛪ Chiese & Luoghi di Culto', en: '⛪ Churches & Places of Worship', es: '⛪ Iglesias y Culto', fr: '⛪ Églises et Lieux de Culte' },
-    'edificio': { it: '🏛️ Architettura & Palazzi', en: '🏛️ Architecture & Buildings', es: '🏛️ Arquitectura y Edificios', fr: '🏛️ Architecture et Bâtiments' },
-    'arte':     { it: '🎨 Opere d’Arte & Quadri', en: '🎨 Artworks & Paintings', es: '🎨 Obras de Arte', fr: '🎨 Œuvres d’Art' },
-    'statua':   { it: '🗿 Sculture e Monumenti', en: '🗿 Sculptures & Monuments', es: '🗿 Esculturas y Monumentos', fr: '🗿 Sculptures et Monuments' },
-    'esterno':  { it: '🌳 Esterni e Luoghi', en: '🌳 Outdoors & Places', es: '🌳 Exteriores y Lugares', fr: '🌳 Extérieurs et Lieux' },
-    'altro':    { it: '📍 Altri Punti di Interesse', en: '📍 Other Points of Interest', es: '📍 Otros Puntos de Interés', fr: '📍 Autres Points d’Intérêt' }
+    'chiesa':    { it: '⛪ Chiese & Luoghi di Culto', en: '⛪ Churches & Places of Worship', es: '⛪ Iglesias y Culto', fr: '⛪ Églises et Lieux de Culte' },
+    'edificio':  { it: '🏛️ Architettura & Palazzi', en: '🏛️ Architecture & Buildings', es: '🏛️ Arquitectura y Edificios', fr: '🏛️ Architecture et Bâtiments' },
+    'portici':   { it: '🏛️ Portici & Archi Storici', en: '🏛️ Porticoes & Historic Arches', es: '🏛️ Pórticos y Arcos Históricos', fr: '🏛️ Portiques et Arches Historiques' },
+    'itinerari': { it: '🥾 Itinerari & Percorsi', en: '🥾 Routes & Walking Tours', es: '🥾 Itinerarios y Rutas', fr: '🥾 Itinéraires et Parcours' },
+    'arte':      { it: '🎨 Opere d’Arte & Quadri', en: '🎨 Artworks & Paintings', es: '🎨 Obras de Arte', fr: '🎨 Œuvres d’Art' },
+    'statua':    { it: '🗿 Sculture e Monumenti', en: '🗿 Sculptures & Monuments', es: '🗿 Esculturas y Monumentos', fr: '🗿 Sculptures et Monuments' },
+    'esterno':   { it: '🌳 Esterni e Luoghi', en: '🌳 Outdoors & Places', es: '🌳 Exteriores y Lugares', fr: '🌳 Extérieurs et Lieux' },
+    'altro':     { it: '📍 Altri Punti di Interesse', en: '📍 Other Points of Interest', es: '📍 Otros Puntos de Interés', fr: '📍 Autres Points d’Intérêt' }
 };
 
 // ===========================================
