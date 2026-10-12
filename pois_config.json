@@ -100,6 +100,15 @@
             "categoria": "chiesa"
         },
         {
+            "id": "edicola_votiva",
+            "lat": 44.499125,
+            "lon": 11.341781,
+            "threshold": 120,
+            "nav_id": "navEdicola_votiva",
+            "base_name": "edicola_votiva",
+            "categoria": "esterno"
+        },
+        {
             "id": "pioggia1",
             "lat": 44.498921,
             "lon": 11.341923,
