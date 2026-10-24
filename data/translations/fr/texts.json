@@ -366,11 +366,6 @@
         "mainText4": "fr_edicola_votiva_maintext4.html",
         "lastUpdate": "2026-08-24"
     },
-    "chiesapioggia": {
-        "headImage": "public/images/panorama_bologna.jpg",
-        "audioSource": "fr/chiesapioggia.mp3",
-        "mainText1": "fr_chiesapioggia_maintext1.html"
-    },
     "intervista_ludovico": {
         "pageTitle": "Entretien avec Ludovico Carracci",
         "headerTitle": "Titolo per intervista_ludovico",
