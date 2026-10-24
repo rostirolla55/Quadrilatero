@@ -295,16 +295,6 @@
         "lastUpdate": "2026-08-01",
         "audioSource": "en/centraleidroelettricacavaticcio.mp3"
     },
-    "chiesasbenedetto": {
-        "pageTitle": "Church of the Rain",
-        "playAudioButton": "Listen with headphones",
-        "pauseAudioButton": "Pause",
-        "mainText": "<p><font color=\"#ff0000\"><b>If you enter the church, use headphones to listen to the audio</b></font> </p><p><font color=\"#3465a4\">To find out the opening hours, please visit the page https://dindondan.app/orarimesse/San-Benedetto-Bologna-602DC </font> </p>",
-        "sourceText": "",
-        "lastUpdate": "2025-12-19",
-        "headImage": "santuariopioggia.jpg",
-        "audioSource": "en/santuariopioggia.mp3"
-    },
     "bsmariamaggiore": {
         "headImage": "panorama_bologna.jpg",
         "audioSource": "en/bsmariamaggiore.mp3",
