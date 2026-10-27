@@ -154,6 +154,15 @@
             "categoria": "portici"
         },
         {
+            "id": "arco3_fornasari",
+            "lat": 44.490633,
+            "lon": 11.329205,
+            "threshold": 15,
+            "nav_id": "navArco3_fornasari",
+            "base_name": "arco3_fornasari",
+            "categoria": "portici"
+        },
+        {
             "id": "stabile_legno_vandini",
             "lat": 44.502054,
             "lon": 11.338546,
