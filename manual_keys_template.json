@@ -122,6 +122,44 @@
             "mainText": ""
         }
     },    
+    "arco3_fornasari": {
+            "it": {
+            "pageTitle": "Arco 3 Abate Fornasari",
+            "playAudioButton": "Ascolta la storia",
+            "pauseAudioButton": "Ferma la riproduzione",
+            "sourceText": "Vaticano.com Santuari e Dintorni",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "it/arco3_fornasari.mp3",
+            "mainText": ""
+        },
+        "es": {
+            "pageTitle": "Arco 3 Abad Fornasari",
+            "playAudioButton": "Escuchar la historia",
+            "pauseAudioButton": "Detener la reproducción",
+            "sourceText": "Vaticano.com Santuarios y alrededores",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "es/arco3_fornasari.mp3",
+            "mainText": ""
+        },
+        "fr": {
+            "pageTitle": "Arch 3 Abbé Fornasari",
+            "playAudioButton": "Écouter le récit",
+            "pauseAudioButton": "Arrêter la lecture",
+            "sourceText": "Vaticano.com Sanctuaires et environs",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "fr/arco3_fornasari.mp3",
+            "mainText": ""
+        },
+        "en": {
+            "pageTitle": "Arch 3 Abbot Fornasari",
+            "playAudioButton": "Listen with headphones",
+            "pauseAudioButton": "Pause",
+            "sourceText": "Vaticano.com Santuari e Dintorni",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "en/arco3_fornasari.mp3",
+            "mainText": ""
+        }
+    },    
     "chiesasbene": {
         "it": {
             "pageTitle": "Chiesa di San Benedetto",
