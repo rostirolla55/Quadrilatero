@@ -421,16 +421,19 @@
         "mainText1": "en_chiesapioggia_maintext1.html"
     },
     "arco170_madonna_grassa": {
-        "pageTitle": "Titolo per arco170_madonna_grassa",
+        "pageTitle": "Arch 170 Madonna Fata",
         "headerTitle": "Titolo per arco170_madonna_grassa",
-        "mainText": "Benvenuti a Titolo per arco170_madonna_grassa...",
+        "mainText": "",
         "mainText1": "en_arco170_madonna_grassa_maintext1.html",
         "mainText2": "en_arco170_madonna_grassa_maintext2.html",
         "mainText3": "",
         "mainText4": "",
         "mainText5": "",
-        "headImage": "public/images/panorama_bologna.jpg",
-        "audioSource": "en/arco170_madonna_grassa.mp3",
-        "imageSource1": "arco170_madonna_grassa/lamadonnagrassa_panorama.jpeg"
+        "headImage": "Meloncello.jpg",
+        "audioSource": "en/arco3_fornasari.mp3",
+        "imageSource1": "arco170_madonna_grassa/lamadonnagrassa_panorama.jpeg",
+        "playAudioButton": "Listen with headphones",
+        "pauseAudioButton": "Pause",
+        "sourceText": "Vaticano.com Santuari e Dintorni"
     }
 }
