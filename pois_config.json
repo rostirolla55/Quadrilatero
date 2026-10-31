@@ -154,6 +154,15 @@
             "categoria": "portici"
         },
         {
+            "id": "arco170_madonna_grassa",
+            "lat": 44.48938722340913,
+            "lon": 11.319113695503352,
+            "threshold": 15,
+            "nav_id": "navArco170_madonna_grassa",
+            "base_name": "arco170_madonna_grassa",
+            "categoria": "portici"
+        },
+        {
             "id": "arco3_fornasari",
             "lat": 44.490633,
             "lon": 11.329205,
