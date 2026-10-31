@@ -94,6 +94,11 @@
             "id": "navArco3_fornasari",
             "href": "arco3_fornasari-es.html",
             "text": "Titolo per arco3_fornasari"
+        },
+        {
+            "id": "navArco170_madonna_grassa",
+            "href": "arco170_madonna_grassa-es.html",
+            "text": "Titolo per arco170_madonna_grassa"
         }
     ]
 }
