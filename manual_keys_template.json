@@ -167,7 +167,7 @@
             "pauseAudioButton": "Ferma la riproduzione",
             "sourceText": "Vaticano.com Santuari e Dintorni",
             "headImage": "Meloncello.jpg",
-            "audioSource": "it/arco3_fornasari.mp3",
+            "audioSource": "it/arco170_madonna_grassa.mp3",
             "mainText": ""
         },
         "es": {
@@ -176,7 +176,7 @@
             "pauseAudioButton": "Detener la reproducción",
             "sourceText": "Vaticano.com Santuarios y alrededores",
             "headImage": "Meloncello.jpg",
-            "audioSource": "es/arco3_fornasari.mp3",
+            "audioSource": "es/arco170_madonna_grassa.mp3",
             "mainText": ""
         },
         "fr": {
@@ -185,7 +185,7 @@
             "pauseAudioButton": "Arrêter la lecture",
             "sourceText": "Vaticano.com Sanctuaires et environs",
             "headImage": "Meloncello.jpg",
-            "audioSource": "fr/arco3_fornasari.mp3",
+            "audioSource": "fr/arco170_madonna_grassa.mp3",
             "mainText": ""
         },
         "en": {
@@ -194,7 +194,45 @@
             "pauseAudioButton": "Pause",
             "sourceText": "Vaticano.com Santuari e Dintorni",
             "headImage": "Meloncello.jpg",
-            "audioSource": "en/arco3_fornasari.mp3",
+            "audioSource": "en/arco170_madonna_grassa.mp3",
+            "mainText": ""
+        }
+    },    
+    "arco126_dei_francesi": {
+            "it": {
+            "pageTitle": "Arco 126 dei franecesi",
+            "playAudioButton": "Ascolta la storia",
+            "pauseAudioButton": "Ferma la riproduzione",
+            "sourceText": "",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "it/arco126_dei_francesi.mp3",
+            "mainText": ""
+        },
+        "es": {
+            "pageTitle": "Arco 126 de los franceses",
+            "playAudioButton": "Escuchar la historia",
+            "pauseAudioButton": "Detener la reproducción",
+            "sourceText": "",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "es/arco126_dei_francesi.mp3",
+            "mainText": ""
+        },
+        "fr": {
+            "pageTitle": "Arche 126 des Français",
+            "playAudioButton": "Écouter le récit",
+            "pauseAudioButton": "Arrêter la lecture",
+            "sourceText": "",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "fr/arco126_dei_francesi.mp3",
+            "mainText": ""
+        },
+        "en": {
+            "pageTitle": "Arch 126 of the French",
+            "playAudioButton": "Listen with headphones",
+            "pauseAudioButton": "Pause",
+            "sourceText": "",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "en/arco126_dei_francesi.mp3",
             "mainText": ""
         }
     },    
