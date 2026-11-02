@@ -7,7 +7,8 @@
             "threshold": 50,
             "nav_id": "navManifattura",
             "base_name": "manifattura",
-            "categoria": "edificio"
+            "categoria": "edificio",
+            "ordine_cammino": 502
         },
         {
             "id": "pittoricarracci",
@@ -16,7 +17,8 @@
             "threshold": 50,
             "nav_id": "navPittoricarracci",
             "base_name": "pittoricarracci",
-            "categoria": "arte"
+            "categoria": "arte",
+            "ordine_cammino": 601
         },
         {
             "id": "cavaticcio",
@@ -25,7 +27,8 @@
             "threshold": 50,
             "nav_id": "navCavaticcio",
             "base_name": "cavaticcio",
-            "categoria": "edificio"
+            "categoria": "edificio",
+            "ordine_cammino": 503
         },
         {
             "id": "bsmariamaggiore",
@@ -34,7 +37,8 @@
             "threshold": 50,
             "nav_id": "navBsmariamaggiore",
             "base_name": "bsmariamaggiore",
-            "categoria": "chiesa"
+            "categoria": "chiesa",
+            "ordine_cammino": 801
         },
         {
             "id": "graziaxx",
@@ -43,7 +47,8 @@
             "threshold": 50,
             "nav_id": "navGraziaxx",
             "base_name": "graziaxx",
-            "categoria": "esterno"
+            "categoria": "esterno",
+            "ordine_cammino": 901
         },
         {
             "id": "pugliole",
@@ -52,7 +57,8 @@
             "threshold": 50,
             "nav_id": "navPugliole",
             "base_name": "pugliole",
-            "categoria": "esterno"
+            "categoria": "esterno",
+            "ordine_cammino": 902
         },
         {
             "id": "carracci",
@@ -61,7 +67,8 @@
             "threshold": 50,
             "nav_id": "navCarracci",
             "base_name": "carracci",
-            "categoria": "edificio"
+            "categoria": "edificio",
+            "ordine_cammino": 504
         },
         {
             "id": "intervista_ludovico",
@@ -70,7 +77,8 @@
             "threshold": 50,
             "nav_id": "navIntervista_ludovico",
             "base_name": "intervista_ludovico",
-            "categoria": "arte"
+            "categoria": "arte",
+            "ordine_cammino": 602
         },
         {
             "id": "lastre",
@@ -79,7 +87,8 @@
             "threshold": 50,
             "nav_id": "navLastre",
             "base_name": "lastre",
-            "categoria": "esterno"
+            "categoria": "esterno",
+            "ordine_cammino": 903
         },
         {
             "id": "chiesasbene",
@@ -88,7 +97,8 @@
             "threshold": 120,
             "nav_id": "navChiesasbene",
             "base_name": "chiesasbene",
-            "categoria": "chiesa"
+            "categoria": "chiesa",
+            "ordine_cammino": 802
         },
         {
             "id": "santuariopioggia",
@@ -97,7 +107,8 @@
             "threshold": 120,
             "nav_id": "navSantuariopioggia",
             "base_name": "santuariopioggia",
-            "categoria": "chiesa"
+            "categoria": "chiesa",
+            "ordine_cammino": 803
         },
         {
             "id": "edicola_votiva",
@@ -106,7 +117,8 @@
             "threshold": 120,
             "nav_id": "navEdicola_votiva",
             "base_name": "edicola_votiva",
-            "categoria": "esterno"
+            "categoria": "esterno",
+            "ordine_cammino": 904
         },
         {
             "id": "pioggia1",
@@ -115,7 +127,8 @@
             "threshold": 120,
             "nav_id": "navPioggia1",
             "base_name": "pioggia1",
-            "categoria": "arte"
+            "categoria": "arte",
+            "ordine_cammino": 603
         },
         {
             "id": "pioggia2",
@@ -124,7 +137,8 @@
             "threshold": 120,
             "nav_id": "navPioggia2",
             "base_name": "pioggia2",
-            "categoria": "statua"
+            "categoria": "statua",
+            "ordine_cammino": 701
         },
         {
             "id": "pioggia3",
@@ -133,7 +147,8 @@
             "threshold": 120,
             "nav_id": "navPioggia3",
             "base_name": "pioggia3",
-            "categoria": "arte"
+            "categoria": "arte",
+            "ordine_cammino": 604
         },
         {
             "id": "chiesasancarlo",
@@ -142,7 +157,8 @@
             "threshold": 120,
             "nav_id": "navChiesasancarlo",
             "base_name": "chiesasancarlo",
-            "categoria": "chiesa"
+            "categoria": "chiesa",
+            "ordine_cammino": 804
         },
         {
             "id": "psontuoso",
@@ -151,7 +167,8 @@
             "threshold": 15,
             "nav_id": "navPsontuoso",
             "base_name": "psontuoso",
-            "categoria": "portici"
+            "categoria": "portici",
+            "ordine_cammino": 1
         },
         {
             "id": "arco170_madonna_grassa",
@@ -160,7 +177,8 @@
             "threshold": 15,
             "nav_id": "navArco170_madonna_grassa",
             "base_name": "arco170_madonna_grassa",
-            "categoria": "portici"
+            "categoria": "portici",
+            "ordine_cammino": 170
         },
         {
             "id": "arco3_fornasari",
@@ -169,7 +187,8 @@
             "threshold": 15,
             "nav_id": "navArco3_fornasari",
             "base_name": "arco3_fornasari",
-            "categoria": "portici"
+            "categoria": "portici",
+            "ordine_cammino": 3
         },
         {
             "id": "stabile_legno_vandini",
@@ -178,7 +197,8 @@
             "threshold": 120,
             "nav_id": "navStabilevandini",
             "base_name": "stabile_legno_vandini",
-            "categoria": "edificio"
+            "categoria": "edificio",
+            "ordine_cammino": 501
         }
     ]
 }
