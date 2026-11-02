@@ -289,6 +289,9 @@ function updateNavigation(navData, lang) {
         const poiInfo = POIS_LOCATIONS.find(p => p.id.toLowerCase() === targetPoiId);
         const catKey = poiInfo ? (poiInfo.categoria || 'altro') : 'altro';
 
+        // Lettura ordine_cammino con fallback a 999 se omesso
+        const ordineCammino = item.ordine_cammino !== undefined ? item.ordine_cammino : (poiInfo && poiInfo.ordine_cammino !== undefined ? poiInfo.ordine_cammino : 999);
+
         const titoloTradotto = navData[item.key] ||
             (window.allData[item.base] && window.allData[item.base].pageTitle) ||
             item.base;
@@ -302,16 +305,20 @@ function updateNavigation(navData, lang) {
         poiPerCategoria[catKey].push({
             href: `${item.base}${langSuffix}.html`,
             titolo: titoloTradotto,
-            simbolo: simbolo
+            simbolo: simbolo,
+            ordine_cammino: ordineCammino
         });
     });
 
-    // 3. Costruzione sottomenu e ordinamento alfabetico multilingua
+    // 3. Costruzione sottomenu e ordinamento per ordine_cammino (con parità alfabetica multilingua)
     Object.keys(poiPerCategoria).forEach(catKey => {
-        // Ordinamento alfabetico specifico per la lingua (gestisce correttamente le lettere accentate)
-        poiPerCategoria[catKey].sort((a, b) => 
-            a.titolo.localeCompare(b.titolo, lang, { sensitivity: 'base' })
-        );
+        poiPerCategoria[catKey].sort((a, b) => {
+            if (a.ordine_cammino !== b.ordine_cammino) {
+                return a.ordine_cammino - b.ordine_cammino;
+            }
+            // In caso di pari ordine_cammino, ordina alfabeticamente in base alla lingua
+            return a.titolo.localeCompare(b.titolo, lang, { sensitivity: 'base' });
+        });
 
         const titoloCategoria = (CATEGORIE_TITOLI[catKey] && CATEGORIE_TITOLI[catKey][lang]) 
             || (CATEGORIE_TITOLI['altro'][lang] || 'ALTRO');
