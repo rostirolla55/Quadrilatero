@@ -594,16 +594,15 @@ window.getSimboloCategoria = function (categoria) {
         return '📍';
     }
     const catClean = categoria.toString().toLowerCase().trim();
-    const simboli = {
-        'edificio': '🏛️',
-        'esterno': '🌳',
-        'chiesa': '⛪',
-        'quadro': '🎨',
-        'statua': '🗿',
-        'arte': '🎨',
-        'monumento': '🏛️'
-    };
-    return simboli[catClean] || '📍';
+    
+    // Controlla se la categoria esiste in CATEGORIE_TITOLI
+    if (typeof CATEGORIE_TITOLI !== 'undefined' && CATEGORIE_TITOLI[catClean] && CATEGORIE_TITOLI[catClean].it) {
+        // Estrae la prima parte del testo (l'emoji)
+        return CATEGORIE_TITOLI[catClean].it.trim().split(' ')[0];
+    }
+    
+    // Fallback generico se la categoria non viene trovata
+    return '📍';
 };
 
 window.POIS_LOCATIONS = POIS_LOCATIONS;
