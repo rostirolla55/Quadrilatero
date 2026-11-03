@@ -88,17 +88,17 @@
         {
             "id": "navPsontuoso",
             "href": "psontuoso-fr.html",
-            "text": "Titolo per psontuoso"
+            "text": "Porte somptueuse"
         },
         {
-            "id": "navArco3_fornasari",
+            "id": "navArco3fornasari",
             "href": "arco3_fornasari-fr.html",
-            "text": "Titolo per arco3_fornasari"
+            "text": "Arc 3 abbate Fornasari"
         },
         {
-            "id": "navArco170_madonna_grassa",
+            "id": "navArco170madonnagrassa",
             "href": "arco170_madonna_grassa-fr.html",
-            "text": "Titolo per arco170_madonna_grassa"
+            "text": "Arc 170 Madonna Grassa"
         }
     ]
 }

@@ -53,7 +53,7 @@ const navLinksData = [
     { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo', poiId: 'chiesasancarlo', ordine_cammino: 804 },
     { id: 'navPsontuoso', key: 'navPsontuoso', base: 'psontuoso', poiId: 'psontuoso', ordine_cammino: 1 },
     { id: 'navArco170_madonna_grassa', key: 'navArco170_madonna_grassa', base: 'arco170_madonna_grassa', poiId: 'arco170_madonna_grassa', ordine_cammino: 170 },
-    { id: 'navArco3_fornasari', key: 'navArco3_fornasari', base: 'arco3_fornasari', poiId: 'arco3_fornasari', ordine_cammino: 3 },
+    { id: 'navArco3fornasari', key: ' navArco3fornasari', base: 'arco3_fornasari', poiId: 'arco3_fornasari', ordine_cammino: 3 },
     { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini', poiId: 'stabile_legno_vandini', ordine_cammino: 501 }
 ];
 

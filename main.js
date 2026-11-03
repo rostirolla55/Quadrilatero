@@ -6,7 +6,7 @@ import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged }
 import { getFirestore, doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 
-const APP_VERSION = '1.3.0 - Nuova versione dei menu e della geolocalizzazione';
+const APP_VERSION = '1.3.1 - Nuova versione dei menu e della geolocalizzazione - controllo categorie e ordine_cammino';
 const LANGUAGES = ['it', 'en', 'fr', 'es'];
 const LAST_LANG_KEY = 'Quadrilatero_lastLang';
 let currentLang = 'it';
@@ -52,8 +52,8 @@ const navLinksData = [
     { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3', poiId: 'pioggia3', ordine_cammino: 604 },
     { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo', poiId: 'chiesasancarlo', ordine_cammino: 804 },
     { id: 'navPsontuoso', key: 'navPsontuoso', base: 'psontuoso', poiId: 'psontuoso', ordine_cammino: 1 },
-    { id: 'navArco170_madonna_grassa', key: 'navArco170_madonna_grassa', base: 'arco170_madonna_grassa', poiId: 'arco170_madonna_grassa', ordine_cammino: 170 },
-    { id: 'navArco3_fornasari', key: 'navArco3_fornasari', base: 'arco3_fornasari', poiId: 'arco3_fornasari', ordine_cammino: 3 },
+    { id: 'navArco170madonnagrassa', key: 'navArco170_madonna_grassa', base: 'arco170_madonna_grassa', poiId: 'arco170_madonna_grassa', ordine_cammino: 170 },
+    { id: 'navArco3fornasari', key: ' navArco3fornasari', base: 'arco3_fornasari', poiId: 'arco3_fornasari', ordine_cammino: 3 },
     { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini', poiId: 'stabile_legno_vandini', ordine_cammino: 501 }
 ];
 
@@ -608,7 +608,8 @@ window.getSimboloCategoria = function (categoria) {
         'quadro': '🎨',
         'statua': '🗿',
         'arte': '🎨',
-        'monumento': '🏛️'
+        'monumento': '🏛️',
+        'portici': '🏛️'
     };
     return simboli[catClean] || '📍';
 };

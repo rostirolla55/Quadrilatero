@@ -88,17 +88,17 @@
         {
             "id": "navPsontuoso",
             "href": "psontuoso-en.html",
-            "text": "Titolo per psontuoso"
+            "text": "Sumptuous Gate"
         },
         {
-            "id": "navArco3_fornasari",
+            "id": "navArco3fornasari",
             "href": "arco3_fornasari-en.html",
-            "text": "Titolo per arco3_fornasari"
+            "text": "Arch 3 Abbot Fornasari"
         },
         {
-            "id": "navArco170_madonna_grassa",
+            "id": "navArco170madonnagrassa",
             "href": "arco170_madonna_grassa-en.html",
-            "text": "Titolo per arco170_madonna_grassa"
+            "text": "Arch 170 Madonna Grassa"
         }
     ]
 }
