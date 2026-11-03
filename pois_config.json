@@ -8,7 +8,7 @@
             "nav_id": "navManifattura",
             "base_name": "manifattura",
             "categoria": "edificio",
-            "ordine_cammino": 502
+            "ordine_cammino": 1502
         },
         {
             "id": "pittoricarracci",
@@ -28,7 +28,7 @@
             "nav_id": "navCavaticcio",
             "base_name": "cavaticcio",
             "categoria": "edificio",
-            "ordine_cammino": 503
+            "ordine_cammino": 1503
         },
         {
             "id": "bsmariamaggiore",
@@ -68,7 +68,7 @@
             "nav_id": "navCarracci",
             "base_name": "carracci",
             "categoria": "edificio",
-            "ordine_cammino": 504
+            "ordine_cammino": 1504
         },
         {
             "id": "intervista_ludovico",
@@ -198,7 +198,7 @@
             "nav_id": "navStabilevandini",
             "base_name": "stabile_legno_vandini",
             "categoria": "edificio",
-            "ordine_cammino": 501
+            "ordine_cammino": 1501
         }
     ]
 }
