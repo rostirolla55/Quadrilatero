@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import os
 import re
@@ -16,14 +17,20 @@ def update_main_js():
     
     pois = data.get("pois", [])
 
-    # 2. Generazione stringa POIS_LOCATIONS (include categoria e distanceThreshold)
+    # 2. Generazione stringa POIS_LOCATIONS (include categoria, distanceThreshold e ordine_cammino)
     pois_locations_js = "const POIS_LOCATIONS = [\n"
     for i, p in enumerate(pois):
         comma = "," if i < len(pois) - 1 else ""
         categoria = p.get('categoria', 'edificio')
+        
+        # Gestione del campo ordine_cammino (opzionale)
+        ordine_cammino_str = ""
+        if "ordine_cammino" in p and p["ordine_cammino"] is not None:
+            ordine_cammino_str = f", ordine_cammino: {p['ordine_cammino']}"
+
         pois_locations_js += (  
             f"    {{ id: '{p['id']}', lat: {p['lat']}, lon: {p['lon']}, "
-            f"distanceThreshold: {p['threshold']}, categoria: '{categoria}' }}{comma}\n"
+            f"distanceThreshold: {p['threshold']}, categoria: '{categoria}'{ordine_cammino_str} }}{comma}\n"
         )    
     pois_locations_js += "];"
 

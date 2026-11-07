@@ -34,27 +34,28 @@ const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__f
 let db, auth, rtdb, currentUserId = null, isAuthReady = false;
 
 const navLinksData = [
-    { id: 'navHome', key: 'navHome', base: 'index', poiId: 'home', ordine_cammino: 0 },
-    { id: 'navManifattura', key: 'navManifattura', base: 'manifattura', poiId: 'manifattura', ordine_cammino: 502 },
-    { id: 'navPittoricarracci', key: 'navPittoricarracci', base: 'pittoricarracci', poiId: 'pittoricarracci', ordine_cammino: 601 },
-    { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio', poiId: 'cavaticcio', ordine_cammino: 503 },
-    { id: 'navBsmariamaggiore', key: 'navBsmariamaggiore', base: 'bsmariamaggiore', poiId: 'bsmariamaggiore', ordine_cammino: 801 },
-    { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx', poiId: 'graziaxx', ordine_cammino: 901 },
-    { id: 'navPugliole', key: 'navPugliole', base: 'pugliole', poiId: 'pugliole', ordine_cammino: 902 },
-    { id: 'navCarracci', key: 'navCarracci', base: 'carracci', poiId: 'carracci', ordine_cammino: 504 },
-    { id: 'navIntervista_ludovico', key: 'navIntervista_ludovico', base: 'intervista_ludovico', poiId: 'intervista_ludovico', ordine_cammino: 602 },
-    { id: 'navLastre', key: 'navLastre', base: 'lastre', poiId: 'lastre', ordine_cammino: 903 },
-    { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene', poiId: 'chiesasbene', ordine_cammino: 802 },
-    { id: 'navSantuariopioggia', key: 'navSantuariopioggia', base: 'santuariopioggia', poiId: 'santuariopioggia', ordine_cammino: 803 },
-    { id: 'navEdicola_votiva', key: 'navEdicola_votiva', base: 'edicola_votiva', poiId: 'edicola_votiva', ordine_cammino: 904 },
-    { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1', poiId: 'pioggia1', ordine_cammino: 603 },
-    { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2', poiId: 'pioggia2', ordine_cammino: 701 },
-    { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3', poiId: 'pioggia3', ordine_cammino: 604 },
-    { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo', poiId: 'chiesasancarlo', ordine_cammino: 804 },
-    { id: 'navPsontuoso', key: 'navPsontuoso', base: 'psontuoso', poiId: 'psontuoso', ordine_cammino: 1 },
-    { id: 'navArco170madonnagrassa', key: 'navArco170_madonna_grassa', base: 'arco170_madonna_grassa', poiId: 'arco170_madonna_grassa', ordine_cammino: 170 },
-    { id: 'navArco3fornasari', key: ' navArco3fornasari', base: 'arco3_fornasari', poiId: 'arco3_fornasari', ordine_cammino: 3 },
-    { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini', poiId: 'stabile_legno_vandini', ordine_cammino: 501 }
+    { id: 'navHome', key: 'navHome', base: 'index', poiId: 'home' },
+    { id: 'navManifattura', key: 'navManifattura', base: 'manifattura', poiId: 'manifattura' },
+    { id: 'navPittoricarracci', key: 'navPittoricarracci', base: 'pittoricarracci', poiId: 'pittoricarracci' },
+    { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio', poiId: 'cavaticcio' },
+    { id: 'navBsmariamaggiore', key: 'navBsmariamaggiore', base: 'bsmariamaggiore', poiId: 'bsmariamaggiore' },
+    { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx', poiId: 'graziaxx' },
+    { id: 'navPugliole', key: 'navPugliole', base: 'pugliole', poiId: 'pugliole' },
+    { id: 'navCarracci', key: 'navCarracci', base: 'carracci', poiId: 'carracci' },
+    { id: 'navIntervista_ludovico', key: 'navIntervista_ludovico', base: 'intervista_ludovico', poiId: 'intervista_ludovico' },
+    { id: 'navLastre', key: 'navLastre', base: 'lastre', poiId: 'lastre' },
+    { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene', poiId: 'chiesasbene' },
+    { id: 'navSantuariopioggia', key: 'navSantuariopioggia', base: 'santuariopioggia', poiId: 'santuariopioggia' },
+    { id: 'navEdicola_votiva', key: 'navEdicola_votiva', base: 'edicola_votiva', poiId: 'edicola_votiva' },
+    { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1', poiId: 'pioggia1' },
+    { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2', poiId: 'pioggia2' },
+    { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3', poiId: 'pioggia3' },
+    { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo', poiId: 'chiesasancarlo' },
+    { id: 'navPsontuoso', key: 'navPsontuoso', base: 'psontuoso', poiId: 'psontuoso' },
+    { id: 'navArco170madonnagrassa', key: 'navArco170madonnagrassa', base: 'arco170_madonna_grassa', poiId: 'arco170_madonna_grassa' },
+    { id: 'navArco125_francesi', key: 'navArco125_francesi', base: 'arco125_francesi', poiId: 'arco125_francesi' },
+    { id: 'navArco3fornasari', key: 'navArco3fornasari', base: 'arco3_fornasari', poiId: 'arco3_fornasari' },
+    { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini', poiId: 'stabile_legno_vandini' }
 ];
 
 // ===========================================
@@ -76,13 +77,13 @@ const CATEGORIE_TITOLI = {
 // DATI: POI GPS
 // ===========================================
 const POIS_LOCATIONS = [
-    { id: 'manifattura', lat: 44.4989321, lon: 11.336618, distanceThreshold: 50, categoria: 'edificio', ordine_cammino: 502 },
+    { id: 'manifattura', lat: 44.4989321, lon: 11.336618, distanceThreshold: 50, categoria: 'edificio', ordine_cammino: 1502 },
     { id: 'pittoricarracci', lat: 44.49909, lon: 11.340316, distanceThreshold: 50, categoria: 'arte', ordine_cammino: 601 },
-    { id: 'cavaticcio', lat: 44.500207, lon: 11.338076, distanceThreshold: 50, categoria: 'edificio', ordine_cammino: 503 },
+    { id: 'cavaticcio', lat: 44.500207, lon: 11.338076, distanceThreshold: 50, categoria: 'edificio', ordine_cammino: 1503 },
     { id: 'bsmariamaggiore', lat: 44.498118, lon: 11.341923, distanceThreshold: 50, categoria: 'chiesa', ordine_cammino: 801 },
     { id: 'graziaxx', lat: 44.500594, lon: 11.340758, distanceThreshold: 50, categoria: 'esterno', ordine_cammino: 901 },
     { id: 'pugliole', lat: 44.500071, lon: 11.339805, distanceThreshold: 50, categoria: 'esterno', ordine_cammino: 902 },
-    { id: 'carracci', lat: 44.499912, lon: 11.34041, distanceThreshold: 50, categoria: 'edificio', ordine_cammino: 504 },
+    { id: 'carracci', lat: 44.499912, lon: 11.34041, distanceThreshold: 50, categoria: 'edificio', ordine_cammino: 1504 },
     { id: 'intervista_ludovico', lat: 44.499993, lon: 11.340385, distanceThreshold: 50, categoria: 'arte', ordine_cammino: 602 },
     { id: 'lastre', lat: 44.499312, lon: 11.340714, distanceThreshold: 50, categoria: 'esterno', ordine_cammino: 903 },
     { id: 'chiesasbene', lat: 44.5019, lon: 11.343843, distanceThreshold: 120, categoria: 'chiesa', ordine_cammino: 802 },
@@ -94,8 +95,9 @@ const POIS_LOCATIONS = [
     { id: 'chiesasancarlo', lat: 44.501295, lon: 11.34085, distanceThreshold: 120, categoria: 'chiesa', ordine_cammino: 804 },
     { id: 'psontuoso', lat: 44.49046395468894, lon: 11.329397374392755, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 1 },
     { id: 'arco170_madonna_grassa', lat: 44.48938722340913, lon: 11.319113695503352, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 170 },
+    { id: 'arco125_francesi', lat: 44.48983889, lon: 11.32184722, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 125 },
     { id: 'arco3_fornasari', lat: 44.490633, lon: 11.329205, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 3 },
-    { id: 'stabile_legno_vandini', lat: 44.502054, lon: 11.338546, distanceThreshold: 120, categoria: 'edificio', ordine_cammino: 501 }
+    { id: 'stabile_legno_vandini', lat: 44.502054, lon: 11.338546, distanceThreshold: 120, categoria: 'edificio', ordine_cammino: 1501 }
 ];
 
 // ===========================================

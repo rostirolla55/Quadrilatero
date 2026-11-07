@@ -99,6 +99,11 @@
             "id": "navArco170madonnagrassa",
             "href": "arco170_madonna_grassa-en.html",
             "text": "Arch 170 Madonna Grassa"
+        },
+        {
+            "id": "navArco125_francesi",
+            "href": "arco125_francesi-en.html",
+            "text": "Titolo per arco125_francesi"
         }
     ]
 }

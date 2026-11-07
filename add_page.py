@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys
 import os
 import json
@@ -81,12 +82,25 @@ def update_texts_and_nav_json(root, page_id, nav_key_id, title_it):
 def main():
     if len(sys.argv) < 8:
         print("Errore: Parametri insufficienti per add_page.py")
+        print("Uso: add_page.py page_id nav_key_id title lat lon distance root [categoria] [ordine_cammino]")
         return
 
     page_id = sys.argv[1]
     nav_key_id = sys.argv[2]
     title = sys.argv[3]
+    lat = sys.argv[4]
+    lon = sys.argv[5]
+    distance = sys.argv[6]
     root = sys.argv[7].strip('"')
+    categoria = sys.argv[8] if len(sys.argv) > 8 else "edificio"
+    
+    # Gestione del parametro opzionale ordine_cammino (argomento 9)
+    ordine_cammino = None
+    if len(sys.argv) > 9 and sys.argv[9].strip():
+        try:
+            ordine_cammino = int(sys.argv[9].strip())
+        except ValueError:
+            ordine_cammino = sys.argv[9].strip()
 
     # Aggiorna database testi e menu JSON
     update_texts_and_nav_json(root, page_id, nav_key_id, title)

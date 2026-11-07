@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import os
 
@@ -17,8 +18,11 @@ def generate_bat_from_config(target_page_id):
         print(f"Errore: Pagina '{target_page_id}' non trovata nel JSON.")
         return
 
-    # Estrae la categoria dal JSON (default 'edificio' se non presente)
+    # Estrae categoria e ordine_cammino dal JSON
     categoria = page_data.get('categoria', 'edificio')
+    ordine_cammino = page_data.get('ordine_cammino', '')
+    if ordine_cammino is None:
+        ordine_cammino = ''
 
     bat_content = f"""@echo off
 ECHO =========================================================
@@ -36,13 +40,14 @@ SET "LAT={page_data['lat']}"
 SET "LON={page_data['lon']}"
 SET "DISTANCE={page_data['threshold']}"
 SET "CATEGORIA={categoria}"
+SET "ORDINE_CAMMINO={ordine_cammino}"
 
 ECHO 1. Backup file...
 CALL "%UTILITIES%\\salvag.bat" "%REPO_ROOT%\\main.js"
 CALL "%UTILITIES%\\salvag.bat" "%REPO_ROOT%\\data\\translations\\it\\texts.json"
 
-ECHO 2. Esecuzione add_page.py con Categoria...
-python "%REPO_ROOT%\\add_page.py" %PAGE_ID% %NAV_KEY_ID% "%PAGE_TITLE_IT%" %LAT% %LON% %DISTANCE% "%REPO_ROOT%" %CATEGORIA%
+ECHO 2. Esecuzione add_page.py con Categoria e Ordine Cammino...
+python "%REPO_ROOT%\\add_page.py" %PAGE_ID% %NAV_KEY_ID% "%PAGE_TITLE_IT%" %LAT% %LON% %DISTANCE% "%REPO_ROOT%" %CATEGORIA% %ORDINE_CAMMINO%
 IF ERRORLEVEL 1 (
     ECHO.
     ECHO [ERRORE] Lo script add_page.py e' fallito. Interruzione procedura.
@@ -60,9 +65,10 @@ PAUSE
 """
 
     output_filename = f"add_{target_page_id}.bat"
+    # Salviamo in ANSI/Latin-1 per compatibilità Windows CMD
     with open(output_filename, 'w', encoding='latin-1') as f:
         f.write(bat_content)
-    print(f"Creato '{output_filename}' con gestione della Categoria e Pulizia Nav.")
+    print(f"Creato '{output_filename}' con gestione di Categoria, Ordine Cammino e Pulizia Nav.")
 
 if __name__ == "__main__":
     import sys
