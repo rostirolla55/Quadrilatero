@@ -198,14 +198,14 @@
             "mainText": ""
         }
     },    
-    "arco125_dei_francesi": {
+    "arco125_francesi": {
             "it": {
-            "pageTitle": "Arco 125 dei franecesi",
+            "pageTitle": "Arco 125 dei francesi",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
             "sourceText": "",
             "headImage": "arco125_testata.jpg",
-            "audioSource": "it/arco125_dei_francesi.mp3",
+            "audioSource": "it/arco125_francesi.mp3",
             "mainText": ""
         },
         "es": {
@@ -214,7 +214,7 @@
             "pauseAudioButton": "Detener la reproducción",
             "sourceText": "",
             "headImage": "arco125_testata.jpg",
-            "audioSource": "es/arco125_dei_francesi.mp3",
+            "audioSource": "es/arco125_francesi.mp3",
             "mainText": ""
         },
         "fr": {
@@ -223,7 +223,7 @@
             "pauseAudioButton": "Arrêter la lecture",
             "sourceText": "",
             "headImage": "arco125_testata.jpg",
-            "audioSource": "fr/arco125_dei_francesi.mp3",
+            "audioSource": "fr/arco125_francesi.mp3",
             "mainText": ""
         },
         "en": {
@@ -232,7 +232,7 @@
             "pauseAudioButton": "Pause",
             "sourceText": "",
             "headImage": "arco125_testata.jpg",
-            "audioSource": "en/arco125_dei_francesi.mp3",
+            "audioSource": "en/arco125_francesi.mp3",
             "mainText": ""
         }
     },    

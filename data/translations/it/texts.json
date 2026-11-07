@@ -435,17 +435,20 @@
         "sourceText": "Vaticano.com Santuari e Dintorni"
     },
     "arco125_francesi": {
-        "pageTitle": "Titolo per arco125_francesi",
+        "pageTitle": "Arco 125 dei francesi",
         "headerTitle": "Titolo per arco125_francesi",
-        "mainText": "Benvenuti a Titolo per arco125_francesi...",
+        "mainText": "",
         "mainText1": "it_arco125_francesi_maintext1.html",
         "mainText2": "it_arco125_francesi_maintext2.html",
         "mainText3": "it_arco125_francesi_maintext3.html",
         "mainText4": "",
         "mainText5": "",
-        "headImage": "public/images/panorama_bologna.jpg",
+        "headImage": "arco125_testata.jpg",
         "audioSource": "it/arco125_francesi.mp3",
         "imageSource1": "arco125_francesi/arco125_cartiglio.jpg",
-        "imageSource2": "arco125_francesi/arco125_sottoportico.jpg"
+        "imageSource2": "arco125_francesi/arco125_sottoportico.jpg",
+        "playAudioButton": "Ascolta la storia",
+        "pauseAudioButton": "Ferma la riproduzione",
+        "sourceText": ""
     }
 }
