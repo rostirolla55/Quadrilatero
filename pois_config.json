@@ -182,8 +182,8 @@
         },
         {
             "id": "arco125_francesi",
-            "lat": 44.489072,
-            "lon": 11.318603,
+            "lat": 44.48983889,
+            "lon": 11.32184722,
             "threshold": 15,
             "nav_id": "navArco125_francesi",
             "base_name": "arco125_francesi",
