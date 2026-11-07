@@ -181,6 +181,16 @@
             "ordine_cammino": 170
         },
         {
+            "id": "arco125_francesi",
+            "lat": 44.489072,
+            "lon": 11.318603,
+            "threshold": 15,
+            "nav_id": "navArco125_francesi",
+            "base_name": "arco125_francesi",
+            "categoria": "portici",
+            "ordine_cammino": 125
+        },
+        {
             "id": "arco3_fornasari",
             "lat": 44.490633,
             "lon": 11.329205,
