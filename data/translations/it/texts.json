@@ -437,7 +437,7 @@
     "arco125_francesi": {
         "pageTitle": "Arco 125 dei francesi",
         "headerTitle": "Titolo per arco125_francesi",
-        "mainText": "",
+        "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicazione:</strong> Via Saragozza (fronte civico 132/2), Bologna</p><p><strong>Accessibilità:</strong> Percorso pianeggiante interamente coperto, fruibile 24 ore su 24.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Per consultare l'analisi dettagliata sul passaggio di tutela dall'Arte dei Beccari all'Amministrazione Napoleonica e visionare le schede d'archivio:</p><a href=\"it_arco125_francesi_dettagli.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Leggi l'approfondimento storico completo</a></div></div>",
         "mainText1": "it_arco125_francesi_maintext1.html",
         "mainText2": "it_arco125_francesi_maintext2.html",
         "mainText3": "it_arco125_francesi_maintext3.html",

@@ -5,7 +5,7 @@
             "pageTitle": "Edicola votiva Madonna con Bambino",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
-			"mainText": "<p><font color=\"#ff0000\"><b>Se ti trovi nella piazzetta del Santuario della Pioggia vedi </b></font><a href=\"indicazioni_edicola_votiva_it.html\" style=\"color: #0056b3; font-weight: bold; text-decoration: underline;\">Come raggiungere l'edicola votiva della Madonna con il Bambino</a></p>",
+            "mainText": "<p><font color=\"#ff0000\"><b>Se ti trovi nella piazzetta del Santuario della Pioggia vedi </b></font><a href=\"indicazioni_edicola_votiva_it.html\" style=\"color: #0056b3; font-weight: bold; text-decoration: underline;\">Come raggiungere l'edicola votiva della Madonna con il Bambino</a></p>",
             "sourceText": "",
             "lastUpdate": "2026-08-24",
             "headImage": "chiesapioggia.jpg",
@@ -25,7 +25,7 @@
             "pageTitle": "Littoral votif de la Vierge à l'Enfant",
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
-            "mainText": "<p><font color=\"#ff0000\"><b>Si vous vous trouvez sur la place du Sanctuaire de la Pioggia, consultez </b></font><a href=\"indicazioni_edicola_votiva_fr.html\" style=\"color: #0056b3; font-weight: bold; text-decoration: underline;\">Comment se rendre à l'édicule votif de la Vierge à l'Enfant</a></p>",            
+            "mainText": "<p><font color=\"#ff0000\"><b>Si vous vous trouvez sur la place du Sanctuaire de la Pioggia, consultez </b></font><a href=\"indicazioni_edicola_votiva_fr.html\" style=\"color: #0056b3; font-weight: bold; text-decoration: underline;\">Comment se rendre à l'édicule votif de la Vierge à l'Enfant</a></p>",
             "sourceText": "",
             "lastUpdate": "2026-08-24",
             "headImage": "chiesapioggia.jpg",
@@ -121,9 +121,9 @@
             "audioSource": "en/psontuoso.mp3",
             "mainText": ""
         }
-    },    
+    },
     "arco3_fornasari": {
-            "it": {
+        "it": {
             "pageTitle": "Arco 3 Abate Fornasari",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
@@ -161,7 +161,7 @@
         }
     },
     "arco170_madonna_grassa": {
-            "it": {
+        "it": {
             "pageTitle": "Arco 170 Madonna Grassa",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
@@ -197,16 +197,16 @@
             "audioSource": "en/arco170_madonna_grassa.mp3",
             "mainText": ""
         }
-    },    
+    },
     "arco125_francesi": {
-            "it": {
+        "it": {
             "pageTitle": "Arco 125 dei francesi",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
             "sourceText": "",
             "headImage": "arco125_testata.jpg",
             "audioSource": "it/arco125_francesi.mp3",
-            "mainText": ""
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicazione:</strong> Via Saragozza (fronte civico 132/2), Bologna</p><p><strong>Accessibilità:</strong> Percorso pianeggiante interamente coperto, fruibile 24 ore su 24.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Per consultare l'analisi dettagliata sul passaggio di tutela dall'Arte dei Beccari all'Amministrazione Napoleonica e visionare le schede d'archivio:</p><a href=\"it_arco125_francesi_dettagli.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Leggi l'approfondimento storico completo</a></div></div>"
         },
         "es": {
             "pageTitle": "Arco 125 de los franceses",
@@ -215,7 +215,7 @@
             "sourceText": "",
             "headImage": "arco125_testata.jpg",
             "audioSource": "es/arco125_francesi.mp3",
-            "mainText": ""
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicación:</strong> Via Saragozza (frente al número 132/2), Bolonia</p><p><strong>Accesibilidad:</strong> Recorrido llano totalmente cubierto, accesible las 24 horas.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Para consultar el análisis detallado sobre la transición del Gremio de Carniceros a la Administración Napoleónica:</p><a href=\"es_arco125_francesi_dettagli.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Leer el estudio histórico completo</a></div></div>"
         },
         "fr": {
             "pageTitle": "Arche 125 des Français",
@@ -224,7 +224,7 @@
             "sourceText": "",
             "headImage": "arco125_testata.jpg",
             "audioSource": "fr/arco125_francesi.mp3",
-            "mainText": ""
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Emplacement :</strong> Via Saragozza (en face du numéro 132/2), Bologne</p><p><strong>Accessibilité :</strong> Parcours plat entièrement couvert, accessible 24h/24.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Pour consulter l'analyse détaillée du passage de la Corporation des Bouchers à l'Administration Napoléonienne :</p><a href=\"fr_arco125_francesi_dettagli.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Lire l'étude historique complète</a></div></div>"
         },
         "en": {
             "pageTitle": "Arch 125 of the French",
@@ -233,9 +233,9 @@
             "sourceText": "",
             "headImage": "arco125_testata.jpg",
             "audioSource": "en/arco125_francesi.mp3",
-            "mainText": ""
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via Saragozza (in front of number 132/2), Bologna</p><p><strong>Accessibility:</strong> Fully covered flat path, open 24/7.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>For a detailed analysis of the transition from the Butchers Guild to the Napoleonic Administration and archival notes:</p><a href=\"en_arco125_francesi_dettagli.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Read the complete historical insight</a></div></div>"
         }
-    },    
+    },   
     "chiesasbene": {
         "it": {
             "pageTitle": "Chiesa di San Benedetto",
@@ -285,30 +285,29 @@
             "lastUpdate": "2026-08-21",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "it/bsmariamaggiore.mp3"
-       },
+        },
         "en": {
             "mainText": "<p><font color=\"#ff0000\"><b>Currently, religious services are no longer held in the church.</b></font> </p><p><font color=\"#3465a4\">To visit the basilica, contact ...</font> </p>",
             "sourceText": "",
             "lastUpdate": "2026-08-21",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "en/bsmariamaggiore.mp3"
-       },
+        },
         "es": {
             "mainText": "<p><font color=\"#ff0000\"><b>Actualmente, ya no se celebran servicios religiosos en la iglesia.</b></font> </p><p><font color=\"#3465a4\">Para visitar la basílica, contacte con...</font> </p>",
             "sourceText": "",
             "lastUpdate": "2026-08-21",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "es/bsmariamaggiore.mp3"
-       },
+        },
         "fr": {
             "mainText": "<p><font color=\"#ff0000\"><b>Actuellement, aucun office religieux n'est plus célébré dans l'église.</b></font> </p><p><font color=\"#3465a4\">Pour visiter la basilique, contactez…</font> </p>",
             "sourceText": "",
             "lastUpdate": "2026-08-21",
             "headImage": "panorama_bologna.jpg",
             "audioSource": "fr/bsmariamaggiore.mp3"
-      
         }
-    },   
+    },
     "carracci": {
         "it": {
             "lastUpdate": "2026-08-11",
@@ -352,7 +351,7 @@
             "pauseAudioButton": "Detener la reproducción",
             "mainText": "",
             "headImage": "panorama_bologna.jpg",
-           "lastUpdate": "2026-09-10",
+            "lastUpdate": "2026-09-10",
             "audioSource": "es/intervista_ludovico.mp3"
         },
         "fr": {
@@ -506,7 +505,7 @@
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
             "mainText": "<p><font color=\"#ff0000\"><b>La fresque est visible le long des marches au 124, Via Riva Reno, et non dans le sanctuaire!</b></font></p><p><font color=\"#3465a4\">Le site n'est pas accessible au public. L'accès aux marches est toutefois possible lors de certains événements.</b></font></p>",
-             "sourceText": "",
+            "sourceText": "",
             "lastUpdate": "2026-08-27",
             "headImage": "chiesapioggia.jpg",
             "audioSource": "fr/pioggia1.mp3"
