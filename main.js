@@ -181,13 +181,17 @@ async function logAccess(pageId, lang) {
 // ===========================================
 async function loadContent(lang) {
     document.documentElement.lang = lang;
-    const pageId = getCurrentPageId();
+    const pageId = getCurrentPageId(); // es. 'arco125_francesi' o 'arco125_francesi_dettagli'
+
+    // Verifica se ci troviamo in una pagina di dettaglio
+    const isDetail = window.location.pathname.includes('_dettagli');
+    const basePoiId = pageId.replace('_dettagli', '').toLowerCase();
 
     try {
         const response = await fetch(`data/translations/${lang}/texts.json`);
         const data = await response.json();
         window.allData = data;
-        const pageData = data[pageId];
+        const pageData = data[basePoiId] || data[pageId];
 
         if (!pageData) {
             updateText('pageTitle', "Contenuto non trovato");
@@ -195,37 +199,68 @@ async function loadContent(lang) {
             return;
         }
 
+        // 1. Titoli della pagina
         updateText('pageTitle', pageData.pageTitle);
-        updateHTML('headerTitle', pageData.pageTitle);
+        updateHTML('headerTitle', pageData.headerTitle || pageData.pageTitle);
 
+        // 2. Immagine di testata
         const headImg = document.getElementById('headImage');
         if (headImg && pageData.headImage) {
             headImg.src = `public/images/${pageData.headImage}`;
             headImg.style.display = 'block';
         }
 
-        const textKeys = ['mainText', 'mainText1', 'mainText2', 'mainText3', 'mainText4', 'mainText5'];
-        for (const key of textKeys) {
-            let content = pageData[key];
-            if (isFilePath(content)) {
-                content = await fetchFileContent(`text_files/${content}`);
+        // 3. Caricamento Testi e Immagini (Dettaglio vs Principale)
+        if (isDetail) {
+            // Pagina di Dettaglio: carica dettText1..5
+            const dettKeys = ['dettText1', 'dettText2', 'dettText3', 'dettText4', 'dettText5'];
+            for (const key of dettKeys) {
+                let content = pageData[key];
+                if (isFilePath(content)) {
+                    content = await fetchFileContent(`text_files/${content}`);
+                }
+                updateHTML(key, content);
             }
-            updateHTML(key, content);
-        }
 
-        for (let i = 1; i <= 5; i++) {
-            const imgEl = document.getElementById(`pageImage${i}`);
-            const src = pageData[`imageSource${i}`];
-            if (imgEl) {
-                if (src) {
-                    imgEl.src = `Assets/images/${src}`;
-                    imgEl.style.display = 'block';
-                } else {
-                    imgEl.style.display = 'none';
+            // Immagini specifiche per il dettaglio: imageDett1..5
+            for (let i = 1; i <= 5; i++) {
+                const imgEl = document.getElementById(`imageDett${i}`);
+                const src = pageData[`imageDett${i}`];
+                if (imgEl) {
+                    if (src) {
+                        imgEl.src = `Assets/images/${src}`;
+                        imgEl.style.display = 'block';
+                    } else {
+                        imgEl.style.display = 'none';
+                    }
+                }
+            }
+        } else {
+            // Pagina Standard POI: carica mainText..mainText5 e imageSource1..5
+            const textKeys = ['mainText', 'mainText1', 'mainText2', 'mainText3', 'mainText4', 'mainText5'];
+            for (const key of textKeys) {
+                let content = pageData[key];
+                if (isFilePath(content)) {
+                    content = await fetchFileContent(`text_files/${content}`);
+                }
+                updateHTML(key, content);
+            }
+
+            for (let i = 1; i <= 5; i++) {
+                const imgEl = document.getElementById(`pageImage${i}`);
+                const src = pageData[`imageSource${i}`];
+                if (imgEl) {
+                    if (src) {
+                        imgEl.src = `Assets/images/${src}`;
+                        imgEl.style.display = 'block';
+                    } else {
+                        imgEl.style.display = 'none';
+                    }
                 }
             }
         }
 
+        // Informazioni extra (Fonte, Date)
         if (pageData.sourceText) {
             updateHTML('infoSource', `Fonte: ${pageData.sourceText}`);
         }
@@ -236,6 +271,7 @@ async function loadContent(lang) {
             updateHTML('infoUpdatedDate', `Ultimo Aggiornamento: ${pageData.lastUpdate}`);
         }
 
+        // 4. Player Audio
         const audioPlayer = document.getElementById('audioPlayer');
         const playBtn = document.getElementById('playAudio');
         if (audioPlayer && playBtn && pageData.audioSource) {
@@ -250,12 +286,12 @@ async function loadContent(lang) {
         setupGoogleMapsButton(lang);
         startGeolocation(data);
 
-        // Tracciamento automatico se si usa il tag <audio controls> standard
+        // Tracciamento automatico ascolti audio
         if (audioPlayer) {
             audioPlayer.onplay = () => {
-                const pageId = getCurrentPageId();
-                const pageTitle = document.getElementById('pageTitle')?.textContent || pageId;
-                registraAscoltoAudio(pageId, pageTitle);
+                const currentPageId = getCurrentPageId();
+                const pageTitle = document.getElementById('pageTitle')?.textContent || currentPageId;
+                registraAscoltoAudio(currentPageId, pageTitle);
             };
         }
 

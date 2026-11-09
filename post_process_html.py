@@ -1,177 +1,73 @@
-import re
-import json
+# -*- coding: utf-8 -*-
 import sys
 import os
-from typing import Dict, Tuple
+import re
 
-# --- CONFIGURAZIONE GLOBALE ---
-TEMP_HTML_FILENAME = "raw_output.html"
-OUTPUT_DIR = "text_files"
-
-# --- REGEX PER PULIZIA E SPLIT ---
-IMG_TAG_REGEX = re.compile(r'<img[^>]*?>', re.IGNORECASE | re.DOTALL)
-SPLIT_BLOCK_CLEANING_REGEX = re.compile(
-    r'.*?(\[SPLIT_BLOCK:(.*?)\]).*?',
-    re.IGNORECASE | re.DOTALL
-)
-
-def get_fragment_prefix(page_id: str) -> str:
-    if page_id.lower() == 'home':
-        return 'index'
-    return page_id
-
-def clean_html_content(html_content: str) -> str:
+def pulisci_e_splitta_html(lang, poi_id, is_dettaglio=False):
     """
-    Rimuove i tag <img>, pulisce i tag <div> wrapper generati da LibreOffice
-    e ripulisce le nuove linee/spazi superflui.
+    Legge l'HTML temporaneo generato da LibreOffice, lo pulisce dai tag inutili
+    e lo suddivide in file distinti in base al tipo (mainText o dettText).
     """
-    cleaned = IMG_TAG_REGEX.sub('', html_content)
+    # Determinazione nome file temporaneo sorgente
+    if is_dettaglio:
+        html_input = f"temp_{lang}_{poi_id}_dettagli.html"
+    else:
+        html_input = f"temp_{lang}_{poi_id}.html"
+
+    if not os.path.exists(html_input):
+        print(f"  [ERRORE] File temporaneo non trovato: {html_input}")
+        return
+
+    with open(html_input, 'r', encoding='utf-8') as f:
+        contenuto = f.read()
+
+    # --- 1. PULIZIA HTML SPURIO DA LIBREOFFICE ---
+    # Rimuove commenti, tag head/style e wrapper inutili
+    contenuto = re.sub(r'<!--.*?-->', '', contenuto, flags=re.DOTALL)
+    contenuto = re.sub(r'<style.*?>.*?</style>', '', contenuto, flags=re.DOTALL)
     
-    # 1. Rimuove eventuali tag <div> e </div> (apertura con qualsiasi attributo e chiusura)
-    cleaned = re.sub(r'</?div[^>]*>', '', cleaned, flags=re.IGNORECASE)
-    
-    # 2. Rimuove le doppie nuove righe/spazi e tag <p> e </p> vuoti
-    cleaned = re.sub(r'(<p[^>]*>\s*</p>|\n\s*\n)', '\n', cleaned).strip()
-    return cleaned
+    # --- 2. SDOPPIAMENTO BLOCCI TRAMITE [SPLIT_BLOCK] ---
+    # Divide il testo in corrispondenza del marcatore [SPLIT_BLOCK]
+    blocchi_raw = contenuto.split("[SPLIT_BLOCK]")
+    blocchi_puliti = [b.strip() for b in blocchi_raw if b.strip()]
 
-def sanitize_split_markers(html_content: str) -> str:
-    print("DEBUG: Pre-pulizia dei marcatori SPLIT...")
-    contamination_area_pattern = re.compile(r'\[[^\]]*?SPLIT_BLOCK[^\]]*?\]', re.IGNORECASE | re.DOTALL)
-    
-    def clean_match(match):
-        contaminated_text = match.group(0)
-        cleaned_text = re.sub(r'<\/?\w+[^>]*?>', '', contaminated_text)
-        return cleaned_text.strip()
+    # Cartella di destinazione per i file di testo (.html)
+    out_dir = "text_files"
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
 
-    sanitized_content = contamination_area_pattern.sub(clean_match, html_content)
-    
-    if sanitized_content != html_content:
-        print("DEBUG: Trovati e puliti marcatori SPLIT contaminati da HTML.")
-    
-    return sanitized_content
+    # --- 3. GENERAZIONE DEI FILE HTML DEDICATI ---
+    if is_dettaglio:
+        prefix_key = "dettText"
+        print(f"  [DETTAGLIO] Generazione file {prefix_key}1..5 per {lang}_{poi_id}...")
+    else:
+        prefix_key = "maintext"
+        print(f"  [PRINCIPALE] Generazione file {prefix_key}1..5 per {lang}_{poi_id}...")
 
-def process_document(html_input: str, lang: str, page_id: str) -> Tuple[Dict[str, str], Dict[str, str]]:
-    page_id_lower = page_id.lower()
-    print(f"Inizio Elaborazione e Split: Pagina '{page_id.upper()}', Lingua '{lang}'")
+    # Genera fino a un massimo di 5 blocchi
+    for idx in range(1, 6):
+        nome_file = f"{lang}_{poi_id}_{prefix_key}{idx}.html"
+        percorso_file = os.path.join(out_dir, nome_file)
 
-    fragment_file_prefix = get_fragment_prefix(page_id_lower)
-    print(f"DEBUG: Prefisso per i nomi dei file frammento: '{fragment_file_prefix}'")
-
-    html_input = sanitize_split_markers(html_input)
-
-    split_token = "---SPLIT-HERE---"
-    image_filenames = []
-    
-    extraction_regex = re.compile(
-        r'(<p[^>]*>)?\s*\[SPLIT_BLOCK:(.*?)\]\s*(</p>)?',
-        re.IGNORECASE | re.DOTALL
-    )
-
-    split_matches = extraction_regex.findall(html_input)
-    image_filenames = [match[1].strip() for match in split_matches]
-
-    print(f"\n--- RISULTATO DEBUG REGEX ---")
-    print(f"Trovati {len(image_filenames)} nomi file immagine. Lista: {image_filenames}")
-
-    if not image_filenames and '[SPLIT_BLOCK:' in html_input:
-        print("ATTENZIONE: Il marker [SPLIT_BLOCK] è presente, ma la REGEX non lo cattura.")
-    print("-----------------------------\n")
-
-    content_with_tokens = extraction_regex.sub(split_token, html_input)
-    raw_fragments = content_with_tokens.split(split_token)
-
-    print(f"Trovati {len(raw_fragments)} frammenti di testo grezzi prima della pulizia.")
-    for i, frag in enumerate(raw_fragments):
-        print(f"  Frammento {i+1} (Inizio): {frag[:50].strip()}...")
-    print("------------------------------------------------------\n")
-
-    fragments_html = {}
-    json_data = {}
-    fragment_index = 1
-
-    for i, raw_html in enumerate(raw_fragments):
-        cleaned_html = clean_html_content(raw_html)
-
-        if not cleaned_html:
-            continue
-
-        main_text_key = f"mainText{fragment_index}"
-        file_base_name = main_text_key.lower()
-        html_filepath = f"{lang}_{fragment_file_prefix}_{file_base_name}.html" 
-
-        fragments_html[html_filepath] = cleaned_html
-        json_data[main_text_key] = html_filepath
-
-        print(f"  - Creato Frammento di Testo {fragment_index}: {html_filepath}")
-
-        image_index = fragment_index - 1
-
-        if image_index < len(image_filenames):
-            image_filename = image_filenames[image_index]
-            image_source_key = f"imageSource{fragment_index}"
-            image_path_value = f"{page_id_lower}/{image_filename}"
-            json_data[image_source_key] = image_path_value
-            print(f"  - Associato Immagine {fragment_index} al riferimento: {image_path_value}")
-
-        fragment_index += 1
-
-    return fragments_html, json_data
-
-def save_results(fragments: Dict[str, str], data_json: Dict[str, str], page_id: str, lang: str):
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-
-    for filename, content in fragments.items():
-        filepath = os.path.join(OUTPUT_DIR, filename)
-        try:
-            with open(filepath, 'w', encoding='utf-8') as f:
-                f.write(content)
-            print(f"Creato file frammento: {filepath}")
-        except Exception as e:
-            print(f"ERRORE nella scrittura del file {filepath}: {e}")
-
-    json_filename = f"page_config_{lang}_{page_id}.json"
-    json_filepath = os.path.join(OUTPUT_DIR, json_filepath) if 'json_filepath' in locals() else os.path.join(OUTPUT_DIR, json_filename)
-    try:
-        with open(json_filepath, 'w', encoding='utf-8') as f:
-            json.dump(data_json, f, indent=4, ensure_ascii=False)
-        print(f"\nCreato file JSON di configurazione: {json_filepath}")
-        print("Il file JSON mappa le chiavi mainTextX e imageSourceX.")
-        print("\nPROCESSO COMPLETATO CON SUCCESSO.")
-    except Exception as e:
-        print(f"ERRORE nella scrittura del file JSON {json_filepath}: {e}")
+        if idx <= len(blocchi_puliti):
+            testo_blocco = blocchi_puliti[idx - 1]
+            with open(percorso_file, 'w', encoding='utf-8') as f_out:
+                f_out.write(testo_blocco)
+            print(f"    ✓ Creato: {nome_file}")
+        else:
+            # Se la nuova conversione ha meno blocchi di prima, puliamo l'eventuale file in eccesso
+            if os.path.exists(percorso_file):
+                with open(percorso_file, 'w', encoding='utf-8') as f_out:
+                    f_out.write("")
+                print(f"    - Svuotato (inutilizzato): {nome_file}")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print(f"ERRORE: Argomenti mancanti.")
-        print(f"Utilizzo: python {sys.argv[0]} [page_id] [lang] [docx_dir]")
+    if len(sys.argv) < 3:
+        print("Uso: python post_process_html.py <lang> <poi_id> [--dettagli]")
         sys.exit(1)
 
-    PAGE_ID = sys.argv[1].lower()
-    LANG = sys.argv[2].lower()
-    DOCX_DIR = sys.argv[3]
-    
-    print(f"Inizio elaborazione per ID Pagina: {PAGE_ID}, Lingua: {LANG}")
-    
-    raw_html_content = ""
-    full_html_path = os.path.join(DOCX_DIR, TEMP_HTML_FILENAME)
-    
-    try:
-        with open(full_html_path, 'r', encoding='utf-8') as f:
-            raw_html_content = f.read()
-        print(f"File grezzo '{full_html_path}' letto con successo.")
-    except FileNotFoundError:
-        print(f"ERRORE FATALE: File HTML grezzo '{full_html_path}' non trovato.")
-        sys.exit(1)
-    except Exception as e:
-        print(f"ERRORE durante la lettura del file HTML grezzo: {e}")
-        sys.exit(1)
-        
-    fragments, config_data = process_document(raw_html_content, LANG, PAGE_ID)
-    save_results(fragments, config_data, PAGE_ID, LANG)
-    
-    print(f"Pulizia del file temporaneo {TEMP_HTML_FILENAME} in {DOCX_DIR}...")
-    try:
-        os.remove(full_html_path)
-        print("Pulizia completata.")
-    except OSError as e:
-        print(f"ATTENZIONE: Impossibile eliminare il file temporaneo {full_html_path}: {e}")
+    lingua = sys.argv[1]
+    pagina_id = sys.argv[2]
+    flag_dettaglio = "--dettagli" in sys.argv or (len(sys.argv) > 3 and sys.argv[3] == "dettagli")
+
+    pulisci_e_splitta_html(lingua, pagina_id, is_dettaglio=flag_dettaglio)

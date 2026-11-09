@@ -1,6 +1,30 @@
 # -*- coding: utf-8 -*-
 import json
 import os
+import shutil
+
+LANGUAGES = ['it', 'en', 'es', 'fr']
+
+def crea_pagine_dettaglio(target_page_id):
+    """
+    Duplica i file template_dettaglio-[lang].html creando le pagine 
+    di approfondimento [lang]_[target_page_id]_dettagli.html per ciascuna lingua.
+    """
+    print("--- Generazione Pagine HTML di Dettaglio ---")
+    for lang in LANGUAGES:
+        template_file = f"template_dettaglio-{lang}.html"
+        target_file = f"{lang}_{target_page_id}_dettagli.html"
+
+        if os.path.exists(template_file):
+            shutil.copyfile(template_file, target_file)
+            print(f"  ✓ Creato '{target_file}' da '{template_file}'")
+        else:
+            # Fallback se non esiste il template specifico per lingua
+            if os.path.exists("template_dettaglio-it.html"):
+                shutil.copyfile("template_dettaglio-it.html", target_file)
+                print(f"  [AVVISO] '{template_file}' non trovato. Usato 'template_dettaglio-it.html' -> '{target_file}'")
+            else:
+                print(f"  [ERRORE] Template per dettaglio non trovato per la lingua '{lang}'!")
 
 def generate_bat_from_config(target_page_id):
     config_file = "pois_config.json"
@@ -24,6 +48,10 @@ def generate_bat_from_config(target_page_id):
     if ordine_cammino is None:
         ordine_cammino = ''
 
+    # 1. Creazione immediata delle pagine HTML di dettaglio per le 4 lingue
+    crea_pagine_dettaglio(target_page_id)
+
+    # 2. Generazione del file BATCH personalizzato add_[PAGE_ID].bat
     bat_content = f"""@echo off
 ECHO =========================================================
 ECHO AGGIUNTA NUOVA PAGINA: {page_data['id']}
@@ -68,7 +96,7 @@ PAUSE
     # Salviamo in ANSI/Latin-1 per compatibilità Windows CMD
     with open(output_filename, 'w', encoding='latin-1') as f:
         f.write(bat_content)
-    print(f"Creato '{output_filename}' con gestione di Categoria, Ordine Cammino e Pulizia Nav.")
+    print(f"\n✓ Creato '{output_filename}' con gestione di Categoria, Ordine Cammino e Pulizia Nav.")
 
 if __name__ == "__main__":
     import sys
