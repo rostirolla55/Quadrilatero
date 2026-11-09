@@ -449,6 +449,16 @@
         "imageSource2": "arco125_francesi/arco125_sottoportico.jpg",
         "playAudioButton": "Ascolta la storia",
         "pauseAudioButton": "Ferma la riproduzione",
-        "sourceText": ""
+        "sourceText": "",
+        "dettText1": "it_arco125_francesi_dettText1.html",
+        "dettText2": "it_arco125_francesi_dettText2.html",
+        "dettText3": "it_arco125_francesi_dettText3.html",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "arco125_francesi/arco125_cartiglio.jpg",
+        "imageDett2": "arco125_francesi/arco125_sottoportico.jpg",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     }
 }
