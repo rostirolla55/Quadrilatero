@@ -1,83 +1,87 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Étude Historique - Arc 125 des Français</title>
-  <style>
-    .dettagli-container { max-width: 900px; margin: 0 auto; padding: 20px; font-family: sans-serif; line-height: 1.6; color: #222; }
-    .img-responsive { max-width: 100%; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-    h1 { color: #8b0000; border-bottom: 2px solid #8b0000; padding-bottom: 8px; margin-top: 10px; }
-    h2 { color: #555; margin-top: 25px; border-left: 4px solid #8b0000; padding-left: 10px; }
-    .table-dati { width: 100%; border-collapse: collapse; margin: 20px 0; background-color: #f9f9f9; }
-    .table-dati th, .table-dati td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-    .table-dati th { background-color: #8b0000; color: #fff; }
-    .caption { text-align: center; font-size: 0.9em; color: #666; margin-top: -10px; margin-bottom: 20px; font-style: italic; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Détail - Arche 125 des Français</title>
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.7; color: #2c3e50; background-color: #f8f9fa; padding: 1rem; }
+        .detail-container { max-width: 800px; margin: 2rem auto; background: #ffffff; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); }
+        .btn-back { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #0066cc; font-weight: 600; font-size: 0.95rem; margin-bottom: 1.5rem; transition: color 0.2s ease; cursor: pointer; }
+        .btn-back:hover { color: #004080; text-decoration: underline; }
+        h1.detail-title { font-size: 2.2rem; color: #1a1a1a; line-height: 1.25; margin-bottom: 1.5rem; border-bottom: 2px solid #eef2f5; padding-bottom: 0.75rem; }
+        .head-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem; display: none; }
+        .detail-content div[id^="dettText"] { font-size: 1.1rem; margin-bottom: 1.4rem; word-wrap: break-word; }
+        .detail-content img[id^="imageDett"] { max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 1.5rem auto; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); }
+        .detail-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #eef2f5; text-align: center; }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .detail-container { margin: 0; padding: 1.25rem; border-radius: 0; box-shadow: none; }
+            h1.detail-title { font-size: 1.65rem; }
+            .detail-content div[id^="dettText"] { font-size: 1rem; }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="dettagli-container">
-    <h1>Arc 125 des Français (Premier Arc des Beccari)</h1>
-    <p class="intro"><strong>Fiche d'Analyse Historique, Architectural et Documentaire</strong></p>
+    <main class="detail-container">
+        
+        <a href="arco125_francesi-fr.html" class="btn-back" onclick="if(history.length > 1){ history.back(); return false; }">
+            &#8592; Retour à la page principale
+        </a>
 
-    <img src="img/arco125_francesi_head.jpg" alt="Vue en perspective de l'Arc 125 sous le Portique de San Luca" class="img-responsive">
-    <p class="caption">Vue en perspective du sous-portique de Via Saragozza à la hauteur de l'Arc 125.</p>
+        <h1 class="detail-title" id="headerTitle">Arche 125 des Français - Détails</h1>
 
-    <h2>1. Synthèse Documentaire</h2>
-    <table class="table-dati">
-      <tr>
-        <th>Désignation</th>
-        <td>Arc 125 – Premier Arc des Beccari (historiquement "Arc des Français")</td>
-      </tr>
-      <tr>
-        <th>Emplacement</th>
-        <td>Via Saragozza (en face du numéro 132/2), Bologne</td>
-      </tr>
-      <tr>
-        <th>Période de Construction</th>
-        <td>1675–1677 (phase du XVIIe siècle) ; 1796–1815 (réorganisation napoléonienne)</td>
-      </tr>
-      <tr>
-        <th>Architecte</th>
-        <td>Gian Giacomo Monti</td>
-      </tr>
-      <tr>
-        <th>Commanditaires</th>
-        <td>Arte dei Beccari (Corporation des Bouchers) ; puis Administration Civile Publique</td>
-      </tr>
-      <tr>
-        <th>Plaque Signalétique</th>
-        <td>Médaillon en terre cuite émaillée portant le numéro "125"</td>
-      </tr>
-    </table>
+        <img id="headImage" class="head-image" alt="En-tête Détail">
 
-    <h2>2. Contexte Historique et Politique</h2>
-    <p>
-      L'<strong>Arc 125 du Portique de San Luca</strong> constitue l'un des jalons d'archives les plus captivants de l'ensemble du parcours monumental bolonais. Situé le long du tronçon rectiligne de Via Saragozza, cet arc réunit en un seul ouvrage deux époques charnières de l'histoire locale : la Bologne corporative et dévote du XVIIe siècle pontifical et la Bologne laïque et républicaine de l'ère napoléonienne.
-    </p>
+        <article class="detail-content">
+            <div id="dettText1"></div>
+            <img id="imageDett1" src="Assets/images/arco125_francesi/arco125_cartiglio.jpg" alt="Détail 1" onerror="this.style.display='none'">
 
-    <h3>La fondation du XVIIe siècle : l'Arte dei Beccari</h3>
-    <p>
-      En 1674, lors du lancement du grand chantier de plaine conçu par l'architecte Gian Giacomo Monti, la construction du portique fut financée par une souscription publique exceptionnelle réunissant corporations de métiers, communautés religieuses et familles nobles. L'<strong>Arte dei Beccari</strong> — la puissante corporation des bouchers de Bologne, ancrée depuis le Moyen Âge au cœur du Quadrilatero — finança entièrement les arcs 125 et 126. Le choix d'édifier et d'orner ces travées répondait à la fois à une vive dévotion envers la Vierge de San Luca et à la volonté d'affirmer leur prestige socio-économique le long de la voie menant au sanctuaire.
-    </p>
+            <div id="dettText2"></div>
+            <img id="imageDett2" src="Assets/images/arco125_francesi/arco125_sottoportico.jpg" alt="Détail 2" onerror="this.style.display='none'">
 
-    <img src="img/arco125_francesi_cartiglio.jpg" alt="Détail du médaillon et du cartouche décoratif de l'Arc 125" class="img-responsive">
-    <p class="caption">Détail du médaillon émaillé en terre cuite portant le numéro progressif 125.</p>
+            <div id="dettText3"></div>
+            <img id="imageDett3" alt="Détail 3" onerror="this.style.display='none'">
 
-    <h3>Le tournant de 1796 et la mémoire de l'"Arc des Français"</h3>
-    <p>
-      Plus d'un siècle plus tard, en 1796, l'entrée des troupes de Napoléon Bonaparte à Bologne bouleversa l'ancien ordre institutionnel. La suppression des corporations et la sécularisation des biens ecclésiastiques par la République Cisalpine confièrent la gestion et l'entretien du patrimoine public — y compris le Portique de San Luca — à de nouveaux administrateurs civils. C'est durant cette période de restructuration que l'Arc 125 fit l'objet de travaux de restauration sous l'autorité franco-italienne, conservant dans la mémoire populaire la dénomination d'<strong>"Arc des Français"</strong>.
-    </p>
+            <div id="dettText4"></div>
+            <img id="imageDett4" alt="Détail 4" onerror="this.style.display='none'">
 
-    <h2>3. Caractéristiques Architecturales</h2>
-    <p>
-      Sur le plan formel, l'ouvrage respecte scrupuleusement le module classique établi par Gian Giacomo Monti pour la section de plaine : une structure en maçonnerie de briques avec arc en plein cintre, encadrée de pilastres saillants et couverte d'une voûte d'arêtes. L'enduit conserve l'alternance chromatique traditionnelle entre le rouge brique et l'ocre de Bologne, s'intégrant harmonieusement dans le tissu urbain de Via Saragozza.
-    </p>
+            <div id="dettText5"></div>
+            <img id="imageDett5" alt="Détail 5" onerror="this.style.display='none'">
+        </article>
 
-    <img src="img/arco125_francesi_dettaglio.jpg" alt="Façade extérieure et pilastres de l'Arc 125 depuis Via Saragozza" class="img-responsive">
-    <p class="caption">Vue extérieure de la maçonnerie et des finitions ocre et rouge le long de Via Saragozza.</p>
-  </div>
+        <footer class="detail-footer">
+            <a href="arco125_francesi-fr.html" class="btn-back" onclick="if(history.length > 1){ history.back(); return false; }">
+                &#8592; Retour à la page principale
+            </a>
+        </footer>
 
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageId = "arco125_francesi";
+            const lang = "fr";
+
+            for (let i = 1; i <= 5; i++) {
+                const textContainer = document.getElementById(`dettText${i}`);
+                if (textContainer) {
+                    fetch(`${lang}_${pageId}_dettText${i}.html`)
+                        .then(res => res.ok ? res.text() : "")
+                        .then(html => {
+                            if (html.trim() !== "") {
+                                textContainer.innerHTML = html;
+                            } else {
+                                textContainer.style.display = 'none';
+                            }
+                        })
+                        .catch(() => textContainer.style.display = 'none');
+                }
+            }
+        });
+    </script>
 </body>
 </html>

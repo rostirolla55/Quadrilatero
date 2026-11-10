@@ -1,83 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Historical Deep Dive - Arch 125 of the French</title>
-  <style>
-    .dettagli-container { max-width: 900px; margin: 0 auto; padding: 20px; font-family: sans-serif; line-height: 1.6; color: #222; }
-    .img-responsive { max-width: 100%; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-    h1 { color: #8b0000; border-bottom: 2px solid #8b0000; padding-bottom: 8px; margin-top: 10px; }
-    h2 { color: #555; margin-top: 25px; border-left: 4px solid #8b0000; padding-left: 10px; }
-    .table-dati { width: 100%; border-collapse: collapse; margin: 20px 0; background-color: #f9f9f9; }
-    .table-dati th, .table-dati td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-    .table-dati th { background-color: #8b0000; color: #fff; }
-    .caption { text-align: center; font-size: 0.9em; color: #666; margin-top: -10px; margin-bottom: 20px; font-style: italic; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Detail - Arch 125 of the French</title>
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.7; color: #2c3e50; background-color: #f8f9fa; padding: 1rem; }
+        .detail-container { max-width: 800px; margin: 2rem auto; background: #ffffff; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); }
+        .btn-back { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #0066cc; font-weight: 600; font-size: 0.95rem; margin-bottom: 1.5rem; transition: color 0.2s ease; cursor: pointer; }
+        .btn-back:hover { color: #004080; text-decoration: underline; }
+        h1.detail-title { font-size: 2.2rem; color: #1a1a1a; line-height: 1.25; margin-bottom: 1.5rem; border-bottom: 2px solid #eef2f5; padding-bottom: 0.75rem; }
+        .head-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem; display: none; }
+        .detail-content div[id^="dettText"] { font-size: 1.1rem; margin-bottom: 1.4rem; word-wrap: break-word; }
+        .detail-content img[id^="imageDett"] { max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 1.5rem auto; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); }
+        .detail-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #eef2f5; text-align: center; }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .detail-container { margin: 0; padding: 1.25rem; border-radius: 0; box-shadow: none; }
+            h1.detail-title { font-size: 1.65rem; }
+            .detail-content div[id^="dettText"] { font-size: 1rem; }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="dettagli-container">
-    <h1>Arch 125 of the French (First Arch of the Beccari)</h1>
-    <p class="intro"><strong>Historical, Architectural, and Archival Insight Sheet</strong></p>
+    <main class="detail-container">
+        
+        <a href="arco125_francesi-en.html" class="btn-back" onclick="if(history.length > 1){ history.back(); return false; }">
+            &#8592; Back to main page
+        </a>
 
-    <img src="img/arco125_francesi_head.jpg" alt="Perspective view of Arch 125 in the Portico di San Luca" class="img-responsive">
-    <p class="caption">Perspective view of the flat sub-portico of Via Saragozza near Arch 125.</p>
+        <h1 class="detail-title" id="headerTitle">Arch 125 of the French - Details</h1>
 
-    <h2>1. Document Summary</h2>
-    <table class="table-dati">
-      <tr>
-        <th>Name</th>
-        <td>Arch 125 – First Arch of the Beccari (historically known as the "French Arch")</td>
-      </tr>
-      <tr>
-        <th>Location</th>
-        <td>Via Saragozza (in front of building number 132/2), Bologna</td>
-      </tr>
-      <tr>
-        <th>Period of Construction</th>
-        <td>1675–1677 (17th-century phase); 1796–1815 (Napoleonic institutional transition)</td>
-      </tr>
-      <tr>
-        <th>Architect</th>
-        <td>Gian Giacomo Monti</td>
-      </tr>
-      <tr>
-        <th>Patronage</th>
-        <td>Arte dei Beccari (Butchers Guild); later Public Civil Administration</td>
-      </tr>
-      <tr>
-        <th>Marker</th>
-        <td>Majolica terracotta tile bearing progressive number "125"</td>
-      </tr>
-    </table>
+        <img id="headImage" class="head-image" alt="Header Detail">
 
-    <h2>2. Historical and Political Context</h2>
-    <p>
-      <strong>Arch 125 of the Portico di San Luca</strong> represents one of the most fascinating historical-documentary junctions of the entire monumental route in Bologna. Located on the flat stretch along Via Saragozza, this arch synthesizes two crucial eras of local history into a single architectural element: the guild-based, devotional Bologna of the 17th-century Papal State and the secular, republican Bologna of the Napoleonic era.
-    </p>
+        <article class="detail-content">
+            <div id="dettText1"></div>
+            <img id="imageDett1" src="Assets/images/arco125_francesi/arco125_cartiglio.jpg" alt="Detail 1" onerror="this.style.display='none'">
 
-    <h3>17th-Century Foundation: The Arte dei Beccari</h3>
-    <p>
-      In 1674, with the launch of the major flatland construction site designed by architect Gian Giacomo Monti, the building of the portico was supported by an extraordinary public subscription involving trade guilds, religious bodies, and local nobility. The <strong>Arte dei Beccari</strong> — the ancient and powerful guild of Bolognese butchers, rooted in the heart of the Quadrilatero since the Middle Ages — commissioned and fully funded arches 125 and 126. Choosing to erect and decorate these arches with their emblem reflected both deep devotion to the venerated image of the Madonna di San Luca and a desire to assert their socio-economic prestige along the primary avenue leading to the sanctuary.
-    </p>
+            <div id="dettText2"></div>
+            <img id="imageDett2" src="Assets/images/arco125_francesi/arco125_sottoportico.jpg" alt="Detail 2" onerror="this.style.display='none'">
 
-    <img src="img/arco125_francesi_cartiglio.jpg" alt="Detail of the majolica marker and decorative cartouche of Arch 125" class="img-responsive">
-    <p class="caption">Detail of the terracotta majolica marker bearing progressive number 125.</p>
+            <div id="dettText3"></div>
+            <img id="imageDett3" alt="Detail 3" onerror="this.style.display='none'">
 
-    <h3>The 1796 Turning Point and the Memory of the "French Arch"</h3>
-    <p>
-      Over a century later, in 1796, the entry of Napoleon Bonaparte's troops into Bologna disrupted the old institutional and economic order. The suppression of trade guilds and the secularization of ecclesiastical property by the authorities of the Cisalpine Republic transferred the management and maintenance of public heritage — including the Portico di San Luca — into the hands of new civil administrators. During this period of institutional reorganization, Arch 125 underwent restoration work overseen by the new Franco-Italian administration, earning its enduring popular name among citizens as the <strong>"Arch of the French"</strong>.
-    </p>
+            <div id="dettText4"></div>
+            <img id="imageDett4" alt="Detail 4" onerror="this.style.display='none'">
 
-    <h2>3. Architectural Features</h2>
-    <p>
-      From a formal perspective, the structure strictly adheres to the classical module established by Gian Giacomo Monti for the flatland section: a solid brick masonry arch with round vaulting, framed by projecting pilasters and topped with a groin vault. The plaster displays the traditional color scheme of brick red and Bolognese ochre, seamlessly integrated into the urban fabric of Via Saragozza.
-    </p>
+            <div id="dettText5"></div>
+            <img id="imageDett5" alt="Detail 5" onerror="this.style.display='none'">
+        </article>
 
-    <img src="img/arco125_francesi_dettaglio.jpg" alt="External facade and pilasters of Arch 125 from Via Saragozza" class="img-responsive">
-    <p class="caption">External view of the brickwork and ochre-red finishes along Via Saragozza.</p>
-  </div>
+        <footer class="detail-footer">
+            <a href="arco125_francesi-en.html" class="btn-back" onclick="if(history.length > 1){ history.back(); return false; }">
+                &#8592; Back to main page
+            </a>
+        </footer>
 
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageId = "arco125_francesi";
+            const lang = "en";
+
+            for (let i = 1; i <= 5; i++) {
+                const textContainer = document.getElementById(`dettText${i}`);
+                if (textContainer) {
+                    fetch(`${lang}_${pageId}_dettText${i}.html`)
+                        .then(res => res.ok ? res.text() : "")
+                        .then(html => {
+                            if (html.trim() !== "") {
+                                textContainer.innerHTML = html;
+                            } else {
+                                textContainer.style.display = 'none';
+                            }
+                        })
+                        .catch(() => textContainer.style.display = 'none');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
