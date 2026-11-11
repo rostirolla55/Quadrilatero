@@ -22,14 +22,21 @@ def pulisci_e_splitta_html(lang, poi_id, is_dettaglio=False):
         contenuto = f.read()
 
     # --- 1. PULIZIA HTML SPURIO DA LIBREOFFICE ---
-    # Rimuove commenti, tag head/style e wrapper inutili
+    # Rimuove commenti, tag head/style e tag di struttura esterna
     contenuto = re.sub(r'<!--.*?-->', '', contenuto, flags=re.DOTALL)
     contenuto = re.sub(r'<style.*?>.*?</style>', '', contenuto, flags=re.DOTALL)
+    contenuto = re.sub(r'</?(?:html|head|body|meta)[^>]*>', '', contenuto, flags=re.IGNORECASE)
     
-    # --- 2. SDOPPIAMENTO BLOCCI TRAMITE [SPLIT_BLOCK] ---
-    # Divide il testo in corrispondenza del marcatore [SPLIT_BLOCK]
-    blocchi_raw = contenuto.split("[SPLIT_BLOCK]")
-    blocchi_puliti = [b.strip() for b in blocchi_raw if b.strip()]
+    # --- 2. SDOPPIAMENTO BLOCCI TRAMITE [SPLIT_BLOCK] (REGEX ROBUSTA E FLESSIBILE) ---
+    # Intercetta [SPLIT_BLOCK] sia semplice che con parametro nome immagine (es. [SPLIT_BLOCK:foto.jpg])
+    pattern_split = r'(?:<p[^>]*>)?\s*(?:<span[^>]*>)?\s*\[SPLIT_BLOCK(?::[^\]]+)?\]\s*(?:</span>)?\s*(?:</p>)?'
+    blocchi_raw = re.split(pattern_split, contenuto, flags=re.IGNORECASE)
+    
+    blocchi_puliti = []
+    for b in blocchi_raw:
+        b_clean = b.strip()
+        if b_clean:
+            blocchi_puliti.append(b_clean)
 
     # Cartella di destinazione per i file di testo (.html)
     out_dir = "text_files"
