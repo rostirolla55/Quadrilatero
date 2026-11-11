@@ -1,7 +1,17 @@
 {
-    "mainText1": "it_arco125_francesi_maintext1.html",
-    "imageSource1": "arco125_francesi/arco125_cartiglio.jpg",
-    "mainText2": "it_arco125_francesi_maintext2.html",
-    "imageSource2": "arco125_francesi/arco125_sottoportico.jpg",
-    "mainText3": "it_arco125_francesi_maintext3.html"
+  "mainText1": "it_arco125_francesi_maintext1.html",
+  "imageSource1": "arco125_francesi/arco125_cartiglio.jpg",
+  "mainText2": "it_arco125_francesi_maintext2.html",
+  "imageSource2": "arco125_francesi/arco125_sottoportico.jpg",
+  "mainText3": "it_arco125_francesi_maintext3.html",
+  "imageDett1": "arco125_francesi/dettaglio/imageDett1.jpg",
+  "imageDett2": "arco125_francesi/dettaglio/imageDett2.jpg",
+  "imageDett3": "",
+  "imageDett4": "",
+  "imageDett5": "",
+  "dettText1": "it_arco125_francesi_dettText1.html",
+  "dettText2": "it_arco125_francesi_dettText2.html",
+  "dettText3": "it_arco125_francesi_dettText3.html",
+  "dettText4": "",
+  "dettText5": ""
 }

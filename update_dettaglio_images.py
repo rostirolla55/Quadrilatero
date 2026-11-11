@@ -3,22 +3,14 @@ import json
 import os
 import glob
 
-def update_images(lang, page_id):
-    config_path = f"data/config/page_config_{lang}_{page_id}.json"
-    # Cartella dedicata esclusiva per le immagini di dettaglio
+def update_dettaglio_config(lang, page_id):
+    config_path = f"text_files/page_config_{lang}_{page_id}.json"
     img_dir = f"Assets/images/{page_id}/dettaglio"
+    text_files_dir = "text_files"
     
     os.makedirs(os.path.dirname(config_path), exist_ok=True)
     
-    # Prende tutti i file presenti nella cartella di dettaglio
-    imgs = []
-    if os.path.exists(img_dir):
-        imgs = sorted([
-            os.path.basename(f) for f in glob.glob(f"{img_dir}/*.*")
-            if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))
-        ])
-
-    # Carica o inizializza il JSON di config
+    # 1. Carica il file JSON di configurazione esistente in text_files
     data = {}
     if os.path.exists(config_path):
         try:
@@ -27,7 +19,14 @@ def update_images(lang, page_id):
         except Exception:
             data = {}
 
-    # Aggiorna le chiavi imageDett1..5 col percorso relativo compreso di /dettaglio/
+    # 2. Scansione Immagini di Dettaglio (Assets/images/{page_id}/dettaglio/*.*)
+    imgs = []
+    if os.path.exists(img_dir):
+        imgs = sorted([
+            os.path.basename(f) for f in glob.glob(f"{img_dir}/*.*")
+            if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))
+        ])
+
     for i in range(5):
         key = f"imageDett{i+1}"
         if i < len(imgs):
@@ -35,11 +34,24 @@ def update_images(lang, page_id):
         else:
             data[key] = ""
 
+    # 3. Scansione Frammenti di Testo Dettaglio (text_files/{lang}_{page_id}_dettText*.html)
+    dett_texts = sorted([
+        os.path.basename(f) for f in glob.glob(f"{text_files_dir}/{lang}_{page_id}_dettText*.html")
+    ])
+
+    for i in range(5):
+        key = f"dettText{i+1}"
+        if i < len(dett_texts):
+            data[key] = dett_texts[i]
+        else:
+            data[key] = ""
+
+    # 4. Salvataggio del file di configurazione completo
     with open(config_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
-    print(f"✅ Config {config_path} aggiornato con le immagini da {img_dir}.")
+    print(f"✅ Config {config_path} aggiornato: trovate {len(imgs)} immagini e {len(dett_texts)} frammenti dettText.")
 
 if __name__ == "__main__":
     if len(sys.argv) >= 3:
-        update_images(sys.argv[1], sys.argv[2])
+        update_dettaglio_config(sys.argv[1], sys.argv[2])

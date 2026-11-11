@@ -24,10 +24,11 @@ PAGE_ID_MAPPING_EXCEPTIONS = {
 # FILENAME_PATTERN = re.compile(r'(\w+)_(\w+)_maintext\d+\.html', re.IGNORECASE)
 # ^([^_]+) -> Cattura tutto fino al PRIMO underscore (la lingua)
 # _(.+)    -> Cattura tutto il resto fino a _maintext (l'ID pagina)
-FILENAME_PATTERN = re.compile(r'^([^_]+)_(.+)_maintext\d+\.html', re.IGNORECASE)
+# Regex aggiornata per catturare sia _maintext che _dettText
+FILENAME_PATTERN = re.compile(r'^([^_]+)_(.+)_(?:maintext|dettText)\d+\.html', re.IGNORECASE)
 
 # Chiavi da sincronizzare/pulire (quelle che possono variare in numero)
-DYNAMIC_KEYS_PREFIXES = ("mainText", "imageSource")
+DYNAMIC_KEYS_PREFIXES = ['mainText', 'dettText', 'imageSource', 'imageDett']
 # Chiavi che devono essere preservate (metadati fissi)
 # NOTA: Queste chiavi non verranno MAI eliminate dalla fase di pulizia dinamica.
 STATIC_KEYS = (
@@ -85,9 +86,9 @@ def save_language_config(lang: str, data: Dict[str, Any]):
 
 
 def extract_metadata_from_dynamic_config(config_data: Dict[str, Any]) -> Tuple[str, str] | None:
-    """Estrae lingua e ID della pagina dai percorsi dei frammenti HTML."""
+    """Estrae lingua e ID della pagina dai percorsi dei frammenti HTML (mainText o dettText)."""
     for key, value in config_data.items():
-        if key.startswith("mainText") and isinstance(value, str):
+        if (key.startswith("mainText") or key.startswith("dettText")) and isinstance(value, str):
             match = FILENAME_PATTERN.search(value)
             if match:
                 # Gruppo 1: lingua, Gruppo 2: page_id

@@ -451,6 +451,16 @@
         "imageSource2": "arco125_francesi/arco125_sottoportico.jpg",
         "playAudioButton": "Listen with headphones",
         "pauseAudioButton": "Pause",
-        "sourceText": ""
+        "sourceText": "",
+        "imageDett1": "arco125_francesi/dettaglio/imageDett1.jpg",
+        "imageDett2": "arco125_francesi/dettaglio/imageDett2.jpg",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": "",
+        "dettText1": "en_arco125_francesi_dettText1.html",
+        "dettText2": "en_arco125_francesi_dettText2.html",
+        "dettText3": "en_arco125_francesi_dettText3.html",
+        "dettText4": "",
+        "dettText5": ""
     }
 }

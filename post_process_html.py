@@ -5,8 +5,8 @@ import re
 
 def pulisci_e_splitta_html(lang, poi_id, is_dettaglio=False):
     """
-    Legge l'HTML temporaneo generato da LibreOffice, lo pulisce dai tag inutili
-    e lo suddivide in file distinti in base al tipo (mainText o dettText).
+    Legge l'HTML temporaneo generato da LibreOffice, lo pulisce dai tag inutili,
+    aggiorna i percorsi delle immagini e lo suddivide in file distinti in base al tipo (mainText o dettText).
     """
     # Determinazione nome file temporaneo sorgente
     if is_dettaglio:
@@ -26,9 +26,24 @@ def pulisci_e_splitta_html(lang, poi_id, is_dettaglio=False):
     contenuto = re.sub(r'<!--.*?-->', '', contenuto, flags=re.DOTALL)
     contenuto = re.sub(r'<style.*?>.*?</style>', '', contenuto, flags=re.DOTALL)
     contenuto = re.sub(r'</?(?:html|head|body|meta)[^>]*>', '', contenuto, flags=re.IGNORECASE)
+
+    # --- 1.5 CORREZIONE PERCORSI IMMAGINI NEL DETTAGLIO ---
+    # Se è una scheda di dettaglio, corregge gli attributi src=<img ...> affinché puntino a Assets/images/{poi_id}/dettaglio/
+    if is_dettaglio:
+        def fix_img_src(match):
+            img_tag = match.group(0)
+            src_match = re.search(r'src=["\']([^"\']+)["\']', img_tag, re.IGNORECASE)
+            if src_match:
+                original_src = src_match.group(1)
+                filename = os.path.basename(original_src)
+                # Riscrittura del percorso per puntare alla sottocartella dettaglio
+                new_src = f"Assets/images/{poi_id}/dettaglio/{filename}"
+                return re.sub(r'src=["\']([^"\']+)["\']', f'src="{new_src}"', img_tag, flags=re.IGNORECASE)
+            return img_tag
+
+        contenuto = re.sub(r'<img[^>]+>', fix_img_src, contenuto, flags=re.IGNORECASE)
     
     # --- 2. SDOPPIAMENTO BLOCCI TRAMITE [SPLIT_BLOCK] (REGEX ROBUSTA E FLESSIBILE) ---
-    # Intercetta [SPLIT_BLOCK] sia semplice che con parametro nome immagine (es. [SPLIT_BLOCK:foto.jpg])
     pattern_split = r'(?:<p[^>]*>)?\s*(?:<span[^>]*>)?\s*\[SPLIT_BLOCK(?::[^\]]+)?\]\s*(?:</span>)?\s*(?:</p>)?'
     blocchi_raw = re.split(pattern_split, contenuto, flags=re.IGNORECASE)
     
@@ -62,7 +77,6 @@ def pulisci_e_splitta_html(lang, poi_id, is_dettaglio=False):
                 f_out.write(testo_blocco)
             print(f"    ✓ Creato: {nome_file}")
         else:
-            # Se la nuova conversione ha meno blocchi di prima, puliamo l'eventuale file in eccesso
             if os.path.exists(percorso_file):
                 with open(percorso_file, 'w', encoding='utf-8') as f_out:
                     f_out.write("")
