@@ -135,22 +135,34 @@ function setupGoogleMapsButton(lang) {
 // ===========================================
 // UTILITY
 // ===========================================
-const getCurrentPageId = () => {  
-    const urlPath = window.location.pathname;  
-    let fileName = urlPath.substring(urlPath.lastIndexOf('/') + 1);  
-    if (!fileName || fileName.startsWith('index')) return 'home';  
-    
-    // Rimuove l'estensione .html
-    let cleanName = fileName.replace('.html', '').toLowerCase();
-    
-    // Rimuove i prefissi lingua (it_, en_, fr_, es_) se presenti all'inizio del nome file
+const getCurrentPageId = () => {   
+    const urlPath = window.location.pathname;   
+    let fileName = urlPath.substring(urlPath.lastIndexOf('/') + 1);   
+    if (!fileName) return 'home';   
+      
+    // 1. Rimuove l'estensione .html e converte in minuscolo
+    let cleanName = fileName.replace('.html', '').toLowerCase();  
+       
+    // 2. Rimuove i suffissi lingua con trattino in coda (es. index-it, arco125_francesi-en)
     LANGUAGES.forEach(lang => {
-        if (cleanName.startsWith(`${lang}_`)) {
-            cleanName = cleanName.substring(lang.length + 1);
+        if (cleanName.endsWith(`-${lang}`)) {
+            cleanName = cleanName.substring(0, cleanName.length - (lang.length + 1));
         }
     });
-    
-    return cleanName;  
+
+    // 3. Rimuove eventuali prefissi lingua con underscore (per retrocompatibilità es. it_index)
+    LANGUAGES.forEach(lang => {  
+        if (cleanName.startsWith(`${lang}_`)) {  
+            cleanName = cleanName.substring(lang.length + 1);  
+        }  
+    });  
+       
+    // 4. Se il nome ottenuto è index o vuoto, lo converte nella chiave 'home' di texts.json
+    if (cleanName === 'index' || cleanName === 'home' || cleanName === '') {
+        return 'home';
+    }
+
+    return cleanName;   
 };
 
 
