@@ -135,34 +135,32 @@ function setupGoogleMapsButton(lang) {
 // ===========================================
 // UTILITY
 // ===========================================
-const getCurrentPageId = () => {   
-    const urlPath = window.location.pathname;   
-    let fileName = urlPath.substring(urlPath.lastIndexOf('/') + 1);   
-    if (!fileName) return 'home';   
-      
-    // 1. Rimuove l'estensione .html e converte in minuscolo
-    let cleanName = fileName.replace('.html', '').toLowerCase();  
-       
-    // 2. Rimuove i suffissi lingua con trattino in coda (es. index-it, arco125_francesi-en)
+const getCurrentPageId = () => {
+    const urlPath = window.location.pathname;
+    let fileName = urlPath.substring(urlPath.lastIndexOf('/') + 1);
+    if (!fileName) return 'home';
+
+    let cleanName = fileName.replace('.html', '').toLowerCase();
+
+    // Rimuove suffissi lingua con trattino (es. arco125-it)
     LANGUAGES.forEach(lang => {
         if (cleanName.endsWith(`-${lang}`)) {
             cleanName = cleanName.substring(0, cleanName.length - (lang.length + 1));
         }
     });
 
-    // 3. Rimuove eventuali prefissi lingua con underscore (per retrocompatibilità es. it_index)
-    LANGUAGES.forEach(lang => {  
-        if (cleanName.startsWith(`${lang}_`)) {  
-            cleanName = cleanName.substring(lang.length + 1);  
-        }  
-    });  
-       
-    // 4. Se il nome ottenuto è index o vuoto, lo converte nella chiave 'home' di texts.json
+    // Rimuove prefissi lingua con underscore (retrocompatibilità)
+    LANGUAGES.forEach(lang => {
+        if (cleanName.startsWith(`${lang}_`)) {
+            cleanName = cleanName.substring(lang.length + 1);
+        }
+    });
+
     if (cleanName === 'index' || cleanName === 'home' || cleanName === '') {
         return 'home';
     }
 
-    return cleanName;   
+    return cleanName;
 };
 
 
@@ -203,136 +201,146 @@ async function logAccess(pageId, lang) {
 // ===========================================  
 // CARICAMENTO CONTENUTI (DETTAGLIO & PRINCIPALE)
 // ===========================================  
-async function loadContent(lang) {  
-    document.documentElement.lang = lang;  
-    const pageId = getCurrentPageId();  
-    
+async function loadContent(lang) {
+    document.documentElement.lang = lang;
+    const pageId = getCurrentPageId();
+
     // Rileva se si tratta di una pagina di dettaglio
-    const isDetail = window.location.pathname.includes('_dettagli');  
-    const basePoiId = pageId.replace('_dettagli', '').toLowerCase();  
-  
-    try {  
-        const response = await fetch(`data/translations/${lang}/texts.json`);  
-        const data = await response.json();  
-        window.allData = data;  
-        const pageData = data[basePoiId] || data[pageId];  
-  
-        if (!pageData) {  
-            updateText('pageTitle', "Contenuto non trovato");  
-            document.body.classList.add('content-loaded');  
-            return;  
-        }  
-  
+    const isDetail = window.location.pathname.includes('_dettagli');
+    const basePoiId = pageId.replace('_dettagli', '').toLowerCase();
+
+    try {
+        const response = await fetch(`data/translations/${lang}/texts.json`);
+        const data = await response.json();
+        window.allData = data;
+        const pageData = data[basePoiId] || data[pageId];
+
+        if (!pageData) {
+            updateText('pageTitle', "Contenuto non trovato");
+            document.body.classList.add('content-loaded');
+            return;
+        }
+
         // 1. Titoli della pagina  
-        updateText('pageTitle', pageData.pageTitle);  
-        updateHTML('headerTitle', pageData.headerTitle || pageData.pageTitle);  
-  
+        updateText('pageTitle', pageData.pageTitle);
+        updateHTML('headerTitle', pageData.headerTitle || pageData.pageTitle);
+
         // 2. Gestione Immagine di Testata (headImage) con fall-back sicuro per evitare 404
-        const headImg = document.getElementById('headImage');  
+        const headImg = document.getElementById('headImage');
         if (headImg) {
             if (pageData.headImage && pageData.headImage.trim() !== "") {
                 const headSrc = pageData.headImage.startsWith('public/') || pageData.headImage.startsWith('Assets/')
-                    ? pageData.headImage 
+                    ? pageData.headImage
                     : `public/images/${pageData.headImage}`;
-                    
-                headImg.src = headSrc;  
-                headImg.style.display = 'block';  
+
+                headImg.src = headSrc;
+                headImg.style.display = 'block';
                 headImg.onerror = () => { headImg.style.display = 'none'; };
             } else {
                 headImg.style.display = 'none';
             }
         }
-  
+
         // 3. Caricamento Testi e Immagini
-        if (isDetail) {  
+        if (isDetail) {
+            // Imposta il link del pulsante "Torna alla scheda principale" alla pagina madre
+            const backBtnList = document.querySelectorAll('.btn-back, #btnBackToPoi');
+            backBtnList.forEach(btn => {
+                btn.href = `${basePoiId}-${lang}.html`;
+            });
             // --- SCHEDA DI DETTAGLIO ---
             // Carica dettText1..5 rimuovendo eventuali tag <img> orfani scritti da LibreOffice nei frammenti
-            const dettKeys = ['dettText1', 'dettText2', 'dettText3', 'dettText4', 'dettText5'];  
-            for (const key of dettKeys) {  
-                let content = pageData[key];  
-                if (isFilePath(content)) {  
-                    content = await fetchFileContent(`text_files/${content}`);  
-                }  
-                
+            const dettKeys = ['dettText1', 'dettText2', 'dettText3', 'dettText4', 'dettText5'];
+            for (const key of dettKeys) {
+                let content = pageData[key];
+                if (isFilePath(content)) {
+                    content = await fetchFileContent(`text_files/${content}`);
+                }
+
                 if (content && typeof content === 'string') {
                     content = content.replace(/<img[^>]*>/gi, '');
                 }
-                
-                updateHTML(key, content);  
-            }  
-  
+
+                updateHTML(key, content);
+            }
+
             // Carica le immagini specifiche per il dettaglio (imageDett1..5)
-            for (let i = 1; i <= 5; i++) {  
-                const imgEl = document.getElementById(`imageDett${i}`);  
-                const src = pageData[`imageDett${i}`];  
-                if (imgEl) {  
-                    if (src && src.trim() !== "") {  
-                        imgEl.src = `Assets/images/${src}`;  
-                        imgEl.style.display = 'block';  
-                    } else {  
-                        imgEl.style.display = 'none';  
-                    }  
-                }  
-            }  
-        } else {  
+            for (let i = 1; i <= 5; i++) {
+                const imgEl = document.getElementById(`imageDett${i}`);
+                const src = pageData[`imageDett${i}`];
+                if (imgEl) {
+                    if (src && src.trim() !== "") {
+                        imgEl.src = `Assets/images/${src}`;
+                        imgEl.style.display = 'block';
+                    } else {
+                        imgEl.style.display = 'none';
+                    }
+                }
+            }
+        } else {
             // --- SCHEDA PRINCIPALE POI ---
-            const textKeys = ['mainText', 'mainText1', 'mainText2', 'mainText3', 'mainText4', 'mainText5'];  
-            for (const key of textKeys) {  
-                let content = pageData[key];  
-                if (isFilePath(content)) {  
-                    content = await fetchFileContent(`text_files/${content}`);  
-                }  
-                updateHTML(key, content);  
-            }  
-  
-            for (let i = 1; i <= 5; i++) {  
-                const imgEl = document.getElementById(`pageImage${i}`);  
-                const src = pageData[`imageSource${i}`];  
-                if (imgEl) {  
-                    if (src && src.trim() !== "") {  
-                        imgEl.src = `Assets/images/${src}`;  
-                        imgEl.style.display = 'block';  
-                    } else {  
-                        imgEl.style.display = 'none';  
-                    }  
-                }  
-            }  
-        }  
-  
+            const textKeys = ['mainText', 'mainText1', 'mainText2', 'mainText3', 'mainText4', 'mainText5'];
+            for (const key of textKeys) {
+                let content = pageData[key];
+                if (isFilePath(content)) {
+                    content = await fetchFileContent(`text_files/${content}`);
+                }
+                updateHTML(key, content);
+            }
+
+            for (let i = 1; i <= 5; i++) {
+                const imgEl = document.getElementById(`pageImage${i}`);
+                const src = pageData[`imageSource${i}`];
+                if (imgEl) {
+                    if (src && src.trim() !== "") {
+                        imgEl.src = `Assets/images/${src}`;
+                        imgEl.style.display = 'block';
+                    } else {
+                        imgEl.style.display = 'none';
+                    }
+                }
+            }
+        }
+
         // 4. Metadati e Player Audio (se presente)
-        if (pageData.sourceText) updateHTML('infoSource', `Fonte: ${pageData.sourceText}`);  
-        if (pageData.creationDate) updateHTML('infoCreatedDate', `Data Creazione: ${pageData.creationDate}`);  
-        if (pageData.lastUpdate) updateHTML('infoUpdatedDate', `Ultimo Aggiornamento: ${pageData.lastUpdate}`);  
-  
-        const audioPlayer = document.getElementById('audioPlayer');  
-        const playBtn = document.getElementById('playAudio');  
-        if (audioPlayer && playBtn && pageData.audioSource) {  
-            audioPlayer.src = `Assets/Audio/${pageData.audioSource}`;  
-            playBtn.textContent = pageData.playAudioButton || "Play";  
-            playBtn.dataset.playText = pageData.playAudioButton;  
-            playBtn.dataset.pauseText = pageData.pauseAudioButton;  
-            playBtn.style.display = 'block';  
-        }  
-  
-        updateNavigation(data.nav, lang);  
-        setupGoogleMapsButton(lang);  
-        startGeolocation(data);  
-  
-        if (audioPlayer) {  
-            audioPlayer.onplay = () => {  
-                const pageId = getCurrentPageId();  
-                const pageTitle = document.getElementById('pageTitle')?.textContent || pageId;  
-                registraAscoltoAudio(pageId, pageTitle);  
-            };  
-        }  
-  
-        document.body.classList.add('content-loaded');  
-        if (isAuthReady) logAccess(pageId, lang);  
-  
-    } catch (e) {  
-        console.error("Errore caricamento:", e);  
-        document.body.classList.add('content-loaded');  
-    }  
+        if (pageData.sourceText) updateHTML('infoSource', `Fonte: ${pageData.sourceText}`);
+        if (pageData.creationDate) updateHTML('infoCreatedDate', `Data Creazione: ${pageData.creationDate}`);
+        if (pageData.lastUpdate) updateHTML('infoUpdatedDate', `Ultimo Aggiornamento: ${pageData.lastUpdate}`);
+
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playBtn = document.getElementById('playAudio');
+        if (audioPlayer && playBtn) {
+            if (pageData && pageData.audioSource) {
+                audioPlayer.src = `Assets/Audio/${pageData.audioSource}`;
+                playBtn.textContent = pageData.playAudioButton || "Ascolta";
+                playBtn.dataset.playText = pageData.playAudioButton || "Ascolta";
+                playBtn.dataset.pauseText = pageData.pauseAudioButton || "Pausa";
+                playBtn.style.display = 'inline-block';
+            } else {
+                playBtn.style.display = 'none';
+                audioPlayer.removeAttribute('src');
+            }
+        }
+
+        updateNavigation(data.nav, lang);
+        setupGoogleMapsButton(lang);
+        startGeolocation(data);
+
+        if (audioPlayer) {
+            audioPlayer.onplay = () => {
+                const pageId = getCurrentPageId();
+                const pageTitle = document.getElementById('pageTitle')?.textContent || pageId;
+                registraAscoltoAudio(pageId, pageTitle);
+            };
+        }
+
+        document.body.classList.add('content-loaded');
+        if (isAuthReady) logAccess(pageId, lang);
+
+    } catch (e) {
+        console.error("Errore caricamento:", e);
+        document.body.classList.add('content-loaded');
+    }
 }
 
 function updateNavigation(navData, lang) {
