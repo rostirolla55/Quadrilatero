@@ -8,12 +8,13 @@ LANGUAGES = ['it', 'en', 'es', 'fr']
 def crea_pagine_dettaglio(target_page_id):
     """
     Duplica i file template_dettaglio-[lang].html creando le pagine 
-    di approfondimento [lang]_[target_page_id]_dettagli.html per ciascuna lingua.
+    di approfondimento [target_page_id]_dettagli-[lang].html per ciascuna lingua.
     """
     print("--- Generazione Pagine HTML di Dettaglio ---")
     for lang in LANGUAGES:
         template_file = f"template_dettaglio-{lang}.html"
-        target_file = f"{lang}_{target_page_id}_dettagli.html"
+        # Nomenclatura allineata allo standard con trattino finale (-it, -en, -es, -fr)
+        target_file = f"{target_page_id}_dettagli-{lang}.html"
 
         if os.path.exists(template_file):
             shutil.copyfile(template_file, target_file)
@@ -25,7 +26,7 @@ def crea_pagine_dettaglio(target_page_id):
                 print(f"  [AVVISO] '{template_file}' non trovato. Usato 'template_dettaglio-it.html' -> '{target_file}'")
             else:
                 print(f"  [ERRORE] Template per dettaglio non trovato per la lingua '{lang}'!")
-
+                
 def generate_bat_from_config(target_page_id):
     config_file = "pois_config.json"
     
