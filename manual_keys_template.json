@@ -201,6 +201,7 @@
     "arco125_francesi": {
         "it": {
             "pageTitle": "Arco 125 dei francesi",
+            "headerTitle": "Arco 125 dei francesi",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
             "sourceText": "",
@@ -210,6 +211,7 @@
         },
         "es": {
             "pageTitle": "Arco 125 de los franceses",
+            "headerTitle": "Arco 125 de los franceses",
             "playAudioButton": "Escuchar la historia",
             "pauseAudioButton": "Detener la reproducción",
             "sourceText": "",
@@ -219,6 +221,7 @@
         },
         "fr": {
             "pageTitle": "Arche 125 des Français",
+            "headerTitle": "Arche 125 des Français",
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
             "sourceText": "",
@@ -228,6 +231,7 @@
         },
         "en": {
             "pageTitle": "Arch 125 of the French",
+            "headerTitle": "Arch 125 of the French",
             "playAudioButton": "Listen with headphones",
             "pauseAudioButton": "Pause",
             "sourceText": "",
