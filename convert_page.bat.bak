@@ -1,0 +1,174 @@
+@echo off
+if "%1"=="?" (
+    echo.
+    echo Aiuto Procedura: %~nx0
+    echo ------------------------------------------
+    echo Sintassi: %~n0 [lang] [id_pagina]
+    echo Esempio:  %~n0 it manifattura 
+    echo.
+    pause
+    exit /b
+)
+setlocal ENABLEDELAYEDEXPANSION
+
+REM ----------------------------------------------------------------------
+REM --- CONFIGURAZIONE BASE ---
+REM ----------------------------------------------------------------------
+
+REM --- La lingua viene passata come primo argomento (%1)
+if "%1"=="" (
+    echo ERRORE: Devi specificare la lingua [es. it, en, fr, es] come PRIMO argomento.
+    echo Esempio: convert_page.bat it chiesapioggia
+    goto :eof
+)
+set LANG=%1
+
+REM --- L'ID della Pagina viene passato come secondo argomento (%2)
+if "%2"=="" (
+    echo ERRORE: Devi specificare l'ID della pagina [es. manifattura, chiesapioggia] come SECONDO argomento.
+    echo Esempio: convert_page.bat it chiesapioggia
+    goto :eof
+)
+set PAGE_ID=%2
+
+REM --- VARIABILI FISSE (Basate sui parametri LANG e PAGE_ID)
+set DOCX_FILE=%PAGE_ID%_%LANG%.docx
+set SPECIFIC_HTML_OUTPUT_FILE=%PAGE_ID%_%LANG%.html
+set GENERIC_HTML_OUTPUT_FILE=%PAGE_ID%.html
+set RAW_OUTPUT_FILE=raw_output.html
+set DOCX_DIR=DOCS_DA_CONVERTIRE
+set FULL_DOCX_PATH=%DOCX_DIR%\%DOCX_FILE%
+
+echo ==================================================
+echo Inizio elaborazione completa SCHEDA PRINCIPALE per Pagina: %PAGE_ID%
+echo Lingua selezionata: %LANG%
+echo File DOCX atteso: %FULL_DOCX_PATH%
+echo ==================================================
+
+REM --- CONTROLLO ESISTENZA FILE DOCX SPECIFICO PER LINGUA
+if not exist "%FULL_DOCX_PATH%" (
+    echo ERRORE: File DOCX '%FULL_DOCX_PATH%' non trovato.
+    echo Assicurati che il file tradotto esista nella cartella %DOCX_DIR%.
+    goto :eof
+)
+
+REM --- 1. ESTRAZIONE IMMAGINI (Eseguito dalla root) ---
+echo Esecuzione di extract_images.py per estrarre immagini...
+python extract_images.py %PAGE_ID% %DOCX_FILE%
+if ERRORLEVEL 1 (
+    echo ERRORE: Script extract_images.py fallito. Interruzione.
+    goto :eof
+)
+
+REM --- 2. ENTRA NELLA CARTELLA DI LAVORO ---
+echo Cambio directory in %DOCX_DIR%...
+cd "%DOCX_DIR%"
+if ERRORLEVEL 1 (
+    echo ERRORE: Impossibile cambiare directory in %DOCX_DIR%.
+    goto :eof
+)
+
+REM --- 3.0. PULIZIA PREVENTIVA DEI FILE TEMPORANEI ---
+echo Pulizia preventiva dei file temporanei (lock, tmp, html e jpg residui di LibreOffice)...
+del /f /q ".~lock." 2>nul
+del /f /q "*.tmp" 2>nul
+del /f /q "%GENERIC_HTML_OUTPUT_FILE%" 2>nul
+del /f /q "%SPECIFIC_HTML_OUTPUT_FILE%" 2>nul
+del /f /q "%PAGE_ID%.jpg" 2>nul
+del /f /q "%PAGE_ID%.png" 2>nul
+echo Pulizia preventiva completata.
+
+REM --- 3.1. CONVERSIONE LIBREOFFICE (Isolato tramite START /WAIT) ---
+echo DEBUG: Input DOCX: %DOCX_FILE%
+echo Conversione DOCX in HTML (isolamento massimo)...
+
+start /wait "" "C:\Program Files\LibreOffice\program\soffice.exe" --headless --convert-to html %DOCX_FILE% --outdir . > nul 2>&1
+
+REM --- CONTROLLO ERRORLEVEL ROBUSTO ---
+if NOT ERRORLEVEL 0 (
+    echo ERRORE: La conversione con LibreOffice ha fallito [ErrorLevel: %ERRORLEVEL%].
+    goto :cleanup_exit
+)
+
+REM --- 4. RINOMINA E PREPARAZIONE HTML GREZZO (Locale) ---
+echo DEBUG: Tentativo di rinomina locale: %SPECIFIC_HTML_OUTPUT_FILE% o %GENERIC_HTML_OUTPUT_FILE% a %RAW_OUTPUT_FILE%
+
+if exist %SPECIFIC_HTML_OUTPUT_FILE% (
+    rename %SPECIFIC_HTML_OUTPUT_FILE% %RAW_OUTPUT_FILE%
+    echo Rinomina completata [File specifico per lingua trovato].
+) else if exist %GENERIC_HTML_OUTPUT_FILE% (
+    rename %GENERIC_HTML_OUTPUT_FILE% %RAW_OUTPUT_FILE%
+    echo Rinomina completata [File generico trovato].
+) else (
+    echo ERRORE: File HTML di output non trovato [%SPECIFIC_HTML_OUTPUT_FILE% o %GENERIC_HTML_OUTPUT_FILE%].
+    echo LibreOffice non ha generato l'HTML nella directory corrente o con il nome corretto.
+    goto :cleanup_exit
+)
+
+REM --- 5. RITORNA ALLA ROOT PER ESEGUIRE IL PYTHON SCRIPT ---
+echo Ritorno alla directory principale...
+cd ..
+
+REM --- 5.1. PREPARAZIONE FILE TEMPORANEO PER PYTHON ---
+rem Copia il file HTML appena convertito da DOCS_DA_CONVERTIRE alla root con il nome atteso da post_process_html.py
+if exist "DOCS_DA_CONVERTIRE\%RAW_OUTPUT_FILE%" (
+    copy /Y "DOCS_DA_CONVERTIRE\%RAW_OUTPUT_FILE%" "temp_%LANG%_%PAGE_ID%.html" >nul
+) else if exist "DOCS_DA_CONVERTIRE\%PAGE_ID%_%LANG%.html" (
+    copy /Y "DOCS_DA_CONVERTIRE\%PAGE_ID%_%LANG%.html" "temp_%LANG%_%PAGE_ID%.html" >nul
+) else if exist "DOCS_DA_CONVERTIRE\raw_output.html" (
+    copy /Y "DOCS_DA_CONVERTIRE\raw_output.html" "temp_%LANG%_%PAGE_ID%.html" >nul
+)
+
+REM --- 6. FRAMMENTAZIONE ---
+echo Esecuzione di post_process_html.py: divisione e salvataggio frammenti in text_files...
+python post_process_html.py %LANG% %PAGE_ID%
+if ERRORLEVEL 1 (
+    echo ERRORE: Script post_process_html.py fallito. Interruzione.
+    goto :cleanup_exit
+)
+
+REM --- 6.1. PULIZIA FILE TEMPORANEO ---
+if exist "temp_%LANG%_%PAGE_ID%.html" del "temp_%LANG%_%PAGE_ID%.html"
+
+REM --- 7. PULIZIA DEI FRAMMENTI GENERATI ---
+echo Esecuzione di html_fragment_cleaner.py per pulire i frammenti in text_files...
+python html_fragment_cleaner.py
+if ERRORLEVEL 1 (
+    echo ERRORE: Script html_fragment_cleaner.py fallito. Interruzione.
+    goto :cleanup_exit
+)
+
+REM --- 8. SINCRONIZZAZIONE CHIAVI ---
+echo Esecuzione di sync_config.py per aggiornare texts.json...
+python sync_config.py
+if ERRORLEVEL 1 (
+    echo ERRORE: Script sync_config.py fallito. Interruzione.
+    goto :cleanup_exit
+)
+
+REM --- 9. COPIA DEI FRAMMENTI NELLA ROOT PER DEPLOYMENT ---
+echo Copia dei frammenti da text_files/ alla root del repository per la lingua: %LANG% e pagina: %PAGE_ID%...
+copy "text_files\%LANG%_%PAGE_ID%_maintext*.html" .
+if ERRORLEVEL 1 (
+    echo ATTENZIONE: Nessun file frammento %LANG%_%PAGE_ID%_maintext*.html trovato o copia fallita.
+)
+
+REM --- 10. PULIZIA FINALE ---
+:cleanup_exit
+echo Pulizia del file temporaneo %RAW_OUTPUT_FILE% in %DOCX_DIR%...
+if exist "%DOCS_DA_CONVERTIRE%\%RAW_OUTPUT_FILE%" (
+    del "%DOCS_DA_CONVERTIRE%\%RAW_OUTPUT_FILE%"
+)
+
+echo Rimozione dei file immagine temporanei da DOCS_DA_CONVERTIRE...
+if exist "DOCS_DA_CONVERTIRE\*_html_*.jpg" del /q "DOCS_DA_CONVERTIRE\*_html_*.jpg"
+if exist "DOCS_DA_CONVERTIRE\*_html_*.gif" del /q "DOCS_DA_CONVERTIRE\*_html_*.gif"
+if exist "DOCS_DA_CONVERTIRE\*_html_*.png" del /q "DOCS_DA_CONVERTIRE\*_html_*.png"
+
+echo Pulizia completata!
+
+echo ==================================================
+echo Elaborazione SCHEDA PRINCIPALE %PAGE_ID% per lingua %LANG% COMPLETATA.
+echo ==================================================
+
+endlocal
