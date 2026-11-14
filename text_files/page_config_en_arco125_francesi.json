@@ -1,12 +1,12 @@
 {
-  "imageDett1": "arco125_francesi/dettaglio/arco125_Albero_Liberta_1796.jpg",
-  "imageDett2": "arco125_francesi/dettaglio/arco125_formella_beccai.jpg",
-  "imageDett3": "arco125_francesi/dettaglio/arco125_sottoportico.jpg",
-  "imageDett4": "",
-  "imageDett5": "",
-  "dettText1": "en_arco125_francesi_dettText1.html",
-  "dettText2": "en_arco125_francesi_dettText2.html",
-  "dettText3": "en_arco125_francesi_dettText3.html",
-  "dettText4": "en_arco125_francesi_dettText4.html",
-  "dettText5": ""
+    "imageDett1": "arco125_francesi/dettaglio/arco125_formella_beccai.jpg",
+    "imageDett2": "arco125_francesi/dettaglio/arco125_Albero_Liberta_1796.jpg",
+    "imageDett3": "arco125_francesi/dettaglio/arco125_sottoportico.jpg",
+    "imageDett4": "",
+    "imageDett5": "",
+    "dettText1": "en_arco125_francesi_dettText1.html",
+    "dettText2": "en_arco125_francesi_dettText2.html",
+    "dettText3": "en_arco125_francesi_dettText3.html",
+    "dettText4": "en_arco125_francesi_dettText4.html",
+    "dettText5": ""
 }
