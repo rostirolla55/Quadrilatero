@@ -205,10 +205,9 @@ async function loadContent(lang) {
     document.documentElement.lang = lang;
     const pageId = getCurrentPageId();
 
-    // Rileva se si tratta di una pagina di dettaglio
+    // Rileva se si tratta di una pagina di dettaglio (_dettaglio o _dettagli)
     const isDetail = window.location.pathname.includes('_dettagli');
-    const basePoiId = pageId.replace('_dettagli', '').toLowerCase();
-
+    const basePoiId = pageId.replace(/_dettaglio?$/i, '').toLowerCase(); 
     try {
         const response = await fetch(`data/translations/${lang}/texts.json`);
         const data = await response.json();

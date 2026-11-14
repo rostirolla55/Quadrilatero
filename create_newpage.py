@@ -14,7 +14,7 @@ def crea_pagine_dettaglio(target_page_id):
     for lang in LANGUAGES:
         template_file = f"template_dettaglio-{lang}.html"
         # Nomenclatura allineata allo standard con trattino finale (-it, -en, -es, -fr)
-        target_file = f"{target_page_id}_dettagli-{lang}.html"
+        target_file = f"{target_page_id}_dettaglio-{lang}.html"
 
         if os.path.exists(template_file):
             shutil.copyfile(template_file, target_file)
