@@ -1,0 +1,50 @@
+list-versions *dettagli*
+dir *dettagli*.html /s 
+del *dettagli*.html /s 
+list-versions *dettagli*
+cd
+convert_dettaglio.bat es arco125_francesi
+manual_key_updater.bat arco125_francesi
+cd DOCS_DA_CONVERTIRE
+dir *detta*.docx
+cd ..
+dir /b *dett*.html
+del *dett*.html
+backup-full
+convert_page it arco125_francesi
+convert_dettaglio it arco125_francesi
+convert_page it arco125_francesi
+convert_dettaglio it arco125_francesi
+dir arco125_francesi_dettaglio-it.html
+dir *arco125_francesi_dettaglio*
+dir /s arco125_francesi_dettaglio-it.html
+esci
+"HISTORY_BCK_20261113_171212.txt"
+vedi_chiave_json_loc.bat mainText arco125_francesi
+vedi_chiave_json_loc.bat 
+vedi_chiave_json_loc.bat mainText
+vedi_chiave_json_loc.bat maintext
+npa vedi_chiave_json_loc.bat
+dir *.bat
+dir \Utilities\*.bat
+vedi_chiave_json maintext
+python vedi_chiave_json maintext
+python c:\utilities\vedi_chiave_json.py maintext
+python \utilities\cerca_json.py  maintext
+python \utilities\cerca_json.py  maintext *texts.json
+python \utilities\cerca_json.py  maintext 
+python \utilities\cerca_json.py  mainText
+python \utilities\cerca_json.py  mainText texts.json
+dir texts.json
+cat texts.json
+dir texts.json
+dir *.csv
+python \utilities\cerca_json.py  mainText data\translations\**\texts.json
+python \utilities\cerca_json.py  texts.json
+python \utilities\cerca_json.py  "mainText" "data\translations\**\texts.json"
+dir "data\translations\**\texts.json"
+dir /s /b "texts.json"
+dir *.csv
+trova dettagli *.html
+trova dettagli *arco125*.html
+esci

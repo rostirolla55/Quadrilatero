@@ -1,0 +1,50 @@
+cd ..\..
+python vedi_chiave_json_loc.bat maintext
+npa vedi_chiave_json_loc.bat
+gout
+dir /od *.bat
+npa cerca_json_csv.bat
+goquad
+cerca_json_csv maintext html
+cerca_json_csv maintext *html*
+cerca_json_csv maintext *
+cerca_json_csv mainText *
+cerca_json_csv mainText 
+cerca_json_csv mainText | findstr arco125
+cerca_json_csv mainText | findstr arco125 | head -1
+list-versions *dettagli*
+dir /s /b *arco125_francesi_dettagli*
+list-versions *arco125_francesi_dettagli*
+manual_key_updater.bat arco125_francesi
+convert_dettaglio.bat es arco125_francesi
+dir DOCS_DA_CONVERTIRE\*dettagli*
+list-versions *arco125_francesi_dettagli*
+goback
+cd Quadrilatero
+dir /s /b *detta*
+goquad
+list-versions *dettagli*
+convert_dettaglio.bat es arco125_francesi
+cls
+convert_dettaglio.bat es arco125_francesi
+list-versions *dettagli*
+dir *dettagli*.html /s 
+del *dettagli*.html /s 
+list-versions *dettagli*
+cd
+convert_dettaglio.bat es arco125_francesi
+manual_key_updater.bat arco125_francesi
+cd DOCS_DA_CONVERTIRE
+dir *detta*.docx
+cd ..
+dir /b *dett*.html
+del *dett*.html
+backup-full
+convert_page it arco125_francesi
+convert_dettaglio it arco125_francesi
+convert_page it arco125_francesi
+convert_dettaglio it arco125_francesi
+dir arco125_francesi_dettaglio-it.html
+dir *arco125_francesi_dettaglio*
+dir /s arco125_francesi_dettaglio-it.html
+esci

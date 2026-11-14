@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">Detalle PDI</title>
+    <title id="pageTitle">Dettaglio POI</title>
     
     <style>
+        /* Reset e impostazioni di base */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -20,6 +21,7 @@
             padding: 1rem;
         }
 
+        /* Contenitore principale responsive (max 800px per ottimizzare la lettura) */
         .detail-container {
             max-width: 800px;
             margin: 2rem auto;
@@ -29,6 +31,7 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         }
 
+        /* Pulsante Torna Indietro / alla Scheda Principale */
         .btn-back {
             display: inline-flex;
             align-items: center;
@@ -46,6 +49,7 @@
             text-decoration: underline;
         }
 
+        /* Intestazione principale */
         h1.detail-title {
             font-size: 2.2rem;
             color: #1a1a1a;
@@ -55,6 +59,7 @@
             padding-bottom: 0.75rem;
         }
 
+        /* Immagine di Testata */
         .head-image {
             width: 100%;
             max-height: 400px;
@@ -64,12 +69,14 @@
             display: none;
         }
 
+        /* Sezioni di testo del dettaglio */
         .detail-content div[id^="dettText"] {
             font-size: 1.1rem;
             margin-bottom: 1.4rem;
             word-wrap: break-word;
         }
 
+        /* Gestione Immagini Responsive di Dettaglio */
         .detail-content img[id^="imageDett"] {
             max-width: 100%;
             height: auto;
@@ -80,6 +87,7 @@
             display: none;
         }
 
+        /* Footer di chiusura */
         .detail-footer {
             margin-top: 3rem;
             padding-top: 1.5rem;
@@ -87,6 +95,7 @@
             text-align: center;
         }
 
+        /* Adattamento Responsive specifico per Mobile */
         @media (max-width: 600px) {
             body {
                 padding: 0;
@@ -110,48 +119,59 @@
 
     <main class="detail-container">
         
-        <a href="#" id="btnBackToPoi" class="btn-back">
+        <!-- Link di ritorno alla scheda principale o mappa -->
+        <a href="javascript:history.back()" class="btn-back">
             &#8592; Volver a la página principal
         </a>
 
+        <!-- Titolo dinamico caricato da main.js -->
         <h1 class="detail-title" id="headerTitle">Cargando...</h1>
 
-        <img id="headImage" class="head-image" alt="Cabecera Detalle">
+        <!-- Immagine di Testata Opzionale -->
+        <img id="headImage" class="head-image" alt="Testata Dettaglio">
 
+        <!-- Contenuto dinamico della pagina di dettaglio -->
         <article class="detail-content">
+            
             <div id="dettText1"></div>
-            <img id="imageDett1" alt="Imagen Detalle 1">
+            <img id="imageDett1" alt="Immagine Dettaglio 1">
 
             <div id="dettText2"></div>
-            <img id="imageDett2" alt="Imagen Detalle 2">
+            <img id="imageDett2" alt="Immagine Dettaglio 2">
 
             <div id="dettText3"></div>
-            <img id="imageDett3" alt="Imagen Detalle 3">
+            <img id="imageDett3" alt="Immagine Dettaglio 3">
 
             <div id="dettText4"></div>
-            <img id="imageDett4" alt="Imagen Detalle 4">
+            <img id="imageDett4" alt="Immagine Dettaglio 4">
 
             <div id="dettText5"></div>
-            <img id="imageDett5" alt="Imagen Detalle 5">
+            <img id="imageDett5" alt="Immagine Dettaglio 5">
+
         </article>
 
+        <!-- Informazioni aggiuntive / Fonti -->
         <div id="infoSource" style="margin-top: 1.5rem; font-style: italic; font-size: 0.9rem; color: #6c757d;"></div>
         <div id="infoCreatedDate" style="font-size: 0.85rem; color: #6c757d;"></div>
         <div id="infoUpdatedDate" style="font-size: 0.85rem; color: #6c757d;"></div>
 
+        <!-- Footer di ritorno -->
         <footer class="detail-footer">
-            <a href="#" id="btnBackToPoi" class="btn-back">
-                &#8592; Volver a la página principal
+            <a href="javascript:history.back()" class="btn-back">
+                &#8592; Torna alla scheda principale
             </a>
         </footer>
 
     </main>
 
+    <!-- Script JS di sistema e caricamento dinamico contenuti -->
     <script type="module" src="main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Rileva la lingua attuale (es. da localStorage 'Quadrilatero_lastLang' o 'it')
+            const lang = localStorage.getItem('Quadrilatero_lastLang') || 'it';
             if (typeof loadContent === 'function') {
-                loadContent('es');
+                loadContent(lang);
             }
         });
     </script>

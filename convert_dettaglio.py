@@ -26,7 +26,7 @@ def main():
     trasfer_script = os.path.join(base_dir, "trasfer_in_qrtp.py")
 
     # 1. Verifiche preliminari sui file del dettaglio
-    filename_html = f"dettaglio_{page_name}-{lingua}.html"
+    filename_html = f"{page_name}_dettaglio-{lingua}.html"
     file_html_path = os.path.join(base_dir, filename_html)
 
     if os.path.exists(file_html_path):
