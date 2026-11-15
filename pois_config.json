@@ -191,6 +191,16 @@
             "ordine_cammino": 125
         },
         {
+            "id": "arco126_beccari",
+            "lat": 44.48983895,
+            "lon": 11.32184732,
+            "threshold": 15,
+            "nav_id": "navArco126_beccari",
+            "base_name": "arco126_beccari",
+            "categoria": "portici",
+            "ordine_cammino": 126
+        },
+        {
             "id": "arco3_fornasari",
             "lat": 44.490633,
             "lon": 11.329205,

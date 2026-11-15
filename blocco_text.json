@@ -1,4 +1,3 @@
-stiamo esaminando il  cambiamento del main.js per poter gestire le pagine di dettaglio, usando i files text.json per le varie lingue avendo aggiunto al codice (ad esempio: arco125_francesi) le nuove chiavi con relativo valore per le pagine di dettaglio che sono:
 "arco125_francesi": {
     "pageTitle": "Arco 125 dei francesi",
     "headerTitle": "Titolo per arco125_francesi",
