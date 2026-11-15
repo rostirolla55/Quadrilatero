@@ -702,5 +702,30 @@
         "dettText3": "en_arco125_francesi_dettText3.html",
         "dettText4": "en_arco125_francesi_dettText4.html",
         "dettText5": ""
+    },
+    "arco126_beccari": {
+        "pageTitle": "Arch 125 of the French",
+        "headerTitle": "The Arch and the Beccari",
+        "mainText": "",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "dettText1": "en_arco126_beccari_dettText1.html",
+        "dettText2": "en_arco126_beccari_dettText2.html",
+        "dettText3": "en_arco126_beccari_dettText3.html",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": "",
+        "playAudioButton": "Listen with headphones",
+        "pauseAudioButton": "Pause",
+        "sourceText": "",
+        "headImage": "Meloncello.jpg",
+        "audioSource": "en/arco126_beccari.mp3"
     }
 }

@@ -703,5 +703,30 @@
         "imageSource3": "",
         "imageSource4": "",
         "imageSource5": ""
+    },
+    "arco126_beccari": {
+        "pageTitle": "Arco 126 dei beccari",
+        "headerTitle": "L’arco e i Beccari",
+        "mainText": "",
+        "mainText1": "",
+        "mainText2": "",
+        "mainText3": "",
+        "mainText4": "",
+        "mainText5": "",
+        "dettText1": "it_arco126_beccari_dettText1.html",
+        "dettText2": "it_arco126_beccari_dettText2.html",
+        "dettText3": "it_arco126_beccari_dettText3.html",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": "",
+        "playAudioButton": "Ascolta la storia",
+        "pauseAudioButton": "Ferma la riproduzione",
+        "sourceText": "",
+        "headImage": "Meloncello.jpg",
+        "audioSource": "it/arco126_beccari.mp3"
     }
 }

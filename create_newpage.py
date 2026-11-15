@@ -62,6 +62,8 @@ SET "REPO_ROOT=%~dp0"
 IF "%REPO_ROOT:~-1%"=="\\" SET "REPO_ROOT=%REPO_ROOT:~0,-1%"
 SET "UTILITIES=%REPO_ROOT%\\Utilities"
 
+CALL "%UTILITIES%\\nota.bat" {page_data['id']}
+
 SET "PAGE_ID={page_data['id']}"
 SET "NAV_KEY_ID={page_data['nav_id']}"
 SET "PAGE_TITLE_IT=Titolo per {page_data['id']}"

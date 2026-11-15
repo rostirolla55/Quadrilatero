@@ -239,6 +239,48 @@
             "audioSource": "en/arco125_francesi.mp3",
             "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via Saragozza (in front of number 132/2), Bologna</p><p><strong>Accessibility:</strong> Fully covered flat path, open 24/7.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>For a detailed analysis of the transition from the Butchers Guild to the Napoleonic Administration and archival notes:</p><a href=\"arco125_francesi_dettaglio-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Read the complete historical insight</a></div></div>"
         }
+    },
+    "arco126_beccari": {
+        "it": {
+            "pageTitle": "Arco 126 dei beccari",
+            "headerTitle": "L’arco e i Beccari",
+            "playAudioButton": "Ascolta la storia",
+            "pauseAudioButton": "Ferma la riproduzione",
+            "sourceText": "",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "it/arco126_beccari.mp3",
+            "mainText": ""
+        },
+        "es": {
+            "pageTitle": "Arco 125 de los franceses",
+            "headerTitle": "El arco y Beccari",
+            "playAudioButton": "Escuchar la historia",
+            "pauseAudioButton": "Detener la reproducción",
+            "sourceText": "",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "es/arco126_beccari.mp3",
+            "mainText": ""
+        },
+        "fr": {
+            "pageTitle": "Arche 125 des Français",
+            "headerTitle": "L’Arc et les Beccari",
+            "playAudioButton": "Écouter le récit",
+            "pauseAudioButton": "Arrêter la lecture",
+            "sourceText": "",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "fr/arco126_beccari.mp3",
+            "mainText": ""
+        },
+        "en": {
+            "pageTitle": "Arch 125 of the French",
+            "headerTitle": "The Arch and the Beccari",
+            "playAudioButton": "Listen with headphones",
+            "pauseAudioButton": "Pause",
+            "sourceText": "",
+            "headImage": "Meloncello.jpg",
+            "audioSource": "en/arco126_beccari.mp3",
+            "mainText": ""
+        }
     },   
     "chiesasbene": {
         "it": {

@@ -104,6 +104,11 @@
             "id": "navArco125_francesi",
             "href": "arco125_francesi-en.html",
             "text": "Titolo per arco125_francesi"
+        },
+        {
+            "id": "navArco126_beccari",
+            "href": "arco126_beccari-en.html",
+            "text": "Titolo per arco126_beccari"
         }
     ]
 }
