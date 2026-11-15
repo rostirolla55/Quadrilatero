@@ -22,7 +22,7 @@ CAMPI_DETTAGLIO_DEFAULT = {
 def arricchisci_texts_json_con_dettagli(percorso_json, lang):
     """
     Scansiona data/translations/{lang}/texts.json e aggiunge le chiavi dettText e imageDett 
-    a tutti i POI che ne sono sprovvisti, preservando i dati esistenti.
+    vuote ("") ai POI che ne sono sprovvisti, preservando i dati esistenti.
     """
     if not os.path.exists(percorso_json):
         return
@@ -35,18 +35,14 @@ def arricchisci_texts_json_con_dettagli(percorso_json, lang):
         if isinstance(poi_data, dict):
             for chiave, valore_def in CAMPI_DETTAGLIO_DEFAULT.items():
                 if chiave not in poi_data:
-                    # Se è un dettText1..3 e non è presente, generiamo il nome file standard
-                    if chiave in ["dettText1", "dettText2", "dettText3"]:
-                        poi_data[chiave] = f"{lang}_{poi_id}_{chiave}.html"
-                    else:
-                        poi_data[chiave] = valore_def
+                    poi_data[chiave] = ""
                     modificato = True
 
     if modificato:
         with open(percorso_json, 'w', encoding='utf-8') as f:
             json.dump(dati, f, ensure_ascii=False, indent=4)
-        print(f"  ✓ Sincronizzati campi dettaglio in: {percorso_json}")
-
+        print(f"  ✓ Sincronizzati campi dettaglio (vuoti) in: {percorso_json}")
+        
 def update_main_js():
     config_file = "pois_config.json"
     js_file = "main.js"

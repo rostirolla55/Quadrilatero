@@ -2,6 +2,7 @@
 import sys
 import os
 import re
+import json
 
 def pulisci_e_splitta_html(lang, poi_id, is_dettaglio=False):
     """
@@ -81,6 +82,41 @@ def pulisci_e_splitta_html(lang, poi_id, is_dettaglio=False):
                 with open(percorso_file, 'w', encoding='utf-8') as f_out:
                     f_out.write("")
                 print(f"    - Svuotato (inutilizzato): {nome_file}")
+                
+# --- 4. GENERAZIONE FILE DI CONFIGURAZIONE PER sync_config.py ---
+    config_data = {}
+    for idx in range(1, 6):
+        nome_file = f"{lang}_{poi_id}_{prefix_key}{idx}.html"
+        percorso_file = os.path.join(out_dir, nome_file)
+        chiave_json = f"dettText{idx}" if is_dettaglio else f"mainText{idx}"
+        if os.path.exists(percorso_file) and os.path.getsize(percorso_file) > 0:
+            config_data[chiave_json] = nome_file
+        else:
+            config_data[chiave_json] = ""
+
+    # Associa automaticamente le immagini estratte nella cartella Assets/images/{poi_id}
+    img_dir = os.path.join("Assets", "images", poi_id)
+    img_prefix = "imageDett" if is_dettaglio else "imageSource"
+    if is_dettaglio:
+        img_dir = os.path.join(img_dir, "dettaglio")
+
+    immagini = []
+    if os.path.exists(img_dir):
+        immagini = sorted([
+            f for f in os.listdir(img_dir)
+            if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))
+            and os.path.isfile(os.path.join(img_dir, f))
+        ])
+
+    for idx in range(1, 6):
+        config_data[f"{img_prefix}{idx}"] = immagini[idx - 1] if idx <= len(immagini) else ""
+
+    suffix_cfg = "_dettagli" if is_dettaglio else ""
+    config_filename = f"page_config_{lang}_{poi_id}{suffix_cfg}.json"
+    config_path = os.path.join(out_dir, config_filename)
+    with open(config_path, 'w', encoding='utf-8') as f_cfg:
+        json.dump(config_data, f_cfg, indent=4, ensure_ascii=False)
+    print(f"  ✓ Generato file config: {config_path}")
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
