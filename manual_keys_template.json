@@ -240,6 +240,48 @@
             "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via Saragozza (in front of number 132/2), Bologna</p><p><strong>Accessibility:</strong> Fully covered flat path, open 24/7.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>For a detailed analysis of the transition from the Butchers Guild to the Napoleonic Administration and archival notes:</p><a href=\"arco125_francesi_dettaglio-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Read the complete historical insight</a></div></div>"
         }
     },
+    "chiesasancarlo": {
+        "it": {
+            "pageTitle": "Chiesa San Carlo Borromeo al Porto",
+            "headerTitle": "Chiesa di San Carlo",
+            "playAudioButton": "Ascolta la storia",
+            "pauseAudioButton": "Ferma la riproduzione",
+            "sourceText": "",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "it/chiesasancarlo.mp3",
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicazione:</strong> Via San Carlo, Bologna</p><p><strong>Accessibilità:</strong> Attualmente chiusa e non visitabile all'interno a seguito dei danni provocati dal terremoto del 2012.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Per esplorare la storia architettonica della chiesa (dal quattrocentesco Oratorio della Crocetta ai rifacimenti ottocenteschi) e i capolavori conservati nell'adiacente Oratorio:</p><a href=\"chiesasancarlo_dett_chiesa-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Approfondimento: La Chiesa di San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Approfondimento: L'Oratorio di San Carlo</a></div></div>"
+        },
+        "es": {
+            "pageTitle": "Iglesia de San Carlo Borromeo",
+            "headerTitle": "Iglesia de San Carlo",
+            "playAudioButton": "Escuchar la historia",
+            "pauseAudioButton": "Detener la reproducción",
+            "sourceText": "",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "es/chiesasancarlo.mp3",
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicación:</strong> Via San Carlo, Bolonia</p><p><strong>Accesibilidad:</strong> Actualmente cerrada al público y no visitable en su interior debido a los daños provocados por el terremoto de 2012.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Para consultar la historia arquitectónica de la iglesia (desde el Oratorio de la Crocetta del siglo XV hasta las reformas del siglo XIX) y las obras maestras conservadas en el Oratorio anexo:</p><a href=\"chiesasancarlo_dett_chiesa-es.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Profundización: La Iglesia de San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-es.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Profundización: El Oratorio de San Carlo</a></div></div>"
+        },
+        "fr": {
+            "pageTitle": "Église San Carlo Borromeo al Porto",
+            "headerTitle": "Église San Carlo",
+            "playAudioButton": "Écouter le récit",
+            "pauseAudioButton": "Arrêter la lecture",
+            "sourceText": "",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "fr/chiesasancarlo.mp3",
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Emplacement :</strong> Via San Carlo, Bologne</p><p><strong>Accessibilité :</strong> Actuellement fermée au public et non visitable à l'intérieur en raison des dégâts causés par le séisme de 2012.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Pour découvrir l'histoire architecturale de l'église (de l'Oratoire de la Crocetta du XVe siècle aux remaniements du XIXe siècle) ainsi que les chefs-d'œuvre conservés dans l'Oratoire attenant :</p><a href=\"chiesasancarlo_dett_chiesa-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Approfondissement : L'Église de San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Approfondissement : L'Oratoire de San Carlo</a></div></div>"
+        },
+        "en": {
+            "pageTitle": "Church San Carlo Borromeo al Porto",
+            "headerTitle": "Church San Carlo",
+            "playAudioButton": "Listen with headphones",
+            "pauseAudioButton": "Pause",
+            "sourceText": "",
+            "headImage": "panorama_bologna.jpg",
+            "audioSource": "en/chiesasancarlo.mp3",
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via Saragozza (in front of number 132/2), Bologna</p><p><strong>Accessibility:</strong> Fully covered flat path, open 24/7.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>For a detailed analysis of the transition from the Butchers Guild to the Napoleonic Administration and archival notes:</p><a href=\"arco125_francesi_dettaglio-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Read the complete historical insight</a></div></div>"
+        }
+    },
     "arco126_beccari": {
         "it": {
             "pageTitle": "Arco 126 dei beccari",
@@ -281,7 +323,7 @@
             "audioSource": "en/arco126_beccari.mp3",
             "mainText": ""
         }
-    },   
+    },
     "chiesasbene": {
         "it": {
             "pageTitle": "Chiesa di San Benedetto",
