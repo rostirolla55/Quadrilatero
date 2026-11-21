@@ -45,17 +45,7 @@
         "navPittoricarracci": "Los Pintores Carracci",
         "navCavaticcio": "Central hidroelectrica de Cavaticcio",
         "navBsmariamaggiore": "Basílica San María Mayor",
-        "navChiesasancarlo": "Iglesia San Carlo Borromeo al Porto",
-        "dettText1": "es_nav_dettText1.html",
-        "dettText2": "es_nav_dettText2.html",
-        "dettText3": "es_nav_dettText3.html",
-        "dettText4": "",
-        "dettText5": "",
-        "imageDett1": "",
-        "imageDett2": "",
-        "imageDett3": "",
-        "imageDett4": "",
-        "imageDett5": ""
+        "navChiesasancarlo": "Iglesia San Carlo Borromeo al Porto"
     },
     "mappa": {
         "pageTitle": "Mapa del Cuadrilátero",
