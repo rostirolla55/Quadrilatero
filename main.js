@@ -34,29 +34,29 @@ const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__f
 let db, auth, rtdb, currentUserId = null, isAuthReady = false;
 
 const navLinksData = [
-  { id: 'navHome', key: 'navHome', base: 'index', poiId: 'home' },
-  { id: 'navManifattura', key: 'navManifattura', base: 'manifattura', poiId: 'manifattura' },
-  { id: 'navPittoricarracci', key: 'navPittoricarracci', base: 'pittoricarracci', poiId: 'pittoricarracci' },
-  { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio', poiId: 'cavaticcio' },
-  { id: 'navBsmariamaggiore', key: 'navBsmariamaggiore', base: 'bsmariamaggiore', poiId: 'bsmariamaggiore' },
-  { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx', poiId: 'graziaxx' },
-  { id: 'navPugliole', key: 'navPugliole', base: 'pugliole', poiId: 'pugliole' },
-  { id: 'navCarracci', key: 'navCarracci', base: 'carracci', poiId: 'carracci' },
-  { id: 'navIntervista_ludovico', key: 'navIntervista_ludovico', base: 'intervista_ludovico', poiId: 'intervista_ludovico' },
-  { id: 'navLastre', key: 'navLastre', base: 'lastre', poiId: 'lastre' },
-  { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene', poiId: 'chiesasbene' },
-  { id: 'navSantuariopioggia', key: 'navSantuariopioggia', base: 'santuariopioggia', poiId: 'santuariopioggia' },
-  { id: 'navEdicola_votiva', key: 'navEdicola_votiva', base: 'edicola_votiva', poiId: 'edicola_votiva' },
-  { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1', poiId: 'pioggia1' },
-  { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2', poiId: 'pioggia2' },
-  { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3', poiId: 'pioggia3' },
-  { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo', poiId: 'chiesasancarlo' },
-  { id: 'navPsontuoso', key: 'navPsontuoso', base: 'psontuoso', poiId: 'psontuoso' },
-  { id: 'navArco170madonnagrassa', key: 'navArco170madonnagrassa', base: 'arco170_madonna_grassa', poiId: 'arco170_madonna_grassa' },
-  { id: 'navArco125_francesi', key: 'navArco125_francesi', base: 'arco125_francesi', poiId: 'arco125_francesi' },
-  { id: 'navArco126_beccari', key: 'navArco126_beccari', base: 'arco126_beccari', poiId: 'arco126_beccari' },
-  { id: 'navArco3fornasari', key: 'navArco3fornasari', base: 'arco3_fornasari', poiId: 'arco3_fornasari' },
-  { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini', poiId: 'stabile_legno_vandini' }
+    { id: 'navHome', key: 'navHome', base: 'index', poiId: 'home' },
+    { id: 'navManifattura', key: 'navManifattura', base: 'manifattura', poiId: 'manifattura' },
+    { id: 'navPittoricarracci', key: 'navPittoricarracci', base: 'pittoricarracci', poiId: 'pittoricarracci' },
+    { id: 'navCavaticcio', key: 'navCavaticcio', base: 'cavaticcio', poiId: 'cavaticcio' },
+    { id: 'navBsmariamaggiore', key: 'navBsmariamaggiore', base: 'bsmariamaggiore', poiId: 'bsmariamaggiore' },
+    { id: 'navGraziaxx', key: 'navGraziaxx', base: 'graziaxx', poiId: 'graziaxx' },
+    { id: 'navPugliole', key: 'navPugliole', base: 'pugliole', poiId: 'pugliole' },
+    { id: 'navCarracci', key: 'navCarracci', base: 'carracci', poiId: 'carracci' },
+    { id: 'navIntervista_ludovico', key: 'navIntervista_ludovico', base: 'intervista_ludovico', poiId: 'intervista_ludovico' },
+    { id: 'navLastre', key: 'navLastre', base: 'lastre', poiId: 'lastre' },
+    { id: 'navChiesasbene', key: 'navChiesasbene', base: 'chiesasbene', poiId: 'chiesasbene' },
+    { id: 'navSantuariopioggia', key: 'navSantuariopioggia', base: 'santuariopioggia', poiId: 'santuariopioggia' },
+    { id: 'navEdicola_votiva', key: 'navEdicola_votiva', base: 'edicola_votiva', poiId: 'edicola_votiva' },
+    { id: 'navPioggia1', key: 'navPioggia1', base: 'pioggia1', poiId: 'pioggia1' },
+    { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2', poiId: 'pioggia2' },
+    { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3', poiId: 'pioggia3' },
+    { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo', poiId: 'chiesasancarlo' },
+    { id: 'navPsontuoso', key: 'navPsontuoso', base: 'psontuoso', poiId: 'psontuoso' },
+    { id: 'navArco170madonnagrassa', key: 'navArco170madonnagrassa', base: 'arco170_madonna_grassa', poiId: 'arco170_madonna_grassa' },
+    { id: 'navArco125_francesi', key: 'navArco125_francesi', base: 'arco125_francesi', poiId: 'arco125_francesi' },
+    { id: 'navArco126_beccari', key: 'navArco126_beccari', base: 'arco126_beccari', poiId: 'arco126_beccari' },
+    { id: 'navArco3fornasari', key: 'navArco3fornasari', base: 'arco3_fornasari', poiId: 'arco3_fornasari' },
+    { id: 'navStabilevandini', key: 'navStabilevandini', base: 'stabile_legno_vandini', poiId: 'stabile_legno_vandini' }
 ];
 
 // ===========================================
@@ -78,28 +78,28 @@ const CATEGORIE_TITOLI = {
 // DATI: POI GPS
 // ===========================================
 const POIS_LOCATIONS = [
-  { id: 'manifattura', lat: 44.4989321, lon: 11.336618, distanceThreshold: 50, categoria: 'edificio', ordine_cammino: 1502 },
-  { id: 'pittoricarracci', lat: 44.49909, lon: 11.340316, distanceThreshold: 50, categoria: 'arte', ordine_cammino: 601 },
-  { id: 'cavaticcio', lat: 44.500207, lon: 11.338076, distanceThreshold: 50, categoria: 'edificio', ordine_cammino: 1503 },
-  { id: 'bsmariamaggiore', lat: 44.498118, lon: 11.341923, distanceThreshold: 50, categoria: 'chiesa', ordine_cammino: 801 },
-  { id: 'graziaxx', lat: 44.500594, lon: 11.340758, distanceThreshold: 50, categoria: 'esterno', ordine_cammino: 901 },
-  { id: 'pugliole', lat: 44.500071, lon: 11.339805, distanceThreshold: 50, categoria: 'esterno', ordine_cammino: 902 },
-  { id: 'carracci', lat: 44.499912, lon: 11.34041, distanceThreshold: 50, categoria: 'edificio', ordine_cammino: 1504 },
-  { id: 'intervista_ludovico', lat: 44.499993, lon: 11.340385, distanceThreshold: 50, categoria: 'arte', ordine_cammino: 602 },
-  { id: 'lastre', lat: 44.499312, lon: 11.340714, distanceThreshold: 50, categoria: 'esterno', ordine_cammino: 903 },
-  { id: 'chiesasbene', lat: 44.5019, lon: 11.343843, distanceThreshold: 120, categoria: 'chiesa', ordine_cammino: 802 },
-  { id: 'santuariopioggia', lat: 44.498891, lon: 11.342148, distanceThreshold: 120, categoria: 'chiesa', ordine_cammino: 803 },
-  { id: 'edicola_votiva', lat: 44.499125, lon: 11.341781, distanceThreshold: 120, categoria: 'esterno', ordine_cammino: 904 },
-  { id: 'pioggia1', lat: 44.498921, lon: 11.341923, distanceThreshold: 120, categoria: 'arte', ordine_cammino: 603 },
-  { id: 'pioggia2', lat: 44.499023, lon: 11.34176, distanceThreshold: 120, categoria: 'statua', ordine_cammino: 701 },
-  { id: 'pioggia3', lat: 44.499023, lon: 11.34176, distanceThreshold: 120, categoria: 'arte', ordine_cammino: 604 },
-  { id: 'chiesasancarlo', lat: 44.501295, lon: 11.34085, distanceThreshold: 120, categoria: 'chiesa', ordine_cammino: 804 },
-  { id: 'psontuoso', lat: 44.49046395468894, lon: 11.329397374392755, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 1 },
-  { id: 'arco170_madonna_grassa', lat: 44.48938722340913, lon: 11.319113695503352, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 170 },
-  { id: 'arco125_francesi', lat: 44.48983889, lon: 11.32184722, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 125 },
-  { id: 'arco126_beccari', lat: 44.48983895, lon: 11.32184732, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 126 },
-  { id: 'arco3_fornasari', lat: 44.490633, lon: 11.329205, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 3 },
-  { id: 'stabile_legno_vandini', lat: 44.502054, lon: 11.338546, distanceThreshold: 120, categoria: 'edificio', ordine_cammino: 1501 }
+    { id: 'manifattura', lat: 44.4989321, lon: 11.336618, distanceThreshold: 50, categoria: 'edificio', ordine_cammino: 1502 },
+    { id: 'pittoricarracci', lat: 44.49909, lon: 11.340316, distanceThreshold: 50, categoria: 'arte', ordine_cammino: 601 },
+    { id: 'cavaticcio', lat: 44.500207, lon: 11.338076, distanceThreshold: 50, categoria: 'edificio', ordine_cammino: 1503 },
+    { id: 'bsmariamaggiore', lat: 44.498118, lon: 11.341923, distanceThreshold: 50, categoria: 'chiesa', ordine_cammino: 801 },
+    { id: 'graziaxx', lat: 44.500594, lon: 11.340758, distanceThreshold: 50, categoria: 'esterno', ordine_cammino: 901 },
+    { id: 'pugliole', lat: 44.500071, lon: 11.339805, distanceThreshold: 50, categoria: 'esterno', ordine_cammino: 902 },
+    { id: 'carracci', lat: 44.499912, lon: 11.34041, distanceThreshold: 50, categoria: 'edificio', ordine_cammino: 1504 },
+    { id: 'intervista_ludovico', lat: 44.499993, lon: 11.340385, distanceThreshold: 50, categoria: 'arte', ordine_cammino: 602 },
+    { id: 'lastre', lat: 44.499312, lon: 11.340714, distanceThreshold: 50, categoria: 'esterno', ordine_cammino: 903 },
+    { id: 'chiesasbene', lat: 44.5019, lon: 11.343843, distanceThreshold: 120, categoria: 'chiesa', ordine_cammino: 802 },
+    { id: 'santuariopioggia', lat: 44.498891, lon: 11.342148, distanceThreshold: 120, categoria: 'chiesa', ordine_cammino: 803 },
+    { id: 'edicola_votiva', lat: 44.499125, lon: 11.341781, distanceThreshold: 120, categoria: 'esterno', ordine_cammino: 904 },
+    { id: 'pioggia1', lat: 44.498921, lon: 11.341923, distanceThreshold: 120, categoria: 'arte', ordine_cammino: 603 },
+    { id: 'pioggia2', lat: 44.499023, lon: 11.34176, distanceThreshold: 120, categoria: 'statua', ordine_cammino: 701 },
+    { id: 'pioggia3', lat: 44.499023, lon: 11.34176, distanceThreshold: 120, categoria: 'arte', ordine_cammino: 604 },
+    { id: 'chiesasancarlo', lat: 44.501295, lon: 11.34085, distanceThreshold: 120, categoria: 'chiesa', ordine_cammino: 804 },
+    { id: 'psontuoso', lat: 44.49046395468894, lon: 11.329397374392755, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 1 },
+    { id: 'arco170_madonna_grassa', lat: 44.48938722340913, lon: 11.319113695503352, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 170 },
+    { id: 'arco125_francesi', lat: 44.48983889, lon: 11.32184722, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 125 },
+    { id: 'arco126_beccari', lat: 44.48983895, lon: 11.32184732, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 126 },
+    { id: 'arco3_fornasari', lat: 44.490633, lon: 11.329205, distanceThreshold: 15, categoria: 'portici', ordine_cammino: 3 },
+    { id: 'stabile_legno_vandini', lat: 44.502054, lon: 11.338546, distanceThreshold: 120, categoria: 'edificio', ordine_cammino: 1501 }
 ];
 
 // ===========================================
@@ -208,13 +208,13 @@ async function loadContent(lang) {
     const pageId = getCurrentPageId();
 
     // Rileva se si tratta di una pagina di dettaglio (_dettaglio o _dettagli)
-    const isDetail = window.location.pathname.includes('_dettagli');
-    const basePoiId = pageId.replace(/_dettaglio?$/i, '').toLowerCase(); 
+    const isDetail = /_dett(?:aglio|agli|_)/i.test(window.location.pathname);
+    const basePoiId = pageId.replace(/_dett(?:aglio|agli|_.*)?$/i, '').toLowerCase();
     try {
         const response = await fetch(`data/translations/${lang}/texts.json`);
         const data = await response.json();
         window.allData = data;
-        const pageData = data[basePoiId] || data[pageId];
+        const pageData = data[pageId] || data[basePoiId];
 
         if (!pageData) {
             updateText('pageTitle', "Contenuto non trovato");
@@ -250,12 +250,16 @@ async function loadContent(lang) {
                 btn.href = `${basePoiId}-${lang}.html`;
             });
             // --- SCHEDA DI DETTAGLIO ---
-            // Carica dettText1..5 rimuovendo eventuali tag <img> orfani scritti da LibreOffice nei frammenti
             const dettKeys = ['dettText1', 'dettText2', 'dettText3', 'dettText4', 'dettText5'];
             for (const key of dettKeys) {
                 let content = pageData[key];
                 if (isFilePath(content)) {
-                    content = await fetchFileContent(`text_files/${content}`);
+                    // Se content inizia già con "text_files/" o contiene una sottocartella (es. "dettaglio/..."),
+                    // lo usa direttamente; altrimenti antepone "text_files/"
+                    const filePath = content.startsWith('text_files/')
+                        ? content
+                        : `text_files/${content}`;
+                    content = await fetchFileContent(filePath);
                 }
 
                 if (content && typeof content === 'string') {
@@ -264,14 +268,16 @@ async function loadContent(lang) {
 
                 updateHTML(key, content);
             }
-
             // Carica le immagini specifiche per il dettaglio (imageDett1..5)
             for (let i = 1; i <= 5; i++) {
                 const imgEl = document.getElementById(`imageDett${i}`);
                 const src = pageData[`imageDett${i}`];
                 if (imgEl) {
                     if (src && src.trim() !== "") {
-                        imgEl.src = `Assets/images/${src}`;
+                        const cleanSrc = src.trim();
+                        imgEl.src = cleanSrc.includes('/')
+                            ? `Assets/images/${cleanSrc}`
+                            : `Assets/images/${pageId}/dettaglio/${cleanSrc}`;
                         imgEl.style.display = 'block';
                     } else {
                         imgEl.style.display = 'none';
@@ -284,17 +290,22 @@ async function loadContent(lang) {
             for (const key of textKeys) {
                 let content = pageData[key];
                 if (isFilePath(content)) {
-                    content = await fetchFileContent(`text_files/${content}`);
+                    const filePath = content.startsWith('text_files/')
+                        ? content
+                        : `text_files/${content}`;
+                    content = await fetchFileContent(filePath);
                 }
                 updateHTML(key, content);
             }
-
             for (let i = 1; i <= 5; i++) {
                 const imgEl = document.getElementById(`pageImage${i}`);
                 const src = pageData[`imageSource${i}`];
                 if (imgEl) {
                     if (src && src.trim() !== "") {
-                        imgEl.src = `Assets/images/${src}`;
+                        const cleanSrc = src.trim();
+                        imgEl.src = cleanSrc.includes('/')
+                            ? `Assets/images/${cleanSrc}`
+                            : `Assets/images/${pageId}/${cleanSrc}`;
                         imgEl.style.display = 'block';
                     } else {
                         imgEl.style.display = 'none';
@@ -303,11 +314,28 @@ async function loadContent(lang) {
             }
         }
 
-        // 4. Metadati e Player Audio (se presente)
-        if (pageData.sourceText) updateHTML('infoSource', `Fonte: ${pageData.sourceText}`);
+        // 4. Metadati e Tabella delle Fonti (HTML o testo semplice)
+        const infoSourceEl = document.getElementById('infoSource');
+        if (infoSourceEl) {
+            if (pageData.sourceText && pageData.sourceText.trim() !== "") {
+                const srcVal = pageData.sourceText.trim();
+                if (isFilePath(srcVal)) {
+                    const filePath = srcVal.startsWith('text_files/')
+                        ? srcVal
+                        : `text_files/${srcVal}`;
+                    const htmlTabella = await fetchFileContent(filePath);
+                    infoSourceEl.innerHTML = htmlTabella || '';
+                } else {
+                    infoSourceEl.innerHTML = `Fonte: ${srcVal}`;
+                }
+            } else {
+                // Tentativo automatico se sourceText è vuoto ma esiste [lang]_[pageId]_sourceText.html
+                const autoHtml = await fetchFileContent(`text_files/${lang}_${pageId}_sourceText.html`);
+                infoSourceEl.innerHTML = autoHtml || '';
+            }
+        }
         if (pageData.creationDate) updateHTML('infoCreatedDate', `Data Creazione: ${pageData.creationDate}`);
         if (pageData.lastUpdate) updateHTML('infoUpdatedDate', `Ultimo Aggiornamento: ${pageData.lastUpdate}`);
-
         const audioPlayer = document.getElementById('audioPlayer');
         const playBtn = document.getElementById('playAudio');
         if (audioPlayer && playBtn) {
