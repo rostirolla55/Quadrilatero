@@ -31,7 +31,10 @@ def arricchisci_texts_json_con_dettagli(percorso_json, lang):
         dati = json.load(f)
 
     modificato = False
+    CHIAVI_ESCLUSE_DETTAGLI = {"nav"}
     for poi_id, poi_data in dati.items():
+        if poi_id in CHIAVI_ESCLUSE_DETTAGLI:
+            continue
         if isinstance(poi_data, dict):
             for chiave, valore_def in CAMPI_DETTAGLIO_DEFAULT.items():
                 if chiave not in poi_data:

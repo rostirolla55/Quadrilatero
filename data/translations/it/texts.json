@@ -45,7 +45,17 @@
         "navPittoricarracci": "I Pittori Carracci",
         "navCavaticcio": "La Centrale Idroelettrica del Cavaticcio",
         "navBsmariamaggiore": "Basilica Santa Maria Maggiore",
-        "navChiesasancarlo": "Chiesa San Carlo Borromeo al Porto"
+        "navChiesasancarlo": "Chiesa San Carlo Borromeo al Porto",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "mappa": {
         "pageTitle": "Mappa del Quadrilatero",
@@ -726,8 +736,8 @@
         "imageSource5": ""
     },
     "chiesasancarlo_dett_chiesa": {
-        "headImage": "esterno.jpg",
-        "audioSource": "it/chiesasancarlo_dett_chiesa.mp3",
+        "headImage": "chiesasancarlo_dett_chiesa_testata.jpg",
+        "audioSource": "it/chiesasancarlo.mp3",
         "mainText1": "",
         "mainText2": "",
         "mainText3": "",
@@ -747,11 +757,17 @@
         "dettText2": "it_chiesasancarlo_dett_chiesa_dettText2.html",
         "dettText3": "it_chiesasancarlo_dett_chiesa_dettText3.html",
         "dettText4": "it_chiesasancarlo_dett_chiesa_dettText4.html",
-        "dettText5": "it_chiesasancarlo_dett_chiesa_dettText5.html"
+        "dettText5": "it_chiesasancarlo_dett_chiesa_dettText5.html",
+        "pageTitle": "Chiesa San Carlo Borromeo al Porto",
+        "headerTitle": "Chiesa di San Carlo",
+        "playAudioButton": "Ascolta la storia",
+        "pauseAudioButton": "Ferma la riproduzione",
+        "sourceText": "it_chiesasancarlo_dett_chiesa_infoSource.html",
+        "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicazione:</strong> Via San Carlo, Bologna</p><p><strong>Accessibilità:</strong> Attualmente chiusa e non visitabile all'interno a seguito dei danni provocati dal terremoto del 2012.</p><p><strong>Facciata e testata:</strong> L'immagine di testata accosta la facciata della chiesa com'era prima dei bombardamenti bellici al volto di San Carlo Borromeo.</p><p><strong>Memoria documentaria:</strong> La ricostruzione visiva di opere oggi andate perdute a causa dei bombardamenti è stata resa possibile da un articolo sulla chiesa di San Carlo pubblicato nel fascicolo per la decennale eucaristica del 1939.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Per esplorare la storia architettonica della chiesa (dal quattrocentesco Oratorio della Crocetta ai rifacimenti ottocenteschi) e i capolavori conservati nell'adiacente Oratorio:</p><a href=\"chiesasancarlo_dett_chiesa-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Approfondimento: La Chiesa di San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Approfondimento: L'Oratorio di San Carlo</a></div></div>"
     },
     "chiesasancarlo_dett_oratorio": {
-        "headImage": "panorama_bologna.jpg",
-        "audioSource": "it/chiesasancarlo_dett_oratorio.mp3",
+        "headImage": "chiesasancarlo_dett_chiesa_testata.jpg",
+        "audioSource": "it/chiesasancarlo.mp3",
         "mainText1": "",
         "mainText2": "",
         "mainText3": "",
@@ -771,6 +787,12 @@
         "dettText2": "it_chiesasancarlo_dett_oratorio_dettText2.html",
         "dettText3": "it_chiesasancarlo_dett_oratorio_dettText3.html",
         "dettText4": "",
-        "dettText5": ""
+        "dettText5": "",
+        "pageTitle": "Oratorio di San Carlo Borromeo al Porto",
+        "headerTitle": "Oratorio di San Carlo",
+        "playAudioButton": "Ascolta la storia",
+        "pauseAudioButton": "Ferma la riproduzione",
+        "sourceText": "it_chiesasancarlo_dett_oratorio_infoSource.html",
+        "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicazione:</strong> Via San Carlo, Bologna</p><p><strong>Accessibilità:</strong> Attualmente chiuso e non visitabile all'interno a seguito dei danni provocati dal terremoto del 2012.</p><p><strong>Memoria documentaria:</strong> La documentazione fotografica di opere andate perdute con i bombardamenti è stata possibile grazie a un articolo sulla chiesa di San Carlo contenuto nel fascicolo per la decennale eucaristica del 1939.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Per esplorare la storia architettonica della chiesa (dal quattrocentesco Oratorio della Crocetta ai rifacimenti ottocenteschi) e i capolavori conservati nell'adiacente Oratorio:</p><a href=\"chiesasancarlo_dett_chiesa-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Approfondimento: La Chiesa di San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Approfondimento: L'Oratorio di San Carlo</a></div></div>"
     }
 }

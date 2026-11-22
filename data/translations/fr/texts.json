@@ -724,8 +724,8 @@
         "imageSource5": ""
     },
     "chiesasancarlo_dett_chiesa": {
-        "headImage": "public/images/panorama_bologna.jpg",
-        "audioSource": "fr/chiesasancarlo_dett_chiesa.mp3",
+        "headImage": "chiesasancarlo_dett_chiesa_testata.jpg",
+        "audioSource": "fr/chiesasancarlo.mp3",
         "mainText1": "fr_chiesasancarlo_dett_chiesa_maintext1.html",
         "mainText2": "fr_chiesasancarlo_dett_chiesa_maintext2.html",
         "mainText3": "fr_chiesasancarlo_dett_chiesa_maintext3.html",
@@ -745,11 +745,17 @@
         "dettText2": "",
         "dettText3": "",
         "dettText4": "",
-        "dettText5": ""
+        "dettText5": "",
+        "pageTitle": "Église San Carlo Borromeo al Porto",
+        "headerTitle": "Église San Carlo",
+        "playAudioButton": "Écouter le récit",
+        "pauseAudioButton": "Arrêter la lecture",
+        "sourceText": "fr_chiesasancarlo_dett_chiesa_infoSource.html",
+        "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Emplacement :</strong> Via San Carlo, Bologne</p><p><strong>Accessibilité :</strong> Actuellement fermée au public et non visitable à l'intérieur en raison des dégâts causés par le séisme de 2012.</p><p><strong>Façade et en-tête :</strong> L'image d'en-tête associe la façade de l'église telle qu'elle était avant les bombardements de guerre au portrait de Saint Charles Borromée.</p><p><strong>Mémoire documentaire :</strong> La conservation d'images d'œuvres perdues lors des bombardements a été rendue possible par un article sur l'église de San Carlo paru dans le fascicule de la décennale eucharistique de 1939.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Pour découvrir l'histoire architecturale de l'église (de l'Oratoire de la Crocetta du XVe siècle aux remaniements du XIXe siècle) ainsi que les chefs-d'œuvre conservés dans l'Oratoire attenant :</p><a href=\"chiesasancarlo_dett_chiesa-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Approfondissement : L'Église de San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Approfondissement : L'Oratoire de San Carlo</a></div></div>"
     },
     "chiesasancarlo_dett_oratorio": {
-        "headImage": "public/images/panorama_bologna.jpg",
-        "audioSource": "fr/chiesasancarlo_dett_oratorio.mp3",
+        "headImage": "chiesasancarlo_dett_chiesa_testata.jpg",
+        "audioSource": "fr/chiesasancarlo.mp3",
         "mainText1": "",
         "mainText2": "",
         "mainText3": "",
@@ -769,6 +775,12 @@
         "dettText2": "fr_chiesasancarlo_dett_oratorio_dettText2.html",
         "dettText3": "fr_chiesasancarlo_dett_oratorio_dettText3.html",
         "dettText4": "",
-        "dettText5": ""
+        "dettText5": "",
+        "pageTitle": "Oratoire de San Carlo Borromeo al Porto",
+        "headerTitle": "Oratoire de San Carlo",
+        "playAudioButton": "Écouter le récit",
+        "pauseAudioButton": "Arrêter la lecture",
+        "sourceText": "fr_chiesasancarlo_dett_oratorio_infoSource.html",
+        "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Emplacement :</strong> Via San Carlo, Bologne</p><p><strong>Accessibilité :</strong> Actuellement fermée au public et non visitable à l'intérieur en raison des dégâts causés par le séisme de 2012.</p><p><strong>Mémoire documentaire :</strong> La conservation d'images d'œuvres perdues lors des bombardements a été rendue possible par un article sur l'église de San Carlo paru dans le fascicule de la décennale eucharistique de 1939.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Pour découvrir l'histoire architecturale de l'église (de l'Oratoire de la Crocetta du XVe siècle aux remaniements du XIXe siècle) ainsi que les chefs-d'œuvre conservés dans l'Oratoire attenant :</p><a href=\"chiesasancarlo_dett_chiesa-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Approfondissement : L'Église de San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Approfondissement : L'Oratoire de San Carlo</a></div></div>"
     }
 }

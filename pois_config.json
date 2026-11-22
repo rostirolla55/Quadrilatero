@@ -161,6 +161,26 @@
             "ordine_cammino": 804
         },
         {
+            "id": "chiesasancarlo_dett_chiesa",
+            "lat": 44.501296,
+            "lon": 11.34086,
+            "threshold": 120,
+            "nav_id": "navChiesasancarlo_dett_chiesa",
+            "base_name": "chiesasancarlo_dett_chiesa",
+            "categoria": "chiesa",
+            "ordine_cammino": 805
+        },
+        {
+            "id": "chiesasancarlo_dett_oratorio",
+            "lat": 44.501295,
+            "lon": 11.34085,
+            "threshold": 120,
+            "nav_id": "navChiesasancarlo_dett_oratorio",
+            "base_name": "chiesasancarlo_dett_oratorio",
+            "categoria": "chiesa",
+            "ordine_cammino": 806
+        },
+        {
             "id": "psontuoso",
             "lat": 44.49046395468894,
             "lon": 11.329397374392755,

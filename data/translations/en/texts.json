@@ -45,7 +45,7 @@
         "navPittoricarracci": "The Carracci Painters",
         "navCavaticcio": "Cavaticcio hydroelectric power plant",
         "navBsmariamaggiore": "Basilica Saint Mary Major",
-        "navChiesasancarlo": "Church San Carlo Borromeo al Porto",
+        "navChiesasancarlo": "Church San Carlo Borromeo al Porto"
     },
     "mappa": {
         "pageTitle": "Map of the Quadrilateral",
@@ -725,8 +725,8 @@
         "imageSource5": ""
     },
     "chiesasancarlo_dett_chiesa": {
-        "headImage": "public/images/panorama_bologna.jpg",
-        "audioSource": "en/chiesasancarlo_dett_chiesa.mp3",
+        "headImage": "chiesasancarlo_dett_chiesa_testata.jpg",
+        "audioSource": "en/chiesasancarlo.mp3",
         "mainText1": "en_chiesasancarlo_dett_chiesa_maintext1.html",
         "mainText2": "en_chiesasancarlo_dett_chiesa_maintext2.html",
         "mainText3": "en_chiesasancarlo_dett_chiesa_maintext3.html",
@@ -746,11 +746,17 @@
         "dettText2": "",
         "dettText3": "",
         "dettText4": "",
-        "dettText5": ""
+        "dettText5": "",
+        "pageTitle": "Church of San Carlo Borromeo al Porto",
+        "headerTitle": "Church of San Carlo",
+        "playAudioButton": "Listen with headphones",
+        "pauseAudioButton": "Pause",
+        "sourceText": "en_chiesasancarlo_dett_chiesa_infoSource.html",
+        "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via San Carlo, Bologna</p><p><strong>Accessibility:</strong> Currently closed and not open to visitors inside due to damage caused by the 2012 earthquake.</p><p><strong>Facade and header:</strong> The header image pairs the church facade as it appeared before the wartime bombings with the portrait of Saint Charles Borromeo.</p><p><strong>Documentary memory:</strong> Preserving images of artworks later lost in the bombings was made possible by an article on the Church of San Carlo published in the 1939 Eucharistic Decennial booklet.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>To explore the architectural history of the church (from the fifteenth-century Oratory of the Crocetta to the nineteenth-century renovations) and the masterpieces preserved in the adjacent Oratory:</p><a href=\"chiesasancarlo_dett_chiesa-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Deep dive: Church of San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Deep dive: Oratory of San Carlo</a></div></div>"
     },
     "chiesasancarlo_dett_oratorio": {
-        "headImage": "public/images/panorama_bologna.jpg",
-        "audioSource": "en/chiesasancarlo_dett_oratorio.mp3",
+        "headImage": "chiesasancarlo_dett_chiesa_testata.jpg",
+        "audioSource": "en/chiesasancarlo.mp3",
         "mainText1": "",
         "mainText2": "",
         "mainText3": "",
@@ -770,6 +776,12 @@
         "dettText2": "en_chiesasancarlo_dett_oratorio_dettText2.html",
         "dettText3": "en_chiesasancarlo_dett_oratorio_dettText3.html",
         "dettText4": "",
-        "dettText5": ""
+        "dettText5": "",
+        "pageTitle": "Oratory of San Carlo Borromeo al Porto",
+        "headerTitle": "Oratory of San Carlo",
+        "playAudioButton": "Listen with headphones",
+        "pauseAudioButton": "Pause",
+        "sourceText": "en_chiesasancarlo_dett_oratorio_infoSource.html",
+        "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via San Carlo, Bologna</p><p><strong>Accessibility:</strong> Currently closed and not open to visitors inside due to damage caused by the 2012 earthquake.</p><p><strong>Documentary memory:</strong> Preserving images of artworks lost in the bombings was made possible by an article on the Church of San Carlo published in the 1939 Eucharistic Decennial booklet.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>To explore the architectural history of the church (from the fifteenth-century Oratory of the Crocetta to the nineteenth-century renovations) and the masterpieces preserved in the adjacent Oratory:</p><a href=\"chiesasancarlo_dett_chiesa-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Deep dive: Church of San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Deep dive: Oratory of San Carlo</a></div></div>"
     }
 }
