@@ -1,123 +1,179 @@
 <!DOCTYPE html>
 <html lang="es">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title id="pageTitle">
-   Caricamento...
-  </title>
-  <link href="style.css" rel="stylesheet"/>
-  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E57BP15BBX">
-  </script>
-  <script>
-   window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Dettaglio POI</title>
+    
+    <style>
+        /* Reset e impostazioni di base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        // CONFIGURAZIONE: Associa 'dimension1' al nome parametro 'lingua_pagina'
-        gtag('config', 'G-E57BP15BBX', {
-            'custom_map': { 'dimension1': 'lingua_pagina' }
-        });
-  </script>
- </head>
- <body>
-  <div id="loading-message">
-   <p>
-    Caricamento dell'applicazione in corso...
-   </p>
-  </div>
-  <div id="app-wrapper">
-   <header class="main-header">
-<div class="left-header-group">
-        <button aria-label="Apri menu" class="menu-toggle">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background-color: #f8f9fa;
+            padding: 1rem;
+        }
+
+        /* Contenitore principale responsive (max 800px per ottimizzare la lettura) */
+        .detail-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Pulsante Torna Indietro / alla Scheda Principale */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #0066cc;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .btn-back:hover {
+            color: #004080;
+            text-decoration: underline;
+        }
+
+        /* Intestazione principale */
+        h1.detail-title {
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            line-height: 1.25;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #eef2f5;
+            padding-bottom: 0.75rem;
+        }
+
+        /* Immagine di Testata */
+        .head-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        /* Sezioni di testo del dettaglio */
+        .detail-content div[id^="dettText"] {
+            font-size: 1.1rem;
+            margin-bottom: 1.4rem;
+            word-wrap: break-word;
+        }
+
+        /* Gestione Immagini Responsive di Dettaglio */
+        .detail-content img[id^="imageDett"] {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 1.5rem auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            display: none;
+        }
+
+        /* Footer di chiusura */
+        .detail-footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eef2f5;
+            text-align: center;
+        }
+
+        /* Adattamento Responsive specifico per Mobile */
+        @media (max-width: 600px) {
+            body {
+                padding: 0;
+            }
+            .detail-container {
+                margin: 0;
+                padding: 1.25rem;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            h1.detail-title {
+                font-size: 1.65rem;
+            }
+            .detail-content div[id^="dettText"] {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="detail-container">
         
-         <a href=" mappa-es.html" id="mapNavLink" class="map-link" title="Mappa">
-            <svg viewBox="0 0 24 24" class="pin-icon">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-            </svg>
+        <!-- Link di ritorno alla scheda principale o mappa -->
+        <a href="javascript:history.back()" class="btn-back">
+            &#8592; Volver a la página principal
         </a>
 
-    <!-- NUOVO BOTTONE GOOGLE MAPS (Nascosto di default se siamo in Home/Index) -->
-    <a href="#" id="gmapsLink" class="gmaps-link" target="_blank" rel="noopener" style="display: none;" title="Take me here with Google Maps">
-        <span class="gmaps-btn">🧭 Portami qui</span>
-    </a>
-</div> 
+        <!-- Titolo dinamico caricato da main.js -->
+        <h1 class="detail-title" id="headerTitle">Cargando...</h1>
 
-    <div class="right-header-group">
-<button class="btn-cronologia-red" onclick="window.open('cronologia.html', '_blank')">
-  📜 Cronologia Ascolti
-</button>
-     <div class="language-selector"> 
-      <button data-lang="it">
-       <img alt="Italiano" src="public/flag/it.png"/>
-      </button>
-      <button data-lang="en">
-       <img alt="English" src="public/flag/en.png"/>
-      </button>
-      <button data-lang="es">
-       <img alt="Espa&ntilde;ol" src="public/flag/es.png"/>
-      </button>
-      <button data-lang="fr">
-       <img alt="Fran&ccedil;ais" src="public/flag/fr.png"/>
-      </button>
-     </div>
-     <button aria-label="Puntos de inter&eacute;s cercanos" id="nearbyPoiButton" style="display:none;">
-     </button>
-    </div>
-   </header>
-   <nav class="nav-bar-main" id="navBarMain">
-    <div class="nav-bar-content">
-      <!-- Popolato automaticamente da main.js -->
-    </div>
-   </nav>
-   <div class="nav-bar-nearby" id="nearbyMenuPlaceholder">
-   </div>
-   <main class="content-body">
-    <div class="header-image-container">
-     <!-- MODIFICA 1: L'immagine di testata usa ora ID="headImage" -->
-     <img alt="Immagine di sfondo testata" id="headImage" src=""/>
-     <h1 class="header-title" id="headerTitle">
-     </h1>
-    </div>
-    <div class="main-content-area">
-     <audio id="audioPlayer">
-     </audio>
-     <button class="play-style" id="playAudio">
-      Ascolta
-     </button>
-     <p id="mainText">
-     </p>
-     <p id="mainText1">
-     </p>
-     <!-- MODIFICA 2: L'immagine di contenuto 1 usa ora ID="pageImage1" -->
-     <img alt="Immagine 1 corpo" id="pageImage1" src="" style="display: none;"/>
-     <p id="mainText2">
-     </p>
-     <img alt="Immagine 2 corpo" id="pageImage2" src="" style="display: none;"/>
-     <p id="mainText3">
-     </p>
-     <img alt="Immagine 3 corpo" id="pageImage3" src="" style="display: none;"/>
-     <p id="mainText4">
-     </p>
-     <img alt="Immagine 4 corpo" id="pageImage4" src="" style="display: none;"/>
-     <p id="mainText5">
-     </p>
-     <img alt="Immagine 5 corpo" id="pageImage5" src="" style="display: none;"/>
-    </div>
-<!-- Informazioni aggiuntive / Fonti -->
-<div id="infoSource" style="margin-top: 2rem;"></div>
-<div id="infoCreatedDate" style="font-size: 0.85rem; color: #6c757d; margin-top: 0.75rem;"></div>
-<div id="infoUpdatedDate" style="font-size: 0.85rem; color: #6c757d;"></div>
-   </main>
-  </div>
+        <!-- Immagine di Testata Opzionale -->
+        <img id="headImage" class="head-image" alt="Testata Dettaglio">
 
-  <!-- Carica poi il motore dell'applicazione che userà quei dati -->
+        <!-- Contenuto dinamico della pagina di dettaglio -->
+        <article class="detail-content">
+            
+            <div id="dettText1"></div>
+            <img id="imageDett1" alt="Immagine Dettaglio 1">
 
-  <script src="main.js" type="module">
-  </script>
- </body>
+            <div id="dettText2"></div>
+            <img id="imageDett2" alt="Immagine Dettaglio 2">
+
+            <div id="dettText3"></div>
+            <img id="imageDett3" alt="Immagine Dettaglio 3">
+
+            <div id="dettText4"></div>
+            <img id="imageDett4" alt="Immagine Dettaglio 4">
+
+            <div id="dettText5"></div>
+            <img id="imageDett5" alt="Immagine Dettaglio 5">
+
+        </article>
+
+        <!-- Informazioni aggiuntive / Fonti -->
+        <div id="infoSource" style="margin-top: 1.5rem; font-style: italic; font-size: 0.9rem; color: #6c757d;"></div>
+        <div id="infoCreatedDate" style="font-size: 0.85rem; color: #6c757d;"></div>
+        <div id="infoUpdatedDate" style="font-size: 0.85rem; color: #6c757d;"></div>
+
+        <!-- Footer di ritorno -->
+        <footer class="detail-footer">
+            <a href="javascript:history.back()" class="btn-back">
+                &#8592; Torna alla scheda principale
+            </a>
+        </footer>
+
+    </main>
+
+    <!-- Script JS di sistema e caricamento dinamico contenuti -->
+    <script type="module" src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Rileva la lingua attuale (es. da localStorage 'Quadrilatero_lastLang' o 'it')
+            const lang = localStorage.getItem('Quadrilatero_lastLang') || 'it';
+            if (typeof loadContent === 'function') {
+                loadContent(lang);
+            }
+        });
+    </script>
+</body>
 </html>
