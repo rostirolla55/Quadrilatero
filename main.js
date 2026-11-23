@@ -51,8 +51,6 @@ const navLinksData = [
     { id: 'navPioggia2', key: 'navPioggia2', base: 'pioggia2', poiId: 'pioggia2' },
     { id: 'navPioggia3', key: 'navPioggia3', base: 'pioggia3', poiId: 'pioggia3' },
     { id: 'navChiesasancarlo', key: 'navChiesasancarlo', base: 'chiesasancarlo', poiId: 'chiesasancarlo' },
-    { id: 'navChiesasancarlo_dett_chiesa', key: 'navChiesasancarlo_dett_chiesa', base: 'chiesasancarlo_dett_chiesa', poiId: 'chiesasancarlo_dett_chiesa' },
-    { id: 'navChiesasancarlo_dett_oratorio', key: 'navChiesasancarlo_dett_oratorio', base: 'chiesasancarlo_dett_oratorio', poiId: 'chiesasancarlo_dett_oratorio' },
     { id: 'navPsontuoso', key: 'navPsontuoso', base: 'psontuoso', poiId: 'psontuoso' },
     { id: 'navArco170madonnagrassa', key: 'navArco170madonnagrassa', base: 'arco170_madonna_grassa', poiId: 'arco170_madonna_grassa' },
     { id: 'navArco125_francesi', key: 'navArco125_francesi', base: 'arco125_francesi', poiId: 'arco125_francesi' },
