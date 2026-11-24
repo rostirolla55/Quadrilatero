@@ -207,7 +207,7 @@
             "sourceText": "",
             "headImage": "arco125_testata.jpg",
             "audioSource": "it/arco125_francesi.mp3",
-            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicazione:</strong> Via Saragozza (fronte civico 132/2), Bologna</p><p><strong>Accessibilità:</strong> Percorso pianeggiante interamente coperto, fruibile 24 ore su 24.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Per consultare l'analisi dettagliata sul passaggio di tutela dall'Arte dei Beccari all'Amministrazione Napoleonica e visionare le schede d'archivio:</p><a href=\"arco125_francesi_dettaglio-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Leggi l'approfondimento storico completo</a></div></div>"
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicazione:</strong> Via Saragozza (fronte civico 132/2), Bologna</p><p><strong>Accessibilità:</strong> Percorso pianeggiante interamente coperto, fruibile 24 ore su 24.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Per consultare l'analisi dettagliata sul passaggio di tutela dall'Arte dei Beccari all'Amministrazione Napoleonica e visionare le schede d'archivio:</p><a href=\"arco125_francesi_dett_storia-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Leggi l'approfondimento storico completo</a></div></div>"
         },
         "es": {
             "pageTitle": "Arco 125 de los franceses",
@@ -217,7 +217,7 @@
             "sourceText": "",
             "headImage": "arco125_testata.jpg",
             "audioSource": "es/arco125_francesi.mp3",
-            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicación:</strong> Via Saragozza (frente al número 132/2), Bolonia</p><p><strong>Accesibilidad:</strong> Recorrido llano totalmente cubierto, accesible las 24 horas.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Para consultar el análisis detallado sobre la transición del Gremio de Carniceros a la Administración Napoleónica:</p><a href=\"arco125_francesi_dettaglio-es.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Leer el estudio histórico completo</a></div></div>"
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicación:</strong> Via Saragozza (frente al número 132/2), Bolonia</p><p><strong>Accesibilidad:</strong> Recorrido llano totalmente cubierto, accesible las 24 horas.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Para consultar el análisis detallado sobre la transición del Gremio de Carniceros a la Administración Napoleónica:</p><a href=\"arco125_francesi_dett_storia-es.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Leer el estudio histórico completo</a></div></div>"
         },
         "fr": {
             "pageTitle": "Arche 125 des Français",
@@ -227,7 +227,7 @@
             "sourceText": "",
             "headImage": "arco125_testata.jpg",
             "audioSource": "fr/arco125_francesi.mp3",
-            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Emplacement :</strong> Via Saragozza (en face du numéro 132/2), Bologne</p><p><strong>Accessibilité :</strong> Parcours plat entièrement couvert, accessible 24h/24.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Pour consulter l'analyse détaillée du passage de la Corporation des Bouchers à l'Administration Napoléonienne :</p><a href=\"arco125_francesi_dettaglio-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Lire l'étude historique complète</a></div></div>"
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Emplacement :</strong> Via Saragozza (en face du numéro 132/2), Bologne</p><p><strong>Accessibilité :</strong> Parcours plat entièrement couvert, accessible 24h/24.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Pour consulter l'analyse détaillée du passage de la Corporation des Bouchers à l'Administration Napoléonienne :</p><a href=\"arco125_francesi_dett_storia-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Lire l'étude historique complète</a></div></div>"
         },
         "en": {
             "pageTitle": "Arch 125 of the French",
@@ -237,7 +237,7 @@
             "sourceText": "",
             "headImage": "arco125_testata.jpg",
             "audioSource": "en/arco125_francesi.mp3",
-            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via Saragozza (in front of number 132/2), Bologna</p><p><strong>Accessibility:</strong> Fully covered flat path, open 24/7.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>For a detailed analysis of the transition from the Butchers Guild to the Napoleonic Administration and archival notes:</p><a href=\"arco125_francesi_dettaglio-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Read the complete historical insight</a></div></div>"
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via Saragozza (in front of number 132/2), Bologna</p><p><strong>Accessibility:</strong> Fully covered flat path, open 24/7.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>For a detailed analysis of the transition from the Butchers Guild to the Napoleonic Administration and archival notes:</p><a href=\"arco125_francesi_dett_storia-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Read the complete historical insight</a></div></div>"
         }
     },
     "chiesasancarlo": {
@@ -247,7 +247,7 @@
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
             "sourceText": "",
-            "headImage": "sancarlo_esterno_facciata.jpg",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "it/chiesasancarlo.mp3",
             "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicazione:</strong> Via San Carlo, Bologna</p><p><strong>Accessibilità:</strong> Attualmente chiusa e non visitabile all'interno a seguito dei danni provocati dal terremoto del 2012.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Per esplorare la storia architettonica della chiesa (dal quattrocentesco Oratorio della Crocetta ai rifacimenti ottocenteschi) e i capolavori conservati nell'adiacente Oratorio:</p><a href=\"chiesasancarlo_dett_chiesa-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Approfondimento: La Chiesa di San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Approfondimento: L'Oratorio di San Carlo</a></div></div>"
         },
@@ -257,7 +257,7 @@
             "playAudioButton": "Escuchar la historia",
             "pauseAudioButton": "Detener la reproducción",
             "sourceText": "",
-            "headImage": "sancarlo_esterno_facciata.jpg",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "es/chiesasancarlo.mp3",
             "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicación:</strong> Via San Carlo, Bolonia</p><p><strong>Accesibilidad:</strong> Actualmente cerrada al público y no visitable en su interior debido a los daños provocados por el terremoto de 2012.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Para consultar la historia arquitectónica de la iglesia (desde el Oratorio de la Crocetta del siglo XV hasta las reformas del siglo XIX) y las obras maestras conservadas en el Oratorio anexo:</p><a href=\"chiesasancarlo_dett_chiesa-es.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Profundización: La Iglesia de San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-es.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Profundización: El Oratorio de San Carlo</a></div></div>"
         },
@@ -267,7 +267,7 @@
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
             "sourceText": "",
-            "headImage": "sancarlo_esterno_facciata.jpg",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "fr/chiesasancarlo.mp3",
             "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Emplacement :</strong> Via San Carlo, Bologne</p><p><strong>Accessibilité :</strong> Actuellement fermée au public et non visitable à l'intérieur en raison des dégâts causés par le séisme de 2012.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Pour découvrir l'histoire architecturale de l'église (de l'Oratoire de la Crocetta du XVe siècle aux remaniements du XIXe siècle) ainsi que les chefs-d'œuvre conservés dans l'Oratoire attenant :</p><a href=\"chiesasancarlo_dett_chiesa-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Approfondissement : L'Église de San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Approfondissement : L'Oratoire de San Carlo</a></div></div>"
         },
@@ -277,9 +277,9 @@
             "playAudioButton": "Listen with headphones",
             "pauseAudioButton": "Pause",
             "sourceText": "",
-            "headImage": "sancarlo_esterno_facciata.jpg",
+            "headImage": "panorama_bologna.jpg",
             "audioSource": "en/chiesasancarlo.mp3",
-            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via Saragozza (in front of number 132/2), Bologna</p><p><strong>Accessibility:</strong> Fully covered flat path, open 24/7.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>For a detailed analysis of the transition from the Butchers Guild to the Napoleonic Administration and archival notes:</p><a href=\"arco125_francesi_dettaglio-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Read the complete historical insight</a></div></div>"
+            "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via San Carlo, Bologna</p><p><strong>Accessibility:</strong> Currently closed and not open to visitors inside following damage caused by the 2012 earthquake.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>To explore the architectural history of the church (from the fifteenth-century Oratory of the Crocetta to the nineteenth-century renovations) and the masterpieces preserved in the adjacent Oratory:</p><a href=\"chiesasancarlo_dett_chiesa-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">In-depth: The Church of San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">In-depth: The Oratory of San Carlo</a></div></div>"
         }
     },
     "chiesasancarlo_dett_chiesa": {

@@ -11,10 +11,12 @@ def pulisci_e_splitta_html(lang, poi_id, is_dettaglio=False):
     aggiorna i percorsi delle immagini e lo suddivide in file distinti in base al tipo (mainText o dettText).
     """
     if is_dettaglio:
-        html_input = f"temp_{lang}_{poi_id}_dettagli.html"
+        cand_dett = f"temp_{lang}_{poi_id}_dett.html"
+        cand_dettagli = f"temp_{lang}_{poi_id}_dettagli.html"
+        html_input = cand_dett if os.path.exists(cand_dett) else cand_dettagli
     else:
         html_input = f"temp_{lang}_{poi_id}.html"
-
+        
     if not os.path.exists(html_input):
         print(f" [ERRORE] File temporaneo non trovato: {html_input}")
         return

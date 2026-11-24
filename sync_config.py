@@ -86,10 +86,11 @@ def save_language_config(lang: str, data: Dict[str, Any]):
 
 
 def extract_metadata_from_dynamic_config(config_data: Dict[str, Any]) -> Tuple[str, str] | None:
-    """Estrae lingua e ID della pagina dai percorsi dei frammenti HTML (mainText o dettText)."""
+    """Estrae lingua e ID della pagina dal nome del file frammento HTML (mainText o dettText)."""
     for key, value in config_data.items():
-        if (key.startswith("mainText") or key.startswith("dettText")) and isinstance(value, str):
-            match = FILENAME_PATTERN.search(value)
+        if (key.startswith("mainText") or key.startswith("dettText")) and isinstance(value, str) and value.strip():
+            base_name = os.path.basename(value.strip())
+            match = FILENAME_PATTERN.search(base_name)
             if match:
                 # Gruppo 1: lingua, Gruppo 2: page_id
                 return match.group(1).lower(), match.group(2).lower()
@@ -117,101 +118,94 @@ def print_expected_stub(lang: str, page_id: str, num_fragments: int = 1):
     print("\nSuggerimento: Correggi il processo che genera questo file e riprova la sincronizzazione.")
 
 
-def sync_config(input_dir: str):
+def sync_config(input_dir: str, target_lang: str | None = None, target_page: str | None = None):
     """
     Sincronizza la configurazione centrale: pulisce le vecchie chiavi dinamiche
     e aggiorna con le nuove generate. Aggiunge le chiavi statiche mancanti.
     Gestisce i file texts.json separati per lingua nella struttura data/translations/xx/.
+    Se target_lang e/o target_page sono indicati, filtra solo quei file/blocchi.
     """
     config_files = get_config_files(input_dir)
     if not config_files:
         print(f"ATTENZIONE: Nessun file 'page_config_*.json' trovato nella cartella '{input_dir}'. Nessun aggiornamento eseguito.")
         return
 
-    print(f"Avvio sincronizzazione... Trovati {len(config_files)} file di configurazione da processare.")
-    
-    # Mappa per tenere traccia delle configurazioni per lingua modificate in memoria
-    # Chiave: 'it', 'en', ecc. Valore: contenuto del rispettivo texts.json
+    norm_lang = target_lang.lower() if target_lang else None
+    norm_page = target_page.lower() if target_page else None
+
+    print(f"Avvio sincronizzazione... Trovati {len(config_files)} file di configurazione da valutare.")
+
     language_configs: Dict[str, Dict[str, Any]] = {}
-    
+
     for filename in config_files:
         filepath = os.path.join(input_dir, filename)
-        
+
         try:
             with open(filepath, 'r', encoding='utf-8') as f:
                 page_data_dynamic = json.load(f)
-            
+
             metadata = extract_metadata_from_dynamic_config(page_data_dynamic)
 
             if metadata:
                 lang, page_id = metadata
-                
-                # --- PUNTO CRITICO: APPLICAZIONE DEL MAPPING INDEX -> HOME ---
+
+                if norm_lang and lang != norm_lang:
+                    continue
+                if norm_page and page_id != norm_page:
+                    continue
+
                 target_key = PAGE_ID_MAPPING_EXCEPTIONS.get(page_id, page_id)
 
-                # 1. Carica la configurazione della lingua se non è già in memoria
                 if lang not in language_configs:
                     language_configs[lang] = load_language_config(lang)
-                
-                lang_config = language_configs[lang] # Riferimento al dict in memoria
 
-                # 2. Assicura che la pagina (target_key) esista nel file di configurazione della lingua
+                lang_config = language_configs[lang]
+
                 if target_key not in lang_config:
                     lang_config[target_key] = {}
-                
-                # Ottiene il blocco JSON esistente per questa pagina
+
                 page_block = lang_config[target_key]
 
                 print(f"\nProcessing: Pagina '{page_id}' (Target Block: '{target_key}') ({lang}) da '{filename}'")
 
                 # --- FASE 1: GARANZIA DELLE CHIAVI STATICHE ---
                 added_static_keys = []
-                
-                # 1. headImage (Immagine di Testata)
+
                 if 'headImage' not in page_block:
                     page_block['headImage'] = DEFAULT_HEAD_IMAGE
                     added_static_keys.append('headImage')
-                    
-                # 2. audioSource
+
                 if 'audioSource' not in page_block:
                     page_block['audioSource'] = f"{lang.lower()}/{target_key.lower()}.mp3"
                     added_static_keys.append('audioSource')
 
                 if added_static_keys:
-                    print(f"  - Aggiunte chiavi statiche (se mancanti): {', '.join(added_static_keys)}")
-                    
+                    print(f"  - Aggiunte chiavi statiche (se mancanti): {', '.join(added_static_keys)}")
+
                 # --- FASE 2: PULIZIA DELLE VECCHIE CHIAVI DINAMICHE ---
                 keys_to_delete = []
-                for key in list(page_block.keys()): # Usiamo list() per iterare su una copia
-                    # Se la chiave è dinamica (inizia con un prefisso e ha un suffisso numerico)
+                for key in list(page_block.keys()):
                     is_dynamic = any(key.startswith(prefix) and len(key) > len(prefix) for prefix in DYNAMIC_KEYS_PREFIXES)
-                    
-                    # E se questa chiave dinamica NON è presente nel nuovo set generato
-                    # Poiché 'headImage' è in STATIC_KEYS, e non ha suffisso numerico, è già esclusa implicitamente dal controllo
-                    # is_dynamic AND key not in page_data_dynamic.
                     if is_dynamic and key not in page_data_dynamic:
                         keys_to_delete.append(key)
 
                 for key in keys_to_delete:
-                    # Imposta la chiave a stringa vuota invece di eliminarla
                     page_block[key] = ""
-                    print(f"  - PULIZIA: Impostata chiave dinamica a vuoto: '{key}'.")
+                    print(f"  - PULIZIA: Impostata chiave dinamica a vuoto: '{key}'.")
 
                 # --- FASE 3: AGGIORNAMENTO CON LE NUOVE CHIAVI DINAMICHE ---
-                # Sovrascrive/Aggiunge i percorsi dei frammenti e delle immagini.
                 page_block.update(page_data_dynamic)
-                
-                print(f"  - Aggiornamento dinamico completato.")
+
+                print(f"  - Aggiornamento dinamico completato.")
 
             else:
-                print(f"  - SKIPPED: Impossibile estrarre lang/page_id da '{filename}'. Saltato.")
+                print(f"  - SKIPPED: Impossibile estrarre lang/page_id da '{filename}'. Saltato.")
 
         except json.JSONDecodeError:
-            print(f"  - ERRORE: File JSON non valido trovato: '{filename}'. Saltato.")
+            print(f"  - ERRORE: File JSON non valido trovato: '{filename}'. Saltato.")
         except Exception as e:
-            print(f"  - ERRORE inatteso durante l'elaborazione di '{filename}': {e}")
+            print(f"  - ERRORE inatteso durante l'elaborazione di '{filename}': {e}")
 
-    # --- SALVATAGGIO DEL FILE FINALE SINCRONIZZATO PER OGNI LINGUA ---
     print("\nInizio fase di salvataggio per tutte le lingue processate...")
     for lang, config in language_configs.items():
         save_language_config(lang, config)
@@ -220,8 +214,7 @@ def sync_config(input_dir: str):
 
 
 if __name__ == "__main__":
-    # Esempio di utilizzo della funzione di sincronizzazione. 
-    sync_config(INPUT_DIR)
-    
-    # Esempio di utilizzo della nuova funzione di debug
-    # print_expected_stub(lang="it", page_id="chiesapioggia", num_fragments=3)
+    import sys
+    arg_lang = sys.argv[1] if len(sys.argv) > 1 else None
+    arg_page = sys.argv[2] if len(sys.argv) > 2 else None
+    sync_config(INPUT_DIR, target_lang=arg_lang, target_page=arg_page)
