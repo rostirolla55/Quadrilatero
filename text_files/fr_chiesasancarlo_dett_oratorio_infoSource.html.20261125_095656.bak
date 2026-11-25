@@ -1,0 +1,32 @@
+<div class="main-text-content">
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+ <thead>
+  <tr style="background-color: #edf2f7;">
+   <th style="width: 60%;">
+    Affirmation
+   </th>
+   <th style="width: 40%;">
+    Source Certifiée
+   </th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td style="width: 60%; vertical-align: top;">
+    Informations historiques, artistiques et documentaires sur l'Oratoire de San Carlo Borromeo al Porto (y compris les références à la mémoire documentaire liée au fascicule de 1939).
+   </td>
+   <td style="width: 40%; vertical-align: top;">
+    Prima Decennale Eucaristica Parrocchia San Carlo in data 2 Luglio 1939 - XVII
+   </td>
+  </tr>
+  <tr>
+   <td style="width: 60%; vertical-align: top;">
+    Localisation via San Carlo à Bologne et fermeture sans visite intérieure à la suite des dommages causés par le séisme de 2012.
+   </td>
+   <td style="width: 40%; vertical-align: top;">
+    Prima Decennale Eucaristica Parrocchia San Carlo in data 2 Luglio 1939 - XVII (pour le contexte historique) ; note d'accessibilité après le séisme de 2012
+   </td>
+  </tr>
+ </tbody>
+</table>
+</div>
