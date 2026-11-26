@@ -18,7 +18,17 @@
         "sourceText": "Archivio Storico del Comune di Bologna.",
         "creationDate": "2025-08-30",
         "lastUpdate": "2025-10-01",
-        "audioSource": "it/home_bologna.mp3"
+        "audioSource": "it/home_bologna.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "nav": {
         "navHome": "Benvenuto",
@@ -40,7 +50,17 @@
     "mappa": {
         "pageTitle": "Mappa del Quadrilatero",
         "mainMaps": "Usa questa mappa interattiva per scoprire i punti di interesse intorno a te. Clicca sui segnaposto per leggere una breve storia e ascoltare l'audioguida.",
-        "headImage": "panorama_bologna.jpg"
+        "headImage": "panorama_bologna.jpg",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "pugliole": {
         "pageTitle": "Le Pugliole",
@@ -61,7 +81,17 @@
         "sourceText": "Settore Musei Civici Bologna | Area Storia e Memoria",
         "creationDate": "2025-08-30",
         "lastUpdate": "2026-07-31",
-        "audioSource": "it/pugliole.mp3"
+        "audioSource": "it/pugliole.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "graziaxx": {
         "pageTitle": "La lapide della grazia",
@@ -82,7 +112,17 @@
         "sourceText": "'Archivio di Stato di Bologna.",
         "creationDate": "23-10-2025",
         "lastUpdate": "2026-08-26",
-        "audioSource": "it/graziaxx.mp3"
+        "audioSource": "it/graziaxx.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "lastre": {
         "pageTitle": "Le Lastre e i Numeri",
@@ -103,7 +143,17 @@
         "sourceText": "Archivio Storico del Comune di Bologna.",
         "creationDate": "2025-08-30",
         "lastUpdate": "2025-10-01",
-        "audioSource": "it/lastre.mp3"
+        "audioSource": "it/lastre.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "carracci": {
         "pageTitle": "Casa di Ludovico Carracci",
@@ -124,7 +174,17 @@
         "sourceText": "Archivio Storico del Comune di Bologna.",
         "creationDate": "2025-08-30",
         "lastUpdate": "2026-08-11",
-        "audioSource": "it/carracci.mp3"
+        "audioSource": "it/carracci.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "chiesasbene": {
         "pageTitle": "Chiesa di San Benedetto",
@@ -145,7 +205,17 @@
         "sourceText": "",
         "creationDate": "2025-08-30",
         "lastUpdate": "2026-07-18",
-        "audioSource": "it/chiesasbene.mp3"
+        "audioSource": "it/chiesasbene.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "santuariopioggia": {
         "pageTitle": "Santuario della Pioggia",
@@ -166,7 +236,17 @@
         "sourceText": "",
         "creationDate": "2025-10-26",
         "lastUpdate": "2026-08-24",
-        "audioSource": "it/santuariopioggia.mp3"
+        "audioSource": "it/santuariopioggia.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "pioggia1": {
         "pageTitle": "Paesaggio con San Bartolomeo",
@@ -187,7 +267,17 @@
         "sourceText": "",
         "creationDate": "2025-10-26",
         "lastUpdate": "2026-08-27",
-        "audioSource": "it/pioggia1.mp3"
+        "audioSource": "it/pioggia1.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "pioggia2": {
         "pageTitle": "Scultura San Bartolomeo",
@@ -208,7 +298,17 @@
         "sourceText": "",
         "creationDate": "2025-10-26",
         "lastUpdate": "2026-08-27",
-        "audioSource": "it/pioggia2.mp3"
+        "audioSource": "it/pioggia2.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "pioggia3": {
         "pageTitle": "Adorazione dei pastori",
@@ -229,7 +329,17 @@
         "sourceText": "",
         "creationDate": "2025-10-26",
         "lastUpdate": "2025-12-19",
-        "audioSource": "it/pioggia3.mp3"
+        "audioSource": "it/pioggia3.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "manifattura": {
         "pageTitle": "Ex Manifattura Tabacchi",
@@ -250,7 +360,17 @@
         "sourceText": "Archivio Storico del Quartiere Porto",
         "creationDate": "2025-11-06",
         "lastUpdate": "2026-08-01",
-        "audioSource": "it/manifattura.mp3"
+        "audioSource": "it/manifattura.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "pittoricarracci": {
         "pageTitle": "I pittori Carracci",
@@ -271,7 +391,17 @@
         "sourceText": "",
         "creationDate": "2025-11-26",
         "lastUpdate": "2025-11-26",
-        "audioSource": "it/pittoricarracci.mp3"
+        "audioSource": "it/pittoricarracci.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "cavaticcio": {
         "pageTitle": "Centrale Idroelettrica del Cavaticcio",
@@ -292,7 +422,17 @@
         "sourceText": "Archivio Storico del Quartiere Porto",
         "creationDate": "2025-11-27",
         "lastUpdate": "2026-08-01",
-        "audioSource": "it/centraleidroelettricacavaticcio.mp3"
+        "audioSource": "it/centraleidroelettricacavaticcio.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "bsmariamaggiore": {
         "headImage": "panorama_bologna.jpg",
@@ -313,7 +453,17 @@
         "imageSource3": "",
         "imageSource4": "",
         "imageSource5": "",
-        "creationDate": "2026-01-02"
+        "creationDate": "2026-01-02",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "chiesasancarlo": {
         "headImage": "panorama_bologna.jpg",
@@ -328,7 +478,17 @@
         "pauseAudioButton": "Ferma la riproduzione",
         "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicazione:</strong> Via San Carlo, Bologna</p><p><strong>Accessibilità:</strong> Attualmente chiusa e non visitabile all'interno a seguito dei danni provocati dal terremoto del 2012.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Per esplorare la storia architettonica della chiesa (dal quattrocentesco Oratorio della Crocetta ai rifacimenti ottocenteschi) e i capolavori conservati nell'adiacente Oratorio:</p><a href=\"chiesasancarlo_dett_chiesa-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Approfondimento: La Chiesa di San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Approfondimento: L'Oratorio di San Carlo</a></div></div>",
         "sourceText": "",
-        "headerTitle": "Chiesa di San Carlo"
+        "headerTitle": "Chiesa di San Carlo",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "stabile_legno_vandini": {
         "pageTitle": "Edificio Aldo Vandini in legno",
@@ -346,7 +506,17 @@
         "imageSource1": "stabile_legno_vandini/stabile-legno-vandini-uno.jpg",
         "imageSource2": "stabile_legno_vandini/stabile-legno-vandini-due.jpg",
         "imageSource3": "stabile_legno_vandini/tecnologia_x-lam.jpg",
-        "lastUpdate": "2026-08-27"
+        "lastUpdate": "2026-08-27",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "edicola_votiva": {
         "headImage": "chiesapioggia.jpg",
@@ -364,7 +534,17 @@
         "sourceText": "",
         "imageSource3": "edicola_votiva/edicola_san_antonio.jpg",
         "mainText4": "it_edicola_votiva_maintext4.html",
-        "lastUpdate": "2026-08-24"
+        "lastUpdate": "2026-08-24",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "intervista_ludovico": {
         "pageTitle": "Intervista a Ludovico Carracci",
@@ -382,7 +562,17 @@
         "imageSource3": "intervista_ludovico/mappa_bologna_1600.jpg",
         "lastUpdate": "2026-09-10",
         "playAudioButton": "Ascolta l'intervista",
-        "pauseAudioButton": "Ferma la riproduzione"
+        "pauseAudioButton": "Ferma la riproduzione",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "psontuoso": {
         "headImage": "Meloncello.jpg",
@@ -396,7 +586,17 @@
         "playAudioButton": "Ascolta la storia",
         "pauseAudioButton": "Ferma la riproduzione",
         "sourceText": "Vaticano.com Santuari e Dintorni",
-        "mainText": ""
+        "mainText": "",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "arco3_fornasari": {
         "pageTitle": "Arco 3 Abate Fornasari",
@@ -412,7 +612,17 @@
         "imageSource1": "arco3_fornasari/arco3_lapide.jpg",
         "playAudioButton": "Ascolta la storia",
         "pauseAudioButton": "Ferma la riproduzione",
-        "sourceText": "Vaticano.com Santuari e Dintorni"
+        "sourceText": "Vaticano.com Santuari e Dintorni",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "arco170_madonna_grassa": {
         "pageTitle": "Arco 170 Madonna Grassa",
@@ -428,7 +638,17 @@
         "imageSource1": "arco170_madonna_grassa/lamadonnagrassa_panorama.jpeg",
         "playAudioButton": "Ascolta la storia",
         "pauseAudioButton": "Ferma la riproduzione",
-        "sourceText": "Vaticano.com Santuari e Dintorni"
+        "sourceText": "Vaticano.com Santuari e Dintorni",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "arco125_francesi": {
         "pageTitle": "Arco 125 dei francesi",
@@ -478,7 +698,17 @@
         "imageSource2": "arco126_beccari/arco126_stemma_beccari.jpg",
         "imageSource3": "",
         "imageSource4": "",
-        "imageSource5": ""
+        "imageSource5": "",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "chiesasancarlo_dett_chiesa": {
         "headImage": "chiesasancarlo_dett_chiesa_testata.jpg",
@@ -554,5 +784,10 @@
         "imageDett3": "arco125_francesi_dett_storia/dettaglio/arco125_sottoportico.jpg",
         "imageDett4": "",
         "imageDett5": ""
+    },
+    "chiesapioggia": {
+        "headImage": "public/images/panorama_bologna.jpg",
+        "audioSource": "it/chiesapioggia.mp3",
+        "mainText1": "it_chiesapioggia_maintext1.html"
     }
 }

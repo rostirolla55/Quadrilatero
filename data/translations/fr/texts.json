@@ -18,7 +18,17 @@
         "sourceText": "Archives historiques de la municipalité de Bologne.",
         "creationDate": "30/08/2025",
         "lastUpdate": "01/10/2025",
-        "audioSource": "fr/home_bologna.mp3"
+        "audioSource": "fr/home_bologna.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "nav": {
         "navHome": "Bienvenue",
@@ -40,7 +50,17 @@
     "mappa": {
         "pageTitle": "Carte du Quadrilatero",
         "mainMaps": "Utilisez cette carte interactive pour découvrir les points d'intérêt à proximité. Cliquez sur les marqueurs pour lire une courte histoire et écouter le guide audio.",
-        "headImage": "panorama_bologna.jpg"
+        "headImage": "panorama_bologna.jpg",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "pugliole": {
         "pageTitle": "Les Pugliole",
@@ -61,7 +81,17 @@
         "sourceText": "Settore Musei Civici Bologna | Area Storia e Memoria",
         "creationDate": "30/08/2025",
         "lastUpdate": "2026-07-31",
-        "audioSource": "fr/pugliole.mp3"
+        "audioSource": "fr/pugliole.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "graziaxx": {
         "pageTitle": "La Pierre Commémorative de la Grâce",
@@ -82,7 +112,17 @@
         "sourceText": "Archivio Storico del Comune di Bologna.",
         "creationDate": "2025-08-30",
         "lastUpdate": "2026-08-26",
-        "audioSource": "fr/graziaxx.mp3"
+        "audioSource": "fr/graziaxx.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "lastre": {
         "pageTitle": "Les dalles et les numéros",
@@ -103,7 +143,17 @@
         "sourceText": "Archives historiques de la municipalité de Bologne.",
         "creationDate": "30/08/2025",
         "lastUpdate": "01/10/2025",
-        "audioSource": "fr/lastre.mp3"
+        "audioSource": "fr/lastre.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "carracci": {
         "pageTitle": "Maison de Ludovico Carracci",
@@ -124,7 +174,17 @@
         "sourceText": "Archives historiques de la municipalité de Bologne.",
         "creationDate": "30/08/2025",
         "lastUpdate": "2026-08-11",
-        "audioSource": "fr/carracci.mp3"
+        "audioSource": "fr/carracci.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "chiesasbene": {
         "pageTitle": "Église de San Benedetto",
@@ -145,7 +205,17 @@
         "sourceText": "",
         "creationDate": "30/08/2025",
         "lastUpdate": "2026-07-18",
-        "audioSource": "fr/chiesasbene.mp3"
+        "audioSource": "fr/chiesasbene.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "santuariopioggia": {
         "pageTitle": "Sanctuaire de la pluie",
@@ -166,7 +236,17 @@
         "sourceText": "",
         "creationDate": "30/08/2025",
         "lastUpdate": "2026-08-24",
-        "audioSource": "fr/santuariopioggia.mp3"
+        "audioSource": "fr/santuariopioggia.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "pioggia1": {
         "pageTitle": "Paysage avec Saint-Barthélemy",
@@ -187,7 +267,17 @@
         "sourceText": "",
         "creationDate": "2025-10-26",
         "lastUpdate": "2026-08-27",
-        "audioSource": "fr/pioggia1.mp3"
+        "audioSource": "fr/pioggia1.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "pioggia2": {
         "pageTitle": "Sculpture de Saint Barthélemy",
@@ -208,7 +298,17 @@
         "sourceText": "",
         "creationDate": "2025-10-26",
         "lastUpdate": "2026-08-27",
-        "audioSource": "fr/pioggia2.mp3"
+        "audioSource": "fr/pioggia2.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "pioggia3": {
         "pageTitle": "Adoration des bergers",
@@ -229,7 +329,17 @@
         "sourceText": "",
         "creationDate": "2025-10-26",
         "lastUpdate": "2025-12-19",
-        "audioSource": "fr/pioggia3.mp3"
+        "audioSource": "fr/pioggia3.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "manifattura": {
         "pageTitle": "Ex Tobacco Factory",
@@ -250,7 +360,17 @@
         "sourceText": "Archives historiques du quartier de Porto",
         "creationDate": "2025-11-06",
         "lastUpdate": "2026-08-01",
-        "audioSource": "fr/manifattura.mp3"
+        "audioSource": "fr/manifattura.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "pittoricarracci": {
         "pageTitle": "Les Peintres Carrache",
@@ -271,7 +391,17 @@
         "sourceText": "",
         "creationDate": "2025-11-26",
         "lastUpdate": "2025-11-26",
-        "audioSource": "fr/pittoricarracci.mp3"
+        "audioSource": "fr/pittoricarracci.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "cavaticcio": {
         "pageTitle": "centrale hydroélectrique de Cavaticcio",
@@ -292,7 +422,17 @@
         "sourceText": "Archives historiques du quartier de Porto",
         "creationDate": "2025-11-27",
         "lastUpdate": "2026-08-01",
-        "audioSource": "fr/centraleidroelettricacavaticcio.mp3"
+        "audioSource": "fr/centraleidroelettricacavaticcio.mp3",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "bsmariamaggiore": {
         "headImage": "panorama_bologna.jpg",
@@ -313,7 +453,17 @@
         "imageSource3": "",
         "imageSource4": "",
         "imageSource5": "",
-        "creationDate": "2026-01-02"
+        "creationDate": "2026-01-02",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "chiesasancarlo": {
         "headImage": "panorama_bologna.jpg",
@@ -328,7 +478,17 @@
         "pauseAudioButton": "Arrêter la lecture",
         "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Emplacement :</strong> Via San Carlo, Bologne</p><p><strong>Accessibilité :</strong> Actuellement fermée au public et non visitable à l'intérieur en raison des dégâts causés par le séisme de 2012.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Pour découvrir l'histoire architecturale de l'église (de l'Oratoire de la Crocetta du XVe siècle aux remaniements du XIXe siècle) ainsi que les chefs-d'œuvre conservés dans l'Oratoire attenant :</p><a href=\"chiesasancarlo_dett_chiesa-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Approfondissement : L'Église de San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Approfondissement : L'Oratoire de San Carlo</a></div></div>",
         "sourceText": "",
-        "headerTitle": "Église San Carlo"
+        "headerTitle": "Église San Carlo",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "stabile_legno_vandini": {
         "pageTitle": "Bâtiment en bois d'Aldo Vandini",
@@ -347,7 +507,17 @@
         "imageSource1": "stabile_legno_vandini/stabile-legno-vandini-uno.jpg",
         "imageSource2": "stabile_legno_vandini/stabile-legno-vandini-due.jpg",
         "imageSource3": "stabile_legno_vandini/tecnologia_x-lam.jpg",
-        "lastUpdate": "2026-08-27"
+        "lastUpdate": "2026-08-27",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "edicola_votiva": {
         "headImage": "chiesapioggia.jpg",
@@ -365,7 +535,17 @@
         "sourceText": "",
         "imageSource3": "edicola_votiva/edicola_san_antonio.jpg",
         "mainText4": "fr_edicola_votiva_maintext4.html",
-        "lastUpdate": "2026-08-24"
+        "lastUpdate": "2026-08-24",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "intervista_ludovico": {
         "pageTitle": "Entretien avec Ludovico Carracci",
@@ -383,7 +563,17 @@
         "imageSource3": "intervista_ludovico/mappa_bologna_1600.jpg",
         "lastUpdate": "2026-09-10",
         "playAudioButton": "Écoutez l'interview",
-        "pauseAudioButton": "Arrêter la lecture"
+        "pauseAudioButton": "Arrêter la lecture",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "psontuoso": {
         "headImage": "Meloncello.jpg",
@@ -397,7 +587,17 @@
         "playAudioButton": "Écouter le récit",
         "pauseAudioButton": "Arrêter la lecture",
         "sourceText": "Vaticano.com Sanctuaires et environs",
-        "mainText": ""
+        "mainText": "",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "arco3_fornasari": {
         "pageTitle": "Arch 3 Abbé Fornasari",
@@ -413,7 +613,17 @@
         "imageSource1": "arco3_fornasari/arco3_lapide.jpg",
         "playAudioButton": "Écouter le récit",
         "pauseAudioButton": "Arrêter la lecture",
-        "sourceText": "Vaticano.com Sanctuaires et environs"
+        "sourceText": "Vaticano.com Sanctuaires et environs",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "arco170_madonna_grassa": {
         "pageTitle": "Arche 170 Madonna Fata",
@@ -429,24 +639,47 @@
         "imageSource1": "arco170_madonna_grassa/lamadonnagrassa_panorama.jpeg",
         "playAudioButton": "Écouter le récit",
         "pauseAudioButton": "Arrêter la lecture",
-        "sourceText": "Vaticano.com Sanctuaires et environs"
+        "sourceText": "Vaticano.com Sanctuaires et environs",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "arco125_francesi": {
         "pageTitle": "Arche 125 des Français",
         "headerTitle": "L’Arc et les mécènes français",
         "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Emplacement :</strong> Via Saragozza (en face du numéro 132/2), Bologne</p><p><strong>Accessibilité :</strong> Parcours plat entièrement couvert, accessible 24h/24.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Pour consulter l'analyse détaillée du passage de la Corporation des Bouchers à l'Administration Napoléonienne :</p><a href=\"arco125_francesi_dett_storia-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Lire l'étude historique complète</a></div></div>",
-        "mainText1": "",
-        "mainText2": "",
-        "mainText3": "",
+        "mainText1": "fr_arco125_francesi_maintext1.html",
+        "mainText2": "fr_arco125_francesi_maintext2.html",
+        "mainText3": "fr_arco125_francesi_maintext3.html",
         "mainText4": "",
         "mainText5": "",
         "headImage": "arco125_testata.jpg",
         "audioSource": "fr/arco125_francesi.mp3",
-        "imageSource1": "",
-        "imageSource2": "",
+        "imageSource1": "arco125_francesi/arco125_cartiglio.jpg",
+        "imageSource2": "arco125_francesi/arco125_sottoportico.jpg",
         "playAudioButton": "Écouter le récit",
         "pauseAudioButton": "Arrêter la lecture",
-        "sourceText": "arco125_francesi_dett_storia-fr.html"
+        "sourceText": "arco125_francesi_dett_storia-fr.html",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": "",
+        "imageSource3": "",
+        "imageSource4": "",
+        "imageSource5": ""
     },
     "arco126_beccari": {
         "pageTitle": "Arche 125 des Français",
@@ -466,7 +699,17 @@
         "imageSource2": "arco126_beccari/arco126_stemma_beccari.jpg",
         "imageSource3": "",
         "imageSource4": "",
-        "imageSource5": ""
+        "imageSource5": "",
+        "dettText1": "",
+        "dettText2": "",
+        "dettText3": "",
+        "dettText4": "",
+        "dettText5": "",
+        "imageDett1": "",
+        "imageDett2": "",
+        "imageDett3": "",
+        "imageDett4": "",
+        "imageDett5": ""
     },
     "chiesasancarlo_dett_chiesa": {
         "headImage": "chiesasancarlo_dett_chiesa_testata.jpg",
@@ -541,5 +784,10 @@
         "imageDett3": "arco125_francesi_dett_storia/dettaglio/arco125_sottoportico.jpg",
         "imageDett4": "",
         "imageDett5": ""
+    },
+    "chiesapioggia": {
+        "headImage": "public/images/panorama_bologna.jpg",
+        "audioSource": "fr/chiesapioggia.mp3",
+        "mainText1": "fr_chiesapioggia_maintext1.html"
     }
 }
