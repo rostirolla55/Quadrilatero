@@ -435,7 +435,7 @@
     "arco125_francesi": {
         "pageTitle": "Arco 125 de los franceses",
         "headerTitle": "El arco y los mecenas franceses",
-        "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicación:</strong> Via Saragozza (frente al número 132/2), Bolonia</p><p><strong>Accesibilidad:</strong> Recorrido llano totalmente cubierto, accesible las 24 horas.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Para consultar el análisis detallado sobre la transición del Gremio de Carniceros a la Administración Napoleónica:</p><a href=\"arco125_francesi_dettaglio-es.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Leer el estudio histórico completo</a></div></div>",
+        "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicación:</strong> Via Saragozza (frente al número 132/2), Bolonia</p><p><strong>Accesibilidad:</strong> Recorrido llano totalmente cubierto, accesible las 24 horas.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Para consultar el análisis detallado sobre la transición del Gremio de Carniceros a la Administración Napoleónica:</p><a href=\"arco125_francesi_dett_storia-es.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Leer el estudio histórico completo</a></div></div>",
         "mainText1": "",
         "mainText2": "",
         "mainText3": "",
@@ -447,7 +447,7 @@
         "imageSource2": "",
         "playAudioButton": "Escuchar la historia",
         "pauseAudioButton": "Detener la reproducción",
-        "sourceText": ""
+        "sourceText": "arco125_francesi_dett_storia-es.html"
     },
     "arco126_beccari": {
         "pageTitle": "Arco 125 de los franceses",

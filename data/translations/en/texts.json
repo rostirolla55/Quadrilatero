@@ -435,7 +435,7 @@
     "arco125_francesi": {
         "pageTitle": "Arch 125 of the French",
         "headerTitle": "The Arch and the French Patrons",
-        "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via Saragozza (in front of number 132/2), Bologna</p><p><strong>Accessibility:</strong> Fully covered flat path, open 24/7.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>For a detailed analysis of the transition from the Butchers Guild to the Napoleonic Administration and archival notes:</p><a href=\"arco125_francesi_dettaglio-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Read the complete historical insight</a></div></div>",
+        "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via Saragozza (in front of number 132/2), Bologna</p><p><strong>Accessibility:</strong> Fully covered flat path, open 24/7.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>For a detailed analysis of the transition from the Butchers Guild to the Napoleonic Administration and archival notes:</p><a href=\"arco125_francesi_dett_storia-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Read the complete historical insight</a></div></div>",
         "mainText1": "",
         "mainText2": "",
         "mainText3": "",
@@ -447,7 +447,7 @@
         "imageSource2": "",
         "playAudioButton": "Listen with headphones",
         "pauseAudioButton": "Pause",
-        "sourceText": ""
+        "sourceText": "arco125_francesi_dett_storia-en.html"
     },
     "arco126_beccari": {
         "pageTitle": "Arch 125 of the French",
