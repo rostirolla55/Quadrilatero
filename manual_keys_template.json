@@ -204,7 +204,7 @@
             "headerTitle": "L’arco e i mecenati francesi",
             "playAudioButton": "Ascolta la storia",
             "pauseAudioButton": "Ferma la riproduzione",
-            "sourceText": "arco125_francesi_dett_storia-it.html",
+            "sourceText": "it_arco125_francesi_infoSource.html",
             "headImage": "arco125_testata.jpg",
             "audioSource": "it/arco125_francesi.mp3",
             "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicazione:</strong> Via Saragozza (fronte civico 132/2), Bologna</p><p><strong>Accessibilità:</strong> Percorso pianeggiante interamente coperto, fruibile 24 ore su 24.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Per consultare l'analisi dettagliata sul passaggio di tutela dall'Arte dei Beccari all'Amministrazione Napoleonica e visionare le schede d'archivio:</p><a href=\"arco125_francesi_dett_storia-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Leggi l'approfondimento storico completo</a></div></div>"
@@ -214,7 +214,7 @@
             "headerTitle": "El arco y los mecenas franceses",
             "playAudioButton": "Escuchar la historia",
             "pauseAudioButton": "Detener la reproducción",
-            "sourceText": "arco125_francesi_dett_storia-es.html",
+            "sourceText": "es_arco125_francesi_infoSource.html",
             "headImage": "arco125_testata.jpg",
             "audioSource": "es/arco125_francesi.mp3",
             "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicación:</strong> Via Saragozza (frente al número 132/2), Bolonia</p><p><strong>Accesibilidad:</strong> Recorrido llano totalmente cubierto, accesible las 24 horas.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Para consultar el análisis detallado sobre la transición del Gremio de Carniceros a la Administración Napoleónica:</p><a href=\"arco125_francesi_dett_storia-es.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Leer el estudio histórico completo</a></div></div>"
@@ -224,7 +224,7 @@
             "headerTitle": "L’Arc et les mécènes français",
             "playAudioButton": "Écouter le récit",
             "pauseAudioButton": "Arrêter la lecture",
-            "sourceText": "arco125_francesi_dett_storia-fr.html",
+            "sourceText": "fr_arco125_francesi_infoSource.html",
             "headImage": "arco125_testata.jpg",
             "audioSource": "fr/arco125_francesi.mp3",
             "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Emplacement :</strong> Via Saragozza (en face du numéro 132/2), Bologne</p><p><strong>Accessibilité :</strong> Parcours plat entièrement couvert, accessible 24h/24.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Pour consulter l'analyse détaillée du passage de la Corporation des Bouchers à l'Administration Napoléonienne :</p><a href=\"arco125_francesi_dett_storia-fr.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Lire l'étude historique complète</a></div></div>"
@@ -234,8 +234,8 @@
             "headerTitle": "The Arch and the French Patrons",
             "playAudioButton": "Listen with headphones",
             "pauseAudioButton": "Pause",
-            "sourceText": "arco125_francesi_dett_storia-en.html",
-            "headImage": "arco125_testata.jpg",
+            "sourceText": "en_arco125_francesi_infoSource.html",
+             "headImage": "arco125_testata.jpg",
             "audioSource": "en/arco125_francesi.mp3",
             "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via Saragozza (in front of number 132/2), Bologna</p><p><strong>Accessibility:</strong> Fully covered flat path, open 24/7.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>For a detailed analysis of the transition from the Butchers Guild to the Napoleonic Administration and archival notes:</p><a href=\"arco125_francesi_dett_storia-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Read the complete historical insight</a></div></div>"
         }
