@@ -743,7 +743,7 @@
         "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via San Carlo, Bologna</p><p><strong>Accessibility:</strong> Currently closed and not open to visitors inside due to damage caused by the 2012 earthquake.</p><p><strong>Documentary memory:</strong> Preserving images of artworks lost in the bombings was made possible by an article on the Church of San Carlo published in the 1939 Eucharistic Decennial booklet.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>To explore the architectural history of the church (from the fifteenth-century Oratory of the Crocetta to the nineteenth-century renovations) and the masterpieces preserved in the adjacent Oratory:</p><a href=\"chiesasancarlo_dett_chiesa-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Deep dive: Church of San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Deep dive: Oratory of San Carlo</a></div></div>"
     },
     "arco125_francesi_dett_storia": {
-        "headImage": "public/images/panorama_bologna.jpg",
+        "headImage": "arco125_testata.jpg",
         "audioSource": "en/arco125_francesi_dett_storia.mp3",
         "dettText1": "text_files/en_arco125_francesi_dett_storia_dettText1.html",
         "dettText2": "text_files/en_arco125_francesi_dett_storia_dettText2.html",
@@ -752,9 +752,13 @@
         "dettText5": "",
         "imageDett1": "arco125_francesi_dett_storia/dettaglio/arco125_formella_beccai.jpg",
         "imageDett2": "arco125_francesi_dett_storia/dettaglio/arco125_Albero_Liberta_1796.jpg",
-        "imageDett3": "arco125_francesi_dett_storia/dettaglio/arco125_sottoportico.jpg",
+        "imageDett3": "",
         "imageDett4": "",
-        "imageDett5": ""
+        "imageDett5": "",
+        "pageTitle": "Arch 125 of the French",
+        "headerTitle": "The Arch and the French Patrons",
+        "sourceText": "en_arco125_francesi_dett_storia_infoSource.html",
+        "mainText": ""
     },
     "chiesapioggia": {
         "headImage": "public/images/panorama_bologna.jpg",

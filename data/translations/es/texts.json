@@ -743,7 +743,7 @@
         "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicación:</strong> Via San Carlo, Bolonia</p><p><strong>Accesibilidad:</strong> Actualmente cerrado al público y no visitable en su interior debido a los daños provocados por el terremoto de 2012.</p><p><strong>Memoria documental:</strong> Contar con imágenes de obras perdidas en los bombardeos ha sido posible gracias a un artículo sobre la iglesia de San Carlo publicado en el fascículo de la decenal eucarística de 1939.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Para explorar la historia arquitectónica de la iglesia (desde el Oratorio de la Crocetta del siglo XV hasta las reformas del siglo XIX) y las obras maestras conservadas en el Oratorio anexo:</p><a href=\"chiesasancarlo_dett_chiesa-es.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Profundización: La Iglesia de San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-es.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Profundización: El Oratorio de San Carlo</a></div></div>"
     },
     "arco125_francesi_dett_storia": {
-        "headImage": "public/images/panorama_bologna.jpg",
+        "headImage": "arco125_testata.jpg",
         "audioSource": "es/arco125_francesi_dett_storia.mp3",
         "dettText1": "text_files/es_arco125_francesi_dett_storia_dettText1.html",
         "dettText2": "text_files/es_arco125_francesi_dett_storia_dettText2.html",
@@ -752,9 +752,13 @@
         "dettText5": "",
         "imageDett1": "arco125_francesi_dett_storia/dettaglio/arco125_formella_beccai.jpg",
         "imageDett2": "arco125_francesi_dett_storia/dettaglio/arco125_Albero_Liberta_1796.jpg",
-        "imageDett3": "arco125_francesi_dett_storia/dettaglio/arco125_sottoportico.jpg",
+        "imageDett3": "",
         "imageDett4": "",
-        "imageDett5": ""
+        "imageDett5": "",
+        "pageTitle": "Arco 125 de los franceses",
+        "headerTitle": "El arco y los mecenas franceses",
+        "sourceText": "es_arco125_francesi_dett_storia_infoSource.html",
+        "mainText": ""
     },
     "chiesapioggia": {
         "headImage": "public/images/panorama_bologna.jpg",

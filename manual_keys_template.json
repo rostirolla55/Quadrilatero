@@ -240,6 +240,36 @@
             "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Location:</strong> Via Saragozza (in front of number 132/2), Bologna</p><p><strong>Accessibility:</strong> Fully covered flat path, open 24/7.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>For a detailed analysis of the transition from the Butchers Guild to the Napoleonic Administration and archival notes:</p><a href=\"arco125_francesi_dett_storia-en.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Read the complete historical insight</a></div></div>"
         }
     },
+    "arco125_francesi_dett_storia": {
+        "it": {
+            "pageTitle": "Arco 125 dei francesi",
+            "headerTitle": "L’arco e i mecenati francesi",
+            "sourceText": "it_arco125_francesi_dett_storia_infoSource.html",
+            "headImage": "arco125_testata.jpg",
+            "mainText": ""
+        },
+        "en": {
+            "pageTitle": "Arch 125 of the French",
+            "headerTitle": "The Arch and the French Patrons",
+            "sourceText": "en_arco125_francesi_dett_storia_infoSource.html",
+            "headImage": "arco125_testata.jpg",
+            "mainText": ""
+        },
+        "es": {
+            "pageTitle": "Arco 125 de los franceses",
+            "headerTitle": "El arco y los mecenas franceses",
+            "sourceText": "es_arco125_francesi_dett_storia_infoSource.html",
+            "headImage": "arco125_testata.jpg",
+            "mainText": ""
+        },
+        "fr": {
+            "pageTitle": "Arche 125 des Français",
+            "headerTitle": "L’Arc et les mécènes français",
+            "sourceText": "fr_arco125_francesi_dett_storia_infoSource.html",
+            "headImage": "arco125_testata.jpg",
+            "mainText": ""
+        }
+    },
     "chiesasancarlo": {
         "it": {
             "pageTitle": "Chiesa San Carlo Borromeo al Porto",

@@ -741,19 +741,22 @@
         "mainText": "<div class=\"poi-maintext-container\"><div class=\"poi-info-box\"><p><strong>Ubicazione:</strong> Via San Carlo, Bologna</p><p><strong>Accessibilità:</strong> Attualmente chiuso e non visitabile all'interno a seguito dei danni provocati dal terremoto del 2012.</p><p><strong>Memoria documentaria:</strong> La documentazione fotografica di opere andate perdute con i bombardamenti è stata possibile grazie a un articolo sulla chiesa di San Carlo contenuto nel fascicolo per la decennale eucaristica del 1939.</p></div><div class=\"poi-deep-dive-link\" style=\"margin-top: 15px;\"><p>Per esplorare la storia architettonica della chiesa (dal quattrocentesco Oratorio della Crocetta ai rifacimenti ottocenteschi) e i capolavori conservati nell'adiacente Oratorio:</p><a href=\"chiesasancarlo_dett_chiesa-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\">Approfondimento: La Chiesa di San Carlo</a> <a href=\"chiesasancarlo_dett_oratorio-it.html\" class=\"btn-approfondimento\" target=\"_blank\" rel=\"noopener\" style=\"margin-left: 8px;\">Approfondimento: L'Oratorio di San Carlo</a></div></div>"
     },
     "arco125_francesi_dett_storia": {
-        "headImage": "public/images/panorama_bologna.jpg",
+        "headImage": "arco125_testata.jpg",
         "audioSource": "it/arco125_francesi_dett_storia.mp3",
         "dettText1": "text_files/it_arco125_francesi_dett_storia_dettText1.html",
         "dettText2": "text_files/it_arco125_francesi_dett_storia_dettText2.html",
         "dettText3": "text_files/it_arco125_francesi_dett_storia_dettText3.html",
         "dettText4": "text_files/it_arco125_francesi_dett_storia_dettText4.html",
         "dettText5": "",
-        "sourceText": "it_arco125_francesi_dett_storia-infoSource.html",
+        "sourceText": "it_arco125_francesi_dett_storia_infoSource.html",
         "imageDett1": "arco125_francesi_dett_storia/dettaglio/arco125_formella_beccai.jpg",
         "imageDett2": "arco125_francesi_dett_storia/dettaglio/arco125_Albero_Liberta_1796.jpg",
         "imageDett3": "arco125_francesi_dett_storia/dettaglio/arco125_sottoportico.jpg",
         "imageDett4": "",
-        "imageDett5": ""
+        "imageDett5": "",
+        "pageTitle": "Arco 125 dei francesi",
+        "headerTitle": "L’arco e i mecenati francesi",
+        "mainText": ""
     },
     "arco125_francesi": {
         "headImage": "arco125_testata.jpg",
